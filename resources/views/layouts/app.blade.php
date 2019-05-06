@@ -94,7 +94,6 @@
             &copy; 2019<br>
             <br>
             <strong>4sucres.org</strong>, parce que 2 c'étais pas assez.<br>
-            v{{ \Tremby\LaravelGitVersion\GitVersionHelper::getVersion() }}<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> - <a href="{{ route('charter') }}">Charte d'utilisation</a>
         </footer>
     </div>
