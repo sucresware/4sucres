@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('css')
-    <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/themes/default.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/sceditor.css') }}">
 @endpush
 
 @section('content')
@@ -23,6 +23,7 @@
                 @can('moderate discussions')
                     <div class="bg-light border rounded px-3 pt-3 pb-0">
                         {!! BootForm::checkbox('sticky', 'Épingler cette discussion', 1, $discussion->sticky) !!}
+                        {!! BootForm::checkbox('locked', 'Verrouiller cette discussion', 1, $discussion->locked) !!}
                     </div>
                 @endcan
             </div>
@@ -58,10 +59,11 @@
         var textarea = document.getElementById('body');
         sceditor.create(textarea, {
 	        format: 'bbcode',
+            plugins: 'undo',
             emoticonsEnabled: false,
             resizeEnabled: false,
             width: '100%',
-	        style: 'https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/themes/content/default.min.css',
+	        style: "{{ url('/css/sceditor.content.css') }}",
 	        toolbar: 'bold,italic,underline,stroke|image,link|maximize,source',
        });
     </script>

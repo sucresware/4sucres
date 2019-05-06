@@ -20,6 +20,9 @@ class Post extends Model
             $discussion->last_reply_at = now();
             $discussion->save();
 
+            $post->discussion->has_read()->sync([]);
+            $post->discussion->notify_subscibers($post);
+
             return true;
         });
     }
@@ -37,6 +40,14 @@ class Post extends Model
     public function getPresentedBodyAttribute()
     {
         $bbcode = new \ChrisKonnertz\BBCode\BBCode();
+
+        $bbcode->addTag('glitch', function($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                return '<span class="baffle">';
+            } else {
+                return '</span>';
+            }
+        });
 
         return $bbcode->render($this->body);
     }

@@ -24,7 +24,7 @@ return [
     | Supported: true, false
     |
     */
-    'is_service_enabled' => true,
+    'is_service_enabled' => (config('app.env') === 'production' || config('app.env') === 'staging'),
     /*
     |--------------------------------------------------------------------------
     | Host Name
@@ -117,7 +117,15 @@ return [
             'threshold' => 0,
             'score_comparision' => false,
         ],[
-            'action' => 'create_discussion',
+            'action' => 'create_discussion_action',
+            'threshold' => 0,
+            'score_comparision' => false,
+        ],[
+            'action' => 'reply_to_discussion_action',
+            'threshold' => 0,
+            'score_comparision' => false,
+        ],[
+            'action' => 'create_private_discussion_action',
             'threshold' => 0,
             'score_comparision' => false,
         ],

@@ -80,6 +80,9 @@ hr {
 
     .account-username {
         font-weight: bold;
+        a {
+            color: $white;
+        }
     }
 
     .account-image {
@@ -164,7 +167,7 @@ hr {
 }
 
 .discussion-title {
-    font-weight: bold;
+    // font-weight: bold;
 }
 
 .blue {

@@ -2,38 +2,23 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-3">{{ $discussion->title }}</h1>
+    <div class="row mb-3">
+        <div class="col">
+            <h1>{{ $discussion->title }}</h1>
+        </div>
+        <div class="col-auto">
+            @if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', auth()->user()->id)->count())
+                <a href="{{ route('discussions.unsubscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">Se désabonner</a>
+            @else
+                <a href="{{ route('discussions.subscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">S'abonner</a>
+            @endif
+        </div>
+    </div>
 
     <div class="card mb-3">
         @foreach($posts as $post)
-            <div class="p-3 row no-gutters {{ $loop->index%2 ? 'white' : 'blue' }}">
-                <div class="col-auto mr-3">
-                    <img src="{{ url('/img/guest.png') }}" class="post-image rounded">
-                </div>
-                <div class="col">
-                    <div class="float-right">
-                        @if ($post->user == auth()->user())
-                            <a href="{{ route('discussions.posts.edit', [$discussion->id, $discussion->slug, $post->id]) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                            <a href="{{ route('discussions.posts.delete', [$discussion->id, $discussion->slug, $post->id]) }}" class="btn btn-primary"><i class="fas fa-trash"></i></a>
-                        @endif
-                    </div>
-
-                    <strong>{{ $post->user->display_name }}</strong> <small>{{ '@' . $post->user->name }}</small><br>
-                    <small>le {{ $post->created_at->format('d/m/Y à H:i:s') }}
-                    @if ($post->created_at != $post->updated_at)
-                        <span class="text-muted">(modifié le {{ $post->updated_at->format('d/m/Y à H:i:s') }})</span>
-                    @endif</small>
-
-                    <hr>
-
-                    <div class="post-content">
-                        @if (!$post->deleted)
-                            {!! $post->presented_body !!}
-                        @else
-                            <i>Ce message a été supprimé</i>
-                        @endif
-                    </div>
-                </div>
+            <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
+                @include('discussion.post._show')
             </div>
         @endforeach
     </div>
@@ -42,12 +27,19 @@
         {{ $posts->links() }}
     </div>
 
-    <div class="card">
-        <div class="card-body bg-light">
-            <h2 class="h6">Répondre</h2>
-            @include('discussion._reply')
+    @if ($discussion->locked)
+        <div class="alert alert-secondary text-center">
+            <i class="fas fa-lock"></i> Cette discussion est désormais verrouillée.
         </div>
-    </div>
+    @endif
+    @if (!$discussion->locked || (auth()->check() && $discussion->locked && auth()->user()->can('bypass discussions guard')))
+        <div class="card">
+            <div class="card-body bg-light">
+                <h2 class="h6">Répondre</h2>
+                @include('discussion._reply')
+            </div>
+        </div>
+    @endif
 </div>
 
 @endsection

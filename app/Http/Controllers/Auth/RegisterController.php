@@ -29,9 +29,16 @@ class RegisterController extends Controller
 
         $user = User::create([
             'name' => request()->name,
+            'display_name' => request()->name,
+            'shown_role' => 'Sucrette',
             'email' => request()->email,
             'password' => Hash::make(request()->password),
         ]);
+
+        $user->email_verified_at = now(); //TO BE DELTED
+        $user->save();
+
+        $user->assignRole('user');
 
         $verify_user = VerifyUser::create([
             'user_id' => $user->id,

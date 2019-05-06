@@ -10742,6 +10742,10 @@ hr {
   font-weight: bold;
 }
 
+.account-block .account-username a {
+  color: #fff;
+}
+
 .account-block .account-image {
   padding-left: 10px;
 }
@@ -10773,10 +10777,6 @@ hr {
 .card .card-header {
   text-transform: uppercase;
   background-color: auto;
-}
-
-.discussion-title {
-  font-weight: bold;
 }
 
 .blue {

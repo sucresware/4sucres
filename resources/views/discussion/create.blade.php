@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('css')
-    <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/themes/default.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/sceditor.css') }}">
 @endpush
 
 @section('content')
@@ -10,8 +10,9 @@
         <form action="{{ route('discussions.store') }}" method="post">
             <div class="card-body">
                 <h1 class="h6">Nouvelle discussion</h1>
-
                 @csrf
+                {!! GoogleReCaptchaV3::renderField('create_discussion_id', 'create_discussion_action') !!}
+
                 <div class="row">
                     <div class="col-md-8">
                         {!! BootForm::text('title', 'Sujet') !!}
@@ -39,10 +40,11 @@
         var textarea = document.getElementById('body');
         sceditor.create(textarea, {
 	        format: 'bbcode',
+            plugins: 'undo',
             emoticonsEnabled: false,
             resizeEnabled: false,
             width: '100%',
-	        style: 'https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/themes/content/default.min.css',
+	        style: "{{ url('/css/sceditor.content.css') }}",
 	        toolbar: 'bold,italic,underline,stroke|image,link|maximize,source',
        });
     </script>

@@ -18,7 +18,7 @@
 <body>
     <div id="app">
         <div class="sticky-top">
-            <nav class="navbar navbar-expand-md navbar-dark bg-darker">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ url('/svg/4sucres.svg') }}" height="60"> 4SUCRES<small>.org</small>
@@ -31,41 +31,55 @@
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i> Forum</a>
+                                <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-md-none d-lg-block"> Forum</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i> Classement</a>
-                            </li>
+                            {{--  <li class="nav-item">
+                                <a class="nav-link text-center" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-md-none d-lg-block"> Classement</span></a>
+                            </li>  --}}
                         </ul>
 
-                        <ul class="navbar-nav ml-auto">
-                            @guest
-                                <div class="row no-gutters account-block mb-3 mb-md-0">
-                                    <div class="col account-details bg-darker rounded text-md-right">
-                                        <span class="account-username">Sucre égaré</span><br>
-                                        <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus"></i> Inscription</a>
-                                        <a href="{{ route('login') }}"><i class="fas fa-power-off"></i> Connexion</a>
-                                    </div>
-                                    <div class="col-auto account-image rounded">
-                                        <img src="{{ url('/img/guest.png') }}" class="img-fluid">
-                                    </div>
+                        @auth
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link text-center" href="{{ route('notifications.index') }}">
+                                        <i class="fas fa-bell"></i><br>
+                                        <span class="d-md-none d-lg-inline-block"> Notifications</span>
+                                        @if ($notifications_count = \App\Models\Notification::curated()->count())
+                                            <span class="badge badge-danger">{{ $notifications_count }}</span>
+                                        @endif
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-center" href="{{ route('private_discussions.index') }}">
+                                        <i class="fas fa-envelope"></i><br>
+                                        <span class="d-md-none d-lg-inline-block"> Messagerie</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        @endauth
+
+                        @guest
+                            <div class="row no-gutters account-block mb-3 mb-md-0">
+                                <div class="col account-details bg-darker rounded text-md-right text-center text-md-left">
+                                    <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus"></i> Inscription</a>
+                                    <a href="{{ route('login') }}"><i class="fas fa-power-off"></i> Connexion</a>
                                 </div>
-                            @else
-                                <div class="row no-gutters account-block mb-3 mb-md-0">
-                                    <div class="col account-details bg-darker rounded text-md-right">
-                                        <a href="{{ route('profile') }}">
-                                            <span class="account-username" >{{ auth()->user()->display_name }}</span>
-                                        </a>
-                                        <br>
-                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-1"></i> Déconnexion</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-                                    </div>
-                                    <div class="col-auto account-image rounded">
-                                        <img src="{{ url('/img/guest.png') }}" class="img-fluid">
-                                    </div>
+                            </div>
+                        @else
+                            <div class="row no-gutters account-block mb-3 mb-md-0">
+                                <div class="col account-details bg-darker rounded text-md-right">
+                                    <span class="account-username">
+                                        <a href="{{ route('profile') }}">{{ auth()->user()->display_name }}</a>
+                                    </span>
+                                    <br>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-1"></i> Déconnexion</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                                 </div>
-                            @endguest
-                        </ul>
+                                <div class="col-auto account-image rounded">
+                                    <img src="{{ auth()->user()->avatar ? url('storage/avatars/' . auth()->user()->avatar) : url('/img/guest.png') }}" class="img-fluid">
+                                </div>
+                            </div>
+                        @endguest
                     </div>
                 </div>
             </nav>
@@ -80,8 +94,8 @@
             &copy; 2019<br>
             <br>
             <strong>4sucres.org</strong>, parce que 2 c'étais pas assez.<br>
-            {{ \Tremby\LaravelGitVersion\GitVersionHelper::getVersion() }}<br>
-            <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> - <a href="{{ route('charte') }}">Charte d'utilisation</a>
+            v{{ \Tremby\LaravelGitVersion\GitVersionHelper::getVersion() }}<br>
+            <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> - <a href="{{ route('charter') }}">Charte d'utilisation</a>
         </footer>
     </div>
 
@@ -101,6 +115,11 @@
 
     {!! GoogleReCaptchaV3::init() !!}
     <script src="{{ url('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url('/js/baffle.min.js') }}"></script><script>
+        var s=["█","▓","▒","░","█","▓","▒","░","█","▓","▒","░","<",">","/"];
+        baffle('.baffle', {characters:s}).reveal(1000);
+    </script>
     @stack('js')
 </body>
 </html>

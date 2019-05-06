@@ -8,12 +8,11 @@
                 <form method="POST" action="{{ route('login') }}">
                     <div class="card-body">
                         <h1 class="h6">Connexion</h1>
-
                         @csrf
+                        {!! GoogleReCaptchaV3::renderField('login_id', 'login_action') !!}
 
                         {!! BootForm::text('email', 'Adresse email*') !!}
                         {!! BootForm::password('password', 'Mot de passe*') !!}
-                        {!! GoogleReCaptchaV3::renderField('login_id', 'login_action') !!}
 
                     </div>
                     <div class="card-footer bg-light">

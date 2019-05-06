@@ -8,13 +8,12 @@
                 <form method="POST" action="{{ route('register') }}">
                     <div class="card-body">
                         <h1 class="h6">Inscription</h1>
-
                         @csrf
+                        {!! GoogleReCaptchaV3::renderField('register_id', 'register_action') !!}
 
                         {!! BootForm::text('name', 'Pseudo*') !!}
                         {!! BootForm::text('email', 'Adresse email*') !!}
                         {!! BootForm::password('password', 'Mot de passe*') !!}
-                        {!! GoogleReCaptchaV3::renderField('register_id','register_action') !!}
                     </div>
 
                     <div class="card-footer bg-light">

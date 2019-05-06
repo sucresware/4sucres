@@ -15,6 +15,7 @@ class CreateDiscussionsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->boolean('sticky')->default(false);
             $table->boolean('locked')->default(false);
+            $table->boolean('private')->default(false);
             $table->integer('replies')->unsigned()->default(0);
             $table->timestamp('last_reply_at')->useCurrent();
             $table->softDeletes();

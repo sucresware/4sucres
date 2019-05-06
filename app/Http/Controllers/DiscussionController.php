@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
+use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class DiscussionController extends Controller
 {
@@ -21,6 +22,7 @@ class DiscussionController extends Controller
             'title' => 'required|min:10',
             'body' => 'required|min:10',
             'category' => 'required|exists:categories,id',
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_discussion_action')]
         ]);
 
         $discussion = Discussion::create([
@@ -33,6 +35,8 @@ class DiscussionController extends Controller
             'body' => request()->body,
             'user_id' => auth()->user()->id,
         ]);
+
+        $discussion->subscribed()->attach(auth()->user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,
@@ -66,6 +70,8 @@ class DiscussionController extends Controller
     {
         $posts = $discussion->posts()->paginate(10);
 
+        $discussion->has_read()->attach(auth()->user());
+
         return view('discussion.show', compact('discussion', 'posts'));
     }
 
@@ -78,7 +84,27 @@ class DiscussionController extends Controller
         $discussion->title = request()->title;
         $discussion->category_id = request()->category;
         $discussion->sticky = request()->sticky ?? false;
+        $discussion->locked = request()->locked ?? false;
+
         $discussion->save();
+
+        return redirect(route('discussions.show', [
+            $discussion->id,
+            $discussion->slug
+        ]));
+    }
+
+    public function subscribe(Discussion $discussion, $slug){
+        $discussion->subscribed()->attach(auth()->user()->id);
+
+        return redirect(route('discussions.show', [
+            $discussion->id,
+            $discussion->slug
+        ]));
+    }
+
+    public function unsubscribe(Discussion $discussion, $slug){
+        $discussion->subscribed()->detach(auth()->user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,
