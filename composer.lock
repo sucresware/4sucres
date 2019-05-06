@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90e38342d107ae68c3c6b8e985e5f181",
+    "content-hash": "321599e30ab2b23917638fc304296d90",
     "packages": [
         {
             "name": "appstract/laravel-options",
@@ -3376,6 +3376,42 @@
             "time": "2019-04-28T13:03:38+00:00"
         },
         {
+            "name": "tremby/laravel-git-version",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tremby/laravel-git-version.git",
+                "reference": "8c462c3209f13b4343f38c126a216bbdeabf6598"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tremby/laravel-git-version/zipball/8c462c3209f13b4343f38c126a216bbdeabf6598",
+                "reference": "8c462c3209f13b4343f38c126a216bbdeabf6598",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tremby\\LaravelGitVersion\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bart Nagel",
+                    "email": "bart@tremby.net"
+                }
+            ],
+            "description": "A helper to get the current git version of the application",
+            "time": "2017-04-03T23:17:44+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v3.3.3",
             "source": {
@@ -3426,6 +3462,68 @@
                 "environment"
             ],
             "time": "2019-03-06T09:39:45+00:00"
+        },
+        {
+            "name": "watson/active",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dwightwatson/active.git",
+                "reference": "4faa30a31d2bb870c852ea38330f3fa1c1350f34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dwightwatson/active/zipball/4faa30a31d2bb870c852ea38330f3fa1c1350f34",
+                "reference": "4faa30a31d2bb870c852ea38330f3fa1c1350f34",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5.5",
+                "illuminate/http": "~5.5",
+                "illuminate/routing": "~5.5",
+                "illuminate/support": "~5.5",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Watson\\Active\\ActiveServiceProvider"
+                    ],
+                    "aliases": {
+                        "Active": "Watson\\Watson\\Facades\\Active"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Watson\\Active\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dwight Watson",
+                    "email": "dwight@studiousapp.com"
+                }
+            ],
+            "description": "Laravel helper for recognising the current route, controller and action",
+            "keywords": [
+                "active",
+                "laravel",
+                "routing"
+            ],
+            "time": "2019-03-25T04:56:13+00:00"
         }
     ],
     "packages-dev": [

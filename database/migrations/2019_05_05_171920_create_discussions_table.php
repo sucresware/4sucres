@@ -10,9 +10,9 @@ class CreateDiscussionsTable extends Migration
         Schema::create('discussions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug');
-            $table->integer('category_id')->unsigned()->default(1);
+            $table->bigInteger('category_id')->unsigned()->default(1);
             $table->string('title');
-            $table->integer('user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->boolean('sticky')->default(false);
             $table->boolean('locked')->default(false);
             $table->integer('replies')->unsigned()->default(0);

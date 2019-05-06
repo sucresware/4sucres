@@ -173,5 +173,6 @@ return [
         'time'                  => 'heure',
         'available'             => 'disponible',
         'size'                  => 'taille',
+        'reply'                 => 'réponse',
     ],
 ];

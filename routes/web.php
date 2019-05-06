@@ -41,20 +41,29 @@
     Route::post('/login', 'Auth\LoginController@submit');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-
     Route::get('/', 'DiscussionController@index')->name('home');
-    Route::get('/discussions', 'DiscussionController@index')->name('discussions.index');
+    Route::get('/d', 'DiscussionController@index')->name('discussions.index');
+    Route::get('/d/c/{category}-{slug}', 'DiscussionController@index')->name('discussions.categories.index');
 
-    Route::get('/discussions/{discussion}-{slug}', 'DiscussionController@show')->name('discussions.show');
-    Route::get('/discussions/create', 'DiscussionController@create')->name('discussions.create');
-    Route::post('/discussions', 'DiscussionController@store')->name('discussions.store');
-    // Route::get('/discussions/{discussion}-{slug}', 'DiscussionPostController@create')->name('discussions.posts.create');
-    Route::post('/discussions/{discussion}-{slug}/create', 'DiscussionPostController@store')->name('discussions.posts.store');
-    Route::get('/discussions/{discussion}-{slug}/{post}/edit', 'DiscussionPostController@edit')->name('discussions.posts.edit');
-    Route::put('/discussions/{discussion}-{slug}/{post}', 'DiscussionPostController@update')->name('discussions.posts.update');
+    Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::get('/u/{user}-{name}', 'UserController@show')->name('user.show');
+
+    Route::get('d/{discussion}-{slug}', 'DiscussionController@show')->name('discussions.show');
+    Route::get('d/create', 'DiscussionController@create')->name('discussions.create');
+    Route::post('d', 'DiscussionController@store')->name('discussions.store');
+    Route::put('d/{discussion}-{slug}/update', 'DiscussionController@update')->name('discussions.update');
+    // Route::get('d/{discussion}-{slug}', 'DiscussionPostController@create')->name('discussions.posts.create');
+    Route::post('d/{discussion}-{slug}/create', 'DiscussionPostController@store')->name('discussions.posts.store');
+    Route::get('d/{discussion}-{slug}/p/{post}/edit', 'DiscussionPostController@edit')->name('discussions.posts.edit');
+    Route::get('d/{discussion}-{slug}/p/{post}/delete', 'DiscussionPostController@delete')->name('discussions.posts.delete');
+    Route::put('d/{discussion}-{slug}/p/{post}', 'DiscussionPostController@update')->name('discussions.posts.update');
+    Route::delete('d/{discussion}-{slug}/p/{post}', 'DiscussionPostController@destroy')->name('discussions.posts.destroy');
 
     Route::get('/terms', 'HomeController@terms')->name('terms');
+    Route::get('/charte', 'HomeController@charte')->name('charte');
 
-    // Route::resource('/discussions', 'DiscussionController');
+    Route::get('/leaderboard', 'HomeController@leaderboard')->name('leaderboard');
+
+    // Route::resource('d', 'DiscussionController');
     // Route::resource('/posts', 'PostController');
 // });

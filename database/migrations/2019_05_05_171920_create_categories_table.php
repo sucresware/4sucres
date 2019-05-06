@@ -10,10 +10,9 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug');
-            $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('order')->default(1);
             $table->string('name');
-            $table->string('color', 20);
+            $table->boolean('restricted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

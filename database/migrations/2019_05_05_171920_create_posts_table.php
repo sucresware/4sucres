@@ -9,9 +9,10 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('discussion_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->bigInteger('discussion_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->text('body');
+            $table->boolean('deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

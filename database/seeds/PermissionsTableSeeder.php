@@ -15,12 +15,22 @@ class PermissionsTableSeeder extends Seeder
         Model::unguard();
         app()['cache']->forget('spatie.permission.cache');
 
-        $admin = Role::create(['guard_name' => 'web', 'name' => 'admin']);
-        $moderator = Role::create(['guard_name' => 'web', 'name' => 'moderator']);
-        $user = Role::create(['guard_name' => 'web', 'name' => 'user']);
+        $admin = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'admin']);
+        $moderator = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'moderator']);
+        $user = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'user']);
 
-        Permission::create(['name' => 'create discussions']);
+        Permission::firstOrCreate(['name' => 'create discussions']);
+        Permission::firstOrCreate(['name' => 'moderate discussions']);
+        Permission::firstOrCreate(['name' => 'use restricted categories']);
 
         $admin->givePermissionTo('create discussions');
+        $admin->givePermissionTo('moderate discussions');
+        $admin->givePermissionTo('use restricted categories');
+
+        $moderator->givePermissionTo('create discussions');
+        $moderator->givePermissionTo('moderate discussions');
+        $moderator->givePermissionTo('use restricted categories');
+
+        $user->givePermissionTo('create discussions');
     }
 }

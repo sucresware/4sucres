@@ -31,3 +31,9 @@ $cyan: #6cb2eb;
 $gray: #f3f3f4;
 $dark: #252839;
 $darker: #1c1e2b;
+
+$container-max-widths: (
+  md: 720px,
+  lg: 960px,
+  xl: 1340px
+) !default;

@@ -38,26 +38,23 @@ class Discussion extends Model
         return $this->hasMany(Post::class)->orderBy('created_at', 'ASC');
     }
 
-    public function get_posts_count_attribute()
-    {
-        return $this->posts()
-            ->selectRaw('discussion_id, count(*)-1 as total')
-            ->groupBy('discussion_id');
-    }
-
     public function scopeSticky($query){
         return $query
             ->where('sticky', true)
-            ->orderBy('updated_at', 'DESC');
+            ->orderBy('last_reply_at', 'DESC');
     }
 
     public function scopeOrdered($query){
         return $query
             ->where('sticky', false)
-            ->orderBy('updated_at', 'DESC');
+            ->orderBy('last_reply_at', 'DESC');
     }
 
     public function getPresentedLastReplyAtAttribute(){
         return str_replace('il y a', '', $this->last_reply_at->diffForHumans());
+    }
+
+    public function getPresentedRepliesAttribute() {
+        return $this->replies-1;
     }
 }

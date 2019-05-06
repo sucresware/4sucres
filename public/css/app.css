@@ -597,12 +597,6 @@ pre code {
   margin-left: auto;
 }
 
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}
-
 @media (min-width: 768px) {
   .container {
     max-width: 720px;
@@ -617,7 +611,7 @@ pre code {
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1140px;
+    max-width: 1340px;
   }
 }
 
@@ -10725,9 +10719,10 @@ hr {
   color: #72767d;
 }
 
-.nav-pills .nav-link.active:hover {
-  background-color: #7289da !important;
-  color: #fff;
+.nav-pills .nav-link.active,
+.nav-link.active:hover {
+  background-color: #e6e6e8 !important;
+  color: #72767d;
 }
 
 .navbar {
@@ -10780,108 +10775,8 @@ hr {
   background-color: auto;
 }
 
-.discussion-list {
-  display: table;
-  list-style-type: none;
-  margin: 0;
-  background: #FFF;
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: separate;
-  padding: 0;
-}
-
-.discussion-list .discussion-head {
-  background: #fff !important;
-  position: relative;
-  padding: 5px;
-  color: #1f1f1f !important;
-  text-transform: uppercase;
+.discussion-title {
   font-weight: bold;
-}
-
-.discussion-list li {
-  display: table-row;
-  vertical-align: middle;
-  line-height: 2px;
-}
-
-.discussion-list li .discussion-subject {
-  position: relative;
-}
-
-.discussion-list li .discussion-icon {
-  width: 32px;
-  text-align: center;
-}
-
-.discussion-list li .discussion-title {
-  position: relative;
-}
-
-.discussion-list li .discussion-user {
-  width: 100px;
-  text-decoration: none;
-  text-align: center;
-}
-
-.discussion-list li .discussion-nb {
-  width: 60px;
-  text-align: center;
-}
-
-.discussion-list li .discussion-nb .new-msg {
-  font-weight: bold;
-  color: #F44336;
-  display: inline-block;
-}
-
-.discussion-list li .discussion-date {
-  width: 90px;
-  text-align: center;
-}
-
-.discussion-list li .discussion-title {
-  display: block;
-  margin-left: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 25px;
-}
-
-.discussion-list li .discussion-title:visited,
-.discussion-list li .discussion-title:visited a {
-  color: #f3f3f4;
-}
-
-.discussion-list li .discussion-user,
-.discussion-list li .discussion-user a {
-  color: #72767d;
-}
-
-.discussion-list li .discussion-user:hover,
-.discussion-list li .discussion-user a:hover {
-  color: #72767d;
-}
-
-.discussion-list li .discussion-user:visited,
-.discussion-list li .discussion-user a:visited {
-  color: #72767d;
-}
-
-.discussion-list li .discussion-title,
-.discussion-list li .discussion-user,
-.discussion-list li .discussion-nb,
-.discussion-list li .discussion-view,
-.discussion-list li .discussion-date,
-.discussion-list li .discussion-icon {
-  display: table-cell;
-  padding: 1px;
-  line-height: 22px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .blue {
@@ -10901,5 +10796,24 @@ hr {
 .post-image {
   height: 50px;
   width: 50px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+footer {
+  margin-top: 15px;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.sidetag {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #f3f3f4;
+  padding: 4px;
+  left: -14px;
+  border: 1px solid #dcddde;
 }
 

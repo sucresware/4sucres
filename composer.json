@@ -19,7 +19,9 @@
         "realrashid/sweet-alert": "^1.1",
         "realripley00/bootstrap-4-form": "^1.1",
         "spatie/laravel-permission": "^2.37",
-        "timehunter/laravel-google-recaptcha-v3": "~2.2.16"
+        "timehunter/laravel-google-recaptcha-v3": "~2.2.16",
+        "tremby/laravel-git-version": "^1.1",
+        "watson/active": "^3.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

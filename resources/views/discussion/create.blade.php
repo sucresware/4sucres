@@ -7,17 +7,27 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <div class="card-body">
-            <form action="{{ route('discussions.store') }}" method="post">
-                @csrf
-                {!! BootForm::text('title', 'Sujet') !!}
-                {!! BootForm::textarea('body', 'Message', old('body'), ['class' => 'form-control', 'style' => 'width: 100%;']) !!}
+        <form action="{{ route('discussions.store') }}" method="post">
+            <div class="card-body">
+                <h1 class="h6">Nouvelle discussion</h1>
 
-                <div class="text-right">
-                    <button type="submit" class="btn btn-primary">Créer</button>
+                @csrf
+                <div class="row">
+                    <div class="col-md-8">
+                        {!! BootForm::text('title', 'Sujet') !!}
+                    </div>
+                    <div class="col-md-4">
+                        {!! BootForm::select('category', 'Catégorie', $categories) !!}
+                    </div>
                 </div>
-            </form>
-        </div>
+                {!! BootForm::textarea('body', 'Message', old('body'), ['class' => 'form-control', 'style' => 'width: 100%;']) !!}
+            </div>
+            <div class="card-footer bg-light">
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Créer la discussion</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
