@@ -6,9 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
         @hasSection ('title')
-            @yield('title') - 4SUCRES.org
+            @yield('title') - 4sucres.org
         @else
-            4SUCRES.org
+            4sucres.org
         @endif
     </title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -21,7 +21,7 @@
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ url('/svg/4sucres.svg') }}" height="60"> 4SUCRES<small>.org</small>
+                        <img src="{{ url('/svg/4sucres.svg') }}" height="60"> 4sucres<small>.org</small>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>

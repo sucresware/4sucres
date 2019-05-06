@@ -32,7 +32,7 @@ class VerifyEmail extends Mailable
     public function build()
     {
         return $this
-            ->subject('4SUCRES - Email de vérification')
+            ->subject('4sucres.org - Email de vérification')
             ->markdown('emails.verify_email');
     }
 }

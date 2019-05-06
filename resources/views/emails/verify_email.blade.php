@@ -1,5 +1,5 @@
 @component('mail::message')
-# Bienvenue sur 4SUCRES
+# Bienvenue sur 4sucres
 
 Bienvenue {{ $user->email }} !
 
@@ -10,5 +10,5 @@ Vérifier mon adresse email
 @endcomponent
 
 Merci,<br>
-L'équipe 4SUCRES
+L'équipe 4sucres
 @endcomponent
