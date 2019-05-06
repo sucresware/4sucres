@@ -11,10 +11,9 @@
             4Sucres
         @endif
     </title>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('css')
 </head>
 <body>
     <div id="app">
@@ -77,8 +76,26 @@
         </main>
 
         <footer>
-            4sucres.org / Powered by sucresBB
+            4sucres.org parce que 2 c'étais pas assez
         </footer>
     </div>
+
+    @if (session('success'))
+        @php alert()->success(null, session('success'))->persistent(); @endphp
+    @endif
+
+    @if (session('info'))
+        @php alert()->info(null, session('info'))->persistent(); @endphp
+    @endif
+
+    @if (session('error'))
+        @php alert()->error(null, session('error'))->persistent(); @endphp
+    @endif
+
+    @include('sweetalert::alert')
+
+    {!! GoogleReCaptchaV3::init() !!}
+    <script src="{{ url('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+    @stack('js')
 </body>
 </html>

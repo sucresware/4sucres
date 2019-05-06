@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -13,18 +15,12 @@ class PermissionsTableSeeder extends Seeder
         Model::unguard();
         app()['cache']->forget('spatie.permission.cache');
 
-        $permissions = [
-        ];
+        $admin = Role::create(['guard_name' => 'web', 'name' => 'admin']);
+        $moderator = Role::create(['guard_name' => 'web', 'name' => 'moderator']);
+        $user = Role::create(['guard_name' => 'web', 'name' => 'user']);
 
-        // foreach ($permissions as $k => $permission) {
-        //     if (Permission::where('name', $permission)->first() == null) {
-        //         $p = new Permission::create([
-        //             'name'
-        //         ];
-        //         $p->name = $permission;
-        //         $p->guard_name = 'web';
-        //         $p->save();
-        //     }
-        // }
+        Permission::create(['name' => 'create discussions']);
+
+        $admin->givePermissionTo('create discussions');
     }
 }

@@ -10,7 +10,7 @@
                         @auth
                             <div class="col-auto">
                                 @can('create discussions')
-                                    <a href="#" class="btn btn-primary">Nouveau sujet</a>
+                                    <a href="{{ route('discussions.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Nouveau sujet</a>
                                 @endcan
                             </div>
                         @endauth
@@ -28,7 +28,7 @@
                         @foreach ($sticky_discussions as $discussion)
                             <li class="{{ $loop->index%2 ? 'white' : 'blue' }}">
                                 <span class="discussion-icon"><i class="fas fa-map-pin text-success"></i></span>
-                                <span class="discussion-title"><a href="{{ route('discussion.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></span>
+                                <span class="discussion-title"><a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></span>
                                 <span class="discussion-user">{{ $discussion->user->display_name }}</span>
                                 <span class="discussion-nb">{{ $discussion->replies }}</span>
                                 <span class="discussion-date">{{ $discussion->presented_last_reply_at }}</span>
@@ -38,7 +38,7 @@
                     @foreach ($discussions as $discussion)
                         <li class="{{ $loop->index%2 ? 'white' : 'blue' }}">
                             <span class="discussion-icon"><i class="fas fa-folder text-warning"></i></span>
-                            <span class="discussion-title"><a href="{{ route('discussion.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></span>
+                            <span class="discussion-title"><a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></span>
                             <span class="discussion-user">{{ $discussion->user->display_name }}</span>
                             <span class="discussion-nb">{{ $discussion->replies }}</span>
                             <span class="discussion-date">{{ $discussion->presented_last_reply_at }}</span>

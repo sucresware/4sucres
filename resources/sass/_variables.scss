@@ -1,24 +1,33 @@
 // Body
-$body-bg: #f2f2f2;
+$body-bg: #ffffff;
+$body-color: #72767d;
 
 // Typography
 $font-family-sans-serif: 'Inter', sans-serif;
-$font-size-base: 0.8rem;
-$line-height-base: 1.6;
+$line-height-base: 1.4;
+$font-size-base: 0.9rem;
 
 // Colors
-$blue: #0288D1;
+$primary: #7289da;
+$light: #f3f3f4;
+
+$card-border-width: 1px;
+$card-default-border: rgba(0, 0, 0, 0);
+$card-cap-bg: $body-bg;
+
+$border-color: #dcddde;
+
+$blue: #3490dc;
+$red: #f04747;
 $indigo: #6574cd;
-$purple: #9823D7;
-$pink: #f66d9b;
-$red: #D32F2F;
+$purple: #9561e2;
+$pink: #f66D9b;
 $orange: #f6993f;
-$yellow: #FBC02D;
-$green: #43A047;
+$yellow: #ffed4a;
+$green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
-$gray: #757575;
 
+$gray: #f3f3f4;
 $dark: #252839;
 $darker: #1c1e2b;
-$primary: #252839;

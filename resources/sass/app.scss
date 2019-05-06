@@ -1,8 +1,13 @@
 @import url('https://rsms.me/inter/inter.css');
 
-html { font-family: 'Inter', sans-serif; }
+html {
+    font-family: 'Inter', sans-serif;
+}
+
 @supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
+    html {
+        font-family: 'Inter var', sans-serif;
+    }
 }
 
 // Variables
@@ -11,9 +16,56 @@ html { font-family: 'Inter', sans-serif; }
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.card, .card-body {
-    border-radius: 0;
+.card-header {
+    border: 0;
+    font-weight: bold;
+    padding-bottom: 0;
 }
+
+h1, h2, .h1, .h2, h5, .h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    color: #4f545c;
+}
+
+h5, .h5 {
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.container-sidebar {
+    margin-left: auto;
+    width: 180px;
+}
+
+.nav-link, a, .btn-link {
+    color: $body-color;
+}
+
+.btn {
+    font-size: .9em;
+    padding: 0.5rem 1rem;
+}
+
+hr {
+    border-color: darken($light, 5%);
+}
+
+.nav-pills .nav-link {
+    padding: 0.5rem;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: darken($light, 5%);
+    color: $body-color;
+}
+
+.nav-pills .nav-link.active:hover {
+    background-color: $primary !important;
+    color: #fff;
+}
+
 
 .navbar {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -55,7 +107,7 @@ html { font-family: 'Inter', sans-serif; }
 .logo-4s {
     width: 125px;
     height: 60px;
-	position: relative;
+    position: relative;
     background: url(/svg/4sucres.svg);
     background-size: cover;
 }
@@ -105,15 +157,22 @@ html { font-family: 'Inter', sans-serif; }
 // 	}
 // }
 
+.card {
+    .card-header {
+        text-transform: uppercase;
+        background-color: auto;
+    }
+}
+
 .discussion-list {
-	display: table;
-	list-style-type: none;
-	margin: 0;
-	background: #FFF;
-	width: 100%;
-	table-layout: fixed;
-	border-collapse: separate;
-	padding: 0;
+    display: table;
+    list-style-type: none;
+    margin: 0;
+    background: #FFF;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    padding: 0;
 
     .discussion-head {
         background: #fff !important;
@@ -173,19 +232,23 @@ html { font-family: 'Inter', sans-serif; }
             line-height: 25px;
         }
 
-        .discussion-title:visited, .discussion-title:visited a {
+        .discussion-title:visited,
+        .discussion-title:visited a {
             color: $gray;
         }
 
-        .discussion-user, .discussion-user a{
+        .discussion-user,
+        .discussion-user a {
             color: $body-color;
         }
 
-        .discussion-user:hover, .discussion-user a:hover {
+        .discussion-user:hover,
+        .discussion-user a:hover {
             color: $body-color;
         }
 
-        .discussion-user:visited, .discussion-user a:visited {
+        .discussion-user:visited,
+        .discussion-user a:visited {
             color: $body-color;
         }
 
@@ -206,11 +269,11 @@ html { font-family: 'Inter', sans-serif; }
 }
 
 .blue {
-	background: #f9f9f9;
+    background: #f9f9f9;
 }
 
 .white {
-	background: #fff;
+    background: #fff;
 }
 
 .post-content img {

@@ -2,71 +2,58 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use App\Mail\VerifyEmail;
+use App\Models\VerifyUser;
 use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     */
-    public function __construct()
+    public function register()
     {
-        $this->middleware('guest');
+        return view('auth.register');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param array $data
-     *
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    protected function submit()
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+        request()->validate([
+            'name' => ['required', 'string', 'max:255', 'min:4', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6'],
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('register_action')]
         ]);
+
+        $user = User::create([
+            'name' => request()->name,
+            'email' => request()->email,
+            'password' => Hash::make(request()->password),
+        ]);
+
+        $verify_user = VerifyUser::create([
+            'user_id' => $user->id,
+            'token' => str_random(40)
+        ]);
+
+        Mail::to($user)->send(new VerifyEmail($user));
+
+        return redirect()->route('home')
+            ->with('success', 'Ton compte a bien été créé le sucre ! Tu dois valider ton adresse e-mail pour finaliser ton inscription !');
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param array $data
-     *
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+    public function verify($token){
+        $verify_user = VerifyUser::where('token', $token)->firstOrFail();
+        $user = $verify_user->user;
+
+        $user->email_verified_at = now();
+        $user->save();
+
+        auth()->login($user);
+
+        return redirect()->route('home')
+            ->with('success', 'Bienvenue à bord ' . $user->name . ' !');
     }
 }

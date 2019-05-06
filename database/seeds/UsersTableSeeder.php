@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,9 +16,12 @@ class UsersTableSeeder extends Seeder
         User::firstOrCreate([
             'email' => 'sr@mgk.dev',
         ], [
-            'name' => 'YvonEnvaber',
+            'name' => 'BandanaRouge',
+            'display_name' => 'Sucre au Bandana Rouge',
+            'shown_role' => 'L\'élite des sucres',
             'password' => \Hash::make('1234'),
-        ]);
+            'email_verified_at' => now(),
+        ])->assignRole('admin');
 
         // User::firstOrCreate([
         //     'email' => '',

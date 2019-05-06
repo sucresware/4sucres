@@ -3,35 +3,45 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     */
-    public function __construct()
+    public function login()
     {
-        $this->middleware('guest')->except('logout');
+        return view('auth.login');
+    }
+
+    public function submit(Request $request)
+    {
+        $validator = Validator::make($request->input(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        $validator->validate();
+
+        if (auth()->attempt([
+            'email' => request()->email,
+            'password' => request()->password,
+        ])) {
+            if (auth()->user()->email_verified_at == null) {
+                auth()->logout();
+                return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de te connecter !');
+            }
+
+            return redirect()->route('home');
+        } else {
+            $validator->errors()->add('password', 'Le mot de passe est incorrect');
+
+            return redirect(route('login'))->withErrors($validator)->withInput($request->input());
+        }
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect()->route('home');
     }
 }
