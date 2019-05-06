@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89fc545be8872fa06775d9a7bff4e3bb",
+    "content-hash": "e4a5ad4961fe45093020c48a9eff2ee9",
     "packages": [
         {
             "name": "appstract/laravel-options",
