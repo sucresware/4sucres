@@ -19,6 +19,7 @@
         "molayli/laravel-cloudflare-real-ip": "^0.1.0",
         "realrashid/sweet-alert": "^1.1",
         "realripley00/bootstrap-4-form": "^1.1",
+        "sentry/sentry-laravel": "1.0.2",
         "spatie/laravel-permission": "^2.37",
         "timehunter/laravel-google-recaptcha-v3": "~2.2.16",
         "watson/active": "^3.1"
