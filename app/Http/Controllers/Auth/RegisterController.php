@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Mail\VerifyEmail;
-use App\Models\VerifyUser;
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyEmail;
+use App\Models\User;
+use App\Models\VerifyUser;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class RegisterController extends Controller
@@ -24,7 +23,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255', 'min:4', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6'],
-            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('register_action')]
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('register_action')],
         ]);
 
         $user = User::create([
@@ -34,15 +33,11 @@ class RegisterController extends Controller
             'email' => request()->email,
             'password' => Hash::make(request()->password),
         ]);
-
-        $user->email_verified_at = now(); //TO BE DELTED
-        $user->save();
-
         $user->assignRole('user');
 
         $verify_user = VerifyUser::create([
             'user_id' => $user->id,
-            'token' => str_random(40)
+            'token' => str_random(40),
         ]);
 
         Mail::to($user)->send(new VerifyEmail($user));
@@ -51,7 +46,8 @@ class RegisterController extends Controller
             ->with('success', 'Ton compte a bien été créé le sucre ! Tu dois valider ton adresse e-mail pour finaliser ton inscription !');
     }
 
-    public function verify($token){
+    public function verify($token)
+    {
         $verify_user = VerifyUser::where('token', $token)->firstOrFail();
         $user = $verify_user->user;
 
