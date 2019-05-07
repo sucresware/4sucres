@@ -11,6 +11,10 @@ class DiscussionController extends Controller
 {
     public function create()
     {
+        if (!auth()->check() || !auth()->user()->can('create discussions')) {
+            return abort(403);
+        }
+
         $categories = Category::ordered()->filtered()->pluck('name', 'id');
 
         return view('discussion.create', compact('categories'));
@@ -18,11 +22,15 @@ class DiscussionController extends Controller
 
     public function store()
     {
+        if (!auth()->check() || !auth()->user()->can('create discussions')) {
+            return abort(403);
+        }
+
         request()->validate([
             'title' => 'required|min:10',
             'body' => 'required|min:10',
             'category' => 'required|exists:categories,id',
-            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_discussion_action')]
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_discussion_action')],
         ]);
 
         $discussion = Discussion::create([
@@ -40,7 +48,7 @@ class DiscussionController extends Controller
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
 
@@ -75,7 +83,8 @@ class DiscussionController extends Controller
         return view('discussion.show', compact('discussion', 'posts'));
     }
 
-    public function update(Discussion $discussion, $slug){
+    public function update(Discussion $discussion, $slug)
+    {
         request()->validate([
             'title' => 'required|min:10',
             'category' => 'required|exists:categories,id',
@@ -90,25 +99,27 @@ class DiscussionController extends Controller
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
 
-    public function subscribe(Discussion $discussion, $slug){
+    public function subscribe(Discussion $discussion, $slug)
+    {
         $discussion->subscribed()->attach(auth()->user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
 
-    public function unsubscribe(Discussion $discussion, $slug){
+    public function unsubscribe(Discussion $discussion, $slug)
+    {
         $discussion->subscribed()->detach(auth()->user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
 }
