@@ -40,15 +40,22 @@
                             </div>
                         </div>
                     @endforeach
-                    <hr class="m-0">
+                    @if (count($sticky_discussions)) <hr class="m-0"> @endif
                 @endisset
-                @foreach ($discussions as $discussion)
+                @forelse ($discussions as $discussion)
                     <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
                         <div class="p-3">
                             @include('discussion._preview')
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="card-body">
+                        <div class="text-center text-muted">
+                            <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid" width="60px"><br><br>
+                            Aucune discussion dans cette catégorie !
+                        </div>
+                    </div>
+                @endforelse
 
                 {{ $discussions->links() }}
             </div>
