@@ -15,8 +15,5 @@
 @push('js')
     <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/sceditor.min.js') }}"></script>
     <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/formats/bbcode.js') }}"></script>
-    <script>
-        var textarea = document.getElementById('reply');
-    </script>
-    <script src="{{ url('/js/sucresBB-editor.js') }}"></script>
+    <script> init_editor(document.getElementById('reply')); </script>
 @endpush

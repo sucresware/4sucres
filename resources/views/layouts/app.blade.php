@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
-    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
-    <meta name="application-name" content="4sucres.org"/>
-    <meta name="msapplication-TileColor" content="#213345" />
-    <meta name="msapplication-TileImage" content="mstile-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/apple-touch-icon-144x144.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/apple-touch-icon-152x152.png') }}">
+    <link rel="icon" type="image/png" href="{{ url('/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url('/favicon-16x16.png') }}" sizes="16x16">
+    <meta name="application-name" content="4sucres">
+    <meta name="msapplication-TileColor" content="#213345">
+    <meta name="msapplication-TileImage" content="{{ url('/mstile-144x144.png') }}">
 
     @if (config('app.env') === 'production')
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -136,10 +136,13 @@
     {!! GoogleReCaptchaV3::init() !!}
     <script src="{{ url('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url('/js/baffle.min.js') }}"></script><script>
-        var s=["█","▓","▒","░","█","▓","▒","░","█","▓","▒","░","<",">","/"];
-        baffle('.baffle', {characters:s}).reveal(1000);
+    <script>
+        window.4sucres = {
+            user: {}
+        };
     </script>
+    <script src="{{ url('/js/baffle.min.js') }}"></script>
+    <script src="{{ url('/js/app.js') }}"></script>
     @stack('js')
 </body>
 </html>
