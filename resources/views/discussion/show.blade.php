@@ -7,10 +7,12 @@
             <h1>{{ $discussion->title }}</h1>
         </div>
         <div class="col-auto">
-            @if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', auth()->user()->id)->count())
-                <a href="{{ route('discussions.unsubscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">Se désabonner</a>
-            @else
-                <a href="{{ route('discussions.subscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">S'abonner</a>
+            @if (!$discussion->private)
+                @if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', auth()->user()->id)->count())
+                    <a href="{{ route('discussions.unsubscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">Se désabonner</a>
+                @else
+                    <a href="{{ route('discussions.subscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">S'abonner</a>
+                @endif
             @endif
         </div>
     </div>

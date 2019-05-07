@@ -54,38 +54,5 @@ class PrivateDiscussionController extends Controller
             $discussion->id,
             $discussion->slug
         ]));
-
-        // return view('discussion.private.create', compact('from', 'to'));
     }
-
-    public function update(Discussion $discussion, $slug, Post $post)
-    {
-        request()->validate([
-            'body' => 'required|min:10',
-        ]);
-
-        $post->body = request()->input('body');
-        $post->save();
-
-        return redirect(route('discussions.show', [
-            $discussion->id,
-            $discussion->slug
-        ]));
-    }
-
-    public function delete(Discussion $discussion, $slug, Post $post){
-        return view('discussion.post.delete', compact('discussion', 'post'));
-    }
-
-    public function destroy(Discussion $discussion, $slug, Post $post)
-    {
-        $post->deleted = true;
-        $post->save();
-
-        return redirect(route('discussions.show', [
-            $discussion->id,
-            $discussion->slug
-        ]));
-    }
-
 }

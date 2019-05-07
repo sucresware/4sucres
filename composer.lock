@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5915c606408e4970807c204b2135ead",
+    "content-hash": "e9f220038680edeabd01df20410066ed",
     "packages": [
         {
             "name": "appstract/laravel-options",
@@ -918,46 +918,6 @@
                 "versions"
             ],
             "time": "2018-06-13T13:22:40+00:00"
-        },
-        {
-            "name": "kyranrana/cloudflare-bypass",
-            "version": "v2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KyranRana/cloudflare-bypass.git",
-                "reference": "5fde39d4c3b9e4a9670747bacc9e18663818208e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KyranRana/cloudflare-bypass/zipball/5fde39d4c3b9e4a9670747bacc9e18663818208e",
-                "reference": "5fde39d4c3b9e4a9670747bacc9e18663818208e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5"
-            },
-            "require-dev": {
-                "guzzlehttp/guzzle": "^6.3",
-                "phpunit/phpunit": "~5.7",
-                "symfony/cache": "^4.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CloudflareBypass\\": "src/CloudflareBypass"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Library for helping bypass the Cloudflare IUAM page",
-            "homepage": "https://github.com/KyranRana/cloudflare-bypass",
-            "keywords": [
-                "bypass",
-                "cloudflare"
-            ],
-            "time": "2019-03-23T16:32:44+00:00"
         },
         {
             "name": "laravel/framework",
