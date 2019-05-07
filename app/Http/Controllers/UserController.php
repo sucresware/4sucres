@@ -25,7 +25,7 @@ class UserController extends Controller
 
     public function update(User $user, $name){
         request()->validate([
-            'display_name' => ['string', 'max:255', 'min:4'],
+            'display_name' => ['required', 'string', 'max:255', 'min:4'],
             'shown_role' => ['string', 'max:255'],
             'avatar' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -40,7 +40,10 @@ class UserController extends Controller
         }
 
         $user->display_name = request()->display_name;
-        $user->shown_role = request()->shown_role;
+        if (auth()->user()->can('update shown_role')) {
+            $user->shown_role = request()->shown_role;
+        }
+
         $user->save();
 
         return redirect()->route('user.show', [$user->id, $user->name]);
