@@ -10817,3 +10817,17 @@ footer {
   border: 1px solid #dcddde;
 }
 
+.editor {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 40px;
+}
+
+.editor-buttons {
+  margin-bottom: 10px;
+}
+
+.editor-buttons .btn {
+  cursor: pointer;
+}
+

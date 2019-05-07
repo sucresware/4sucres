@@ -38,14 +38,6 @@
     <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/sceditor/2.1.2/formats/bbcode.js') }}"></script>
     <script>
         var textarea = document.getElementById('body');
-        sceditor.create(textarea, {
-	        format: 'bbcode',
-            plugins: 'undo',
-            emoticonsEnabled: false,
-            resizeEnabled: false,
-            width: '100%',
-	        style: "{{ url('/css/sceditor.content.css') }}",
-	        toolbar: 'bold,italic,underline,stroke|image,link|maximize,source',
-       });
     </script>
+    <script src="{{ url('/js/sucresBB-editor.js') }}"></script>
 @endpush
