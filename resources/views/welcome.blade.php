@@ -28,7 +28,7 @@
         </div>
         <div class="col-12 col-lg-8 col-xl-10">
             <div class="mb-4">
-                <img src="{{ url('/img/banner_special.png') }}" class="img-fluid">
+                <img src="{{ url('/img/banners/wip.jpg') }}" class="img-fluid">
             </div>
 
             <div class="card">
