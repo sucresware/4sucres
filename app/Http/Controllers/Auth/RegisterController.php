@@ -56,6 +56,8 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
+        $verify_user->delete();
+
         return redirect()->route('home')
             ->with('success', 'Bienvenue à bord ' . $user->name . ' !');
     }
