@@ -2,6 +2,6 @@
 
 namespace App\Helpers;
 
-class SucresHelper {
-
+class SucresHelper
+{
 }

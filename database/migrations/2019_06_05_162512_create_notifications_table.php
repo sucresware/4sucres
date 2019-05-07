@@ -15,7 +15,6 @@ class CreateNotificationsTable extends Migration
             $table->boolean('seen')->default(false);
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
-
         });
     }
 

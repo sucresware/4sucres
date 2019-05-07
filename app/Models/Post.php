@@ -14,9 +14,9 @@ class Post extends Model
     {
         parent::boot();
 
-        self::created(function($post){
+        self::created(function ($post) {
             $discussion = $post->discussion;
-            $discussion->replies++;
+            ++$discussion->replies;
             $discussion->last_reply_at = now();
             $discussion->save();
 
@@ -41,7 +41,7 @@ class Post extends Model
     {
         $bbcode = new \ChrisKonnertz\BBCode\BBCode();
 
-        $bbcode->addTag('glitch', function($tag, &$html, $openingTag) {
+        $bbcode->addTag('glitch', function ($tag, &$html, $openingTag) {
             if ($tag->opening) {
                 return '<span class="baffle">';
             } else {

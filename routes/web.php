@@ -30,7 +30,7 @@ Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/charter', 'HomeController@charter')->name('charter');
 Route::get('/leaderboard', 'HomeController@leaderboard')->name('leaderboard');
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::get('/profile', 'UserController@profile')->name('profile');

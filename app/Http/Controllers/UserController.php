@@ -11,6 +11,7 @@ class UserController extends Controller
     public function profile()
     {
         $user = auth()->user();
+
         return view('user.show', compact('user'));
     }
 
@@ -19,11 +20,13 @@ class UserController extends Controller
         return view('user.show', compact('user'));
     }
 
-    public function edit(User $user, $name){
+    public function edit(User $user, $name)
+    {
         return view('user.edit', compact('user'));
     }
 
-    public function update(User $user, $name){
+    public function update(User $user, $name)
+    {
         request()->validate([
             'display_name' => ['required', 'string', 'max:255', 'min:4'],
             'shown_role' => ['string', 'max:255'],

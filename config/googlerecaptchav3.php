@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Request Method
@@ -112,19 +111,19 @@ return [
             'action' => 'register_action',
             'threshold' => 0,
             'score_comparision' => false,
-        ],[
+        ], [
             'action' => 'login_action',
             'threshold' => 0,
             'score_comparision' => false,
-        ],[
+        ], [
             'action' => 'create_discussion_action',
             'threshold' => 0,
             'score_comparision' => false,
-        ],[
+        ], [
             'action' => 'reply_to_discussion_action',
             'threshold' => 0,
             'score_comparision' => false,
-        ],[
+        ], [
             'action' => 'create_private_discussion_action',
             'threshold' => 0,
             'score_comparision' => false,
@@ -139,7 +138,6 @@ return [
     | Define a list of ip that you want to skip
     */
     'skip_ips' => [
-
     ],
     /*
     |--------------------------------------------------------------------------
@@ -149,7 +147,6 @@ return [
     |
     */
     'options' => [
-
     ],
     /*
     |--------------------------------------------------------------------------

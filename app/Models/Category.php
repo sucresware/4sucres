@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -15,7 +15,7 @@ class Category extends Model
     {
         parent::boot();
 
-        self::creating(function($category){
+        self::creating(function ($category) {
             $category->slug = Str::slug($category->name);
 
             return $category;
@@ -27,13 +27,17 @@ class Category extends Model
         return $this->hasMany(Discussion::class);
     }
 
-    public function scopeOrdered($query) {
+    public function scopeOrdered($query)
+    {
         return $query->orderBy('order');
     }
 
-    public function scopeFiltered($query) {
-        if (!auth()->user()->can('use restricted categories')) return $query->where('restricted', false);
-        else return $query;
+    public function scopeFiltered($query)
+    {
+        if (!auth()->user()->can('use restricted categories')) {
+            return $query->where('restricted', false);
+        } else {
+            return $query;
+        }
     }
-
 }

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Category;
 use App\Models\Discussion;
+use App\Models\User;
 use Illuminate\Http\Request;
 use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
@@ -18,21 +16,23 @@ class PrivateDiscussionController extends Controller
         return view('discussion.private.index', compact('private_discussions'));
     }
 
-    public function create(User $user){
+    public function create(User $user)
+    {
         $from = auth()->user();
         $to = $user;
 
         return view('discussion.private.create', compact('from', 'to'));
     }
 
-    public function store(User $user){
+    public function store(User $user)
+    {
         $from = auth()->user();
         $to = $user;
 
         request()->validate([
             'title' => 'required|min:10',
             'body' => 'required|min:10',
-            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_private_discussion_action')]
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_private_discussion_action')],
         ]);
 
         $discussion = Discussion::create([
@@ -52,7 +52,7 @@ class PrivateDiscussionController extends Controller
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
 }

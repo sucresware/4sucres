@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
 // use FollowWork\Helpers\RealtimeNotify;
 
 class Notification extends Model
@@ -28,7 +29,8 @@ class Notification extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeCurated($query){
+    public function scopeCurated($query)
+    {
         return $query->where('user_id', auth()->user()->id)->where('seen', false);
     }
 }

@@ -27,6 +27,7 @@ class LoginController extends Controller
         ])) {
             if (auth()->user()->email_verified_at == null) {
                 auth()->logout();
+
                 return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de te connecter !');
             }
 

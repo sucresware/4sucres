@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Category;
 use App\Models\Discussion;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
@@ -18,7 +18,7 @@ class DiscussionPostController extends Controller
 
         request()->validate([
             'reply' => 'required|min:10',
-            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('reply_to_discussion_action')]
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('reply_to_discussion_action')],
         ]);
 
         $post = $discussion->posts()->create([
@@ -28,11 +28,12 @@ class DiscussionPostController extends Controller
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
 
-    public function edit(Discussion $discussion, $slug, Post $post){
+    public function edit(Discussion $discussion, $slug, Post $post)
+    {
         if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
@@ -58,11 +59,12 @@ class DiscussionPostController extends Controller
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
 
-    public function delete(Discussion $discussion, $slug, Post $post){
+    public function delete(Discussion $discussion, $slug, Post $post)
+    {
         if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
@@ -81,8 +83,7 @@ class DiscussionPostController extends Controller
 
         return redirect(route('discussions.show', [
             $discussion->id,
-            $discussion->slug
+            $discussion->slug,
         ]));
     }
-
 }
