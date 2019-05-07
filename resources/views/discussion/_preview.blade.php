@@ -22,7 +22,7 @@
                 <strong><a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></strong>
             @endif
         </div>
-        <a href="{{ route('user.show', [$discussion->user->id, $discussion->user->name]) }}">{{ $discussion->user->display_name }}</a> a posté {{ $discussion->last_reply_at->diffForHumans() }}
+        par <a href="{{ route('user.show', [$discussion->user->id, $discussion->user->name]) }}">{{ $discussion->user->display_name }}</a>, dernière réponse par <a href="{{ route('user.show', [$discussion->posts->last()->user->id, $discussion->posts->last()->user->name]) }}">{{ $discussion->posts->last()->user->display_name }}</a> {{ $discussion->last_reply_at->diffForHumans() }}
     </div>
 
     @if ($discussion->private)
