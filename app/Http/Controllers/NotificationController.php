@@ -20,7 +20,10 @@ class NotificationController extends Controller
         return redirect('notifications.index');
     }
 
-    public function goto(Notification $notification){
+    public function show(Notification $notification){
+        if ($notification->user_id != auth()->user()->id) {
+            return abort(403);
+        }
         $notification->seen = true;
         $notification->save();
 

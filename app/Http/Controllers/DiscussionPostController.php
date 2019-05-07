@@ -33,7 +33,7 @@ class DiscussionPostController extends Controller
     }
 
     public function edit(Discussion $discussion, $slug, Post $post){
-        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -45,7 +45,7 @@ class DiscussionPostController extends Controller
 
     public function update(Discussion $discussion, $slug, Post $post)
     {
-        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -63,7 +63,7 @@ class DiscussionPostController extends Controller
     }
 
     public function delete(Discussion $discussion, $slug, Post $post){
-        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -72,7 +72,7 @@ class DiscussionPostController extends Controller
 
     public function destroy(Discussion $discussion, $slug, Post $post)
     {
-        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 

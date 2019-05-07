@@ -55,7 +55,6 @@ class DiscussionController extends Controller
     public function index(Category $category = null, $slug = null)
     {
         $categories = Category::ordered()->get();
-
         $discussions = Discussion::query();
 
         if ($category) {
@@ -76,6 +75,10 @@ class DiscussionController extends Controller
 
     public function show(Discussion $discussion, $slug)
     {
+        if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', auth()->user()->id)->count() == 0)) {
+            return abort(403);
+        }
+
         $posts = $discussion->posts()->paginate(10);
 
         $discussion->has_read()->attach(auth()->user());
@@ -85,7 +88,7 @@ class DiscussionController extends Controller
 
     public function update(Discussion $discussion, $slug)
     {
-        if ($discussion->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+        if (($discussion->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -112,6 +115,10 @@ class DiscussionController extends Controller
 
     public function subscribe(Discussion $discussion, $slug)
     {
+        if ($discussion->private) {
+            return abort(403);
+        }
+
         $discussion->subscribed()->attach(auth()->user()->id);
 
         return redirect(route('discussions.show', [
@@ -122,6 +129,10 @@ class DiscussionController extends Controller
 
     public function unsubscribe(Discussion $discussion, $slug)
     {
+        if ($discussion->private) {
+            return abort(403);
+        }
+
         $discussion->subscribed()->detach(auth()->user()->id);
 
         return redirect(route('discussions.show', [

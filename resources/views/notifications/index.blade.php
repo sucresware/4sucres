@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-body">
             @forelse ($notifications as $notification)
-                <strong><a href="{{ route('notifications.goto', $notification) }}">{{ $notification->text }}</a></strong><br>
+                <strong><a href="{{ route('notifications.show', $notification) }}">{{ $notification->text }}</a></strong><br>
             @empty
                 <div class="text-center text-muted">
                     <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid" width="100px"><br><br>
