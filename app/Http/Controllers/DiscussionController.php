@@ -11,7 +11,7 @@ class DiscussionController extends Controller
 {
     public function create()
     {
-        if (!auth()->check() || !auth()->user()->can('create discussions')) {
+        if (auth()->user()->cannot('create discussions')) {
             return abort(403);
         }
 
@@ -22,7 +22,7 @@ class DiscussionController extends Controller
 
     public function store()
     {
-        if (!auth()->check() || !auth()->user()->can('create discussions')) {
+        if (auth()->user()->cannot('create discussions')) {
             return abort(403);
         }
 
@@ -85,6 +85,10 @@ class DiscussionController extends Controller
 
     public function update(Discussion $discussion, $slug)
     {
+        if ($discussion->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+            return abort(403);
+        }
+
         request()->validate([
             'title' => 'required|min:10',
             'category' => 'required|exists:categories,id',
@@ -92,8 +96,11 @@ class DiscussionController extends Controller
 
         $discussion->title = request()->title;
         $discussion->category_id = request()->category;
-        $discussion->sticky = request()->sticky ?? false;
-        $discussion->locked = request()->locked ?? false;
+
+        if (auth()->user()->can('bypass discussions guard')) {
+            $discussion->sticky = request()->sticky ?? false;
+            $discussion->locked = request()->locked ?? false;
+        }
 
         $discussion->save();
 

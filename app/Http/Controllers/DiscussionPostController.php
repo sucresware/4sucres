@@ -12,6 +12,10 @@ class DiscussionPostController extends Controller
 {
     public function store(Discussion $discussion, $slug)
     {
+        if ($discussion->locked || auth()->user()->cannot('create discussions')) {
+            return abort(403);
+        }
+
         request()->validate([
             'reply' => 'required|min:10',
             'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('reply_to_discussion_action')]
@@ -29,6 +33,10 @@ class DiscussionPostController extends Controller
     }
 
     public function edit(Discussion $discussion, $slug, Post $post){
+        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+            return abort(403);
+        }
+
         $more_options = ($discussion->posts()->first() == $post);
         $categories = Category::ordered()->filtered()->pluck('name', 'id');
 
@@ -37,6 +45,10 @@ class DiscussionPostController extends Controller
 
     public function update(Discussion $discussion, $slug, Post $post)
     {
+        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+            return abort(403);
+        }
+
         request()->validate([
             'body' => 'required|min:10',
         ]);
@@ -51,11 +63,19 @@ class DiscussionPostController extends Controller
     }
 
     public function delete(Discussion $discussion, $slug, Post $post){
+        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+            return abort(403);
+        }
+
         return view('discussion.post.delete', compact('discussion', 'post'));
     }
 
     public function destroy(Discussion $discussion, $slug, Post $post)
     {
+        if ($post->user->id != auth()->user()->id || auth()->user()->cannot('bypass discussions guard')) {
+            return abort(403);
+        }
+
         $post->deleted = true;
         $post->save();
 

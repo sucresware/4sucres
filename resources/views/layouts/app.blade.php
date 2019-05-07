@@ -22,6 +22,18 @@
     <meta name="msapplication-TileColor" content="#213345" />
     <meta name="msapplication-TileImage" content="mstile-144x144.png" />
 
+    @if (config('app.env') === 'production')
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139755516-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-139755516-1');
+        </script>
+    @endif
+
     @stack('css')
 </head>
 <body>
