@@ -49,13 +49,16 @@
                         </div>
                     </div>
                 @empty
+                @endforelse
+
+                @if (count($sticky_discussions) + count($discussions) == 0)
                     <div class="card-body">
                         <div class="text-center text-muted">
                             <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid" width="60px"><br><br>
                             Aucune discussion dans cette catégorie !
                         </div>
                     </div>
-                @endforelse
+                @endif
 
                 {{ $discussions->links() }}
             </div>
