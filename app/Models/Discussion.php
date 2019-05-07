@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Discussion extends Model
 {
@@ -16,7 +16,7 @@ class Discussion extends Model
     {
         parent::boot();
 
-        self::creating(function($discussion){
+        self::creating(function ($discussion) {
             $discussion->slug = Str::slug($discussion->title);
 
             return $discussion;
@@ -38,50 +38,64 @@ class Discussion extends Model
         return $this->hasMany(Post::class)->orderBy('created_at', 'ASC');
     }
 
-    public function scopeSticky($query){
+    public function scopeSticky($query)
+    {
         return $query
+            ->public()
             ->where('sticky', true)
-            ->where('private', false)
             ->orderBy('last_reply_at', 'DESC');
     }
 
-    public function scopeOrdered($query){
+    public function scopeOrdered($query)
+    {
         return $query
+            ->public()
             ->where('sticky', false)
-            ->where('private', false)
             ->orderBy('last_reply_at', 'DESC');
     }
 
-    public function scopePrivate($query, User $user){
+    public function scopePublic($query)
+    {
+        return $query->where('private', false);
+    }
+
+    public function scopePrivate($query, User $user)
+    {
         return $query
-            ->whereHas('members', function($query) use ($user){
+            ->whereHas('members', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
             ->where('private', true)
             ->orderBy('last_reply_at', 'DESC');
     }
 
-    public function getPresentedLastReplyAtAttribute(){
+    public function getPresentedLastReplyAtAttribute()
+    {
         return str_replace('il y a', '', $this->last_reply_at->diffForHumans());
     }
 
-    public function getPresentedRepliesAttribute() {
-        return $this->replies-1;
+    public function getPresentedRepliesAttribute()
+    {
+        return $this->replies - 1;
     }
 
-    public function members(){
+    public function members()
+    {
         return $this->belongsToMany(User::class, 'users_discussions');
     }
 
-    public function has_read(){
+    public function has_read()
+    {
         return $this->belongsToMany(User::class, 'has_read_discussions_users');
     }
 
-    public function subscribed(){
+    public function subscribed()
+    {
         return $this->belongsToMany(User::class, 'subscribed_discussions_users');
     }
 
-    public function notify_subscibers(Post $post){
+    public function notify_subscibers(Post $post)
+    {
         foreach ($this->subscribed as $user) {
             if ($user->id != $post->user->id) {
                 Notification::create([
