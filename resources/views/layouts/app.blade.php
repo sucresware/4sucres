@@ -30,14 +30,13 @@
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ url('/svg/4sucres.svg') }}" height="60"> 4sucres<small>.org</small>
+                        <img src="{{ url('/svg/4sucres.svg') }}" height="60"><img src="{{ url('/img/4sucres_white.png') }}" height="30">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-md-none d-lg-block"> Forum</span></a>
@@ -51,17 +50,18 @@
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
                                     <a class="nav-link text-center" href="{{ route('notifications.index') }}">
-                                        <i class="fas fa-bell"></i><br>
-                                        <span class="d-md-none d-lg-inline-block"> Notifications</span>
                                         @if ($notifications_count = \App\Models\Notification::curated()->count())
-                                            <span class="badge badge-danger">{{ $notifications_count }}</span>
+                                            <i class="fas fa-bell text-danger"></i>
+                                        @else
+                                            <i class="fas fa-bell"></i>
                                         @endif
+                                        <span class="d-md-none d-lg-block"> Notifications</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-center" href="{{ route('private_discussions.index') }}">
-                                        <i class="fas fa-envelope"></i><br>
-                                        <span class="d-md-none d-lg-inline-block"> Messagerie</span>
+                                        <i class="fas fa-envelope"></i>
+                                        <span class="d-md-none d-lg-block"> Messagerie</span>
                                     </a>
                                 </li>
                             </ul>

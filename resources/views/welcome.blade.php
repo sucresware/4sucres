@@ -12,9 +12,7 @@
                 @else
                     @php $link = route('register'); $label = '<i class="fas fa-user-plus mr-1"></i> Rejoins-nous !'; @endphp
                 @endauth
-                <img src="{{ url('/svg/sucre_onche.svg') }}" class="d-none d-xl-block mx-auto" height="150">
-                <a href="{!! $link !!}" class="btn btn-primary btn-block d-none d-xl-block" style="padding-top: 40px; margin-top: -35px;">{!! $label !!}</a>
-                <a href="{!! $link !!}" class="btn btn-primary btn-block d-xl-none">{!! $label !!}</a>
+                <a href="{!! $link !!}" class="btn btn-primary btn-block">{!! $label !!}</a>
             </div>
 
             <div class="d-none d-lg-block">
