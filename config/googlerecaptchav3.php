@@ -75,7 +75,7 @@ return [
     |  -  false: the background badge will be invisible
     |
     */
-    'background_badge_display' => true,
+    'background_badge_display' => false,
     /*
     |--------------------------------------------------------------------------
     | Background Badge Style

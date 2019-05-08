@@ -17,12 +17,12 @@ class DiscussionPostController extends Controller
         }
 
         request()->validate([
-            'reply' => 'required|min:10',
+            'body' => 'required|min:10',
             'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('reply_to_discussion_action')],
         ]);
 
         $post = $discussion->posts()->create([
-            'body' => request()->input('reply'),
+            'body' => request()->input('body'),
             'user_id' => auth()->user()->id,
         ]);
 

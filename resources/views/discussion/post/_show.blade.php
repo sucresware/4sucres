@@ -5,9 +5,12 @@
     <div class="col">
         @if (!$post->discussion->private)
             <div class="float-right">
-                @if (auth()->check() && ($post->user->id == auth()->user()->id || auth()->user()->can('bypass discussions guard')))
-                    <a href="{{ route('discussions.posts.edit', [$discussion->id, $discussion->slug, $post->id]) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                    <a href="{{ route('discussions.posts.delete', [$discussion->id, $discussion->slug, $post->id]) }}" class="btn btn-primary"><i class="fas fa-trash"></i></a>
+                @if (auth()->check())
+                    <a class="mr-1" href="javascript:void(0)" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
+                    @if ($post->user->id == auth()->user()->id || auth()->user()->can('bypass discussions guard'))
+                        <a class="mr-1" href="{{ route('discussions.posts.edit', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-edit"></i></a>
+                        <a class="mr-1 text-danger" href="{{ route('discussions.posts.delete', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-trash"></i></a>
+                    @endif
                 @endif
             </div>
         @endif

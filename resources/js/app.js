@@ -48,8 +48,21 @@ init_editor = function(el) {
     })
 }
 
+init_actions = function(){
+    $('a[data-action]').each(function(k, el){
+        switch ($(el).attr('data-action')){
+            case 'quotePost':
+                $(el).on('click', function(e) {
+                    sceditor.instance(document.getElementById('body')).insertText('#p:' + $(e.target).closest('a').attr('data-id'));
+                })
+            break;
+        }
+    })
+}
+
 $(document).ready(function () {
     init_spoilers()
     init_baffle()
+    init_actions()
     // open_notifications_socket()
 });

@@ -36930,9 +36930,22 @@ init_editor = function init_editor(el) {
   });
 };
 
+init_actions = function init_actions() {
+  $('a[data-action]').each(function (k, el) {
+    switch ($(el).attr('data-action')) {
+      case 'quotePost':
+        $(el).on('click', function (e) {
+          sceditor.instance(document.getElementById('body')).insertText('#p:' + $(e.target).closest('a').attr('data-id'));
+        });
+        break;
+    }
+  });
+};
+
 $(document).ready(function () {
   init_spoilers();
-  init_baffle(); // open_notifications_socket()
+  init_baffle();
+  init_actions(); // open_notifications_socket()
 });
 
 /***/ }),
