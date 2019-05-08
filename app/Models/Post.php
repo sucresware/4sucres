@@ -24,6 +24,54 @@ class Post extends Model
             $post->discussion->has_read()->sync([]);
             $post->discussion->notify_subscibers($post);
 
+            $preg_result = [];
+            preg_match_all('/(?:@|#u:)(?:\w+)(?:<br\/>|<br>|[\s]|$|\z)/', $post->body, $preg_result);
+            $mentioned_users = [];
+
+            foreach($preg_result[0] as $tag) {
+                $tag = trim($tag);
+                $clear_tag = trim(str_replace(['@', '#u:'], '', $tag));
+
+                if ($clear_tag == $post->user->name) continue;
+                $user = User::where('name', $clear_tag)->first();
+                if (!$user) continue;
+
+                $mentioned_users[$user->id] = $user;
+            }
+
+            foreach ($mentioned_users as $user) {
+                Notification::create([
+                    'class' => 'info',
+                    'text' => '<b>' . $post->user->name . '</b> vous a mentionné sur la discussion <b>' . $post->discussion->title . '</b>',
+                    'href' => route('discussions.show', [$post->discussion->id, $post->discussion->slug]),
+                    'user_id' => $user->id,
+                ]);
+            }
+
+            $preg_result = [];
+            preg_match_all('/(?:#p:)(?:\d+)(?:<br\/>|<br>|[\s]|$|\z)/', $post->body, $preg_result);
+            $quoted_users = [];
+
+            foreach($preg_result[0] as $tag) {
+                $tag = trim($tag);
+                $clear_tag = trim(str_replace(['#p:'], '', $tag));
+
+                $p = Post::find($clear_tag);
+                if (!$p || $p->discussion->private) continue;
+                if ($post->user->id == $p->user->id) continue;
+
+                $quoted_users[$p->user->id] = $p->user;
+            }
+
+            foreach ($quoted_users as $user) {
+                Notification::create([
+                    'class' => 'info',
+                    'text' => '<b>' . $post->user->name . '</b> vous a cité sur la discussion <b>' . $post->discussion->title . '</b>',
+                    'href' => route('discussions.show', [$post->discussion->id, $post->discussion->slug]),
+                    'user_id' => $user->id,
+                ]);
+            }
+
             return true;
         });
     }

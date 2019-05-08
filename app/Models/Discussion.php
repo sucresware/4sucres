@@ -100,7 +100,7 @@ class Discussion extends Model
             if ($user->id != $post->user->id) {
                 Notification::create([
                     'class' => 'info',
-                    'text' => $post->user->name . 'a posté un nouveau message sur la discussion ' . $post->discussion->title,
+                    'text' => '<b>' . $post->user->name . '</b> a posté un nouveau message sur la discussion <b>' . $post->discussion->title . '</b>',
                     'href' => route('discussions.show', [$this->id, $this->slug]),
                     'user_id' => $user->id,
                 ]);

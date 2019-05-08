@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+
     <div class="row mb-3">
         <div class="col">
             <h1>{{ $discussion->title }}</h1>
@@ -15,6 +16,10 @@
                 @endif
             @endif
         </div>
+    </div>
+
+    <div class="pb-0">
+        {{ $posts->links() }}
     </div>
 
     <div class="card mb-3">
