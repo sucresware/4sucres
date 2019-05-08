@@ -1,14 +1,19 @@
 @import url('https://rsms.me/inter/inter.css');
 
-html { font-family: 'Inter', sans-serif; }
+html {
+    font-family: 'Inter', sans-serif;
+}
 
 @supports (font-variation-settings: normal) {
-    html { font-family: 'Inter var', sans-serif; }
+    html {
+        font-family: 'Inter var', sans-serif;
+    }
 }
 
 $body-bg: #ffffff;
 $body-color: #72767d;
-$font-family-sans-serif: 'Inter', sans-serif;
+$font-family-sans-serif: 'Inter',
+sans-serif;
 $line-height-base: 1.4;
 $font-size-base: 0.9rem;
 $primary: #7289da;
@@ -31,11 +36,9 @@ $gray: #f3f3f4;
 $dark: #252839;
 $darker: #1c1e2b;
 
-$container-max-widths: (
-  md: 720px,
-  lg: 960px,
-  xl: 1340px
-) !default;
+$container-max-widths: (md: 720px,
+    lg: 960px,
+    xl: 1340px) !default;
 
 @import '~bootstrap/scss/bootstrap';
 @import '_app';
@@ -46,14 +49,20 @@ $container-max-widths: (
     padding-bottom: 0;
 }
 
-h1, h2, .h1, .h2, h5, .h5 {
+h1,
+h2,
+.h1,
+.h2,
+h5,
+.h5 {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 16px;
     color: #4f545c;
 }
 
-h5, .h5 {
+h5,
+.h5 {
     text-transform: uppercase;
     font-size: 12px;
 }
@@ -63,7 +72,9 @@ h5, .h5 {
     width: 180px;
 }
 
-.nav-link, a, .btn-link {
+.nav-link,
+a,
+.btn-link {
     color: $body-color;
 }
 
@@ -85,7 +96,8 @@ hr {
     color: $body-color;
 }
 
-.nav-pills .nav-link.active, .nav-link.active:hover {
+.nav-pills .nav-link.active,
+.nav-link.active:hover {
     background-color: darken($light, 5%) !important;
     color: $body-color;
 }
@@ -111,9 +123,21 @@ hr {
     color: darken($light, 10%);
     background-color: darken($light, 10%);
     cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .spoiler.show {
     cursor: auto;
     color: $body-color;
+    -webkit-touch-callout: auto;
+    -webkit-user-select: auto;
+    -khtml-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
 }

@@ -10824,10 +10824,20 @@ hr {
   color: #d8d8dc;
   background-color: #d8d8dc;
   cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .spoiler.show {
   cursor: auto;
   color: #72767d;
+  -webkit-touch-callout: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
 }
 
