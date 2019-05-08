@@ -1,32 +1,46 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+require('./bootstrap')
+require('sceditor/minified/sceditor.min.js')
+require('sceditor/minified/formats/bbcode.js')
 
-require('./bootstrap');
-
-window.Vue = require('vue');
+let $ = require("jquery");
+let baffle = require('baffle')
 
 /**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ * Notifications
  */
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// open_notifications_socket = function () {
+// }
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Custom BBCode
  */
 
-const app = new Vue({
-    el: '#app',
+init_baffle = function () {
+    var s = ["█", "▓", "▒", "░", "█", "▓", "▒", "░", "█", "▓", "▒", "░", "<", ">", "/"]
+    baffle('.baffle', {
+        characters: s
+    }).reveal(1000)
+}
+
+/**
+ * Editor
+ */
+
+init_editor = function(el) {
+    sceditor.create(el, {
+        format: 'bbcode',
+        plugins: 'undo',
+        startInSourceMode: true,
+        emoticonsEnabled: false,
+        resizeEnabled: false,
+        width: '100%',
+        style: '/css/sceditor.content.css',
+        toolbar: 'bold,italic,underline,strike|bulletlist,orderedlist,quote,code|image,link,unlink|maximize',
+    })
+}
+
+$(document).ready(function () {
+    init_baffle()
+    // open_notifications_socket()
 });

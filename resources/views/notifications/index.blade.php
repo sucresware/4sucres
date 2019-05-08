@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Notifications
+@endsection
+
 @section('content')
 <div class="container">
     <h1>Notifications</h1>

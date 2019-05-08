@@ -12,7 +12,7 @@
         @endif
     </title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/4sucres.css') }}" rel="stylesheet">
 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/apple-touch-icon-144x144.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/apple-touch-icon-152x152.png') }}">
@@ -132,17 +132,8 @@
     @endif
 
     @include('sweetalert::alert')
-
     {!! GoogleReCaptchaV3::init() !!}
-    <script src="{{ url('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js') }}"></script>
-    <script>
-        window.4sucres = {
-            user: {}
-        };
-    </script>
-    <script src="{{ url('/js/baffle.min.js') }}"></script>
-    <script src="{{ url('/js/app.js') }}"></script>
+    <script src="{{ mix('/js/app.js') }}"></script>
     @stack('js')
 </body>
 </html>

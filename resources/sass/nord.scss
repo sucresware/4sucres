@@ -1,0 +1,110 @@
+@import url('https://rsms.me/inter/inter.css');
+@import "node_modules/nord/src/sass/nord.scss";
+
+html { font-family: 'Inter', sans-serif; }
+
+@supports (font-variation-settings: normal) {
+    html { font-family: 'Inter var', sans-serif; }
+}
+
+$body-bg: $nord0;
+$body-color: $nord6;
+
+$font-family-sans-serif: 'Inter', sans-serif;
+$line-height-base: 1.4;
+$font-size-base: 0.9rem;
+
+$primary: $nord10;
+$light: $nord4;
+
+$card-border-width: 1px;
+$card-default-border: rgba(0, 0, 0, 0);
+$card-cap-bg: $body-bg;
+$border-color: #dcddde;
+$blue: #3490dc;
+$red: $nord11;
+$indigo: #6574cd;
+$purple: $nord15;
+$pink: #f66D9b;
+$orange: $nord12;
+$yellow: $nord13;
+$green: $nord14;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$gray: #f3f3f4;
+$dark: #252839;
+$darker: #1c1e2b;
+
+$container-max-widths: (
+  md: 720px,
+  lg: 960px,
+  xl: 1340px
+) !default;
+
+@import '~bootstrap/scss/bootstrap';
+@import '_app';
+
+.card-header {
+    border: 0;
+    font-weight: bold;
+    padding-bottom: 0;
+}
+
+h1, h2, .h1, .h2, h5, .h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    color: #4f545c;
+}
+
+h5, .h5 {
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.container-sidebar {
+    margin-left: auto;
+    width: 180px;
+}
+
+.nav-link, a, .btn-link {
+    color: $body-color;
+}
+
+.btn {
+    font-size: .9em;
+    padding: 0.5rem 1rem;
+}
+
+hr {
+    border-color: darken($light, 5%);
+}
+
+.nav-pills .nav-link {
+    padding: 0.5rem;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: darken($light, 5%);
+    color: $body-color;
+}
+
+.nav-pills .nav-link.active, .nav-link.active:hover {
+    background-color: darken($light, 5%) !important;
+    color: $body-color;
+}
+
+.navbar {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.bg-darker {
+    background-color: $darker;
+}
+
+.card {
+    .card-header {
+        text-transform: uppercase;
+        background-color: auto;
+    }
+}

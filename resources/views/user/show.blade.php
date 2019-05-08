@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Profil de {{ $user->display_name }}
+@endsection
+
 @section('content')
 
 <div class="container">
