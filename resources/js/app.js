@@ -43,6 +43,7 @@ init_editor = function(el) {
         emoticonsEnabled: false,
         resizeEnabled: false,
         width: '100%',
+        height: '350px',
         style: '/css/sceditor.content.css',
         toolbar: 'bold,italic,underline,strike|bulletlist,orderedlist,quote,code|image,link,unlink|maximize',
     })
