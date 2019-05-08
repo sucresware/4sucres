@@ -27,8 +27,8 @@ class DiscussionController extends Controller
         }
 
         request()->validate([
-            'title' => 'required|min:10',
-            'body' => 'required|min:10',
+            'title' => 'required|min:4|max:255',
+            'body' => 'required|min:3|max:3000',
             'category' => 'required|exists:categories,id',
             'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_discussion_action')],
         ]);
@@ -93,7 +93,7 @@ class DiscussionController extends Controller
         }
 
         request()->validate([
-            'title' => 'required|min:10',
+            'title' => 'required|min:4|max:255',
             'category' => 'required|exists:categories,id',
         ]);
 

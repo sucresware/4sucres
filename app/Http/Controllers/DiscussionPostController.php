@@ -17,7 +17,7 @@ class DiscussionPostController extends Controller
         }
 
         request()->validate([
-            'body' => 'required|min:10',
+            'body' => 'required|min:3|max:3000',
             'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('reply_to_discussion_action')],
         ]);
 
