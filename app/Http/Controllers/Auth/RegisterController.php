@@ -20,7 +20,7 @@ class RegisterController extends Controller
     protected function submit()
     {
         request()->validate([
-            'name' => ['required', 'string', 'alpha_num', 'max:255', 'min:4', 'unique:users'],
+            'name' => ['required', 'string', 'alpha_dash', 'max:255', 'min:4', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6'],
             'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('register_action')],
