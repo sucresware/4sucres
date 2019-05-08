@@ -10,6 +10,6 @@ class Achievement extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('unlocked_at');
+        return $this->belongsToMany(User::class, 'user_achievement')->withPivot('unlocked_at');
     }
 }
