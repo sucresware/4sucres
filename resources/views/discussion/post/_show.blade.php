@@ -24,7 +24,14 @@
             @if (!$post->deleted)
                 {!! $post->presented_body !!}
             @else
-                <i>Ce message a été supprimé</i>
+                @if (auth()->check() && auth()->user()->can('read deleted posts'))
+                    <small><i>Message supprimé</i></small><br>
+                    <br>
+
+                    {!! $post->presented_body !!}
+                @else
+                    <small><i>Message supprimé</i></small>
+                @endif
             @endif
         </div>
     </div>

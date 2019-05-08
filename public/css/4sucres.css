@@ -10818,3 +10818,16 @@ hr {
   background-color: auto;
 }
 
+.spoiler {
+  border-radius: 4px;
+  display: inline-block;
+  color: #d8d8dc;
+  background-color: #d8d8dc;
+  cursor: pointer;
+}
+
+.spoiler.show {
+  cursor: auto;
+  color: #72767d;
+}
+

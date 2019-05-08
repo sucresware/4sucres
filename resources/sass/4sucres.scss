@@ -104,3 +104,16 @@ hr {
         background-color: auto;
     }
 }
+
+.spoiler {
+    border-radius: 4px;
+    display: inline-block;
+    color: darken($light, 10%);
+    background-color: darken($light, 10%);
+    cursor: pointer;
+}
+
+.spoiler.show {
+    cursor: auto;
+    color: $body-color;
+}

@@ -23,6 +23,14 @@ init_baffle = function () {
     }).reveal(1000)
 }
 
+init_spoilers = function () {
+    $('.spoiler').each(function(k, el){
+        $(el).on('click', function(e) {
+            $(e.target).addClass('show')
+        })
+    })
+}
+
 /**
  * Editor
  */
@@ -41,6 +49,7 @@ init_editor = function(el) {
 }
 
 $(document).ready(function () {
+    init_spoilers()
     init_baffle()
     // open_notifications_socket()
 });

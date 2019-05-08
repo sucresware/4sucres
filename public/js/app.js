@@ -36904,6 +36904,14 @@ init_baffle = function init_baffle() {
     characters: s
   }).reveal(1000);
 };
+
+init_spoilers = function init_spoilers() {
+  $('.spoiler').each(function (k, el) {
+    $(el).on('click', function (e) {
+      $(e.target).addClass('show');
+    });
+  });
+};
 /**
  * Editor
  */
@@ -36923,6 +36931,7 @@ init_editor = function init_editor(el) {
 };
 
 $(document).ready(function () {
+  init_spoilers();
   init_baffle(); // open_notifications_socket()
 });
 
