@@ -27,6 +27,8 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'update shown_role']);
         Permission::firstOrCreate(['name' => 'read deleted posts']);
         Permission::firstOrCreate(['name' => 'restore posts']);
+        Permission::firstOrCreate(['name' => 'update achievements']);
+        Permission::firstOrCreate(['name' => 'update roles']);
 
         $admin->givePermissionTo('bypass users guard');
         $admin->givePermissionTo('use restricted categories');
@@ -35,6 +37,8 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('create discussions');
         $admin->givePermissionTo('restore posts');
         $admin->givePermissionTo('read deleted posts');
+        $admin->givePermissionTo('update achievements');
+        $admin->givePermissionTo('update roles');
 
         $moderator->givePermissionTo('use restricted categories');
         $moderator->givePermissionTo('update shown_role');
@@ -42,6 +46,7 @@ class PermissionsTableSeeder extends Seeder
         $moderator->givePermissionTo('create discussions');
         $moderator->givePermissionTo('restore posts');
         $moderator->givePermissionTo('read deleted posts');
+        $moderator->givePermissionTo('update achievements');
 
         $supporter->givePermissionTo('update shown_role');
         $supporter->givePermissionTo('create discussions');

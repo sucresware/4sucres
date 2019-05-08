@@ -17,7 +17,7 @@ class CreateUserAchievementTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->bigInteger('achievement_id');
-            $table->timestamps();
+            $table->timestamp('unlocked_at')->useCurrent();
         });
     }
 

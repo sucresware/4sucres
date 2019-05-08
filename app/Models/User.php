@@ -50,8 +50,8 @@ class User extends Authenticatable
         return $this->avatar ? url('storage/avatars/' . $this->avatar) : url('/img/guest.png');
     }
 
-    public function achivements()
+    public function achievements()
     {
-        return $this->belongsToMany(Achievement::class);
+        return $this->belongsToMany(Achievement::class, 'user_achievement')->withPivot('unlocked_at');
     }
 }

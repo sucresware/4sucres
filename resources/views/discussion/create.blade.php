@@ -21,7 +21,7 @@
                         {!! BootForm::select('category', 'Catégorie', $categories) !!}
                     </div>
                 </div>
-                {!! BootForm::textarea('body', 'Message', old('body'), ['class' => 'form-control', 'style' => 'width: 100%;']) !!}
+                {!! BootForm::textarea('body', 'Message', old('body'), ['style' => 'width: 100%;']) !!}
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">

@@ -21,10 +21,12 @@ class LoginController extends Controller
         ]);
         $validator->validate();
 
+        $remember = $request->remember ?? false;
+
         if (auth()->attempt([
             'email' => request()->email,
             'password' => request()->password,
-        ])) {
+        ], $remember)) {
             if (auth()->user()->email_verified_at == null) {
                 auth()->logout();
 
