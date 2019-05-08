@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use App\Models\Achievement;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -22,7 +24,19 @@ class UserController extends Controller
 
     public function edit(User $user, $name)
     {
-        return view('user.edit', compact('user'));
+        if (auth()->user()->can('update achievements')) {
+            $achievements = Achievement::pluck('name', 'id');
+        } else {
+            $achievements = [];
+        }
+
+        if (auth()->user()->can('update roles')) {
+            $roles = Role::pluck('name', 'id');
+        } else {
+            $roles = [];
+        }
+
+        return view('user.edit', compact('user', 'achievements', 'roles'));
     }
 
     public function update(User $user, $name)
@@ -43,8 +57,17 @@ class UserController extends Controller
         }
 
         $user->display_name = request()->display_name;
+
         if (auth()->user()->can('update shown_role')) {
             $user->shown_role = request()->shown_role;
+        }
+
+        if (auth()->user()->can('update achievements')) {
+            $user->achievements()->sync(request()->achievements);
+        }
+
+        if (auth()->user()->can('update roles')) {
+            $user->roles()->sync(request()->role);
         }
 
         $user->save();

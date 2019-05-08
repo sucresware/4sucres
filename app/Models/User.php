@@ -40,11 +40,18 @@ class User extends Authenticatable
         return $this->hasOne(VerifyUser::class);
     }
 
-    public function getLinkAttribute(){
+    public function getLinkAttribute()
+    {
         return route('user.show', [$this->id, $this->name]);
     }
 
-    public function getAvatarLinkAttribute(){
+    public function getAvatarLinkAttribute()
+    {
         return $this->avatar ? url('storage/avatars/' . $this->avatar) : url('/img/guest.png');
+    }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'user_achievement')->withPivot('unlocked_at');
     }
 }

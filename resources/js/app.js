@@ -1,6 +1,7 @@
 require('./bootstrap')
 require('sceditor/minified/sceditor.min.js')
 require('sceditor/minified/formats/bbcode.js')
+require('select2')
 
 let $ = require("jquery");
 let baffle = require('baffle')
@@ -28,6 +29,14 @@ init_spoilers = function () {
         $(el).on('click', function(e) {
             $(e.target).addClass('show')
         })
+    })
+}
+
+init_select2 = function(){
+    $('.select2').each(function(k, el){
+        $(el).select2({
+            theme: 'bootstrap4',
+        });
     })
 }
 
@@ -65,5 +74,6 @@ $(document).ready(function () {
     init_spoilers()
     init_baffle()
     init_actions()
+    init_select2()
     // open_notifications_socket()
 });

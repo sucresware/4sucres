@@ -16,8 +16,8 @@ class UsersTableSeeder extends Seeder
         User::firstOrCreate([
             'email' => 'sr@mgk.dev',
         ], [
-            'name' => 'BandanaRouge',
-            'display_name' => 'Sucre au Bandana Rouge',
+            'name' => 'YvonEnbaver',
+            'display_name' => 'YvonEnbaver',
             'shown_role' => 'L\'élite des sucres',
             'password' => \Hash::make('1234'),
             'email_verified_at' => now(),

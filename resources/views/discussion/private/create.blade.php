@@ -14,7 +14,7 @@
                 {!! GoogleReCaptchaV3::renderField('create_private_discussion_id', 'create_private_discussion_action') !!}
 
                 {!! BootForm::text('title', 'Sujet') !!}
-                {!! BootForm::textarea('body', 'Message', old('body'), ['class' => 'form-control', 'style' => 'width: 100%;']) !!}
+                {!! BootForm::textarea('body', 'Message', old('body'), ['style' => 'width: 100%;']) !!}
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">

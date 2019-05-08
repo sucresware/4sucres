@@ -13,7 +13,7 @@ class NotificationController extends Controller
         return view('notifications.index', compact('notifications'));
     }
 
-    public function all_read()
+    public function clear()
     {
         Notification::curated()->update(['seen' => true]);
 

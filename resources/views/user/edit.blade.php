@@ -19,7 +19,15 @@
                         {!! BootForm::text('display_name', 'Nom d\'affichage*', old('display_name', $user->display_name)) !!}
 
                         @can('update shown_role')
-                            {!! BootForm::text('shown_role', 'Rôle affiché*', old('shown_role', $user->shown_role)) !!}
+                            {!! BootForm::text('shown_role', 'Classification', old('shown_role', $user->shown_role)) !!}
+                        @endcan
+
+                        @can('update achievements')
+                            {!! BootForm::select('achievements[]', 'Succès', $achievements, old('achievements[]', $user->achievements->pluck('id')), ['class' => 'select2', 'multiple']) !!}
+                        @endcan
+
+                        @can('update roles')
+                            {!! BootForm::select('role', 'Rôle', $roles, old('role', $user->roles[0]->id), ['class' => 'select2']) !!}
                         @endcan
                     </div>
 

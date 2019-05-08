@@ -39,6 +39,25 @@
                             <a href="{{ route('discussions.show', [$post->discussion->id, $post->discussion->slug]) }}">{{ $post->discussion->title }}</a><br>
                         @endforeach
                     </div>
+
+                    <hr>
+
+                    <h3 class="h5">Succès</h5>
+                    <div class="p-3 pb-3">
+                        @foreach ($user->achievements as $achievement)
+                            <div class="row align-items-center border rounded no-gutters mb-1 p-2">
+                                <div class="col-auto mr-3">
+                                    <img src="{{ url('/img/achievements/' . $achievement->image) }}" class="img-fluid" width="60px">
+                                </div>
+                                <div class="col text-left">
+                                    <strong>{{ $achievement->name }}</strong><br>
+                                    {{ $achievement->description }}<br>
+                                    <small>Obtenu le {{ \Carbon\Carbon::parse($achievement->pivot->unlocked_at)->format('d/m/Y') }}</small>
+                                </div>
+                            </div>
+                        @endforeach
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer bg-light">
                     <div class="text-right">
@@ -47,7 +66,7 @@
                         @else
                             <a href="{{ route('private_discussions.create', [$user->id, $user->name]) }}" class="btn btn-primary">Envoyer un message privé</a>
                             @if (auth()->check() && auth()->user()->can('bypass users guard'))
-                                <a href="{{ route('user.edit', [$user->id, $user->name]) }}" class="btn btn-primary">Modifier le profil</a>
+                                <a href="{{ route('user.edit', [$user->id, $user->name]) }}" class="btn btn-secondary">Modifier le profil</a>
                             @endif
                         @endif
                     </div>

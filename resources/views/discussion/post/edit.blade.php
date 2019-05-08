@@ -42,7 +42,7 @@
             <div class="card-body">
                 @csrf
                 @method('put')
-                {!! BootForm::textarea('body', 'Message', old('body', $post->body), ['class' => 'form-control', 'style' => 'width: 100%;']) !!}
+                {!! BootForm::textarea('body', 'Message', old('body', $post->body), ['style' => 'width: 100%;']) !!}
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">
