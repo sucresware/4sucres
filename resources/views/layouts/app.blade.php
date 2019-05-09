@@ -42,7 +42,7 @@
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ url('/svg/4sucres.svg') }}" height="60"><img src="{{ url('/img/4sucres_white.png') }}" height="30">
+                        <img src="{{ url('/svg/4sucres.svg') }}" height="50" class="d-none d-md-inline-block"><img src="{{ url('/img/4sucres_white.png') }}" height="30">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>

@@ -63,7 +63,7 @@ init_actions = function(){
         switch ($(el).attr('data-action')){
             case 'quotePost':
                 $(el).on('click', function(e) {
-                    sceditor.instance(document.getElementById('body')).insertText('#p:' + $(e.target).closest('a').attr('data-id'));
+                    sceditor.instance(document.getElementById('body')).insertText('#p:' + $(e.target).closest('a').attr('data-id') + ' ');
                 })
             break;
         }

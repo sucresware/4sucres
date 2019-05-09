@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Achievement::class, 'user_achievement')->withPivot('unlocked_at');
     }
+
+    public function reactions()
+    {
+        return $this->belongsToMany(Reaction::class, 'post_reaction_user')->withPivot('post_id');
+    }
 }

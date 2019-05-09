@@ -165,4 +165,9 @@ class Post extends Model
 
         return $body;
     }
+
+    public function reactions()
+    {
+        return $this->belongsToMany(Reaction::class, 'post_reaction_user')->withPivot('user_id');
+    }
 }
