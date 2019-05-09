@@ -70,29 +70,6 @@ init_actions = function(){
     })
 }
 
-init_reactions = function(){
-    $(function(){
-        $("[data-toggle=popover]").popover({
-            html : true,
-            content: function() {
-              var content = $(this).attr("data-popover-content");
-              return $(content).children(".popover-body").html();
-            },
-            title: function() {
-              var title = $(this).attr("data-popover-content");
-              return $(title).children(".popover-heading").html();
-            }
-        });
-    });
-}
-
-react_on_post = function(){
-
-}
-
-remove_reaction_on_post = function(){
-
-}
 
 $(document).ready(function () {
     init_spoilers()

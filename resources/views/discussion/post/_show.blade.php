@@ -6,25 +6,7 @@
         @if (!$post->discussion->private)
             <div class="float-right">
                 @if (auth()->check())
-                    <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_{{ $post->id }}" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a>
-                    <div class="d-none" id="react_to_{{ $post->id }}">
-                        <div class="popover-heading">
-                        </div>
-                        <div class="popover-body">
-                            <div class="row no-gutters">
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="angry" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/angry.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="happy" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/happy.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="love" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/love.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="sad" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/sad.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="sick" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/sick.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="sueur" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/sueur.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="what" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/what.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                                <div class="col-3"><a href="javascript:void(0)" data-action='reactOnPost' data-reaction="oh" data-id='{{ $post->id }}'><img src="{{ url('/img/reactions/oh.png') }}" class="img-fluid" style="width: 30px;"></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    {{--  <div id="standalone" data-emoji-placeholder=":smiley:"></div>  --}}
-
+                    {{--  <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_{{ $post->id }}" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a>  --}}
                     <a class="mr-1" href="javascript:void(0)" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
                     @if ($post->user->id == auth()->user()->id || auth()->user()->can('bypass discussions guard'))
                         <a class="mr-1" href="{{ route('discussions.posts.edit', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-edit"></i></a>
