@@ -11572,6 +11572,11 @@ footer {
   border: 1px solid #dcddde;
 }
 
+.help-block {
+  font-size: 80%;
+  font-weight: 400;
+}
+
 .card-header {
   border: 0;
   font-weight: bold;

@@ -13118,3 +13118,8 @@ footer {
   border: 1px solid #dee2e6;
 }
 
+.help-block {
+  font-size: 80%;
+  font-weight: 400;
+}
+

@@ -174,5 +174,6 @@ return [
         'available' => 'disponible',
         'size' => 'taille',
         'reply' => 'réponse',
+        'dob' => 'date de naissance',
     ],
 ];
