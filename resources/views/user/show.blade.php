@@ -18,8 +18,8 @@
 
                     <h3 class="h5">Profil du Sucre</h5>
                     <div class="p-1">
-                        <strong>Grade:</strong> {{ $user->shown_role }}<br>
-                        <strong>Membre depuis:</strong> {{ ($user->created_at->diffInDays(now()) < 1) ? 'aujourd\'hui' : $user->created_at->diffInDays(now()) . ' jour(s)' }} ({{ $user->created_at->format('d/m/Y') }})<br>
+                        <strong>Classification :</strong> {{ $user->shown_role }}<br>
+                        <strong>Membre depuis :</strong> {{ ($user->created_at->diffInDays(now()) < 1) ? 'aujourd\'hui' : $user->created_at->diffInDays(now()) . ' jour(s)' }} ({{ $user->created_at->format('d/m/Y') }})<br>
                         <strong>Dernière connexion:</strong> {{ $user->updated_at->diffForHumans() }}<br>
                     </div>
 
