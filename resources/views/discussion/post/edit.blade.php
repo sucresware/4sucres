@@ -42,7 +42,7 @@
             <div class="card-body">
                 @csrf
                 @method('put')
-                {!! BootForm::textarea('body', 'Message', old('body', $post->body), ['style' => 'width: 100%;']) !!}
+                @include('includes/_editor', ['name' => 'body', 'value' => old('body', $post->body)])
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">
@@ -54,7 +54,3 @@
     </div>
 </div>
 @endsection
-
-@push('js')
-    <script> init_editor(document.getElementById('body')); </script>
-@endpush

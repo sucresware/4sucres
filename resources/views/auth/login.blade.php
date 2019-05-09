@@ -17,7 +17,7 @@
 
                         {!! BootForm::text('email', 'Adresse email*') !!}
                         {!! BootForm::password('password', 'Mot de passe*') !!}
-                        {!! BootForm::checkbox('remember', 'Se souvenir de moi', 1) !!}
+                        {!! BootForm::checkbox('remember', 'Se souvenir de moi', 1, old('remember', 1)) !!}
 
                     </div>
                     <div class="card-footer bg-light">

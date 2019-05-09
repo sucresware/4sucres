@@ -14,7 +14,7 @@
                 {!! GoogleReCaptchaV3::renderField('create_private_discussion_id', 'create_private_discussion_action') !!}
 
                 {!! BootForm::text('title', 'Sujet') !!}
-                {!! BootForm::textarea('body', 'Message', old('body'), ['style' => 'width: 100%;']) !!}
+                @include('includes/_editor', ['name' => 'body', 'value' => old('body')])
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">
@@ -25,7 +25,3 @@
     </div>
 </div>
 @endsection
-
-@push('js')
-    <script> init_editor(document.getElementById('body')); </script>
-@endpush

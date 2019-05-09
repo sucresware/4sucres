@@ -21,7 +21,7 @@
                         {!! BootForm::select('category', 'Catégorie', $categories) !!}
                     </div>
                 </div>
-                {!! BootForm::textarea('body', 'Message', old('body'), ['style' => 'width: 100%;']) !!}
+                @include('includes/_editor', ['name' => 'body', 'value' => old('body')])
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">
@@ -32,7 +32,3 @@
     </div>
 </div>
 @endsection
-
-@push('js')
-    <script> init_editor(document.getElementById('body')); </script>
-@endpush

@@ -1,6 +1,13 @@
 @import '~select2/src/scss/core';
 @import '~@ttskch/select2-bootstrap4-theme/src/layout';
 
+.editor-buttons {
+    margin-bottom: 10px;
+}
+.editor-buttons .btn {
+    cursor: pointer;
+}
+
 .logo-4s {
     width: 125px;
     height: 60px;
