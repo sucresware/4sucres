@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
-class Post extends Model
+class Post extends Model implements ReactableInterface
 {
-    use SoftDeletes;
+    use SoftDeletes, Reactable;
     protected $guarded = [];
 
     public static function boot()
@@ -28,13 +29,17 @@ class Post extends Model
             preg_match_all('/(?:@|#u:)(?:\w+)(?:<br\/>|<br>|[\s]|$|\z)/', $post->body, $preg_result);
             $mentioned_users = [];
 
-            foreach($preg_result[0] as $tag) {
+            foreach ($preg_result[0] as $tag) {
                 $tag = trim($tag);
                 $clear_tag = trim(str_replace(['@', '#u:'], '', $tag));
 
-                if ($clear_tag == $post->user->name) continue;
+                if ($clear_tag == $post->user->name) {
+                    continue;
+                }
                 $user = User::where('name', $clear_tag)->first();
-                if (!$user) continue;
+                if (!$user) {
+                    continue;
+                }
 
                 $mentioned_users[$user->id] = $user;
             }
@@ -52,13 +57,17 @@ class Post extends Model
             preg_match_all('/(?:#p:)(?:\d+)(?:<br\/>|<br>|[\s]|$|\z)/', $post->body, $preg_result);
             $quoted_users = [];
 
-            foreach($preg_result[0] as $tag) {
+            foreach ($preg_result[0] as $tag) {
                 $tag = trim($tag);
                 $clear_tag = trim(str_replace(['#p:'], '', $tag));
 
                 $p = Post::find($clear_tag);
-                if (!$p || $p->discussion->private) continue;
-                if ($post->user->id == $p->user->id) continue;
+                if (!$p || $p->discussion->private) {
+                    continue;
+                }
+                if ($post->user->id == $p->user->id) {
+                    continue;
+                }
 
                 $quoted_users[$p->user->id] = $p->user;
             }
@@ -94,12 +103,14 @@ class Post extends Model
         $preg_result = [];
         preg_match_all('/(?:#p:)(?:\d+)(?:<br\/>|<br>|[\s]|$|\z)/', $body, $preg_result);
 
-        foreach($preg_result[0] as $tag) {
+        foreach ($preg_result[0] as $tag) {
             $tag = trim($tag);
             $clear_tag = trim(str_replace(['#p:'], '', $tag));
 
             $post = Post::find($clear_tag);
-            if (!$post || $post->discussion->private) continue;
+            if (!$post || $post->discussion->private) {
+                continue;
+            }
 
             $body = str_replace(
                 $tag,
@@ -119,10 +130,12 @@ class Post extends Model
         $preg_result = [];
         preg_match_all('/(?:\[mock\])(.*)(?:\[\/mock\])/', $body, $preg_result);
 
-        foreach($preg_result[0] as $k => $tag){
+        foreach ($preg_result[0] as $k => $tag) {
             $str = str_split(strtolower($preg_result[1][$k]));
             foreach ($str as &$char) {
-                if (rand(0, 1)) $char = strtoupper($char);
+                if (rand(0, 1)) {
+                    $char = strtoupper($char);
+                }
             }
 
             $body = str_replace(
@@ -149,12 +162,14 @@ class Post extends Model
         $preg_result = [];
         preg_match_all('/(?:@|#u:)(?:\w+)(?:<br\/>|<br>|[\s]|$|\z)/', $body, $preg_result);
 
-        foreach($preg_result[0] as $tag) {
+        foreach ($preg_result[0] as $tag) {
             $tag = trim($tag);
             $clear_tag = trim(str_replace(['@', '#u:'], '', $tag));
 
             $user = User::where('name', $clear_tag)->first();
-            if (!$user) continue;
+            if (!$user) {
+                continue;
+            }
 
             $body = str_replace(
                 $tag,
@@ -164,10 +179,5 @@ class Post extends Model
         }
 
         return $body;
-    }
-
-    public function reactions()
-    {
-        return $this->belongsToMany(Reaction::class, 'post_reaction_user')->withPivot('user_id');
     }
 }

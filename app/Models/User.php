@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Traits\Reacts;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements ReactsInterface
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Reacts;
 
     /**
      * The attributes that are mass assignable.
@@ -53,10 +55,5 @@ class User extends Authenticatable
     public function achievements()
     {
         return $this->belongsToMany(Achievement::class, 'user_achievement')->withPivot('unlocked_at');
-    }
-
-    public function reactions()
-    {
-        return $this->belongsToMany(Reaction::class, 'post_reaction_user')->withPivot('post_id');
     }
 }

@@ -86,4 +86,16 @@ class DiscussionPostController extends Controller
             $discussion->slug,
         ]));
     }
+
+    public function react(Discussion $discussion, $slug, Post $post) {
+        // request()->validate([
+        //     'reaction' => 'required', 'in:angry,happy,love,sad,sick,sueur,what,oh'
+        // ]);
+
+        // $post->toggleReaction(request()->reaction);
+
+        // return response()->json([
+        //     'reaction_summary' => $post->reaction_summary,
+        // ]);
+    }
 }

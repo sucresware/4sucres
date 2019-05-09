@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9f220038680edeabd01df20410066ed",
+    "content-hash": "045a5efc3a1af0dc51da1583d2b12464",
     "packages": [
         {
             "name": "appstract/laravel-options",
@@ -2516,6 +2516,74 @@
                 "shell"
             ],
             "time": "2018-10-13T15:16:03+00:00"
+        },
+        {
+            "name": "qirolab/laravel-reactions",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qirolab/laravel-reactions.git",
+                "reference": "4936e3f15402dba955bc56c5faf6262ccc11a5a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qirolab/laravel-reactions/zipball/4936e3f15402dba955bc56c5faf6262ccc11a5a4",
+                "reference": "4936e3f15402dba955bc56c5faf6262ccc11a5a4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.5|~5.6|~5.7|~5.8",
+                "illuminate/support": "~5.5|~5.6|~5.7|~5.8",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.10",
+                "mockery/mockery": "^1.0",
+                "orchestra/database": "~3.5.0|~3.6.0",
+                "orchestra/testbench": "~3.5.0|~3.6.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Qirolab\\Laravel\\Reactions\\ReactionsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Qirolab\\Laravel\\Reactions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Harish Kumar",
+                    "email": "harish.pra22@gmail.com"
+                }
+            ],
+            "description": "Implement reactions (like, dislike, love, emotion etc) on Laravel Eloquent models.",
+            "keywords": [
+                "Rate",
+                "Rating",
+                "Unlike",
+                "dislike",
+                "eloquent",
+                "emotion",
+                "favorite",
+                "favourite",
+                "kudos",
+                "laravel",
+                "like",
+                "love",
+                "reaction",
+                "star"
+            ],
+            "time": "2019-04-01T11:07:42+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
