@@ -40,6 +40,7 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('update achievements');
         $admin->givePermissionTo('update roles');
 
+        $moderator->givePermissionTo('bypass users guard');
         $moderator->givePermissionTo('use restricted categories');
         $moderator->givePermissionTo('update shown_role');
         $moderator->givePermissionTo('bypass discussions guard');
