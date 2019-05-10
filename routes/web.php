@@ -57,4 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('d/{discussion}-{slug}/subscribe', 'DiscussionController@subscribe')->name('discussions.subscribe');
     Route::get('d/{discussion}-{slug}/unsubscribe', 'DiscussionController@unsubscribe')->name('discussions.unsubscribe');
+
+    Route::get('/d/s', 'DiscussionController@subscriptions')->name('discussions.subscriptions');
 });

@@ -17,9 +17,15 @@
 
             <div class="d-none d-lg-block">
                 <hr class="ml-2">
+                <div class="nav flex-column nav-pills">
+                    <a href="{{ route('discussions.index') }}" class="nav-link {{ active(['discussions.index']) . active(['home']) }}">#all</a>
+                    @auth
+                        <a href="{{ route('discussions.subscriptions') }}" class="nav-link {{ active(['discussions.subscriptions']) }}">#mes-abonnements</a>
+                    @endauth
+                </div>
+                <hr>
                 <h5 class="mt-0 mb-2 ml-2">Catégories</h5>
                 <div class="nav flex-column nav-pills">
-                    <a href="{{ route('discussions.index') }}" class="nav-link {{ active(['discussions.index']) . active(['home']) }}">Toutes</a>
                     @foreach ($categories as $category)
                         <a href="{{ route('discussions.categories.index', [$category->id, $category->slug]) }}" class="nav-link {{ active([route('discussions.categories.index', [$category->id, $category->slug])]) }}" style="color: {{ $category->color }}">{{ $category->name }}</a>
                     @endforeach

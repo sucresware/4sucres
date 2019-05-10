@@ -81,6 +81,27 @@ class DiscussionController extends Controller
         return view('welcome', compact('categories', 'sticky_discussions', 'discussions'));
     }
 
+    public function subscriptions()
+    {
+        $categories = Category::ordered()->get();
+
+        $discussions = Discussion::query();
+        $discussions = $discussions->whereHas('subscribed', function($q){
+            return $q->where('user_id', auth()->user()->id);
+        });
+
+        if (request()->input('page', 1) == 1) {
+            $sticky_discussions = clone $discussions;
+            $sticky_discussions = $sticky_discussions->sticky()->get();
+        } else {
+            $sticky_discussions = collect([]);
+        }
+
+        $discussions = $discussions->ordered()->paginate(20);
+
+        return view('welcome', compact('categories', 'sticky_discussions', 'discussions'));
+    }
+
     public function show($id, $slug) // Ne pas utiliser Discussion $discussion (pour laisser possible le 410)
     {
         $discussion = Discussion::withTrashed()->findOrFail($id);

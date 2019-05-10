@@ -64,7 +64,7 @@ class User extends Authenticatable implements ReactsInterface
     public function getRestrictedPostsCreatedAttribute(){
         return \App\Models\Post::where('user_id', auth()->user()->id)
             ->whereHas('discussion', function($q){
-                $q->where('private', false);
+                return $q->where('private', false);
             })
             ->count();
     }
