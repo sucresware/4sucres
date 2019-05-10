@@ -22,5 +22,8 @@ class AchievementsTableSeeder extends Seeder
         Achievement::updateOrCreate(['id' => 7 ], ['name' => 'ISSOU !', 'image' => 'jvc.png', 'description' => 'Revendique son appartenance au forum jeuxvideo.com']);
         Achievement::updateOrCreate(['id' => 8 ], ['name' => 'Ça fait 6 sucres', 'image' => '2sucres.png', 'description' => 'Revendique son appartenance au forum alternatif 2sucres.org']);
         Achievement::updateOrCreate(['id' => 9 ], ['name' => 'Esprit libre', 'image' => 'beta.png', 'description' => 'Avoir fait le choix de l\'indépendance lors de son inscription']);
+        Achievement::updateOrCreate(['id' => 10], ['name' => 'C\'est une bonne idée', 'image' => 'idea.png', 'description' => 'Avoir proposé une idée d\'amélioration, acceptée et déployée sur 4sucres.org']);
+        Achievement::updateOrCreate(['id' => 11], ['name' => 'Raideur engagé', 'image' => 'raid.png', 'description' => 'A brillé lors d\'un évènement raid organisé par Artamas']);
+        Achievement::updateOrCreate(['id' => 12], ['name' => 'C\'est une très bonne idée', 'image' => 'niceidea.png', 'description' => 'Avoir proposé une idée d\'amélioration, acceptée et déployée sur 4sucres.org']);
     }
 }
