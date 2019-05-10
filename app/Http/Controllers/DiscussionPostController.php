@@ -98,10 +98,10 @@ class DiscussionPostController extends Controller
                 $discussion->slug,
             ]));
         }
-
     }
 
-    public function react(Discussion $discussion, $slug, Post $post) {
+    public function react(Discussion $discussion, $slug, Post $post)
+    {
         // request()->validate([
         //     'reaction' => 'required', 'in:angry,happy,love,sad,sick,sueur,what,oh'
         // ]);

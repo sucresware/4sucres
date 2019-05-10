@@ -86,7 +86,7 @@ class DiscussionController extends Controller
         $categories = Category::ordered()->get();
 
         $discussions = Discussion::query();
-        $discussions = $discussions->whereHas('subscribed', function($q){
+        $discussions = $discussions->whereHas('subscribed', function ($q) {
             return $q->where('user_id', auth()->user()->id);
         });
 

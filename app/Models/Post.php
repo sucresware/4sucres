@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Illuminate\Support\Str;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
 class Post extends Model implements ReactableInterface
 {
@@ -193,9 +193,12 @@ class Post extends Model implements ReactableInterface
         foreach ($preg_result[0] as $k => $match) {
             $url = $preg_result[1][$k] == '' ? $preg_result[2][$k] : $preg_result[1][$k];
             $url = trim($url, '=');
-            if ($preg_result[1][$k] != '' && $url != $preg_result[2][$k]) $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . $url;
-            else $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . $url;
-            $markup = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $preg_result[2][$k] . "</a>";
+            if ($preg_result[1][$k] != '' && $url != $preg_result[2][$k]) {
+                $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . $url;
+            } else {
+                $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . $url;
+            }
+            $markup = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='bottom' data-html='true' title='$preview'>" . $preg_result[2][$k] . '</a>';
             $body = str_replace($preg_result[0][$k], $markup, $body);
         }
 

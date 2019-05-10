@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Mail\VerifyEmail;
-use App\Models\VerifyUser;
-use App\Models\Achievement;
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyEmail;
+use App\Models\Achievement;
+use App\Models\User;
+use App\Models\VerifyUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
