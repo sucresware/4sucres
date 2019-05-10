@@ -11,6 +11,8 @@
             4sucres.org
         @endif
     </title>
+    <meta name="description" content="Et vous, combien de sucres vous prenez dans votre café ?">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/4sucres.css') }}" rel="stylesheet">
 
@@ -19,6 +21,7 @@
     <link rel="icon" type="image/png" href="{{ url('/favicon-32x32.png') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ url('/favicon-16x16.png') }}" sizes="16x16">
     <meta name="application-name" content="4sucres">
+    <meta name="theme-color" content="#213345">
     <meta name="msapplication-TileColor" content="#213345">
     <meta name="msapplication-TileImage" content="{{ url('/mstile-144x144.png') }}">
 

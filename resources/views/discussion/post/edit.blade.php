@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="{{ url('/css/sceditor.css') }}">
 @endpush
 
+@section('title')
+    Modification d'un message
+@endsection
+
 @section('content')
 <div class="container">
     @if ($discussion->user_id == auth()->user()->id || auth()->user()->can('bypass discussions guard'))

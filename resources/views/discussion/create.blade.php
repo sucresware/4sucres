@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="{{ url('/css/sceditor.css') }}">
 @endpush
 
+@section('title')
+    Nouvelle discussion
+@endsection
+
 @section('content')
 <div class="container">
     <div class="card">

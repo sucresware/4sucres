@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Messagerie privée
+@endsection
+
 @section('content')
 <div class="container">
     <h1>Messagerie privée</h1>

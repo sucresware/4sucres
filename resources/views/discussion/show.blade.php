@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    {{ $discussion->title }}
+@endsection
+
 @section('content')
 <div class="container">
 

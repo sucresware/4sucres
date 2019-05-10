@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Charte d'utilisation
+@endsection
+
 @section('content')
 
 <div class="container">
