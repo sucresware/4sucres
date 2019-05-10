@@ -106,7 +106,7 @@
             </nav>
         </div>
 
-        @if (auth()->user()->restricted)
+        @if (auth()->check() && auth()->user()->restricted)
             <div class="bg-darker">
                 <div class="container text-white py-2">
                     <div class="row no-gutters align-items-center">
