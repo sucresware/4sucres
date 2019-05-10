@@ -1,4 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
 
 html {
     font-family: 'Inter', sans-serif;
@@ -10,31 +11,41 @@ html {
     }
 }
 
-$body-bg: #ffffff;
-$body-color: #72767d;
-$font-family-sans-serif: 'Inter',
-sans-serif;
+.blue {
+    background: #FBFBFC;
+}
+
+.white {
+    background: #FFFFFF;
+}
+
+$body-bg: #F2F4F8;
+$body-color: #4C5669;
+
+$font-family-sans-serif: 'Inter', sans-serif;
+$headings-font-family: 'Rubik', sans-serif;
+
 $line-height-base: 1.4;
 $font-size-base: 0.9rem;
-$primary: #7289da;
-$light: #f3f3f4;
+$primary: #5E81AC;
+$light: #ffffff;
 $card-border-width: 1px;
 $card-default-border: rgba(0, 0, 0, 0);
 $card-cap-bg: $body-bg;
 $border-color: #dcddde;
-$blue: #3490dc;
-$red: #f04747;
+$blue: #81A1C1;
+$red: #BF616A;
 $indigo: #6574cd;
-$purple: #9561e2;
+$purple: #B48EAD;
 $pink: #f66D9b;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
+$orange: #D08770;
+$yellow: #EBCB8B;
+$green: #A3BE8C;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
-$gray: #f3f3f4;
-$dark: #252839;
-$darker: #1c1e2b;
+$gray: #fbfbfc;
+$dark: #3B4252;
+$darker: #2E3440;
 
 $container-max-widths: (md: 720px,
     lg: 960px,
@@ -92,13 +103,13 @@ hr {
 }
 
 .nav-pills .nav-link:hover {
-    background-color: darken($light, 5%);
+    background-color: $white;
     color: $body-color;
 }
 
 .nav-pills .nav-link.active,
 .nav-link.active:hover {
-    background-color: darken($light, 5%) !important;
+    background-color: $white;
     color: $body-color;
 }
 
@@ -140,4 +151,23 @@ hr {
     -moz-user-select: auto;
     -ms-user-select: auto;
     user-select: auto;
+}
+
+@media (min-width: 1200px) {
+    .fw-user, .fw-replies, .fw-category {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .fw-user {
+        width: 200px;
+    }
+
+    .fw-replies {
+        width: 100px;
+    }
+
+    .fw-category {
+        width: 150px;
+    }
 }

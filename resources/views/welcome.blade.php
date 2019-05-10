@@ -4,6 +4,12 @@
     Bienvenue sur 4sucres.org
 @endsection
 
+@section('main')
+    <div class="mb-4">
+        <img src="{{ url('/img/banners/wip.jpg') }}" class="img-fluid shadow-sm">
+    </div>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -16,15 +22,15 @@
                 @else
                     @php $link = route('register'); $label = '<i class="fas fa-user-plus mr-1"></i> Rejoins-nous !'; @endphp
                 @endauth
-                <a href="{!! $link !!}" class="btn btn-primary btn-block">{!! $label !!}</a>
+                <a href="{!! $link !!}" class="btn btn-primary shadow btn-block">{!! $label !!}</a>
             </div>
 
             <div class="d-none d-lg-block">
                 <hr class="ml-2">
                 <div class="nav flex-column nav-pills">
-                    <a href="{{ route('discussions.index') }}" class="nav-link {{ active(['discussions.index']) . active(['home']) }}">#all</a>
+                    <a href="{{ route('discussions.index') }}" class="nav-link {{ active(['discussions.index']) . active(['home']) }}">Tout voir</a>
                     @auth
-                        <a href="{{ route('discussions.subscriptions') }}" class="nav-link {{ active(['discussions.subscriptions']) }}">#mes-abonnements</a>
+                        <a href="{{ route('discussions.subscriptions') }}" class="nav-link {{ active(['discussions.subscriptions']) }}">Mes abonnements</a>
                     @endauth
                 </div>
                 <hr>
@@ -37,29 +43,26 @@
             </div>
         </div>
         <div class="col-12 col-lg-8 col-xl-10">
-            <div class="mb-4">
-                <img src="{{ url('/img/banners/wip.jpg') }}" class="img-fluid">
-            </div>
-
-            <div class="card">
-                @isset($sticky_discussions)
+            @if (isset($sticky_discussions) && count($sticky_discussions))
+                <div class="card shadow-sm mb-3">
                     @foreach ($sticky_discussions as $discussion)
                         <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
                             <div class="p-3">
-                                @include('discussion._preview')
+                                @include('discussion._small_preview')
                             </div>
                         </div>
                     @endforeach
-                    @if (count($sticky_discussions)) <hr class="m-0"> @endif
-                @endisset
+                </div>
+            @endif
+
+            <div class="card shadow-sm mb-3">
                 @forelse ($discussions as $discussion)
-                    <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
-                        <div class="p-3">
-                            @include('discussion._preview')
-                        </div>
+                    <div class="p-3 {{ $loop->index%2 ? 'white' : 'blue' }}">
+                        @include('discussion._preview')
                     </div>
                 @empty
                 @endforelse
+            </div>
 
                 @if (count($sticky_discussions) + count($discussions) == 0)
                     <div class="card-body">

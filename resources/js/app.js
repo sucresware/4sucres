@@ -252,6 +252,7 @@ $(document).ready(function () {
     init_baffle()
     init_actions()
     init_select2()
+    $('[data-toggle="tooltip"]').tooltip()
     // open_notifications_socket()
 })
 

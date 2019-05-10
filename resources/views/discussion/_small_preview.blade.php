@@ -12,7 +12,7 @@
     @endif
 
     <div class="d-none d-sm-block col-auto pr-0">
-        <img src="{{ $discussion->user->avatar ? url('storage/avatars/' . $discussion->user->avatar) : url('/img/guest.png') }}" class="rounded" style="width: 50px;">
+        <img src="{{ $discussion->user->avatar ? url('storage/avatars/' . $discussion->user->avatar) : url('/img/guest.png') }}" class="rounded" style="width: 28px;">
     </div>
     <div class="col">
         <div class="discussion-title">
@@ -22,16 +22,7 @@
                 <strong><a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></strong>
             @endif
         </div>
-        <small>par <a href="{{ route('user.show', [$discussion->user->id, $discussion->user->name]) }}">{{ $discussion->user->display_name }}</a>, dernière réponse par <a href="{{ route('user.show', [$discussion->posts->last()->user->id, $discussion->posts->last()->user->name]) }}">{{ $discussion->posts->last()->user->display_name }}</a> {{ $discussion->last_reply_at->diffForHumans() }}</small>
     </div>
-
-    @if ($discussion->private)
-        <div class="col-auto text-right">
-            @foreach($discussion->members as $user)
-                {{ $user->name }} <img src="{{ $user->avatar ? url('storage/avatars/' . $user->avatar) : url('/img/guest.png') }}" class="img-fluid rounded" width="16"><br>
-            @endforeach
-        </div>
-    @endif
 
     <div class="col-12 col-sm-auto text-muted">
         @if ($discussion->presented_replies)
@@ -41,9 +32,13 @@
         @endif
     </div>
 
+    <div class="col-12 col-sm-auto text-muted">
+        <i class="far fa-clock"></i> {{ $discussion->presented_last_reply_at }}
+    </div>
+
     @if (!$discussion->private)
         <div class="d-none d-md-block col-auto">
-            <a href="#" class="btn btn-outline-primary" style="width: 150px;">{{ $discussion->category->name }}</a>
+            <a href="#" class="btn btn-sm btn-outline-primary" style="width: 150px;">{{ $discussion->category->name }}</a>
         </div>
     @endif
 </div>

@@ -60,3 +60,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/d/s', 'DiscussionController@subscriptions')->name('discussions.subscriptions');
 });
+
+// if (config('app.env') == 'local') {
+//     Route::error(404, function(){
+//         return "test";
+//     });
+// }

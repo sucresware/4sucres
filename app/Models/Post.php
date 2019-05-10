@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 
 class Post extends Model implements ReactableInterface
 {
@@ -156,33 +157,12 @@ class Post extends Model implements ReactableInterface
             }
         });
 
-        // Fix urls
-        $bbcode->addTag('sucresBB_url', function ($tag, &$html, $openingTag) {
-            if ($tag->opening) {
-                if ($tag->property) {
-                    $code = '<a target="_blank" href="'.$tag->property.'">';
-                } else {
-                    $code = '<a target="_blank" href="';
-                }
-            } else {
-                if ($openingTag->property) {
-                    $code = '</a>';
-                } else {
-                    $partial = mb_substr($html, $openingTag->position + 9);
-                    $html = mb_substr($html, 0, $openingTag->position + 9)
-                        .strip_tags($partial).'">'.$partial.'</a>';
-                }
-            }
-
-            return $code;
-        });
-
         // Prepare YouTube tag content
         $re = '/\[youtube](.*)\[\/youtube]/m';
         $match = [];
         preg_match($re, $body, $match);
         if ($match[0] ?? null) {
-            $new_tag = '[youtube]';
+            $markup = '[youtube]';
             $base_youtube_url = $match[1];
             $base_youtube_url = str_replace('https://www.youtube.com/watch?v=', '', $base_youtube_url);
             $base_youtube_url = str_replace('https://youtube.com/watch?v=', '', $base_youtube_url);
@@ -192,14 +172,33 @@ class Post extends Model implements ReactableInterface
             $base_youtube_url = str_replace('http://youtube.com/watch?v=', '', $base_youtube_url);
             $base_youtube_url = str_replace('http://youtu.be/', '', $base_youtube_url);
             $base_youtube_url = str_replace('http://www.youtube.com/embed/', '', $base_youtube_url);
-            $new_tag .= $base_youtube_url;
-            $new_tag .= '[/youtube]';
-            $body = str_replace($match[0], $new_tag, $body);
+            $markup .= $base_youtube_url;
+            $markup .= '[/youtube]';
+            $body = str_replace($match[0], $markup, $body);
         }
+
+        $re = '/\[url(=.*|)](.*)\[\/url]/';
+        $url_int_code = Str::uuid();
+        $subst = '{' . $url_int_code . '$1}$2{/' . $url_int_code . '}';
+        $body = preg_replace($re, $subst, $body);
 
         $bbcode->setYouTubeWidth(560);
         $bbcode->setYouTubeHeight(315);
         $body = $bbcode->render($body);
+
+        // Fix urls
+        $re = '/{' . $url_int_code . '(=.*|)}(.*){\/' . $url_int_code . '}/';
+        $preg_result = [];
+        preg_match_all($re, $body, $preg_result);
+
+        foreach ($preg_result[0] as $k => $match) {
+            $url = $preg_result[1][$k] == '' ? $preg_result[2][$k] : $preg_result[1][$k];
+            $url = trim($url, '=');
+            if ($preg_result[1][$k] != '' && $url != $preg_result[2][$k]) $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . $url;
+            else $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . $url;
+            $markup = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $preg_result[2][$k] . "</a>";
+            $body = str_replace($preg_result[0][$k], $markup, $body);
+        }
 
         // Rendu des mentions :
         $preg_result = [];

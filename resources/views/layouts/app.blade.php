@@ -42,7 +42,7 @@
 <body>
     <div id="app">
         <div class="sticky-top">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ url('/svg/4sucres.svg') }}" height="50" class="d-none d-md-inline-block"><img src="{{ url('/img/4sucres_white.png') }}" height="30">
@@ -110,7 +110,7 @@
         </div>
 
         @if (auth()->check() && auth()->user()->restricted)
-            <div class="bg-darker">
+            <div class="bg-darker shadow">
                 <div class="container text-white py-2">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
@@ -126,6 +126,8 @@
                 </div>
             </div>
         @endif
+
+        {{--  @yield('main')  --}}
 
         <main class="py-4">
             @yield('content')

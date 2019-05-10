@@ -1,11 +1,30 @@
 @import '~select2/src/scss/core';
 @import '~@ttskch/select2-bootstrap4-theme/src/layout';
 
+.tooltip-inner {
+    max-width: 100%;
+    /* If max-width does not work, try using width instead */
+    width: 100%;
+}
+
+.btn-sm {
+    font-size: .8em !important;
+    padding: .4em .9em !important;
+}
+
+.shadow {
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.15) !important;
+}
+
 .editor-buttons {
     margin-bottom: 10px;
 }
 .editor-buttons .btn {
     cursor: pointer;
+}
+
+.card {
+    border-radius: 0;
 }
 
 .logo-4s {
@@ -93,15 +112,6 @@
     }
 }
 
-
-.blue {
-    background: #f9f9f9;
-}
-
-.white {
-    background: #fff;
-}
-
 .post-content img {
     max-width: 68px;
     max-height: 51px;
@@ -115,6 +125,8 @@
 
 .pagination {
     justify-content: center;
+    margin-bottom: 1rem !important;
+    margin-top: 1rem !important;
  }
 
 footer {
