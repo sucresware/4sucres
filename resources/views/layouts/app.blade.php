@@ -21,8 +21,8 @@
     <link rel="icon" type="image/png" href="{{ url('/favicon-32x32.png') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ url('/favicon-16x16.png') }}" sizes="16x16">
     <meta name="application-name" content="4sucres">
-    <meta name="theme-color" content="#213345">
-    <meta name="msapplication-TileColor" content="#213345">
+    <meta name="theme-color" content="#252839">
+    <meta name="msapplication-TileColor" content="#252839">
     <meta name="msapplication-TileImage" content="{{ url('/mstile-144x144.png') }}">
 
     @if (config('app.env') === 'production')

@@ -93,6 +93,7 @@ let risibank = {
             }
         })
         $("#risibank-searchaction").click(function (e) {
+            e.preventDefault()
             risibank.search()
         })
         risibank.load()
