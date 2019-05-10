@@ -78,13 +78,23 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        $post->deleted = true;
-        $post->save();
+        if ($post->id == $discussion->posts[0]->id) {
+            $discussion->posts()->update([
+                'deleted' => true,
+            ]);
+            $discussion->delete();
 
-        return redirect(route('discussions.show', [
-            $discussion->id,
-            $discussion->slug,
-        ]));
+            return redirect(route('home'));
+        } else {
+            $post->deleted = true;
+            $post->save();
+
+            return redirect(route('discussions.show', [
+                $discussion->id,
+                $discussion->slug,
+            ]));
+        }
+
     }
 
     public function react(Discussion $discussion, $slug, Post $post) {

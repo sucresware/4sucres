@@ -73,11 +73,18 @@ class DiscussionController extends Controller
         return view('welcome', compact('categories', 'sticky_discussions', 'discussions'));
     }
 
-    public function show(Discussion $discussion, $slug)
+    public function show($id, $slug) // Ne pas utiliser Discussion $discussion (pour laisser possible le 410)
     {
+        $discussion = Discussion::withTrashed()->findOrFail($id);
+
+        if ($discussion->trashed()) {
+            return abort(410);
+        }
+
         if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', auth()->user()->id)->count() == 0)) {
             return abort(403);
         }
+
 
         $posts = $discussion->posts()->paginate(10);
 
