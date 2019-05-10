@@ -24,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
 
         if (auth()->check() && auth()->user()->can('debug mode enabled')) {
             config('app.debug', true);
+            \Debugbar::enable();
         }
     }
 }
