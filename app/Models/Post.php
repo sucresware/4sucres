@@ -156,6 +156,49 @@ class Post extends Model implements ReactableInterface
             }
         });
 
+        // Fix urls
+        $bbcode->addTag('sucresBB_url', function ($tag, &$html, $openingTag) {
+            if ($tag->opening) {
+                if ($tag->property) {
+                    $code = '<a target="_blank" href="'.$tag->property.'">';
+                } else {
+                    $code = '<a target="_blank" href="';
+                }
+            } else {
+                if ($openingTag->property) {
+                    $code = '</a>';
+                } else {
+                    $partial = mb_substr($html, $openingTag->position + 9);
+                    $html = mb_substr($html, 0, $openingTag->position + 9)
+                        .strip_tags($partial).'">'.$partial.'</a>';
+                }
+            }
+
+            return $code;
+        });
+
+        // Prepare YouTube tag content
+        $re = '/\[youtube](.*)\[\/youtube]/m';
+        $match = [];
+        preg_match($re, $body, $match);
+        if ($match[0] ?? null) {
+            $new_tag = '[youtube]';
+            $base_youtube_url = $match[1];
+            $base_youtube_url = str_replace('https://www.youtube.com/watch?v=', '', $base_youtube_url);
+            $base_youtube_url = str_replace('https://youtube.com/watch?v=', '', $base_youtube_url);
+            $base_youtube_url = str_replace('https://youtu.be/', '', $base_youtube_url);
+            $base_youtube_url = str_replace('https://www.youtube.com/embed/', '', $base_youtube_url);
+            $base_youtube_url = str_replace('http://www.youtube.com/watch?v=', '', $base_youtube_url);
+            $base_youtube_url = str_replace('http://youtube.com/watch?v=', '', $base_youtube_url);
+            $base_youtube_url = str_replace('http://youtu.be/', '', $base_youtube_url);
+            $base_youtube_url = str_replace('http://www.youtube.com/embed/', '', $base_youtube_url);
+            $new_tag .= $base_youtube_url;
+            $new_tag .= '[/youtube]';
+            $body = str_replace($match[0], $new_tag, $body);
+        }
+
+        $bbcode->setYouTubeWidth(560);
+        $bbcode->setYouTubeHeight(315);
         $body = $bbcode->render($body);
 
         // Rendu des mentions :
