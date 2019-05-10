@@ -187,31 +187,33 @@ let noelshack = {
                 xhr.upload.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
-                        noelshack.setProgress(Math.round(percentComplete*100))
+                        noelshack.setProgress(Math.round(percentComplete * 100))
                     }
                 }, false)
                 return xhr
             },
             success: function (resp) {
-                if (resp == "Une erreur s'est produite lors du transfert du fichier !" ||
-                    resp == "Le type du fichier n'est pas autorisé !" ||
-                    resp == "Le fichier est trop volumineux. (max : 4 Mo)") {
-                    noelshack.setError(resp)
-                    noelshack.setForm()
-                } else {
+                var regex = /(?:https:\/\/www\.noelshack\.com\/)(\d{4})-(\d{2})-(\d*)-(.*)$/gs;
+                var results = regex.exec(resp)
+                console.log(results);
+                if (results != null) {
                     editor = $(".sucresBB-editor")
                     var str = $(editor).val()
-                    $(editor).val(str + "[url=" + resp + "][img]" + noelshack.transformUrl(resp) + "[/img][/url]")
+                    editor = $(".sucresBB-editor")
+                    $(editor).val(str + "[url=" + resp + "][img]https://image.noelshack.com/fichiers/" + results[1] + "/" + results[2] + "/" + results[3] + "/" + results[4] + "[/img][/url]")
                     $("#noelshack").modal('hide')
+                } else {
+                    noelshack.setError(resp)
+                    noelshack.setForm()
                 }
             },
             error: function (resp) {
                 console.log(resp)
                 noelshack.setError(resp)
             },
-            transformUrl: function(url){
+            transformUrl: function (url) {
                 // url = "https://www.noelshack.com/2019-19-5-1557495302-niceidea.png";
-                // let regex = /(?:https:\/\/www\.noelshack\.com\/)(\d{4})-(\d{2})-(\d*)-(.*)$/gs;
+
                 // url.match(regex);
                 // [url=https://www.noelshack.com/2019-19-5-1557495302-niceidea.png][img]https://image.noelshack.com/minis/2019/19/5/1557495302-niceidea.png[/img][/url]
                 // return url.replace('https://www.noelshack.com/', '')
@@ -235,7 +237,7 @@ let noelshack = {
         str = '<i class="fas fa-exclamation-circle fa-1x mr-1"></i>' + str;
         $('#noelshack-error').html(str)
     },
-    clearError: function(){
+    clearError: function () {
         $('#noelshack-error').hide()
         $('#noelshack-error').empty()
     },

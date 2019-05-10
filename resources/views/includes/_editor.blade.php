@@ -9,7 +9,7 @@
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="url"><i class="fas fa-link"></i></button>
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="img"><i class="fas fa-image"></i></button>
         <button type="button" class="btn btn-sm btn-outline-primary" data-action="openRisibank" data-toggle="modal" data-target="#risibank"><img src="/img/risibank_logo.png" style="height: 20px;"></button>
-        {{--  <button type="button" class="btn btn-sm btn-outline-primary" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>  --}}
+        <button type="button" class="btn btn-sm btn-outline-primary" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>
     </div>
 </div>
 
