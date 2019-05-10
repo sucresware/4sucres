@@ -114,7 +114,7 @@
             <img src="{{ url('/img/4sucres_alt_glitched.png') }}" width="70px">
             &copy; 2019<br>
             <br>
-            <strong>4sucres.org</strong>, parce que 2 c'étais pas assez.<br>
+            <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> - <a href="{{ route('charter') }}">Charte d'utilisation</a>
         </footer>
     </div>

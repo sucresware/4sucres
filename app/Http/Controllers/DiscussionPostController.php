@@ -34,7 +34,7 @@ class DiscussionPostController extends Controller
 
     public function edit(Discussion $discussion, $slug, Post $post)
     {
-        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if ((($post->user->id != auth()->user()->id || $post->deleted) && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 

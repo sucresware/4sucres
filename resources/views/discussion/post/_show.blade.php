@@ -7,10 +7,15 @@
             <div class="float-right">
                 @if (auth()->check())
                     {{--  <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_{{ $post->id }}" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a>  --}}
-                    <a class="mr-1" href="javascript:void(0)" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
-                    @if ($post->user->id == auth()->user()->id || auth()->user()->can('bypass discussions guard'))
+                    @if (!$post->deleted)
+                        <a class="mr-1" href="javascript:void(0)" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
+                    @endif
+
+                    @if (($post->user->id == auth()->user()->id && !$post->deleted) || auth()->user()->can('bypass discussions guard'))
                         <a class="mr-1" href="{{ route('discussions.posts.edit', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-edit"></i></a>
-                        <a class="mr-1 text-danger" href="{{ route('discussions.posts.delete', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-trash"></i></a>
+                        @if (!$post->deleted)
+                            <a class="mr-1 text-danger" href="{{ route('discussions.posts.delete', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-trash"></i></a>
+                        @endif
                     @endif
                 @endif
             </div>
