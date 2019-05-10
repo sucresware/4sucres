@@ -42839,6 +42839,10 @@ init_actions = function init_actions() {
           $(editor).val(str + "[img]" + src + "[/img]");
           $("#risibank").modal('hide');
           break;
+
+        case 'openNoelshack':
+          noelshack.init();
+          break;
       }
     });
   });
@@ -42846,6 +42850,8 @@ init_actions = function init_actions() {
 
 var risibank = {
   init: function init() {
+    $("#risibank-searchfield").off('keypress');
+    $("#risibank-searchfield").off('click');
     $("#risibank-searchfield").keypress(function (e) {
       var keycode = e.keyCode ? e.keyCode : e.which;
 
@@ -42906,6 +42912,83 @@ var risibank = {
   setError: function setError($el) {
     $el.empty();
     $el.append('<div class="my-5"><i class="fas fa-exclamation-circle text-danger fa-1x"></i></div>');
+  }
+};
+var noelshack = {
+  init: function init() {
+    $("#noelshack-uploadaction").off('click');
+    $("#noelshack-uploadaction").click(function (e) {
+      e.preventDefault();
+      noelshack.upload();
+    });
+    noelshack.clearError();
+    noelshack.setForm();
+  },
+  upload: function upload() {
+    noelshack.clearError();
+    noelshack.setProgress(0);
+    var formData = new FormData();
+    formData.append('fichier', $("#noelshack-uploadinput")[0].files[0]);
+    $.ajax({
+      type: 'POST',
+      url: "https://cors-anywhere.herokuapp.com/https://www.noelshack.com/api.php",
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: formData,
+      xhr: function xhr() {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (evt) {
+          if (evt.lengthComputable) {
+            var percentComplete = evt.loaded / evt.total;
+            noelshack.setProgress(Math.round(percentComplete * 100));
+          }
+        }, false);
+        return xhr;
+      },
+      success: function success(resp) {
+        console.log(resp);
+
+        if (resp == "Une erreur s'est produite lors du transfert du fichier !" || resp == "Le type du fichier n'est pas autorisé !" || resp == "Le fichier est trop volumineux. (max : 4 Mo)") {
+          noelshack.setError(resp);
+          noelshack.setForm();
+        } else {
+          editor = $(".sucresBB-editor");
+          var str = $(editor).val();
+          $(editor).val(str + "[img]" + resp + "[/img]");
+          $("#noelshack").modal('hide');
+        }
+      },
+      error: function error(resp) {
+        console.log(resp);
+        noelshack.setError(resp);
+      }
+    });
+  },
+  setForm: function setForm() {
+    noelshack.hideAll();
+    $('#noelshack-form').show();
+    $('#noelshack-upload').show();
+    $('#noelshack-uploadinput').val('');
+  },
+  setProgress: function setProgress(percent) {
+    noelshack.hideAll();
+    $('#noelshack-progress').show();
+    percent = '<i class="fas fa-sync fa-spin fa-1x mr-1 mb-2"></i><br>' + percent + "%";
+    $('#noelshack-progress').html(percent);
+  },
+  setError: function setError(str) {
+    $('#noelshack-error').show();
+    str = '<i class="fas fa-exclamation-circle fa-1x mr-1"></i>' + str;
+    $('#noelshack-error').html(str);
+  },
+  clearError: function clearError() {
+    $('#noelshack-error').hide();
+    $('#noelshack-error').empty();
+  },
+  hideAll: function hideAll() {
+    $('#noelshack-progress').hide();
+    $('#noelshack-form').hide();
   }
 };
 $(document).ready(function () {

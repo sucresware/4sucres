@@ -78,6 +78,9 @@ init_actions = function () {
                     $("#risibank").modal('hide')
 
                     break;
+                case 'openNoelshack':
+                    noelshack.init()
+                    break;
             }
         })
     })
@@ -85,6 +88,9 @@ init_actions = function () {
 
 let risibank = {
     init: function () {
+        $("#risibank-searchfield").off('keypress')
+        $("#risibank-searchfield").off('click')
+
         $("#risibank-searchfield").keypress(function (e) {
             var keycode = (e.keyCode ? e.keyCode : e.which)
             if (keycode == '13') {
@@ -96,6 +102,7 @@ let risibank = {
             e.preventDefault()
             risibank.search()
         })
+
         risibank.load()
     },
     load: function () {
@@ -130,7 +137,7 @@ let risibank = {
                 risibank.setStickers(resp.stickers, $search)
                 init_actions()
             },
-            error: function(){
+            error: function () {
                 risibank.setError($search)
             }
         })
@@ -148,6 +155,87 @@ let risibank = {
     setError: function ($el) {
         $el.empty()
         $el.append('<div class="my-5"><i class="fas fa-exclamation-circle text-danger fa-1x"></i></div>')
+    }
+};
+
+let noelshack = {
+    init: function () {
+        $("#noelshack-uploadaction").off('click')
+        $("#noelshack-uploadaction").click(function (e) {
+            e.preventDefault()
+            noelshack.upload()
+        })
+        noelshack.clearError()
+        noelshack.setForm()
+    },
+    upload: function () {
+        noelshack.clearError()
+        noelshack.setProgress(0)
+
+        var formData = new FormData();
+        formData.append('fichier', $("#noelshack-uploadinput")[0].files[0])
+
+        $.ajax({
+            type: 'POST',
+            url: "https://cors-anywhere.herokuapp.com/https://www.noelshack.com/api.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        noelshack.setProgress(Math.round(percentComplete*100))
+                    }
+                }, false)
+                return xhr
+            },
+            success: function (resp) {
+                console.log(resp)
+                if (resp == "Une erreur s'est produite lors du transfert du fichier !" ||
+                    resp == "Le type du fichier n'est pas autorisé !" ||
+                    resp == "Le fichier est trop volumineux. (max : 4 Mo)") {
+                    noelshack.setError(resp)
+                    noelshack.setForm()
+                } else {
+                    editor = $(".sucresBB-editor")
+                    var str = $(editor).val()
+                    $(editor).val(str + "[img]" + resp + "[/img]")
+                    $("#noelshack").modal('hide')
+                }
+            },
+            error: function (resp) {
+                console.log(resp)
+                noelshack.setError(resp)
+            }
+        })
+    },
+    setForm: function () {
+        noelshack.hideAll()
+        $('#noelshack-form').show()
+        $('#noelshack-upload').show()
+        $('#noelshack-uploadinput').val('')
+    },
+    setProgress: function (percent) {
+        noelshack.hideAll()
+        $('#noelshack-progress').show()
+        percent = '<i class="fas fa-sync fa-spin fa-1x mr-1 mb-2"></i><br>' + percent + "%";
+        $('#noelshack-progress').html(percent)
+    },
+    setError: function (str) {
+        $('#noelshack-error').show()
+        str = '<i class="fas fa-exclamation-circle fa-1x mr-1"></i>' + str;
+        $('#noelshack-error').html(str)
+    },
+    clearError: function(){
+        $('#noelshack-error').hide()
+        $('#noelshack-error').empty()
+    },
+    hideAll: function () {
+        $('#noelshack-progress').hide()
+        $('#noelshack-form').hide()
     }
 };
 
