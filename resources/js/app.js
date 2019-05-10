@@ -202,7 +202,7 @@ let noelshack = {
                 } else {
                     editor = $(".sucresBB-editor")
                     var str = $(editor).val()
-                    $(editor).val(str + "[img]" + resp + "[/img]")
+                    $(editor).val(str + "[url=" + resp + "][img]" + resp + "[/img][/url]")
                     $("#noelshack").modal('hide')
                 }
             },
