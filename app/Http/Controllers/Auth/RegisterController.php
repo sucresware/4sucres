@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Mail\VerifyEmail;
 use App\Models\User;
+use App\Mail\VerifyEmail;
 use App\Models\VerifyUser;
+use App\Models\Achievement;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
-use App\Models\Achievement;
 
 class RegisterController extends Controller
 {
@@ -75,8 +76,10 @@ class RegisterController extends Controller
 
         Mail::to($user)->send(new VerifyEmail($user));
 
+        Auth::login($user);
+
         return redirect()->route('home')
-            ->with('success', 'Ton compte a bien été créé le sucre ! Tu dois valider ton adresse e-mail pour finaliser ton inscription !');
+            ->with('success', 'Ton compte a bien été créé !');
     }
 
     public function verify($token)

@@ -12,6 +12,10 @@ class DiscussionPostController extends Controller
 {
     public function store(Discussion $discussion, $slug)
     {
+        if (auth()->user()->restricted && auth()->user()->restricted_posts_remaining <= 0) {
+            return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de continuer à répondre !');
+        }
+
         if ($discussion->locked || auth()->user()->cannot('create discussions')) {
             return abort(403);
         }

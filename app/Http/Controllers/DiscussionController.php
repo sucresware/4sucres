@@ -11,6 +11,10 @@ class DiscussionController extends Controller
 {
     public function create()
     {
+        if (auth()->user()->restricted) {
+            return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
+        }
+
         if (auth()->user()->cannot('create discussions')) {
             return abort(403);
         }
@@ -22,6 +26,10 @@ class DiscussionController extends Controller
 
     public function store()
     {
+        if (auth()->user()->restricted) {
+            return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
+        }
+
         if (auth()->user()->cannot('create discussions')) {
             return abort(403);
         }
@@ -84,7 +92,6 @@ class DiscussionController extends Controller
         if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', auth()->user()->id)->count() == 0)) {
             return abort(403);
         }
-
 
         $posts = $discussion->posts()->paginate(10);
 

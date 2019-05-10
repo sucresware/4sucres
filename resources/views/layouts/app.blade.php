@@ -106,6 +106,24 @@
             </nav>
         </div>
 
+        @if (auth()->user()->restricted)
+            <div class="bg-darker">
+                <div class="container text-white py-2">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="col">
+                            <strong>Compte limité</strong><br>
+                            @if($remains = auth()->user()->restricted_posts_remaining)
+                                Ne t'inquiètes pas mon ami, tu peux profiter du forum en attendant de recevoir ton email de vérification ({{ auth()->user()->restricted_posts_remaining }} réponse(s) restante(s))
+                            @else
+                                Tu dois maintenant vérifier ton adresse email pour continuer !
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <main class="py-4">
             @yield('content')
         </main>
