@@ -12,9 +12,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (env('APP_ENV') === 'production') {
+        if (config('app.env') === 'production') {
             \URL::forceScheme('https');
         }
+
         Carbon::setLocale(config('app.locale'));
         setlocale(LC_TIME, config('app.locale'));
     }

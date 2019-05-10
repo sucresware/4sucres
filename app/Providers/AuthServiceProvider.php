@@ -21,5 +21,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        if (auth()->check() && auth()->user()->can('debug mode enabled')) {
+            config('app.debug', true);
+        }
     }
 }

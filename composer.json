@@ -24,7 +24,8 @@
         "sentry/sentry-laravel": "1.0.2",
         "spatie/laravel-permission": "^2.37",
         "timehunter/laravel-google-recaptcha-v3": "~2.2.16",
-        "watson/active": "^3.1"
+        "watson/active": "^3.1",
+        "barryvdh/laravel-debugbar": "^3.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
