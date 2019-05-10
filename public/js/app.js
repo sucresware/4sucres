@@ -42947,8 +42947,6 @@ var noelshack = {
         return xhr;
       },
       success: function success(resp) {
-        console.log(resp);
-
         if (resp == "Une erreur s'est produite lors du transfert du fichier !" || resp == "Le type du fichier n'est pas autorisé !" || resp == "Le fichier est trop volumineux. (max : 4 Mo)") {
           noelshack.setError(resp);
           noelshack.setForm();
