@@ -129,7 +129,7 @@ class Post extends Model implements ReactableInterface
 
         // Rendu de [mock][/mock]
         $preg_result = [];
-        preg_match_all('/(?:\[mock\])(.*)(?:\[\/mock\])/', $body, $preg_result);
+        preg_match_all('/(?:\[mock\])(.*?)(?:\[\/mock\])/', $body, $preg_result);
 
         foreach ($preg_result[0] as $k => $tag) {
             $str = str_split(strtolower($preg_result[1][$k]));
@@ -158,7 +158,7 @@ class Post extends Model implements ReactableInterface
         });
 
         // Prepare YouTube tag content
-        $re = '/\[youtube](.*)\[\/youtube]/m';
+        $re = '/\[youtube](.*?)\[\/youtube]/m';
         $match = [];
         preg_match($re, $body, $match);
         if ($match[0] ?? null) {
@@ -177,17 +177,16 @@ class Post extends Model implements ReactableInterface
             $body = str_replace($match[0], $markup, $body);
         }
 
-        $re = '/\[url(=.*|)](.*)\[\/url]/';
+        $re = '/\[url(=.*?|)\](.*?)\[\/url\]/';
         $url_int_code = Str::uuid();
         $subst = '{' . $url_int_code . '$1}$2{/' . $url_int_code . '}';
         $body = preg_replace($re, $subst, $body);
-
         $bbcode->setYouTubeWidth(560);
         $bbcode->setYouTubeHeight(315);
         $body = $bbcode->render($body);
 
         // Fix urls
-        $re = '/{' . $url_int_code . '(=.*|)}(.*){\/' . $url_int_code . '}/';
+        $re = '/{' . $url_int_code . '(=.*?|)}(.*?){\/' . $url_int_code . '}/';
         $preg_result = [];
         preg_match_all($re, $body, $preg_result);
 
