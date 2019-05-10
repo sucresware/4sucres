@@ -198,7 +198,7 @@ class Post extends Model implements ReactableInterface
             } else {
                 $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . $url;
             }
-            $markup = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='bottom' data-html='true' title='$preview'>" . $preg_result[2][$k] . '</a>';
+            $markup = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $preg_result[2][$k] . '</a>';
             $body = str_replace($preg_result[0][$k], $markup, $body);
         }
 
