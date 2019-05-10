@@ -126,6 +126,13 @@
     }
 }
 
+.badge-primary {
+    color: $white;
+    a {
+        color: $white;
+    }
+}
+
 .post-image {
     height: 50px;
     width: 50px;
