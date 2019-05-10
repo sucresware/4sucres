@@ -48,8 +48,12 @@
                         <div id="risibank-random" class="text-center"></div>
                     </div>
                     <div class="tab-pane fade" id="search" role="tabpanel">
-                        <div class="form-group">
+                        <div class="input-group mb-3">
                             <input type="text" class="form-control" id="risibank-searchfield">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="risibank-searchaction"><i class="fas fa-search"></i></button>
+                            </div>
+
                         </div>
                         <div id="risibank-search" class="text-center"></div>
                     </div>

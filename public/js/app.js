@@ -42854,6 +42854,9 @@ var risibank = {
         risibank.search();
       }
     });
+    $("#risibank-searchaction").click(function (e) {
+      risibank.search();
+    });
     risibank.load();
   },
   load: function load() {
