@@ -42953,13 +42953,19 @@ var noelshack = {
         } else {
           editor = $(".sucresBB-editor");
           var str = $(editor).val();
-          $(editor).val(str + "[url=" + resp + "][img]" + resp + "[/img][/url]");
+          $(editor).val(str + "[url=" + resp + "][img]" + noelshack.transformUrl(resp) + "[/img][/url]");
           $("#noelshack").modal('hide');
         }
       },
       error: function error(resp) {
         console.log(resp);
         noelshack.setError(resp);
+      },
+      transformUrl: function transformUrl(url) {// url = "https://www.noelshack.com/2019-19-5-1557495302-niceidea.png";
+        // let regex = /(?:https:\/\/www\.noelshack\.com\/)(\d{4})-(\d{2})-(\d*)-(.*)$/gs;
+        // url.match(regex);
+        // [url=https://www.noelshack.com/2019-19-5-1557495302-niceidea.png][img]https://image.noelshack.com/minis/2019/19/5/1557495302-niceidea.png[/img][/url]
+        // return url.replace('https://www.noelshack.com/', '')
       }
     });
   },
