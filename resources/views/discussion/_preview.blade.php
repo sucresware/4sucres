@@ -19,7 +19,7 @@
 
     <div class="col overflow-ellipsis">
         <div class="discussion-title overflow-ellipsis mb-2 mb-lg-0">
-            @if (auth()->check() && $discussion->has_read()->wherePivot('user_id', auth()->user()->id)->count())
+            @if (auth()->guest() || (auth()->check() && $discussion->has_read()->wherePivot('user_id', auth()->user()->id)->count()))
                 <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
             @else
                 <strong>
