@@ -11,6 +11,7 @@
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="youtube"><i class="fab fa-youtube"></i></button>
     </div>
     <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="spoiler"><div class="spoiler">Spoiler</div></button>
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="mock">mDr</button>
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="glitch">░█</button>
     </div>
