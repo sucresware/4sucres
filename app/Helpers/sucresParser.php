@@ -134,7 +134,8 @@ class sucresParser
         preg_match_all($regexp, $this->content, $preg_result);
 
         foreach ($preg_result[0] as $k => $match) {
-            $vocaroo_id = $base_vocaroo_url = $preg_result[1][$k];
+            $base_vocaroo_url = $preg_result[0][$k];
+            $vocaroo_id = $preg_result[1][$k];
 
             $markup  = '<div class="integration shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
