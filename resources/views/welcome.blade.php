@@ -42,6 +42,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-12 col-lg-9 col-xl-10">
             @if (isset($sticky_discussions) && count($sticky_discussions))
                 <div class="card shadow-sm mb-3">
@@ -55,26 +56,29 @@
                 </div>
             @endif
 
-            <div class="card shadow-sm mb-3">
-                @forelse ($discussions as $discussion)
-                    <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
-                        @include('discussion._preview')
-                    </div>
-                @empty
-                @endforelse
-            </div>
+            @if (isset($discussions) && count($discussions))
+                <div class="card shadow-sm mb-3">
+                    @forelse ($discussions as $discussion)
+                        <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
+                            @include('discussion._preview')
+                        </div>
+                    @empty
+                    @endforelse
+                </div>
+            @endif
 
-                @if (count($sticky_discussions) + count($discussions) == 0)
+            @if (count($sticky_discussions) + count($discussions) == 0)
+                <div class="card shadow-sm mb-3">
                     <div class="card-body">
                         <div class="text-center text-muted">
                             <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid" width="60px"><br><br>
                             Aucune discussion dans cette catégorie !
                         </div>
                     </div>
-                @endif
+                </div>
+            @endif
 
-                {{ $discussions->links() }}
-            </div>
+            {{ $discussions->links() }}
         </div>
     </div>
 </div>
