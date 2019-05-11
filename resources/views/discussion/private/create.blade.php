@@ -22,7 +22,8 @@
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary">Créer la discussion</button>
+                    <button class="btn btn-secondary" data-action="openPreview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>
+                    <button type="submit" class="btn btn-primary">Ouvrir le débat</button>
                 </div>
             </div>
         </form>

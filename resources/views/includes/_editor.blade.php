@@ -9,6 +9,12 @@
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="url"><i class="fas fa-link"></i></button>
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="img"><i class="fas fa-image"></i></button>
         <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="youtube"><i class="fab fa-youtube"></i></button>
+    </div>
+    <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="mock">mDr</button>
+        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="glitch">░█</button>
+    </div>
+    <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-outline-primary" data-action="openRisibank" data-toggle="modal" data-target="#risibank"><img src="/img/risibank_logo.png" style="height: 20px;"></button>
         <button type="button" class="btn btn-sm btn-outline-primary" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>
     </div>
@@ -85,6 +91,22 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="preview" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Prévisualisation</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="preview-dom">
+
             </div>
         </div>
     </div>

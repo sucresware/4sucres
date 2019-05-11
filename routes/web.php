@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/u/{user}-{name}', 'UserController@update')->name('user.update');
 
     Route::get('d/create', 'DiscussionController@create')->name('discussions.create');
+    Route::post('/d/preview', 'DiscussionController@preview')->name('discussions.preview');
     Route::post('d', 'DiscussionController@store')->name('discussions.store');
     Route::put('d/{discussion}-{slug}/update', 'DiscussionController@update')->name('discussions.update');
     Route::post('d/{discussion}-{slug}/create', 'DiscussionPostController@store')->name('discussions.posts.store');

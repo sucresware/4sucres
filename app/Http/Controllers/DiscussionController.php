@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Category;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
@@ -22,6 +23,23 @@ class DiscussionController extends Controller
         $categories = Category::ordered()->filtered()->pluck('name', 'id');
 
         return view('discussion.create', compact('categories'));
+    }
+
+    public function preview(){
+        if (auth()->user()->cannot('create discussions')) {
+            return abort(403);
+        }
+
+        request()->validate([
+            'body' => 'required|min:3|max:3000',
+        ]);
+
+        $post = new Post();
+        $post->body = request()->body;
+
+        return response([
+            'render' => $post->presented_body,
+        ]);
     }
 
     public function store()

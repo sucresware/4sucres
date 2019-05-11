@@ -6,6 +6,7 @@ require('select2')
 
 let $ = require("jquery")
 let baffle = require('baffle')
+let csrf_token = $("meta[name=csrf-token]").attr('content');
 
 import Echo from "laravel-echo"
 
@@ -96,10 +97,14 @@ var init_actions = function () {
         $(el).on('click', function (e) {
             switch ($(el).attr('data-action')) {
                 case 'quotePost':
-                    editor = $(".sucresBB-editor")
+                    var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
                     $(editor).val(str + '#p:' + $(e.target).closest('a').attr('data-id') + ' ')
 
+                    break;
+                case 'openPreview':
+                    e.preventDefault()
+                    preview_action()
                     break;
                 case 'openRisibank':
                     risibank.init()
@@ -107,7 +112,7 @@ var init_actions = function () {
                 case 'insertRisibank':
                     let src = $(e.target).closest('a').attr('data-src')
 
-                    editor = $(".sucresBB-editor")
+                    var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
                     $(editor).val(str + "[img]" + src + "[/img]")
                     $("#risibank").modal('hide')
@@ -118,6 +123,27 @@ var init_actions = function () {
                     break;
             }
         })
+    })
+}
+
+var preview_action = function(){
+    var editor = $(".sucresBB-editor")
+    var str = $(editor).val()
+    $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-sync fa-spin fa-1x"></i></div>')
+
+    $.ajax({
+        type: 'POST',
+        url: '/d/preview',
+        data: {
+            '_token': csrf_token,
+            'body': str,
+        },
+        success: function (resp) {
+            $("#preview-dom").html('<div class="post-content">' + resp.render + '</div>')
+        },
+        error: function () {
+            $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-exclamation-circle text-danger fa-1x"></i></div>')
+        }
     })
 }
 
@@ -141,9 +167,9 @@ let risibank = {
         risibank.load()
     },
     load: function () {
-        $popular = $("#risibank-popular")
-        $latest = $("#risibank-latest")
-        $random = $("#risibank-random")
+        var $popular = $("#risibank-popular")
+        var $latest = $("#risibank-latest")
+        var $random = $("#risibank-random")
         risibank.setLoader($popular)
         risibank.setLoader($latest)
         risibank.setLoader($random)
@@ -162,7 +188,7 @@ let risibank = {
             })
     },
     search: function () {
-        $search = $("#risibank-search")
+        var $search = $("#risibank-search")
         risibank.setLoader($search)
 
         $.ajax({
@@ -232,9 +258,8 @@ let noelshack = {
                 var results = regex.exec(resp)
                 console.log(results);
                 if (results != null) {
-                    editor = $(".sucresBB-editor")
+                    var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
-                    editor = $(".sucresBB-editor")
                     $(editor).val(str + "[url=" + resp + "][img]https://image.noelshack.com/fichiers/" + results[1] + "/" + results[2] + "/" + results[3] + "/" + results[4] + "[/img][/url]")
                     $("#noelshack").modal('hide')
                 } else {
@@ -243,16 +268,8 @@ let noelshack = {
                 }
             },
             error: function (resp) {
-                console.log(resp)
                 noelshack.setError(resp)
             },
-            transformUrl: function (url) {
-                // url = "https://www.noelshack.com/2019-19-5-1557495302-niceidea.png";
-
-                // url.match(regex);
-                // [url=https://www.noelshack.com/2019-19-5-1557495302-niceidea.png][img]https://image.noelshack.com/minis/2019/19/5/1557495302-niceidea.png[/img][/url]
-                // return url.replace('https://www.noelshack.com/', '')
-            }
         })
     },
     setForm: function () {
@@ -293,8 +310,8 @@ $(document).ready(function () {
 
 function getInputSelection(elem) {
     if (typeof elem != "undefined") {
-        s = elem[0].selectionStart;
-        e = elem[0].selectionEnd;
+        var s = elem[0].selectionStart;
+        var e = elem[0].selectionEnd;
         return elem.val().substring(s, e)
     } else {
         return '';
