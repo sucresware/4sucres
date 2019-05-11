@@ -94,7 +94,7 @@ class sucresParser
             foreach ($ignore_regexps as $ignore_regexp) {
                 $ignore_preg_result = [];
                 preg_match($ignore_regexp, $url, $ignore_preg_result);
-                if ($ignore_preg_result[0] != '') {
+                if (count($ignore_preg_result) && $ignore_preg_result[0] != '') {
                     $this->content = str_replace($preg_result[0][$k], $url, $this->content);
                     return $this;
                 }
