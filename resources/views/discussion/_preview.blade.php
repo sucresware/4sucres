@@ -1,4 +1,4 @@
-<div class="row mx-0 align-items-center p-3 hover-accent" data-action="gotoDiscussion" data-id="{{ $discussion->id }}" data-slug="{{ $discussion->slug }}">
+<div class="row mx-0 gutters-sm align-items-center p-3 hover-accent" data-action="gotoDiscussion" data-id="{{ $discussion->id }}" data-slug="{{ $discussion->slug }}">
     @if ($discussion->sticky)
         <div class="sidetag">
             <i class="fas fa-fw fa-map-pin text-success"></i>
@@ -11,39 +11,65 @@
         @endif
     @endif
 
-    <div class="d-none d-sm-block col-auto px-0">
-        <img src="{{ $discussion->user->avatar ? url('storage/avatars/' . $discussion->user->avatar) : url('/img/guest.png') }}" class="rounded" style="width: 50px;">
-    </div>
-    <div class="col">
-        <div class="discussion-title">
+    @if (!$discussion->private)
+        <div class="d-none d-lg-block col-auto px-0">
+            <img src="{{ $discussion->user->avatar_link }}" class="rounded" style="width: 50px;">
+        </div>
+    @endif
+
+    <div class="col overflow-ellipsis">
+        <div class="discussion-title overflow-ellipsis mb-2 mb-lg-0">
             @if (auth()->check() && $discussion->has_read()->wherePivot('user_id', auth()->user()->id)->count())
-                <a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a>
+                <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
             @else
-                <strong><a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></strong>
+                <strong>
+                    <i class="fas fa-asterisk text-orange"></i>
+                    <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
+                </strong>
             @endif
         </div>
-        <small>par <a href="{{ route('user.show', [$discussion->user->id, $discussion->user->name]) }}">{{ $discussion->user->display_name }}</a>, dernière réponse par <a href="{{ route('user.show', [$discussion->posts->last()->user->id, $discussion->posts->last()->user->name]) }}">{{ $discussion->posts->last()->user->display_name }}</a> {{ $discussion->last_reply_at->diffForHumans() }}</small>
+        <div class="text-small overflow-ellipsis">
+            par <a href="{{ $discussion->user->link }}">{{ $discussion->user->display_name }}</a> le {{ $discussion->user->created_at->format('d/m/Y à H:i:s') }}
+        </div>
     </div>
 
     @if ($discussion->private)
-        <div class="col-auto text-right">
+        <div class="col-auto text-small">
             @foreach($discussion->members as $user)
-                {{ $user->name }} <img src="{{ $user->avatar ? url('storage/avatars/' . $user->avatar) : url('/img/guest.png') }}" class="img-fluid rounded" width="16"><br>
+                @if ($user->id != auth()->user()->id)
+                    <a href="{{ $user->link }}"><img src="{{ $user->avatar_link }}" class="img-fluid rounded mr-1" width="16"></a>
+                    <a href="{{ $user->link }}">{{ $user->display_name }}</a>
+                @endif
             @endforeach
         </div>
     @endif
 
-    <div class="col-12 col-sm-auto text-muted">
+    <div class="col-12 overflow-ellipsis border-none col-lg-fixed last-activity text-small">
+        <div class="row align-items-center no-gutters">
+            <div class="col-auto d-none d-lg-flex"><i class="far fa-clock fa-fw mr-1"></i></div>
+            <div class="col overflow-ellipsis">
+                <div class="d-none d-lg-block mb-lg-1">{{ $discussion->presented_last_reply_at }}</div>
+                <div class="d-inline d-lg-none">{{ $discussion->last_reply_at->diffForHumans() }} par</div>
+                <div class="d-inline d-lg-block">
+                    {{--  <a href="{{ $discussion->posts->last()->user->link }}"><img src="{{ $discussion->posts->last()->user->avatar_link }}" class="img-fluid rounded mr-1" width="16"></a>  --}}
+                    <a href="{{ $discussion->posts->last()->user->link }}">{{ $discussion->posts->last()->user->display_name }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 border-none col-lg-fixed replies-counter text-small">
         @if ($discussion->presented_replies)
-            {{ $discussion->presented_replies }} <i class="fas fa-comments"></i>
+            <i class="far fa-comments fw-fw mr-1 d-none d-ld-none d-lg-inline"></i> {{ $discussion->presented_replies }}
         @else
-            0 <i class="fas fa-comment"></i>
+            <i class="far fa-comments fw-fw mr-1 d-none d-ld-none d-lg-inline"></i> 0
         @endif
+        <span class="d-inline d-lg-none">{{ str_plural('réponse', $discussion->presented_replies) }}</span>
     </div>
 
     @if (!$discussion->private)
-        <div class="d-none d-md-block col-auto pr-0">
-            <a href="#" class="btn btn-outline-primary" style="width: 150px;">{{ $discussion->category->name }}</a>
+        <div class="d-none d-lg-block col-lg-fixed category pr-0">
+            <a href="#" class="btn btn-outline-primary btn-block">{{ $discussion->category->name }}</a>
         </div>
     @endif
 </div>

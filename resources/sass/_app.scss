@@ -9,10 +9,62 @@
     transition: all 0.2s ease;
 }
 
+.text-small {
+    font-size: 80%;
+}
+
+.text-smaller {
+    font-size: 65%;
+}
+
 .hover-accent:hover {
     background-color: darken(#FBFBFC, 3%);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
     cursor: pointer;
+}
+
+.overflow-ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.text-orange {
+    color: $orange;
+}
+
+@include media-breakpoint-up(lg) {
+    .col-lg-fixed {
+        flex: 0 0 auto;
+
+        &.last-activity {
+            width: 175px;
+        }
+
+        &.replies-counter {
+            width: 70px;
+        }
+
+        &.category {
+            width: 120px;
+        }
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .col-lg-fixed {
+        &.last-activity {
+            width: 175px;
+        }
+
+        &.replies-counter {
+            width: 70px;
+        }
+
+        &.category {
+            width: 120px;
+        }
+    }
 }
 
 .tooltip-inner {

@@ -118,4 +118,8 @@ class Discussion extends Model
             }
         }
     }
+
+    public function getLinkAttribute(){
+        return route('discussions.show', [$this->id, $this->slug]);
+    }
 }

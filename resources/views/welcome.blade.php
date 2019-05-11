@@ -13,7 +13,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-4 col-xl-2 mb-3">
+        <div class="col-12 col-lg-3 col-xl-2 mb-3">
             <div class="mb-3">
                 @auth
                     @can('create discussions')
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-8 col-xl-10">
+        <div class="col-12 col-lg-9 col-xl-10">
             @if (isset($sticky_discussions) && count($sticky_discussions))
                 <div class="card shadow-sm mb-3">
                     @foreach ($sticky_discussions as $discussion)
