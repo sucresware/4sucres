@@ -25,5 +25,6 @@ class AchievementsTableSeeder extends Seeder
         Achievement::updateOrCreate(['id' => 10], ['name' => 'C\'est une bonne idée', 'image' => 'idea.png', 'description' => 'Avoir proposé une idée d\'amélioration, acceptée et déployée sur 4sucres.org']);
         Achievement::updateOrCreate(['id' => 11], ['name' => 'Raideur engagé', 'image' => 'raid.png', 'description' => 'A brillé lors d\'un évènement raid organisé par Artamas']);
         Achievement::updateOrCreate(['id' => 12], ['name' => 'C\'est une très bonne idée', 'image' => 'niceidea.png', 'description' => 'Avoir proposé une idée d\'amélioration, acceptée et déployée sur 4sucres.org']);
+        Achievement::updateOrCreate(['id' => 12], ['name' => 'Debugger', 'image' => 'debugger.png', 'description' => 'Avoir découvert un bug sur 4sucres.org']);
     }
 }
