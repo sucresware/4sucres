@@ -6,7 +6,15 @@
 
 @section('content')
 <div class="container">
-    <h1>Notifications</h1>
+    <div class="row mb-3">
+        <div class="col">
+            <h1>Notifications</h1>
+        </div>
+        <div class="col-auto">
+            <a href="{{ route('notifications.clear') }}" class="btn btn-outline-primary">Tout marquer comme lu</a>
+        </div>
+    </div>
+
 
     <div class="card">
         <div class="card-body">

@@ -35,8 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
-    Route::get('/notifications/{notification}', 'NotificationController@show')->name('notifications.show');
     Route::get('/notifications/clear', 'NotificationController@clear')->name('notifications.clear');
+    Route::get('/notifications/{notification}', 'NotificationController@show')->name('notifications.show');
 
     Route::get('/d/p', 'PrivateDiscussionController@index')->name('private_discussions.index');
     Route::get('/d/p/{user}-{name}/create', 'PrivateDiscussionController@create')->name('private_discussions.create');

@@ -17,7 +17,7 @@ class NotificationController extends Controller
     {
         Notification::curated()->update(['seen' => true]);
 
-        return redirect('notifications.index');
+        return redirect()->route('notifications.index');
     }
 
     public function show(Notification $notification)
