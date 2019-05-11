@@ -139,7 +139,7 @@ class sucresParser
 
             $markup  = '<div class="integration shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
-            $markup .= '<audio controls="controls" style="width: 100%; max-width: 500px">';
+            $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
             $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $vocaroo_id . '&command=download_mp3" type="audio/mpeg">';
             $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $vocaroo_id . '&command=download_webm" type="audio/webm"></audio>';
             $markup .= '</audio>';
