@@ -13,7 +13,7 @@ class CategoriesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        Category::firstOrCreate(['name' => '#announces', 'restricted' => true]);
+        Category::firstOrCreate(['name' => '#annonces', 'restricted' => true]);
         Category::firstOrCreate(['name' => '#général']);
         Category::firstOrCreate(['name' => '#lifehacks']);
         Category::firstOrCreate(['name' => '#jeux']);
