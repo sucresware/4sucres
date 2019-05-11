@@ -29,6 +29,7 @@ class sucresParser
              ->renderBB()
              ->renderUrl()
              ->renderYoutube()
+             ->renderVocaroo()
              ->renderMentions();
 
         if (!$this->lightweight) {
@@ -114,11 +115,35 @@ class sucresParser
             $youtube_id = str_replace('http://www.youtube.com/embed/', '', $youtube_id);
             $youtube_id = trim(explode('&', $youtube_id)[0]);
 
-            $markup  = '<div class="integration" style="max-width: 500px">';
+            $markup  = '<div class="integration shadow-sm" style="max-width: 500px">';
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' . $youtube_id . '?rel=0" allowfullscreen></iframe>';
             $markup .= '</div>';
             $markup .= '<div class="integration-text"><i class="fab fa-youtube text-danger"></i> <a target="_blank" href="' . $base_youtube_url . '">Ouvrir dans YouTube</a></div>';
+            $markup .= '</div>';
+
+            $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
+        }
+
+        return $this;
+    }
+
+    public function renderVocaroo(){
+        $preg_result = [];
+        $regexp = '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m';
+        preg_match_all($regexp, $this->content, $preg_result);
+
+        foreach ($preg_result[0] as $k => $match) {
+            $vocaroo_id = $base_vocaroo_url = $preg_result[1][$k];
+
+            $markup  = '<div class="integration shadow-sm" style="max-width: 500px">';
+            $markup .= '<div style="max-width: 500px" class="border-bottom">';
+            $markup .= '<audio controls="controls" style="width: 100%; max-width: 500px">';
+            $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $vocaroo_id . '&command=download_mp3" type="audio/mpeg">';
+            $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $vocaroo_id . '&command=download_webm" type="audio/webm"></audio>';
+            $markup .= '</audio>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="' . $base_vocaroo_url . '">Écouter sur Vocaroo</a></div>';
             $markup .= '</div>';
 
             $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
