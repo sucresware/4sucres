@@ -1,6 +1,17 @@
 @import '~select2/src/scss/core';
 @import '~@ttskch/select2-bootstrap4-theme/src/layout';
 
+.integration {
+    background-color: #f2f4f8;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+
+    .integration-text {
+        text-align: right;
+        padding: 6px 10px;
+    }
+}
+
 * {
     transition: all 0.2s ease;
 }
