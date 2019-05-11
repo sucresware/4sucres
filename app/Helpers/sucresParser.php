@@ -28,8 +28,8 @@ class sucresParser
              ->protectAttr('url')
              ->renderBB()
              ->renderUrl()
-             ->renderYoutube()
              ->renderVocaroo()
+             ->renderYoutube()
              ->renderMentions();
 
         if (!$this->lightweight) {
@@ -83,9 +83,23 @@ class sucresParser
         $regexp = '/{' . $this->protections['url'] . '(=.*?|)}(.*?){\/' . $this->protections['url'] . '}/';
         preg_match_all($regexp, $this->content, $preg_result);
 
+        $ignore_regexps = [
+            '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m'
+        ];
+
         foreach ($preg_result[0] as $k => $match) {
             $url = $preg_result[1][$k] == '' ? $preg_result[2][$k] : $preg_result[1][$k];
-            $url = trim($url, '=');
+            $url = trim(trim($url, '='));
+
+            foreach ($ignore_regexps as $ignore_regexp) {
+                $ignore_preg_result = [];
+                preg_match($ignore_regexp, $url, $ignore_preg_result);
+                if ($ignore_preg_result[0] != '') {
+                    $this->content = str_replace($preg_result[0][$k], $url, $this->content);
+                    return $this;
+                }
+            }
+
             if ($preg_result[1][$k] != '' && $url != $preg_result[2][$k]) {
                 $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . $url;
             } else {
@@ -202,5 +216,4 @@ class sucresParser
 
         return $this;
     }
-
 }
