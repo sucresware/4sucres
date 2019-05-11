@@ -29,7 +29,7 @@
             @endif
         </div>
         <div class="text-small overflow-ellipsis">
-            par <a href="{{ $discussion->user->link }}">{{ $discussion->user->display_name }}</a> le {{ $discussion->user->created_at->format('d/m/Y à H:i:s') }}
+            par <a href="{{ $discussion->user->link }}">{{ $discussion->user->display_name }}</a> le {{ $discussion->created_at->format('d/m/Y à H:i:s') }}
         </div>
     </div>
 
