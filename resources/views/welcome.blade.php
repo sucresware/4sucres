@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Bienvenue sur 4sucres.org
+    Bienvenue sur le forum 4sucres.org
 @endsection
 
 @section('main')
