@@ -12,7 +12,18 @@
             <div class="card" style="margin-top: 50px">
                 <div class="text-center">
                     <img src="{{ $user->avatar ? url('storage/avatars/' . $user->avatar) : url('/img/guest.png') }}" class="img-fluid rounded mb-3" width="100" style="margin-top: -45px;">
-                    <h1>{{ $user->display_name }}</h1>
+                    <div>
+                        <strong>
+                            <big>
+                                {{ $user->display_name }}
+                            </big>
+                        </strong>
+                    </div>
+
+                    <div class="badge badge-light">
+                        <i class="fas fa-circle {{ $user->online ? 'text-success' : 'text-danger' }} mr-1"></i>
+                        {{ $user->presented_last_activity }}
+                    </div>
 
                     <hr>
 

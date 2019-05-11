@@ -1,3 +1,4 @@
+
 require('./bootstrap')
 require('sceditor/minified/sceditor.min.js')
 require('sceditor/minified/formats/bbcode.js')
@@ -6,25 +7,59 @@ require('select2')
 let $ = require("jquery")
 let baffle = require('baffle')
 
+import Echo from "laravel-echo"
+
+window.Pusher = require('pusher-js');
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    wssPort: 6001,
+    encrypted: false,
+    disableStats: true,
+})
+
+var updatePresenceCounter = function(){
+    $(".presence-counter").html(window.fourSucres.count);
+}
+
+window.fourSucres = {
+    count: undefined,
+}
+
+setInterval(() => {
+    updatePresenceCounter();
+}, 1000);
+
 /**
  * Notifications
  */
 
-// open_notifications_socket = function () {
+// var open_notifications_socket = function () {
+//     console.log("join");
+//     window.Echo.join('counter')
+//         .here((users) => {
+//             console.log(users)
+//             window.fourSucres.count = users.length
+//             updatePresenceCounter()
+//         })
+//         .joining(user => window.fourSucres.count++)
+//         .leaving(user => window.fourSucres.count--)
 // }
 
 /**
  * Custom BBCode
  */
 
-init_baffle = function () {
+var init_baffle = function () {
     var s = ["█", "▓", "▒", "░", "█", "▓", "▒", "░", "█", "▓", "▒", "░", "<", ">", "/"]
     baffle('.baffle', {
         characters: s
     }).reveal(1000)
 }
 
-init_spoilers = function () {
+var init_spoilers = function () {
     $('.spoiler').each(function (k, el) {
         $(el).on('click', function (e) {
             $(e.target).addClass('show')
@@ -32,7 +67,7 @@ init_spoilers = function () {
     })
 }
 
-init_select2 = function () {
+var init_select2 = function () {
     $('.select2').each(function (k, el) {
         $(el).select2({
             theme: 'bootstrap4',
@@ -55,7 +90,7 @@ $(document).on("mousedown", "[data-bbcode]", function () {
     }
 })
 
-init_actions = function () {
+var init_actions = function () {
     $('[data-action]').each(function (k, el) {
         $(el).off('click')
         $(el).on('click', function (e) {

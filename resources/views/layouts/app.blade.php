@@ -45,7 +45,8 @@
             <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ url('/svg/4sucres.svg') }}" height="50" class="d-none d-md-inline-block"><img src="{{ url('/img/4sucres_white.png') }}" height="30">
+                        {{--  <img src="{{ url('/svg/4sucres.svg') }}" height="50" class="d-none d-md-inline-block">  --}}
+                        <img src="{{ url('/img/4sucres_white.png') }}" height="30px">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -107,6 +108,18 @@
                     </div>
                 </div>
             </nav>
+        </div>
+
+        <div class="bg-darker shadow">
+            <div class="container text-white py-2">
+                <div class="row justify-content-between font-small">
+                    <div class="col-auto">
+                    </div>
+                    <div class="col-auto">
+                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-md-inline-block">{{str_plural('utilisateur', $presence_counter)}} en ligne</span></small>
+                    </div>
+                </div>
+            </div>
         </div>
 
         @if (auth()->check() && auth()->user()->restricted)

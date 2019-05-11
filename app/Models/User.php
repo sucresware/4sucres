@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
-use Qirolab\Laravel\Reactions\Traits\Reacts;
+use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Qirolab\Laravel\Reactions\Traits\Reacts;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 
 class User extends Authenticatable implements ReactsInterface
 {
@@ -35,6 +36,7 @@ class User extends Authenticatable implements ReactsInterface
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_activity' => 'datetime',
     ];
 
     public function verify_user()
@@ -75,4 +77,25 @@ class User extends Authenticatable implements ReactsInterface
     {
         return 3 - $this->restricted_posts_created;
     }
+
+    public function scopeOnline($query){
+        return $query->where('last_activity', '>', Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
+    }
+
+    public function getOnlineAttribute(){
+        return ($this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
+    }
+
+    public function getPresentedLastActivityAttribute(){
+        if ($this->last_activity) {
+            if ($this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s')) {
+                return 'En ligne';
+            } else {
+                return 'Actif ' . $this->last_activity->diffForHumans();
+            }
+        }
+    }
+
+
+
 }

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
 
         Carbon::setLocale(config('app.locale'));
         setlocale(LC_TIME, config('app.locale'));
+
+        View::composer('*', function ($view) {
+            return $view->with('presence_counter', User::online()->count());
+        });
     }
 
     /**
