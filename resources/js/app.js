@@ -93,22 +93,28 @@ $(document).on("mousedown", "[data-bbcode]", function () {
 
 var init_actions = function () {
     $('[data-action]').each(function (k, el) {
-        $(el).off('click')
-        $(el).on('click', function (e) {
-            switch ($(el).attr('data-action')) {
+        var $el = $(el)
+        $el.off('click')
+        $el.on('click', function (e) {
+            switch ($el.attr('data-action')) {
+                case 'gotoDiscussion':
+                    if ($el.is('a') || $el.is('button')) return
+                    var post_id = $(e.target).closest('div.row.hover-accent').attr('data-id')
+                    var post_slug = $(e.target).closest('div.row.hover-accent').attr('data-slug')
+                    window.location.href = '/d/' + post_id + '-' + post_slug
+                    break
                 case 'quotePost':
                     var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
                     $(editor).val(str + '#p:' + $(e.target).closest('a').attr('data-id') + ' ')
-
-                    break;
+                    break
                 case 'openPreview':
                     e.preventDefault()
                     preview_action()
-                    break;
+                    break
                 case 'openRisibank':
                     risibank.init()
-                    break;
+                    break
                 case 'insertRisibank':
                     let src = $(e.target).closest('a').attr('data-src')
 
@@ -117,10 +123,10 @@ var init_actions = function () {
                     $(editor).val(str + "[img]" + src + "[/img]")
                     $("#risibank").modal('hide')
 
-                    break;
+                    break
                 case 'openNoelshack':
                     noelshack.init()
-                    break;
+                    break
             }
         })
     })

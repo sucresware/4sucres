@@ -57,7 +57,7 @@
 
             <div class="card shadow-sm mb-3">
                 @forelse ($discussions as $discussion)
-                    <div class="p-3 {{ $loop->index%2 ? 'white' : 'blue' }}">
+                    <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
                         @include('discussion._preview')
                     </div>
                 @empty

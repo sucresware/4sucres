@@ -1,4 +1,4 @@
-<div class="row align-items-center">
+<div class="row mx-0 align-items-center p-3 hover-accent" data-action="gotoDiscussion" data-id="{{ $discussion->id }}" data-slug="{{ $discussion->slug }}">
     @if ($discussion->sticky)
         <div class="sidetag">
             <i class="fas fa-fw fa-map-pin text-success"></i>
@@ -11,7 +11,7 @@
         @endif
     @endif
 
-    <div class="d-none d-sm-block col-auto pr-0">
+    <div class="d-none d-sm-block col-auto px-0">
         <img src="{{ $discussion->user->avatar ? url('storage/avatars/' . $discussion->user->avatar) : url('/img/guest.png') }}" class="rounded" style="width: 50px;">
     </div>
     <div class="col">
@@ -42,7 +42,7 @@
     </div>
 
     @if (!$discussion->private)
-        <div class="d-none d-md-block col-auto">
+        <div class="d-none d-md-block col-auto pr-0">
             <a href="#" class="btn btn-outline-primary" style="width: 150px;">{{ $discussion->category->name }}</a>
         </div>
     @endif
