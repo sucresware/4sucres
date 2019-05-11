@@ -172,6 +172,7 @@ class Post extends Model implements ReactableInterface
             $base_youtube_url = str_replace('http://youtube.com/watch?v=', '', $base_youtube_url);
             $base_youtube_url = str_replace('http://youtu.be/', '', $base_youtube_url);
             $base_youtube_url = str_replace('http://www.youtube.com/embed/', '', $base_youtube_url);
+            $base_youtube_url = explode('&', $base_youtube_url)[0];
             $markup .= $base_youtube_url;
             $markup .= '[/youtube]';
             $body = str_replace($match[0], $markup, $body);
