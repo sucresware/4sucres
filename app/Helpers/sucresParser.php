@@ -129,7 +129,7 @@ class sucresParser
 
     public function renderMentions(){
         $preg_result = [];
-        $regex = '/(?:@|#u:)(?:\w+)(?:<br\/>|<br>|[\s]|$|\z)/';
+        $regex = '/(?:@|#u:)(?:(\w|-)*)/gm';
         preg_match_all($regex, $this->content, $preg_result);
 
         foreach ($preg_result[0] as $tag) {
@@ -140,14 +140,14 @@ class sucresParser
             if (!$user) { continue; }
 
             $this->content = str_replace(
-                $tag, '<a href="' . $user->link . '" class="badge badge-primary">@' . $clear_tag . '</a>' . ' ', $this->content
+                $tag, '<a href="' . $user->link . '" class="badge badge-primary">@' . $user->name . '</a>' . ' ', $this->content
             );
         }
     }
 
     public function renderQuotes(){
         $preg_result = [];
-        $regex = '/(?:#p:)(?:\d+)(?:<br\/>|<br>|[\s]|$|\z)/';
+        $regex = '/(?:#p:)(?:(\w|-)*)/gm';
         preg_match_all($regex, $this->content, $preg_result);
 
         foreach ($preg_result[0] as $tag) {
