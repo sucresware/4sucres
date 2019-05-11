@@ -76,7 +76,11 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-center" href="{{ route('private_discussions.index') }}">
-                                        <i class="fas fa-envelope"></i>
+                                        @if ($private_unread_count = \App\Models\Discussion::private(auth()->user())->count() - \App\Models\Discussion::private(auth()->user())->read(auth()->user())->count())
+                                            <i class="fas fa-envelope text-danger"></i>
+                                        @else
+                                            <i class="fas fa-envelope"></i>
+                                        @endif
                                         <span class="d-md-none d-lg-block"> Messagerie</span>
                                     </a>
                                 </li>

@@ -69,6 +69,13 @@ class Discussion extends Model
             ->orderBy('last_reply_at', 'DESC');
     }
 
+    public function scopeRead($query, User $user){
+        return $query
+            ->whereHas('has_read', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            });
+    }
+
     public function getPresentedLastReplyAtAttribute()
     {
         return str_replace('il y a', '', $this->last_reply_at->diffForHumans());
@@ -100,7 +107,11 @@ class Discussion extends Model
             if ($user->id != $post->user->id) {
                 Notification::create([
                     'class' => 'info',
-                    'text' => '<b>' . $post->user->name . '</b> a posté un nouveau message sur la discussion <b>' . $post->discussion->title . '</b>',
+                    'text' => '<b>' . $post->user->name . '</b> ' . (
+                        !$this->private ?
+                        'a posté un nouveau message sur la discussion <b>' . $post->discussion->title . '</b>' :
+                        'vous a envoyé un nouveau message privé'
+                    ),
                     'href' => route('discussions.show', [$this->id, $this->slug]),
                     'user_id' => $user->id,
                 ]);

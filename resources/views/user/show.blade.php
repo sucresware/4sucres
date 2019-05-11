@@ -22,7 +22,7 @@
 
                     <div class="badge badge-light">
                         <i class="fas fa-circle {{ $user->online ? 'text-success' : 'text-danger' }} mr-1"></i>
-                        {{ $user->presented_last_activity }}
+                        {{ $user->online ? 'En ligne' : 'Hors ligne' }}
                     </div>
 
                     <hr>
@@ -31,7 +31,7 @@
                     <div class="p-1">
                         <strong>Classification :</strong> {{ $user->shown_role }}<br>
                         <strong>Membre depuis :</strong> {{ ($user->created_at->diffInDays(now()) < 1) ? 'aujourd\'hui' : $user->created_at->diffInDays(now()) . ' jour(s)' }} ({{ $user->created_at->format('d/m/Y') }})<br>
-                        <strong>Dernière connexion:</strong> {{ $user->updated_at->diffForHumans() }}<br>
+                        <strong>Dernière activité :</strong> {{ $user->last_activity->diffForHumans() }}<br>
                     </div>
 
                     <hr>
