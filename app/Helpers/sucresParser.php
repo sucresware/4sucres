@@ -129,7 +129,7 @@ class sucresParser
 
     public function renderMentions(){
         $preg_result = [];
-        $regex = '/(?:@|#u:)(?:(\w|-)*)/gm';
+        $regex = '/(?:@|#u:)(?:(\w|-)*)/m';
         preg_match_all($regex, $this->content, $preg_result);
 
         foreach ($preg_result[0] as $tag) {
@@ -147,7 +147,7 @@ class sucresParser
 
     public function renderQuotes(){
         $preg_result = [];
-        $regex = '/(?:#p:)(?:(\w|-)*)/gm';
+        $regex = '/(?:#p:)(?:(\w|-)*)/m';
         preg_match_all($regex, $this->content, $preg_result);
 
         foreach ($preg_result[0] as $tag) {
