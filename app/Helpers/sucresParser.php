@@ -112,7 +112,7 @@ class sucresParser
             $youtube_id = str_replace('http://youtube.com/watch?v=', '', $youtube_id);
             $youtube_id = str_replace('http://youtu.be/', '', $youtube_id);
             $youtube_id = str_replace('http://www.youtube.com/embed/', '', $youtube_id);
-            $youtube_id = explode('&', $youtube_id)[0];
+            $youtube_id = trim(explode('&', $youtube_id)[0]);
 
             $markup  = '<div class="integration" style="max-width: 500px">';
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
