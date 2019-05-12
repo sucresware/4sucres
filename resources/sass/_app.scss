@@ -2,6 +2,13 @@
 @import '~@ttskch/select2-bootstrap4-theme/src/layout';
 @import '~@fancyapps/fancybox/dist/jquery.fancybox.min.css';
 
+blockquote {
+    padding: 0.5rem;
+    background-color: #f2f4f8;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
 .integration {
     background-color: #f2f4f8;
     border: 1px solid #dee2e6;
