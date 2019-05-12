@@ -43,8 +43,8 @@
         </div>
     @endif
     @if (!$discussion->locked || (auth()->check() && $discussion->locked && auth()->user()->can('bypass discussions guard')))
-        <div class="card">
-            <div class="card-body bg-light">
+        <div class="card" id="reply">
+            <div class="card-body bg-light" >
                 <h2 class="h6">Répondre</h2>
                 @include('discussion._reply')
             </div>

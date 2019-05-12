@@ -48,8 +48,8 @@
         <div class="row align-items-center no-gutters">
             <div class="col-auto d-none d-lg-flex"><i class="far fa-clock fa-fw mr-1"></i></div>
             <div class="col overflow-ellipsis">
-                <div class="d-none d-lg-block mb-lg-1">{{ $discussion->presented_last_reply_at }}</div>
-                <div class="d-inline d-lg-none">{{ $discussion->last_reply_at->diffForHumans() }} par</div>
+                <div class="d-none d-lg-block mb-lg-1"><a href="{{ $discussion->posts->last()->link }}">{{ $discussion->presented_last_reply_at }}</a></div>
+                <div class="d-inline d-lg-none"><a href="{{ $discussion->posts->last()->link }}">{{ $discussion->last_reply_at->diffForHumans() }}</a> par</div>
                 <div class="d-inline d-lg-block">
                     {{--  <a href="{{ $discussion->posts->last()->user->link }}"><img src="{{ $discussion->posts->last()->user->avatar_link }}" class="img-fluid rounded mr-1" width="16"></a>  --}}
                     <a href="{{ $discussion->posts->last()->user->link }}">{{ $discussion->posts->last()->user->display_name }}</a>

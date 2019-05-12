@@ -1,14 +1,16 @@
-<div class="p-3 row no-gutters">
+<div class="post p-3 row no-gutters" id="p{{ $post->id }}">
     <div class="col-auto mr-3">
         <a href="{{ route('user.show', [$post->user->id, $post->user->name]) }}"><img src="{{ $post->user->avatar ? url('storage/avatars/' . $post->user->avatar) : url('/img/guest.png') }}" class="post-image rounded"></a>
     </div>
     <div class="col">
         @if (!$post->discussion->private)
             <div class="float-right">
+                <a class="mr-1" href="{{ $post->link }}"><i class="fas fa-fw fa-link"></i></a>
+
                 @if (auth()->check())
                     {{--  <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_{{ $post->id }}" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a>  --}}
                     @if (!$post->deleted)
-                        <a class="mr-1" href="javascript:void(0)" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
+                        <a class="mr-1" href="#reply" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
                     @endif
 
                     @if (($post->user->id == auth()->user()->id && !$post->deleted) || auth()->user()->can('bypass discussions guard'))
@@ -22,7 +24,7 @@
         @endif
 
         <a href="{{ route('user.show', [$post->user->id, $post->user->name]) }}"><strong>{{ $post->user->display_name }}</strong></a> <small>{{ '@' . $post->user->name }}</small><br>
-        <small>le {{ $post->created_at->format('d/m/Y à H:i:s') }}
+        <small><a href="{{ $post->link }}">le {{ $post->created_at->format('d/m/Y à H:i:s') }}</a>
         @if ($post->created_at != $post->updated_at)
             <span class="text-muted">(modifié le {{ $post->updated_at->format('d/m/Y à H:i:s') }})</span>
         @endif</small>

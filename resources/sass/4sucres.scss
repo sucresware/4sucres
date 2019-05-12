@@ -11,24 +11,18 @@ html {
     }
 }
 
-.blue {
-    background: #FBFBFC;
-}
-
-.white {
-    background: #FFFFFF;
-}
-
 $body-bg: #F2F4F8;
 $body-color: #4C5669;
 
-$tooltip-max-width:           200px !default;
-$tooltip-color:               $body-color !default;
-$tooltip-bg:                  $body-bg !default;
-$tooltip-opacity:             .9 !default;
+$tooltip-max-width: 200px !default;
+$tooltip-color: $body-color !default;
+$tooltip-bg: $body-bg !default;
+$tooltip-opacity: .9 !default;
 
-$font-family-sans-serif: 'Inter', sans-serif;
-$headings-font-family: 'Rubik', sans-serif;
+$font-family-sans-serif: 'Inter',
+sans-serif;
+$headings-font-family: 'Rubik',
+sans-serif;
 
 $line-height-base: 1.4;
 $font-size-base: 0.9rem;
@@ -158,7 +152,10 @@ hr {
 }
 
 @media (min-width: 1200px) {
-    .fw-user, .fw-replies, .fw-category {
+
+    .fw-user,
+    .fw-replies,
+    .fw-category {
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -179,4 +176,25 @@ hr {
 .tooltip-inner {
     border: 1px solid $border-color;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.blue {
+    background: lighten(#f2f4f8, 2%);
+}
+
+.white {
+    background: #FFFFFF;
+}
+
+.post {
+    border-bottom: 1px solid #f2f2f2;
+
+    &.highlighted {
+        transform: scale(1.02);
+        border: 1px solid $border-color;
+        background-color: #f2f4f8;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    }
 }

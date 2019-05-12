@@ -1,4 +1,3 @@
-
 require('./bootstrap')
 require('sceditor/minified/sceditor.min.js')
 require('sceditor/minified/formats/bbcode.js')
@@ -22,7 +21,7 @@ window.Echo = new Echo({
     disableStats: true,
 })
 
-var updatePresenceCounter = function(){
+var updatePresenceCounter = function () {
     $(".presence-counter").html(window.fourSucres.count);
 }
 
@@ -136,7 +135,7 @@ var init_actions = function () {
     })
 }
 
-var preview_action = function(){
+var preview_action = function () {
     var editor = $(".sucresBB-editor")
     var str = $(editor).val()
     $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-sync fa-spin fa-1x"></i></div>')
@@ -394,9 +393,12 @@ $(document).ready(function () {
     init_baffle()
     init_actions()
     init_select2()
-    $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+    $('[data-toggle="tooltip"]').tooltip({
+        container: 'body'
+    })
     $('[data-toggle="fancybox"]').fancybox({})
     // open_notifications_socket()
+    if (location.hash && $(location.hash)) $(location.hash).addClass('highlighted')
 })
 
 function getInputSelection(elem) {

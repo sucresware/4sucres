@@ -51,7 +51,7 @@ class Post extends Model implements ReactableInterface
                     Notification::create([
                         'class' => 'info',
                         'text' => '<b>' . $post->user->name . '</b> vous a mentionné sur la discussion <b>' . $post->discussion->title . '</b>',
-                        'href' => route('discussions.show', [$post->discussion->id, $post->discussion->slug]),
+                        'href' => $post->link,
                         'user_id' => $user->id,
                     ]);
                 }
@@ -79,7 +79,7 @@ class Post extends Model implements ReactableInterface
                     Notification::create([
                         'class' => 'info',
                         'text' => '<b>' . $post->user->name . '</b> vous a cité sur la discussion <b>' . $post->discussion->title . '</b>',
-                        'href' => route('discussions.show', [$post->discussion->id, $post->discussion->slug]),
+                        'href' => $post->link,
                         'user_id' => $user->id,
                     ]);
                 }
@@ -107,5 +107,13 @@ class Post extends Model implements ReactableInterface
     public function getPresentedLightBodyAttribute()
     {
         return (new sucresParser($this->body, true))->render();
+    }
+
+    public function getLinkAttribute()
+    {
+        $pagniator = 10;
+        $post_position = array_search($this->id, $this->discussion->posts->pluck('id')->toArray()) + 1;
+        $guessed_page = ceil($post_position / $pagniator);
+        return $this->discussion->link . '?page=' . $guessed_page . '#p' . $this->id;
     }
 }

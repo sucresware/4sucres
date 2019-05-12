@@ -20,7 +20,9 @@ blockquote {
     }
 }
 
-.btn, .a, .hover-accent {
+.btn,
+.a,
+.hover-accent {
     transition: all 0.2s ease;
 
     :hover {
@@ -91,8 +93,13 @@ blockquote {
     width: 100%;
 }
 
-.tooltip { pointer-events: none; }
-.popover { pointer-events: none; }
+.tooltip {
+    pointer-events: none;
+}
+
+.popover {
+    pointer-events: none;
+}
 
 .btn-sm {
     font-size: .8em !important;
@@ -106,6 +113,7 @@ blockquote {
 .editor-buttons {
     margin-bottom: 10px;
 }
+
 .editor-buttons .btn {
     cursor: pointer;
 }
@@ -121,6 +129,8 @@ blockquote {
     background: url(/svg/4sucres.svg);
     background-size: cover;
 }
+
+
 
 // .logo-4s:before
 // {
@@ -177,6 +187,7 @@ blockquote {
 
     .account-username {
         font-weight: bold;
+
         a {
             color: $white;
         }
@@ -212,9 +223,10 @@ blockquote {
 }
 
 .badge-primary {
-    color: $white!important;
+    color: $white !important;
+
     a {
-        color: $white!important;
+        color: $white !important;
     }
 }
 
@@ -227,7 +239,7 @@ blockquote {
     justify-content: center;
     margin-bottom: 1rem !important;
     margin-top: 1rem !important;
- }
+}
 
 footer {
     margin-top: 15px;
