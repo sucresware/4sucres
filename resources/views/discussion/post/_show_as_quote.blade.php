@@ -1,4 +1,4 @@
-<div class="p-2 bg-white border">
+<blockquote class="p-2 shadow-sm">
     <div class="quote-header mb-2">
         <a href="{{ $post->user->link }}"><img src="{{ $post->user->avatar_link }}" class="rounded" height="14px"></a>
         <a href="{{ $post->user->link }}"><strong>{{ $post->user->display_name }}</strong></a>
@@ -18,4 +18,4 @@
             @endif
         @endif
     </div>
-</div>
+</blockquote>
