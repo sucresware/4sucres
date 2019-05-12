@@ -3,6 +3,7 @@ require('./bootstrap')
 require('sceditor/minified/sceditor.min.js')
 require('sceditor/minified/formats/bbcode.js')
 require('select2')
+require('@fancyapps/fancybox/dist/jquery.fancybox.min.js')
 
 let $ = require("jquery")
 let baffle = require('baffle')
@@ -311,6 +312,7 @@ $(document).ready(function () {
     init_actions()
     init_select2()
     $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+    $('[data-toggle="fancybox"]').fancybox({})
     // open_notifications_socket()
 })
 

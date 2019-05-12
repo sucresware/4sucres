@@ -22,6 +22,11 @@ html {
 $body-bg: #F2F4F8;
 $body-color: #4C5669;
 
+$tooltip-max-width:           200px !default;
+$tooltip-color:               $body-color !default;
+$tooltip-bg:                  $body-bg !default;
+$tooltip-opacity:             .9 !default;
+
 $font-family-sans-serif: 'Inter', sans-serif;
 $headings-font-family: 'Rubik', sans-serif;
 
@@ -169,4 +174,9 @@ hr {
     .fw-category {
         width: 150px;
     }
+}
+
+.tooltip-inner {
+    border: 1px solid $border-color;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }

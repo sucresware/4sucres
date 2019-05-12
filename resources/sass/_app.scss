@@ -1,5 +1,6 @@
 @import '~select2/src/scss/core';
 @import '~@ttskch/select2-bootstrap4-theme/src/layout';
+@import '~@fancyapps/fancybox/dist/jquery.fancybox.min.css';
 
 .integration {
     background-color: #f2f4f8;
@@ -12,12 +13,12 @@
     }
 }
 
-* {
+.btn, .a, .hover-accent {
     transition: all 0.2s ease;
-}
 
-*:hover {
-    transition: all 0.2s ease;
+    :hover {
+        transition: all 0.2s ease;
+    }
 }
 
 .text-small {
@@ -193,8 +194,8 @@
 
 .post-content {
     img {
-        max-width: 68px;
-        max-height: 51px;
+        max-width: 300px;
+        max-height: 200px;
         vertical-align: baseline;
     }
 
@@ -240,4 +241,15 @@ footer {
 .help-block {
     font-size: 80%;
     font-weight: 400;
+}
+
+.sticker-inline {
+    max-height: 15px !important;
+    vertical-align: baseline !important;
+}
+
+.sticker {
+    max-width: 68px !important;
+    max-height: 51px !important;
+    vertical-align: baseline !important;
 }

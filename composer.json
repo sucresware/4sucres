@@ -27,8 +27,10 @@
         "realripley00/bootstrap-4-form": "^1.1",
         "sentry/sentry-laravel": "1.0.2",
         "spatie/laravel-permission": "^2.37",
+        "spatie/regex": "^1.4",
         "timehunter/laravel-google-recaptcha-v3": "~2.2.16",
-        "watson/active": "^3.1"
+        "watson/active": "^3.1",
+        "yish/imgur": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

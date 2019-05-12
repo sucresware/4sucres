@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Spatie\Regex\Regex;
 
 class sucresParser
 {
@@ -26,8 +27,10 @@ class sucresParser
              ->renderMock()
              ->protectAttr('youtube')
              ->protectAttr('url')
+             ->protectAttr('img')
              ->renderBB()
              ->renderUrl()
+             ->renderImg()
              ->renderVocaroo()
              ->renderYoutube()
              ->renderMentions();
@@ -112,6 +115,63 @@ class sucresParser
         return $this;
     }
 
+    public function renderImg(){
+        $preg_result = [];
+        $regexp = '/{' . $this->protections['img'] . '(=.*?|)}(.*?){\/' . $this->protections['img'] . '}/';
+        preg_match_all($regexp, $this->content, $preg_result);
+
+        foreach ($preg_result[0] as $k => $match) {
+            $res = collect([
+                // 'noelshack' => '/(?:http(?:s|):\/\/www\.noelshack\.com\/)(\d{4})-(\d{2})-(\d*)-((?:\d*)-(?:\w*).(?:\w*))/s',
+                'noelshack_image' => '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s',
+            ]);
+
+            foreach ($res as $service => $re) {
+                $url = trim($preg_result[2][$k]);
+                $hits = Regex::match($re, $url);
+                if ($hits->hasMatch()) {
+                    $lines = explode("\n", $this->content);
+                    $inline = !(in_array($preg_result[0][$k], $lines));
+
+                    if ($inline) {
+                        $preview = '<img class="sticker" src="' . $url . '">';
+                        $markup = "<img class='sticker-inline tooltip-inverse' src='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
+                    } else {
+                        $markup = "<img class='sticker' src='$url'>";
+                    }
+                    $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
+                    break;
+                }
+            }
+
+            $markup = "<a href='$url' data-toggle='fancybox' data-type='image' class='my-2'><img src='$url' class='img-fluid'></a>";
+            $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
+        }
+
+        //     $url = $preg_result[1][$k] == '' ? $preg_result[2][$k] : $preg_result[1][$k];
+        //     $url = trim(trim($url, '='));
+
+        //     foreach ($ignore_regexps as $ignore_regexp) {
+        //         $ignore_preg_result = [];
+        //         preg_match($ignore_regexp, $url, $ignore_preg_result);
+        //         if (count($ignore_preg_result) && $ignore_preg_result[0] != '') {
+        //             $this->content = str_replace($preg_result[0][$k], $url, $this->content);
+        //             return $this;
+        //         }
+        //     }
+
+        //     if ($preg_result[1][$k] != '' && $url != $preg_result[2][$k]) {
+        //         $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . $url;
+        //     } else {
+        //         $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . $url;
+        //     }
+        //     $markup = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $preg_result[2][$k] . '</a>';
+        //     $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
+        // }
+
+        return $this;
+    }
+
     public function renderYoutube(){
         $preg_result = [];
         $regexp = '/{' . $this->protections['youtube'] . '(=.*?|)}(.*?){\/' . $this->protections['youtube'] . '}/';
@@ -129,7 +189,7 @@ class sucresParser
             $youtube_id = str_replace('http://www.youtube.com/embed/', '', $youtube_id);
             $youtube_id = trim(explode('&', $youtube_id)[0]);
 
-            $markup  = '<div class="integration shadow-sm" style="max-width: 500px">';
+            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' . $youtube_id . '?rel=0" allowfullscreen></iframe>';
             $markup .= '</div>';
@@ -151,7 +211,7 @@ class sucresParser
             $base_vocaroo_url = $preg_result[0][$k];
             $vocaroo_id = $preg_result[1][$k];
 
-            $markup  = '<div class="integration shadow-sm" style="max-width: 500px">';
+            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
             $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
             $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $vocaroo_id . '&command=download_mp3" type="audio/mpeg">';

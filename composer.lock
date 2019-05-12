@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9498caa620e8ec5413f37dac9a75af65",
+    "content-hash": "84989588dcd732426ef0d2fee2651f3e",
     "packages": [
         {
             "name": "appstract/laravel-options",
@@ -4153,6 +4153,55 @@
             "time": "2019-04-09T12:45:17+00:00"
         },
         {
+            "name": "spatie/regex",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/regex.git",
+                "reference": "eca5dab5cfcc313def6e674cf9a4f3f0c81a7c11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/regex/zipball/eca5dab5cfcc313def6e674cf9a4f3f0c81a7c11",
+                "reference": "eca5dab5cfcc313def6e674cf9a4f3f0c81a7c11",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Regex\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A sane interface for php's built in preg_* functions",
+            "homepage": "https://github.com/spatie/regex",
+            "keywords": [
+                "expression",
+                "expressions",
+                "regex",
+                "regular",
+                "spatie"
+            ],
+            "time": "2019-01-28T15:47:35+00:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v6.2.1",
             "source": {
@@ -5640,6 +5689,53 @@
                 "routing"
             ],
             "time": "2019-03-25T04:56:13+00:00"
+        },
+        {
+            "name": "yish/imgur",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mombuyish/Laravel-Imgur.git",
+                "reference": "fd67f7d8926ae02deb3b2ddde39e66031450cacf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mombuyish/Laravel-Imgur/zipball/fd67f7d8926ae02deb3b2ddde39e66031450cacf",
+                "reference": "fd67f7d8926ae02deb3b2ddde39e66031450cacf",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "laravel": {
+                    "providers": [
+                        "Yish\\Imgur\\UploadServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yish\\Imgur\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Yish",
+                    "email": "mombuartworks@gmail.com"
+                }
+            ],
+            "description": "Imgur upload API with Laravel.",
+            "homepage": "https://github.com/Mombuyish/Laravel-Imgur",
+            "keywords": [
+                "imgur",
+                "laravel",
+                "upload"
+            ],
+            "time": "2017-12-13T07:27:47+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
