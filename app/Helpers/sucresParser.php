@@ -135,6 +135,9 @@ class sucresParser
                 $hits = Regex::match($re, $url);
                 if ($hits->hasMatch()) {
                     $lines = explode("\n", $this->content);
+                    $lines = array_map(function($elem){
+                        return trim(trim($elem, '<br>'), '<br/>');
+                    }, $lines);
                     $inline = !(in_array($preg_result[0][$k], $lines));
 
                     if ($inline) {
