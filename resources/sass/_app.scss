@@ -3,7 +3,8 @@
 @import '~@fancyapps/fancybox/dist/jquery.fancybox.min.css';
 
 .op-8 {
-    opacity: 0.8;
+    // opacity: 0.8;
+    background-color: lighten(#f2f4f8, 2%) !important;
     transition: all ease 200ms;
 }
 
