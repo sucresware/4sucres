@@ -112,11 +112,14 @@
                 <div id="imgur-progress" class="text-center mb-3"></div>
                 <div id="imgur-error" class="text-center text-danger mb-3"></div>
                 <div id="imgur-form">
-                    <div class="input-group mb-3">
-                        <input type="file" id="imgur-uploadinput" class="form-control">
-                        <div class="input-group-append">
-                            <button type="submit" id="imgur-uploadaction" class="btn btn-primary"><i class="fas fa-upload"></i></button>
+                    <div class="form-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="imgur-uploadinput">
+                            <label class="custom-file-label" for="customFile" data-browse="Choisir un fichier">Aucun fichier choisi</label>
                         </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" id="imgur-uploadaction" class="btn btn-primary"><i class="fas fa-upload mr-1"></i> Envoyer</button>
                     </div>
                 </div>
             </div>
