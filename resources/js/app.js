@@ -351,7 +351,7 @@ let imgur = {
                     $(editor).val(str + "[img]" + resp.file.link + "[/img]")
                     $("#imgur").modal('hide')
                 } else {
-                    imgur.setError(resp)
+                    imgur.setError(resp.error)
                     imgur.setForm()
                 }
             },
