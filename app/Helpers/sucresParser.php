@@ -50,6 +50,10 @@ class sucresParser
                 return '</span>';
             }
         });
+        $this->parser->ignoreTag('quote');
+        $this->parser->ignoreTag('font');
+        $this->parser->ignoreTag('size');
+        $this->parser->ignoreTag('email');
 
         return $this;
     }
@@ -147,27 +151,6 @@ class sucresParser
             $markup = "<a href='$url' data-toggle='fancybox' data-type='image' class='my-2'><img src='$url' class='img-fluid'></a>";
             $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
         }
-
-        //     $url = $preg_result[1][$k] == '' ? $preg_result[2][$k] : $preg_result[1][$k];
-        //     $url = trim(trim($url, '='));
-
-        //     foreach ($ignore_regexps as $ignore_regexp) {
-        //         $ignore_preg_result = [];
-        //         preg_match($ignore_regexp, $url, $ignore_preg_result);
-        //         if (count($ignore_preg_result) && $ignore_preg_result[0] != '') {
-        //             $this->content = str_replace($preg_result[0][$k], $url, $this->content);
-        //             return $this;
-        //         }
-        //     }
-
-        //     if ($preg_result[1][$k] != '' && $url != $preg_result[2][$k]) {
-        //         $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . $url;
-        //     } else {
-        //         $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . $url;
-        //     }
-        //     $markup = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $preg_result[2][$k] . '</a>';
-        //     $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
-        // }
 
         return $this;
     }
