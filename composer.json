@@ -19,6 +19,7 @@
         "intervention/image": "^2.4",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "mattketmo/email-checker": "^1.5",
         "molayli/laravel-cloudflare-real-ip": "^0.1.0",
         "pusher/pusher-php-server": "~3.0",
         "qirolab/laravel-reactions": "^2.2",

@@ -26,7 +26,7 @@ class RegisterController extends Controller
 
         request()->validate([
             'name' => ['required', 'string', 'alpha_dash', 'max:255', 'min:4', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'not_throw_away', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6'],
             'dob' => ['required', 'date', 'before:' . $min_date, 'after:' . $max_date],
             'gender' => ['required', 'in:M,F'],
@@ -35,6 +35,7 @@ class RegisterController extends Controller
             'gender.in' => 'Désolé, pas de sucres non genrés ici. Tu peux trouver ta place sur <a href="http://www.madmoizelle.com/">mademoiZelle.com</a>',
             'dob.before' => 'Tu dois avoir plus de 13 ans pour t\'inscrire ici.',
             'dob.after' => 'WTF l\'ancien !? T\'es né avant 1900?',
+            'email.not_throw_away' => 'Un problème avec l\'adresse e-mail?',
         ]);
 
         $user = User::create([
