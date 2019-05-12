@@ -111,9 +111,6 @@ class Post extends Model implements ReactableInterface
 
     public function getLinkAttribute()
     {
-        $pagniator = 10;
-        $post_position = array_search($this->id, $this->discussion->posts->pluck('id')->toArray()) + 1;
-        $guessed_page = ceil($post_position / $pagniator);
-        return $this->discussion->link . '?page=' . $guessed_page . '#p' . $this->id;
+        return Discussion::linkTo($this);
     }
 }

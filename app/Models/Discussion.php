@@ -121,4 +121,12 @@ class Discussion extends Model
     {
         return route('discussions.show', [$this->id, $this->slug]);
     }
+
+    public static function linkTo(Post $post)
+    {
+        $pagniator = 10;
+        $post_position = array_search($post->id, $post->discussion->posts->pluck('id')->toArray()) + 1;
+        $guessed_page = ceil($post_position / $pagniator);
+        return $post->discussion->link . '?page=' . $guessed_page . '#p' . $post->id;
+    }
 }

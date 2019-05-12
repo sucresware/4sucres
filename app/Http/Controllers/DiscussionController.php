@@ -25,7 +25,8 @@ class DiscussionController extends Controller
         return view('discussion.create', compact('categories'));
     }
 
-    public function preview(){
+    public function preview()
+    {
         if (auth()->user()->cannot('create discussions')) {
             return abort(403);
         }
@@ -72,10 +73,7 @@ class DiscussionController extends Controller
 
         $discussion->subscribed()->attach(auth()->user()->id);
 
-        return redirect(route('discussions.show', [
-            $discussion->id,
-            $discussion->slug,
-        ]));
+        return redirect(Discussion::linkTo($post));
     }
 
     public function index(Category $category = null, $slug = null)
