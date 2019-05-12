@@ -2,6 +2,20 @@
 @import '~@ttskch/select2-bootstrap4-theme/src/layout';
 @import '~@fancyapps/fancybox/dist/jquery.fancybox.min.css';
 
+.op-8 {
+    opacity: 0.8;
+    transition: all ease 200ms;
+}
+
+:target {
+    transform: scale(1.02);
+    border: 1px solid $border-color;
+    background-color: #f2f4f8;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
 blockquote {
     padding: 0.5rem;
     background-color: #f2f4f8;

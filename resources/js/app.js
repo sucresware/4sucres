@@ -9,6 +9,7 @@ let baffle = require('baffle')
 let csrf_token = $("meta[name=csrf-token]").attr('content');
 
 import Echo from "laravel-echo"
+import bsCustomFileInput from 'bs-custom-file-input'
 
 window.Pusher = require('pusher-js');
 window.Echo = new Echo({
@@ -393,12 +394,17 @@ $(document).ready(function () {
     init_baffle()
     init_actions()
     init_select2()
+    bsCustomFileInput.init()
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
     })
     $('[data-toggle="fancybox"]').fancybox({})
     // open_notifications_socket()
-    if (location.hash && $(location.hash)) $(location.hash).addClass('highlighted')
+    if (location.hash && $(location.hash)) {
+        scrollTo($(location.hash));
+        highlight($(location.hash));
+        // $(location.hash).addClass('highlighted')
+    }
 })
 
 function getInputSelection(elem) {
@@ -409,4 +415,35 @@ function getInputSelection(elem) {
     } else {
         return '';
     }
+}
+
+function scrollTo(target) {
+    if (target.length) {
+        $("html, body").stop().animate({
+            scrollTop: target.offset().top - 100
+        }, 250);
+    }
+}
+
+$("a[href*='#']:not([href='#'])").click(function () {
+    if (
+        location.hostname == this.hostname &&
+        this.pathname.replace(/^\//, "") == location.pathname.replace(/^\//, "")
+    ) {
+        var anchor = $(this.hash);
+        anchor = anchor.length ? anchor : $("[name=" + this.hash.slice(1) + "]");
+        scrollTo(anchor);
+        highlight(anchor);
+    }
+});
+
+function highlight(target) {
+    let count = 0,
+        max = 3;
+    let highlight = setInterval(() => {
+        $(target).toggleClass('op-8');
+        if (count++ >= max) {
+            clearInterval(highlight);
+        }
+    }, 300);
 }
