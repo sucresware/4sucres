@@ -44,7 +44,7 @@ class UserController extends Controller
         request()->validate([
             'display_name' => ['required', 'string', 'max:255', 'min:4'],
             'shown_role' => ['string', 'max:255'],
-            'avatar' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => ['image', 'max:2048'],
         ]);
 
         if (request()->hasFile('avatar')) {

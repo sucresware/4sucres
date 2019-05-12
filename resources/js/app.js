@@ -128,6 +128,9 @@ var init_actions = function () {
                 case 'openNoelshack':
                     noelshack.init()
                     break
+                case 'openImgur':
+                    imgur.init()
+                    break
             }
         })
     })
@@ -303,6 +306,86 @@ let noelshack = {
     hideAll: function () {
         $('#noelshack-progress').hide()
         $('#noelshack-form').hide()
+    }
+};
+
+let imgur = {
+    init: function () {
+        $("#imgur-uploadaction").off('click')
+        $("#imgur-uploadaction").click(function (e) {
+            e.preventDefault()
+            imgur.upload()
+        })
+        imgur.clearError()
+        imgur.setForm()
+    },
+    upload: function () {
+        imgur.clearError()
+        imgur.setProgress(0)
+
+        var formData = new FormData();
+        formData.append('file', $("#imgur-uploadinput")[0].files[0])
+
+        $.ajax({
+            type: 'POST',
+            url: "/api/v0/imgur-gateway/upload",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        imgur.setProgress(Math.round(percentComplete * 100))
+                    }
+                }, false)
+                return xhr
+            },
+            success: function (resp) {
+                console.log(resp)
+                if (resp.success) {
+                    var editor = $(".sucresBB-editor")
+                    var str = $(editor).val()
+                    $(editor).val(str + "[img]" + resp.file.link + "[/img]")
+                    $("#imgur").modal('hide')
+                } else {
+                    imgur.setError(resp)
+                    imgur.setForm()
+                }
+            },
+            error: function (e) {
+                var resp = e.responseJSON;
+                imgur.setError(resp.errors.file[0])
+                imgur.setForm()
+            },
+        })
+    },
+    setForm: function () {
+        imgur.hideAll()
+        $('#imgur-form').show()
+        $('#imgur-upload').show()
+        $('#imgur-uploadinput').val('')
+    },
+    setProgress: function (percent) {
+        imgur.hideAll()
+        $('#imgur-progress').show()
+        percent = '<i class="fas fa-sync fa-spin fa-1x mr-1 mb-2"></i><br>' + percent + "%";
+        $('#imgur-progress').html(percent)
+    },
+    setError: function (str) {
+        $('#imgur-error').show()
+        str = '<i class="fas fa-exclamation-circle fa-1x mr-1"></i>' + str;
+        $('#imgur-error').html(str)
+    },
+    clearError: function () {
+        $('#imgur-error').hide()
+        $('#imgur-error').empty()
+    },
+    hideAll: function () {
+        $('#imgur-progress').hide()
+        $('#imgur-form').hide()
     }
 };
 

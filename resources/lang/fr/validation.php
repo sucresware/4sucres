@@ -172,6 +172,7 @@ return [
         'date' => 'date',
         'time' => 'heure',
         'available' => 'disponible',
+        'file' => 'fichier',
         'size' => 'taille',
         'reply' => 'réponse',
         'dob' => 'date de naissance',

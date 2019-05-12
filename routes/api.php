@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v0'], function(){
+    Route::post('/imgur-gateway/upload', 'Api\ImgurGatewayController@upload');
 });
-
-// Route::get('risibank/4s-favorites', function(Request $request){
-
-// });

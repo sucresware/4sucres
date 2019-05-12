@@ -17,7 +17,8 @@
     </div>
     <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-outline-primary" data-action="openRisibank" data-toggle="modal" data-target="#risibank"><img src="/img/risibank_logo.png" style="height: 20px;"></button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>
+        {{--  <button type="button" class="btn btn-sm btn-outline-primary" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>  --}}
+        <button type="button" class="btn btn-sm btn-outline-primary" data-action="openImgur" data-toggle="modal" data-target="#imgur"><img src="/img/imgur_logo.png" style="height: 20px;"></button>
     </div>
 </div>
 
@@ -89,6 +90,32 @@
                         <input type="file" id="noelshack-uploadinput" class="form-control">
                         <div class="input-group-append">
                             <button type="submit" id="noelshack-uploadaction" class="btn btn-primary"><i class="fas fa-upload"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imgur" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><img src="/img/imgur_logo.png" style="height: 30px;">
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="imgur-dom">
+                <div id="imgur-progress" class="text-center mb-3"></div>
+                <div id="imgur-error" class="text-center text-danger mb-3"></div>
+                <div id="imgur-form">
+                    <div class="input-group mb-3">
+                        <input type="file" id="imgur-uploadinput" class="form-control">
+                        <div class="input-group-append">
+                            <button type="submit" id="imgur-uploadaction" class="btn btn-primary"><i class="fas fa-upload"></i></button>
                         </div>
                     </div>
                 </div>
