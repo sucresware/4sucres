@@ -102,7 +102,7 @@
                     </div>
                     <div class="card-footer bg-light">
                         <div class="text-center mb-3">
-                            <small>En vous inscrivant et en utilisant nos services, vous déclarez avoir lu et acceptez les <a href="{{ route('terms') }}">Conditions générales d'utilisation</a>.</small>
+                            <small>En t'inscrivant et en utilisant nos services, tu déclares avoir lu et accepter sans réserve les <a href="{{ route('terms') }}">Conditions générales d'utilisation</a>.</small>
                         </div>
 
                         <div class="text-right">
