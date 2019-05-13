@@ -79,7 +79,11 @@ class DiscussionController extends Controller
     public function index(Category $category = null, $slug = null)
     {
         $categories = Category::ordered()->get();
-        $discussions = Discussion::query();
+        $discussions = Discussion::query()
+            ->with('category')
+            ->with('posts')
+            ->with('posts.user')
+            ->with('user');
 
         if ($category) {
             $discussions = $discussions->where('category_id', $category->id);
@@ -120,7 +124,11 @@ class DiscussionController extends Controller
 
     public function show($id, $slug) // Ne pas utiliser Discussion $discussion (pour laisser possible le 410)
     {
-        $discussion = Discussion::withTrashed()->findOrFail($id);
+        $discussion = Discussion::query()
+            ->withTrashed()
+            ->with('posts')
+            ->with('posts.user')
+            ->findOrFail($id);
 
         if ($discussion->trashed()) {
             return abort(410);
