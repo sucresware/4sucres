@@ -25,6 +25,7 @@ class sucresParser
     public function render()
     {
         $this->addBBCodesToParser()
+            ->https()
             ->renderMock()
             ->protectAttr('youtube')
             ->protectAttr('url')
@@ -42,6 +43,13 @@ class sucresParser
         }
 
         return $this->content;
+    }
+
+    public function https()
+    {
+        $this->content = str_replace("http://", "https://", $this->content);
+
+        return $this;
     }
 
     public function addBBCodesToParser()
