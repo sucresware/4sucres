@@ -99,7 +99,8 @@ class sucresParser
         preg_match_all($regexp, $this->content, $preg_result);
 
         $ignore_regexps = [
-            '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m'
+            '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m',
+            '/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m'
         ];
 
         foreach ($preg_result[0] as $k => $match) {
