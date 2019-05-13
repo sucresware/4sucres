@@ -35,6 +35,7 @@ class sucresParser
             ->renderImg()
             ->renderVocaroo()
             ->renderVocaBank()
+            ->renderTwitchClips()
             ->renderYoutube()
             ->renderMentions();
 
@@ -108,7 +109,8 @@ class sucresParser
 
         $ignore_regexps = [
             '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m',
-            '/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m'
+            '/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m',
+            '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m'
         ];
 
         foreach ($preg_result[0] as $k => $match) {
@@ -225,6 +227,29 @@ class sucresParser
             $markup .= '</audio>';
             $markup .= '</div>';
             $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="' . $base_vocaroo_url . '">Écouter sur Vocaroo</a></div>';
+            $markup .= '</div>';
+
+            $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
+        }
+
+        return $this;
+    }
+
+    public function renderTwitchClips()
+    {
+        $preg_result = [];
+        $regexp = '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m';
+        preg_match_all($regexp, $this->content, $preg_result);
+
+        foreach ($preg_result[0] as $k => $match) {
+            $base_twitch_url = $preg_result[0][$k];
+            $twitch_clip_id = $preg_result[1][$k];
+
+            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
+            $markup .= '<iframe class="embed-responsive-item" src="https://clips.twitch.tv/embed?autoplay=false&clip=' . $twitch_clip_id . '" allowfullscreen></iframe>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fab fa-twitch" style="color: #4b367c"></i> <a target="_blank" href="' . $base_twitch_url . '">Ouvrir dans Twitch</a></div>';
             $markup .= '</div>';
 
             $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
