@@ -127,7 +127,7 @@
         </div>
 
         @if (auth()->check() && auth()->user()->restricted)
-            <div class="bg-darker shadow">
+            <div class="bg-primary shadow">
                 <div class="container text-white py-2">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
