@@ -232,11 +232,9 @@ class sucresParser
         preg_match_all($regexp, $this->content, $preg_result);
 
         foreach ($preg_result[0] as $k => $match) {
-            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
-            $markup .= '<div style="max-width: 500px" class="border-bottom">';
-            $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
-            $markup .= '<source src="' . $preg_result[0][$k] . '/listen" type="audio/mpeg">';
-            $markup .= '</audio>';
+            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 600px">';
+            $markup .= '<div style="max-width: 600px" class="border-bottom">';
+            $markup .= '<iframe width="100%" height="120" scrolling="no" frameborder="no" src="' . $preg_result[0][$k] . '/iframe"></iframe>';
             $markup .= '</div>';
             $markup .= '<div class="integration-text"><i class="fas fa-microphone text-primary"></i> <a target="_blank" href="' . $preg_result[0][$k] . '">Écouter sur VocaBank</a></div>';
             $markup .= '</div>';
