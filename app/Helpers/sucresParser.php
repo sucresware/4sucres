@@ -22,18 +22,20 @@ class sucresParser
         $this->protections = [];
     }
 
-    public function render(){
+    public function render()
+    {
         $this->addBBCodesToParser()
-             ->renderMock()
-             ->protectAttr('youtube')
-             ->protectAttr('url')
-             ->protectAttr('img')
-             ->renderBB()
-             ->renderUrl()
-             ->renderImg()
-             ->renderVocaroo()
-             ->renderYoutube()
-             ->renderMentions();
+            ->renderMock()
+            ->protectAttr('youtube')
+            ->protectAttr('url')
+            ->protectAttr('img')
+            ->renderBB()
+            ->renderUrl()
+            ->renderImg()
+            ->renderVocaroo()
+            ->renderVocaBank()
+            ->renderYoutube()
+            ->renderMentions();
 
         if (!$this->lightweight) {
             $this->renderQuotes();
@@ -42,7 +44,8 @@ class sucresParser
         return $this->content;
     }
 
-    public function addBBCodesToParser(){
+    public function addBBCodesToParser()
+    {
         $this->parser->addTag('glitch', function ($tag, &$html, $openingTag) {
             if ($tag->opening) {
                 return '<span class="baffle">';
@@ -58,13 +61,15 @@ class sucresParser
         return $this;
     }
 
-    public function renderBB(){
+    public function renderBB()
+    {
         $this->content = $this->parser->render($this->content);
 
         return $this;
     }
 
-    public function renderMock(){
+    public function renderMock()
+    {
         $preg_result = [];
         $regexp = '/(?:\[mock\])(.*?)(?:\[\/mock\])/';
         preg_match_all($regexp, $this->content, $preg_result);
@@ -78,14 +83,17 @@ class sucresParser
             }
 
             $this->content = str_replace(
-                $tag, implode('', $str), $this->content
+                $tag,
+                implode('', $str),
+                $this->content
             );
         }
 
         return $this;
     }
 
-    public function renderUrl(){
+    public function renderUrl()
+    {
         $preg_result = [];
         $regexp = '/{' . $this->protections['url'] . '(=.*?|)}(.*?){\/' . $this->protections['url'] . '}/';
         preg_match_all($regexp, $this->content, $preg_result);
@@ -119,7 +127,8 @@ class sucresParser
         return $this;
     }
 
-    public function renderImg(){
+    public function renderImg()
+    {
         $preg_result = [];
         $regexp = '/{' . $this->protections['img'] . '(=.*?|)}(.*?){\/' . $this->protections['img'] . '}/';
         preg_match_all($regexp, $this->content, $preg_result);
@@ -135,7 +144,7 @@ class sucresParser
                 $hits = Regex::match($re, $url);
                 if ($hits->hasMatch()) {
                     $lines = explode("\n", $this->content);
-                    $lines = array_map(function($elem){
+                    $lines = array_map(function ($elem) {
                         return trim(trim($elem, '<br>'), '<br/>');
                     }, $lines);
                     $inline = !(in_array($preg_result[0][$k], $lines));
@@ -158,7 +167,8 @@ class sucresParser
         return $this;
     }
 
-    public function renderYoutube(){
+    public function renderYoutube()
+    {
         $preg_result = [];
         $regexp = '/{' . $this->protections['youtube'] . '(=.*?|)}(.*?){\/' . $this->protections['youtube'] . '}/';
         preg_match_all($regexp, $this->content, $preg_result);
@@ -188,7 +198,8 @@ class sucresParser
         return $this;
     }
 
-    public function renderVocaroo(){
+    public function renderVocaroo()
+    {
         $preg_result = [];
         $regexp = '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m';
         preg_match_all($regexp, $this->content, $preg_result);
@@ -213,7 +224,30 @@ class sucresParser
         return $this;
     }
 
-    public function renderMentions(){
+    public function renderVocaBank()
+    {
+        $preg_result = [];
+        $regexp = '/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m';
+        preg_match_all($regexp, $this->content, $preg_result);
+
+        foreach ($preg_result[0] as $k => $match) {
+            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup .= '<div style="max-width: 500px" class="border-bottom">';
+            $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
+            $markup .= '<source src="' . $preg_result[0][$k] . '/listen" type="audio/mpeg">';
+            $markup .= '</audio>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-primary"></i> <a target="_blank" href="' . $preg_result[0][$k] . '">Écouter sur VocaBank</a></div>';
+            $markup .= '</div>';
+
+            $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
+        }
+
+        return $this;
+    }
+
+    public function renderMentions()
+    {
         $preg_result = [];
         $regex = '/(?:@|#u:)(?:(\w|-)*)/m';
         preg_match_all($regex, $this->content, $preg_result);
@@ -223,15 +257,20 @@ class sucresParser
             $clear_tag = trim(str_replace(['@', '#u:'], '', $tag));
 
             $user = User::where('name', $clear_tag)->first();
-            if (!$user) { continue; }
+            if (!$user) {
+                continue;
+            }
 
             $this->content = str_replace(
-                $tag, '<a href="' . $user->link . '" class="badge badge-primary">@' . $user->name . '</a>' . ' ', $this->content
+                $tag,
+                '<a href="' . $user->link . '" class="badge badge-primary">@' . $user->name . '</a>' . ' ',
+                $this->content
             );
         }
     }
 
-    public function renderQuotes(){
+    public function renderQuotes()
+    {
         $preg_result = [];
         $regex = '/(?:#p:)(?:(\w|-)*)/m';
         preg_match_all($regex, $this->content, $preg_result);
@@ -246,12 +285,15 @@ class sucresParser
             }
 
             $this->content = str_replace(
-                $tag, view('discussion.post._show_as_quote', compact('post'))->render(), $this->content
+                $tag,
+                view('discussion.post._show_as_quote', compact('post'))->render(),
+                $this->content
             );
         }
     }
 
-    public function protectAttr($attr){
+    public function protectAttr($attr)
+    {
         $attr_code = Str::uuid()->toString();
 
         $regexp = '/\[' . $attr . '(=.*?|)\](.*?)\[\/' . $attr . '\]/';
