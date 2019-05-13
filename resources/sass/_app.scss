@@ -8,7 +8,7 @@
     transition: all ease 200ms;
 }
 
-:target {
+.post:target {
     transform: scale(1.02);
     border: 1px solid $border-color;
     background-color: #f2f4f8;

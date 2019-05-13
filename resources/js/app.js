@@ -406,8 +406,7 @@ $(document).ready(function () {
     // open_notifications_socket()
     if (location.hash && $(location.hash)) {
         scrollTo($(location.hash));
-        highlight($(location.hash));
-        // $(location.hash).addClass('highlighted')
+        if (location.hash.substr(0, 1) == 'p') highlight($(location.hash));
     }
 })
 
