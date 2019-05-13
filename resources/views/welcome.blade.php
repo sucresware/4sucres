@@ -37,7 +37,7 @@
                 <h5 class="mt-0 mb-2 ml-2">Catégories</h5>
                 <div class="nav flex-column nav-pills">
                     @foreach ($categories as $category)
-                        <a href="{{ route('discussions.categories.index', [$category->id, $category->slug]) }}" class="nav-link {{ active([route('discussions.categories.index', [$category->id, $category->slug])]) }}" style="color: {{ $category->color }}"><i class="fas fa-hashtag mr-1"></i> {{ ltrim($category->name, '#') }}</a>
+                        <a href="{{ route('discussions.categories.index', [$category->id, $category->slug]) }}" class="nav-link {{ active([route('discussions.categories.index', [$category->id, $category->slug])]) }}" style="color: {{ $category->color }}"><i class="fas fa-hashtag"></i> {{ ltrim($category->name, '#') }}</a>
                     @endforeach
                 </div>
             </div>
