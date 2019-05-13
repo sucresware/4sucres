@@ -28,17 +28,15 @@ $.ajaxSetup({
     }
 });
 
-var updatePresenceCounter = function () {
-    $(".presence-counter").html(window.fourSucres.count);
+if (window.fourSucres.user) {
+    setInterval(() => {
+        $.getJSON('/api/v0/ping')
+            .done(function (resp) {})
+            .fail(function () {
+                window.location.reload();
+            })
+    }, 1000 * 60 * 2);
 }
-
-window.fourSucres = {
-    count: undefined,
-}
-
-setInterval(() => {
-    updatePresenceCounter();
-}, 1000);
 
 /**
  * Notifications

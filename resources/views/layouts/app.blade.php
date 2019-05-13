@@ -173,6 +173,7 @@
 
     @include('sweetalert::alert')
     {!! GoogleReCaptchaV3::init() !!}
+    <script> window.fourSucres = { user: @auth @json(auth()->user()->only(['id', 'name', 'email'])) @else null @endauth } </script>
     <script src="{{ mix('/js/app.js') }}"></script>
     @stack('js')
 </body>
