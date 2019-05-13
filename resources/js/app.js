@@ -22,6 +22,12 @@ window.Echo = new Echo({
     disableStats: true,
 })
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': csrf_token
+    }
+});
+
 var updatePresenceCounter = function () {
     $(".presence-counter").html(window.fourSucres.count);
 }

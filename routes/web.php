@@ -61,3 +61,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/d/s', 'DiscussionController@subscriptions')->name('discussions.subscriptions');
 });
+
+Route::group(['prefix' => '/api/v0'], function () {
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('/imgur-gateway/upload', 'Api\ImgurGatewayController@upload');
+    });
+});
+
+

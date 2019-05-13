@@ -12,7 +12,3 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::group(['prefix' => 'v0'], function(){
-    Route::post('/imgur-gateway/upload', 'Api\ImgurGatewayController@upload');
-});
