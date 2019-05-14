@@ -56342,12 +56342,13 @@ $.ajaxSetup({
 
 if (window.fourSucres.user) {
   window.Echo["private"]('App.Models.User.' + window.fourSucres.user.id).notification(function (notification) {
-    notification_sound.play();
     $.notify({
       title: notification.title,
       message: notification.text,
       url: notification.url
     }, {});
+    notification_sound.play();
+    setAltFavicon();
   });
   setInterval(function () {
     $.getJSON('/api/v0/ping').done(function (resp) {}).fail(function () {
@@ -56719,6 +56720,8 @@ $(document).ready(function () {
     scrollTo($(location.hash));
     if (location.hash.substr(0, 1) == 'p') highlight($(location.hash));
   }
+
+  if (window.fourSucres.hasNotifications) setAltFavicon();
 });
 
 function getInputSelection(elem) {
@@ -56758,6 +56761,13 @@ function highlight(target) {
       clearInterval(highlight);
     }
   }, 300);
+}
+
+function setAltFavicon() {
+  $('link[rel="icon"]').each(function (k, el) {
+    var $el = $(el);
+    $el.attr('href', '/favicon-' + $el.attr('sizes') + '-alt.png');
+  });
 }
 
 /***/ }),

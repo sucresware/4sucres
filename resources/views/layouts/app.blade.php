@@ -181,7 +181,12 @@
 
     @include('sweetalert::alert')
     {!! GoogleReCaptchaV3::init() !!}
-    <script> window.fourSucres = { user: @auth @json(user()->only(['id', 'name', 'email'])) @else null @endauth } </script>
+    <script>
+        window.fourSucres = {
+            user: @auth @json(user()->only(['id', 'name', 'email'])) @else null @endauth,
+            hasNotifications: @json((bool) $notifications_count)
+        }
+    </script>
     <script src="{{ mix('/js/app.js') }}"></script>
     @stack('js')
 </body>
