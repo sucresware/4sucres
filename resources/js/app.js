@@ -25,7 +25,8 @@ window.Echo = new Echo({
 })
 
 var notification_sound = new Howl({
-    src: ['/audio/intuition.mp3', '/audio/intuition.mp3']
+    src: ['/audio/intuition.mp3', '/audio/intuition.mp3'],
+    volume: 0.5,
 });
 
 $.notifyDefaults({

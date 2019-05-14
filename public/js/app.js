@@ -56324,7 +56324,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   encrypted: true
 });
 var notification_sound = new howler__WEBPACK_IMPORTED_MODULE_2__["Howl"]({
-  src: ['/audio/intuition.mp3', '/audio/intuition.mp3']
+  src: ['/audio/intuition.mp3', '/audio/intuition.mp3'],
+  volume: 0.5
 });
 $.notifyDefaults({
   type: 'toast',
