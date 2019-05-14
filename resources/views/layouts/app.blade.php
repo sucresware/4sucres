@@ -74,7 +74,7 @@
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
                                     <a class="nav-link text-center pr-0" href="{{ route('notifications.index') }}">
-                                        <span class="fa-stack">
+                                        <span class="fa-stack" id="notifications_indicator">
                                             <i class="fas fa-circle fa-stack-2x text-darker"></i>
                                             @if ($notifications_count)
                                                 <i class="fas fa-bell fa-stack-1x fa-inverse"></i>
@@ -87,7 +87,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-center pl-0" href="{{ route('private_discussions.index') }}">
-                                        <span class="fa-stack">
+                                        <span class="fa-stack" id="private_discussions_indicator">
                                             <i class="fas fa-circle fa-stack-2x text-darker"></i>
                                             @if ($private_unread_count)
                                                 <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>

@@ -56315,6 +56315,7 @@ var baffle = __webpack_require__(/*! baffle */ "./node_modules/baffle/dist/baffl
 var csrf_token = $("meta[name=csrf-token]").attr('content');
 
 
+ // window.Vue = require('vue');
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -56322,8 +56323,13 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   key: "42268be9b70f192a408a",
   cluster: "eu",
   encrypted: true
-});
-var notification_sound = new howler__WEBPACK_IMPORTED_MODULE_2__["Howl"]({
+}); // const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+// const app = new Vue({
+//     el: '#app',
+// });
+
+window.notification_sound = new howler__WEBPACK_IMPORTED_MODULE_2__["Howl"]({
   src: ['/audio/intuition.mp3', '/audio/intuition.mp3'],
   volume: 0.5
 });
@@ -56331,8 +56337,8 @@ $.notifyDefaults({
   type: 'toast',
   template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert">' + '<div class="toast-header" data-notify="title">' + '<strong class="mr-auto">{1}</strong>' + '<small>à l\'instant</small>' + '</div>' + '<div class="toast-body" data-notify="message" style="cursor: pointer;" onclick="window.location.href=\'{3}\'">{2}</div>' + '</div>',
   animate: {
-    enter: 'animated fadeInRight faster',
-    exit: 'animated fadeOutRight faster'
+    enter: 'animated fadeIn faster',
+    exit: 'animated fadeOut faster'
   }
 });
 $.ajaxSetup({
@@ -56350,6 +56356,14 @@ if (window.fourSucres.user) {
     }, {});
     notification_sound.play();
     setAltFavicon();
+
+    if (notification.type == 'App\\Notifications\\NewPrivateDiscussion' || notification.type == 'App\\Notifications\\ReplyInDiscussion' && notification["private"]) {
+      var markup = '<i class="fas fa-circle fa-stack-2x text-darker"></i>' + '<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>' + '<span class="badge badge-danger">&bullet;</span>';
+      $("#private_discussions_indicator").html(markup);
+    }
+
+    var markup = '<i class="fas fa-circle fa-stack-2x text-darker"></i>' + '<i class="fas fa-bell fa-stack-1x fa-inverse"></i>' + '<span class="badge badge-danger">&bullet;</span>';
+    $("#notifications_indicator").html(markup);
   });
   setInterval(function () {
     $.getJSON('/api/v0/ping').done(function (resp) {}).fail(function () {

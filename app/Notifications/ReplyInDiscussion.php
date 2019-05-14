@@ -38,6 +38,7 @@ class ReplyInDiscussion extends Notification
         return new BroadcastMessage(array_merge($this->attributes(), [
             'title' => '<i class="fas fa-asterisk text-orange"></i> Oh putain ! Une nouvelle réponse !',
             'url' => route('notifications.show', $this->id),
+            'private' => $this->post->discussion->private,
         ]));
     }
 
