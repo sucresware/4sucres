@@ -42,8 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/d/p/{user}-{name}/create', 'PrivateDiscussionController@create')->name('private_discussions.create');
     Route::post('/d/p/{user}-{name}', 'PrivateDiscussionController@store')->name('private_discussions.store');
 
-    Route::get('/u/{user}-{name}/edit', 'UserController@edit')->name('user.edit');
-    Route::put('/u/{user}-{name}', 'UserController@update')->name('user.update');
+    Route::get('/u/{user}/edit', 'UserController@edit')->name('user.edit');
+    Route::put('/u/{user}', 'UserController@update')->name('user.update');
 
     Route::get('d/create', 'DiscussionController@create')->name('discussions.create');
     Route::post('/d/preview', 'DiscussionController@preview')->name('discussions.preview');

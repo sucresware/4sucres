@@ -23,8 +23,10 @@ class UserController extends Controller
         return view('user.show', compact('user'));
     }
 
-    public function edit(User $user, $name)
+    public function edit($name)
     {
+        $user = User::where('name', $name)->firstOrFail();
+
         if (auth()->user()->can('update achievements')) {
             $achievements = Achievement::pluck('name', 'id');
         } else {
@@ -40,8 +42,10 @@ class UserController extends Controller
         return view('user.edit', compact('user', 'achievements', 'roles'));
     }
 
-    public function update(User $user, $name)
+    public function update($name)
     {
+        $user = User::where('name', $name)->firstOrFail();
+
         request()->validate([
             'display_name' => ['required', 'string', 'max:255', 'min:4'],
             'shown_role' => ['string', 'max:255'],
