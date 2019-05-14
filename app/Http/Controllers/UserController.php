@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        return view('user.show', compact('user'));
+        return redirect($user->link);
     }
 
     public function show(User $user, $name)
@@ -71,6 +71,6 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('user.show', [$user->id, $user->name]);
+        return redirect($user->link);
     }
 }
