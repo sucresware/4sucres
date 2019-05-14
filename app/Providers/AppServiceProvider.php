@@ -23,9 +23,21 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, config('app.locale'));
 
         View::composer('*', function ($view) {
-            return $view->with('presence_counter', Cache::remember('presence_counter', 3, function () {
-                return User::online()->count();
-            }));
+            $view
+                ->with('presence_counter', Cache::remember('presence_counter', 3, function () {
+                    return User::online()->count();
+                }));
+
+            if (auth()->check())
+                $view
+                    ->with('notifications_count', Cache::remember('notifications_count', 3, function () {
+                        return user()->unreadNotifications->count();
+                    }))
+                    ->with('private_unread_count', Cache::remember('private_unread_count', 3, function () {
+                        return \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count();
+                    }));
+
+            return $view;
         });
     }
 

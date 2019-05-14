@@ -11,6 +11,10 @@ let csrf_token = $("meta[name=csrf-token]").attr('content');
 
 import Echo from "laravel-echo"
 import bsCustomFileInput from 'bs-custom-file-input'
+import {
+    Howl,
+    Howler
+} from 'howler';
 
 window.Pusher = require('pusher-js');
 window.Echo = new Echo({
@@ -20,10 +24,18 @@ window.Echo = new Echo({
     encrypted: true
 })
 
+var notification_sound = new Howl({
+    src: ['/audio/intuition.mp3', '/audio/intuition.mp3']
+});
+
 $.notifyDefaults({
     type: 'toast',
-    template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert" style="cursor: pointer;" onclick="window.location.href=\'{3}\'">' +
-        '<div class="toast-body" data-notify="message">{2}</span>' +
+    template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert">' +
+        '<div class="toast-header" data-notify="title">' +
+        '<strong class="mr-auto">{1}</strong>' +
+        '<small>à l\'instant</small>' +
+        '</div>' +
+        '<div class="toast-body" data-notify="message" style="cursor: pointer;" onclick="window.location.href=\'{3}\'">{2}</div>' +
         '</div>',
     animate: {
         enter: 'animated fadeInRight faster',
@@ -38,13 +50,14 @@ $.ajaxSetup({
 });
 
 if (window.fourSucres.user) {
-    var pusher = window.Echo
-        .private('user.' + window.fourSucres.user.id)
-        .listen('NotificationCreated', (e) => {
-            console.log(e.notification)
+    window.Echo
+        .private('App.Models.User.' + window.fourSucres.user.id)
+        .notification((notification) => {
+            notification_sound.play()
             $.notify({
-                message: e.notification.text,
-                url: e.notification.href
+                title: notification.title,
+                message: notification.text,
+                url: notification.url
             }, {})
         })
 

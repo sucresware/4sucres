@@ -30,12 +30,7 @@ class DiscussionPostController extends Controller
             'user_id' => user()->id,
         ]);
 
-        // return redirect(route('discussions.show', [
-        //     $discussion->id,
-        //     $discussion->slug,
-        // ]));
-
-        return redirect(Discussion::linkTo($post));
+        return redirect($post->link);
     }
 
     public function edit(Discussion $discussion, $slug, Post $post)
@@ -63,7 +58,7 @@ class DiscussionPostController extends Controller
         $post->body = request()->input('body');
         $post->save();
 
-        return redirect(Discussion::linkTo($post));
+        return redirect($post->link);
     }
 
     public function delete(Discussion $discussion, $slug, Post $post)

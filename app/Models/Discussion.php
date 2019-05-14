@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use App\Notifications\MentionnedInPost;
+use Illuminate\Database\Eloquent\Model;
+use App\Notifications\ReplyInDiscussion;
+use App\Notifications\RepliesInDiscussion;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discussion extends Model
 {
@@ -106,13 +111,23 @@ class Discussion extends Model
     {
         foreach ($this->subscribed as $user) {
             if ($user->id != $post->user->id) {
-                Notification::create([
-                    'class' => 'info',
-                    'text' => '<b>' . $post->user->name . '</b> ' . (!$this->private ?
-                        'a posté un nouveau message sur la discussion <b>' . $post->discussion->title . '</b>' : 'vous a envoyé un nouveau message privé'),
-                    'href' => $post->link,
-                    'user_id' => $user->id,
-                ]);
+                // Check if the user has not already received an unread ReplyInDiscussion about this discussion :
+                $notifications = $user->notifications()
+                    ->where('data->discussion_id', $post->discussion->id)
+                    ->where('read_at', null)
+                    ->whereIn('type', [ReplyInDiscussion::class, RepliesInDiscussion::class]);
+
+                if ($notifications->count()) {
+                    $notifications->update(['read_at' => now()]);
+                    if (!$post->discussion->private) {
+                        $user->notify(new RepliesInDiscussion($post->discussion));
+                        $user->notify(new ReplyInDiscussion($post, false));
+                    } else {
+                        $user->notify(new ReplyInDiscussion($post));
+                    }
+                } else {
+                    $user->notify(new ReplyInDiscussion($post));
+                }
             }
         }
     }
@@ -122,7 +137,7 @@ class Discussion extends Model
         return route('discussions.show', [$this->id, $this->slug]);
     }
 
-    public static function linkTo(Post $post)
+    public static function link_to_post(Post $post)
     {
         $pagniator = 10;
         $post_position = array_search($post->id, $post->discussion->posts->pluck('id')->toArray()) + 1;

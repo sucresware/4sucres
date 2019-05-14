@@ -73,7 +73,7 @@ class DiscussionController extends Controller
 
         $discussion->subscribed()->attach(user()->id);
 
-        return redirect(Discussion::linkTo($post));
+        return redirect($post->link);
     }
 
     public function index(Category $category = null, $slug = null)

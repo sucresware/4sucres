@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Discussion;
 use App\Models\User;
+use App\Models\Discussion;
 use Illuminate\Http\Request;
+use App\Notifications\NewPrivateDiscussion;
 use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class PrivateDiscussionController extends Controller
@@ -50,6 +51,8 @@ class PrivateDiscussionController extends Controller
         $discussion->members()->attach([$from->id, $to->id]);
         $discussion->subscribed()->attach([$from->id, $to->id]);
 
-        return redirect(Discussion::linkTo($post));
+        $to->notify(new NewPrivateDiscussion($discussion));
+
+        return redirect($post->link);
     }
 }

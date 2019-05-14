@@ -19,7 +19,7 @@
     <div class="card">
         <div class="card-body">
             @forelse ($notifications as $notification)
-                <a href="{{ route('notifications.show', $notification) }}">{!! $notification->text !!}</a> {{ $notification->created_at->diffForHumans() }}<br>
+                <a href="{{ route('notifications.show', $notification) }}">{!! $notification->data['text'] !!}</a> {{ $notification->created_at->diffForHumans() }}<br>
             @empty
                 <div class="text-center text-muted">
                     <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid" width="100px"><br><br>

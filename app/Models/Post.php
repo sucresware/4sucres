@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
 use App\Helpers\sucresParser;
+use App\Notifications\MentionnedInPost;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use App\Notifications\QuotedInPost;
 
 class Post extends Model implements ReactableInterface
 {
@@ -47,14 +50,7 @@ class Post extends Model implements ReactableInterface
                     $mentioned_users[$user->id] = $user;
                 }
 
-                foreach ($mentioned_users as $user) {
-                    Notification::create([
-                        'class' => 'info',
-                        'text' => '<b>' . $post->user->name . '</b> vous a mentionné sur la discussion <b>' . $post->discussion->title . '</b>',
-                        'href' => $post->link,
-                        'user_id' => $user->id,
-                    ]);
-                }
+                Notification::send($mentioned_users, new MentionnedInPost($post));
 
                 $preg_result = [];
                 preg_match_all('/(?:#p:)(?:\d+)(?:<br\/>|<br>|[\s]|$|\z)/', $post->body, $preg_result);
@@ -75,14 +71,7 @@ class Post extends Model implements ReactableInterface
                     $quoted_users[$p->user->id] = $p->user;
                 }
 
-                foreach ($quoted_users as $user) {
-                    Notification::create([
-                        'class' => 'info',
-                        'text' => '<b>' . $post->user->name . '</b> vous a cité sur la discussion <b>' . $post->discussion->title . '</b>',
-                        'href' => $post->link,
-                        'user_id' => $user->id,
-                    ]);
-                }
+                Notification::send($quoted_users, new QuotedInPost($post));
             }
 
             return true;
@@ -111,6 +100,6 @@ class Post extends Model implements ReactableInterface
 
     public function getLinkAttribute()
     {
-        return Discussion::linkTo($this);
+        return Discussion::link_to_post($this);
     }
 }

@@ -74,7 +74,7 @@
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
                                     <a class="nav-link text-center" href="{{ route('notifications.index') }}">
-                                        @if ($notifications_count = \App\Models\Notification::curated()->count())
+                                        @if ($notifications_count)
                                             <i class="fas fa-bell text-danger"></i>
                                         @else
                                             <i class="fas fa-bell"></i>
@@ -84,7 +84,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-center" href="{{ route('private_discussions.index') }}">
-                                        @if ($private_unread_count = \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count())
+                                        @if ($private_unread_count)
                                             <i class="fas fa-envelope text-danger"></i>
                                         @else
                                             <i class="fas fa-envelope"></i>

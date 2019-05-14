@@ -2,32 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notification;
+use Illuminate\Notifications\Notification;
 
 class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = Notification::curated()->get();
+        $notifications = user()->unreadNotifications;
 
         return view('notifications.index', compact('notifications'));
     }
 
     public function clear()
     {
-        Notification::curated()->update(['seen' => true]);
+        user()->unreadNotifications()->update(['read_at' => now()]);
 
         return redirect()->route('notifications.index');
     }
 
-    public function show(Notification $notification)
+    public function show($notification_id)
     {
-        if ($notification->user_id != user()->id) {
-            return abort(403);
-        }
-        $notification->seen = true;
-        $notification->save();
+        $notification = user()->notifications()->where('id', $notification_id)->first();
+        $notification->markAsRead();
 
-        return redirect($notification->href);
+        return redirect($notification->data['target']);
     }
 }
