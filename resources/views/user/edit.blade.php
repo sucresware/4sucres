@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <form method="POST" action="{{ route('user.update', [$user->id, $user->name]) }}" enctype='multipart/form-data'>
+                <form method="POST" action="{{ route('user.update', [$user->name]) }}" enctype='multipart/form-data'>
                     <div class="card-body">
                         <h1 class="h6">Modification du profil</h1>
                         @method('put')

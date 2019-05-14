@@ -27,17 +27,12 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->firstOrFail();
 
-        if (user()->can('update achievements')) {
-            $achievements = Achievement::pluck('name', 'id');
-        } else {
-            $achievements = [];
+        if ($user->id != user()->id && !user()->can('bypass users guard')) {
+            return abort(403);
         }
 
-        if (user()->can('update roles')) {
-            $roles = Role::pluck('name', 'id');
-        } else {
-            $roles = [];
-        }
+        $achievements = user()->can('update achievements') ? Achievement::pluck('name', 'id') : [];
+        $roles = user()->can('update roles') ? Role::pluck('name', 'id') : [];
 
         return view('user.edit', compact('user', 'achievements', 'roles'));
     }
@@ -45,6 +40,10 @@ class UserController extends Controller
     public function update($name)
     {
         $user = User::where('name', $name)->firstOrFail();
+
+        if ($user->id != user()->id && !user()->can('bypass users guard')) {
+            return abort(403);
+        }
 
         request()->validate([
             'display_name' => ['required', 'string', 'max:255', 'min:4'],
