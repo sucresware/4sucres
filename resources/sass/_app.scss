@@ -308,3 +308,9 @@ footer {
 .alert-minimalist>[data-notify="message"] {
     font-size: 80%;
 }
+
+.fa-stack>.badge {
+    position: relative;
+    margin-left: 60%;
+    margin-top: -60%;
+}

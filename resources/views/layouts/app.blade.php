@@ -73,23 +73,29 @@
                         @auth
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link text-center" href="{{ route('notifications.index') }}">
-                                        @if ($notifications_count)
-                                            <i class="fas fa-bell text-danger"></i>
-                                        @else
-                                            <i class="fas fa-bell"></i>
-                                        @endif
-                                        <span class="d-md-none d-lg-block"> Notifications</span>
+                                    <a class="nav-link text-center pr-0" href="{{ route('notifications.index') }}">
+                                        <span class="fa-stack">
+                                            <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                                            @if ($notifications_count)
+                                                <i class="fas fa-bell fa-stack-1x fa-inverse"></i>
+                                                <span class="badge badge-danger">{{ $notifications_count }}</span>
+                                            @else
+                                                <i class="fas fa-bell fa-stack-1x"></i>
+                                            @endif
+                                        </span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-center" href="{{ route('private_discussions.index') }}">
-                                        @if ($private_unread_count)
-                                            <i class="fas fa-envelope text-danger"></i>
-                                        @else
-                                            <i class="fas fa-envelope"></i>
-                                        @endif
-                                        <span class="d-md-none d-lg-block"> Messagerie</span>
+                                    <a class="nav-link text-center pl-0" href="{{ route('private_discussions.index') }}">
+                                        <span class="fa-stack">
+                                            <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                                            @if ($private_unread_count)
+                                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                                                <span class="badge badge-danger">{{ $private_unread_count }}</span>
+                                            @else
+                                                <i class="fas fa-envelope fa-stack-1x"></i>
+                                            @endif
+                                        </span>
                                     </a>
                                 </li>
                             </ul>

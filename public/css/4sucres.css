@@ -10696,6 +10696,12 @@ footer {
   font-size: 80%;
 }
 
+.fa-stack > .badge {
+  position: relative;
+  margin-left: 60%;
+  margin-top: -60%;
+}
+
 .card-header {
   border: 0;
   font-weight: bold;
@@ -10760,6 +10766,10 @@ hr {
 
 .bg-darker {
   background-color: #2E3440;
+}
+
+.text-darker {
+  color: #2E3440;
 }
 
 .card .card-header {
