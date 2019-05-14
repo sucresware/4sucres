@@ -1,6 +1,6 @@
 <div class="post p-3 row no-gutters" id="p{{ $post->id }}">
     <div class="col-auto mr-3">
-        <a href="{{ route('user.show', [$post->user->id, $post->user->name]) }}"><img src="{{ $post->user->avatar ? url('storage/avatars/' . $post->user->avatar) : url('/img/guest.png') }}" class="post-image rounded"></a>
+        <a href="{{ $post->user->link }}"><img src="{{ $post->user->avatar ? url('storage/avatars/' . $post->user->avatar) : url('/img/guest.png') }}" class="post-image rounded"></a>
     </div>
     <div class="col">
         @if (!$post->discussion->private)
@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        <a href="{{ route('user.show', [$post->user->id, $post->user->name]) }}"><strong>{{ $post->user->display_name }}</strong></a> <small>{{ '@' . $post->user->name }}</small><br>
+        <a href="{{ $post->user->link }}"><strong>{{ $post->user->display_name }}</strong></a> <small>{{ '@' . $post->user->name }}</small><br>
         <small><a href="{{ $post->link }}">le {{ $post->created_at->format('d/m/Y à H:i:s') }}</a>
         @if ($post->created_at != $post->updated_at)
             <span class="text-muted">(modifié le {{ $post->updated_at->format('d/m/Y à H:i:s') }})</span>

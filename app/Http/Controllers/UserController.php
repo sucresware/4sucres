@@ -16,8 +16,10 @@ class UserController extends Controller
         return redirect($user->link);
     }
 
-    public function show(User $user, $name)
+    public function show($name)
     {
+        $user = User::where('name', $name)->firstOrFail();
+
         return view('user.show', compact('user'));
     }
 

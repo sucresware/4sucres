@@ -24,7 +24,7 @@ Route::get('/d', 'DiscussionController@index')->name('discussions.index');
 Route::get('/d/c/{category}-{slug}', 'DiscussionController@index')->name('discussions.categories.index');
 
 Route::get('d/{id}-{slug}', 'DiscussionController@show')->name('discussions.show');
-Route::get('/u/{user}-{name}', 'UserController@show')->name('user.show');
+Route::get('/u/{name}', 'UserController@show')->name('user.show');
 
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/charter', 'HomeController@charter')->name('charter');

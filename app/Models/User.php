@@ -48,7 +48,7 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getLinkAttribute()
     {
-        return route('user.show', [$this->id, $this->name]);
+        return route('user.show', $this->name);
     }
 
     public function getAvatarLinkAttribute()
@@ -63,7 +63,7 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getRestrictedAttribute()
     {
-        return (bool) ($this->email_verified_at == null);
+        return (bool)($this->email_verified_at == null);
     }
 
     public function getRestrictedPostsCreatedAttribute()
@@ -80,15 +80,18 @@ class User extends Authenticatable implements ReactsInterface
         return 3 - $this->restricted_posts_created;
     }
 
-    public function scopeOnline($query){
+    public function scopeOnline($query)
+    {
         return $query->where('last_activity', '>', Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
     }
 
-    public function getOnlineAttribute(){
+    public function getOnlineAttribute()
+    {
         return ($this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
     }
 
-    public function getPresentedLastActivityAttribute(){
+    public function getPresentedLastActivityAttribute()
+    {
         if ($this->last_activity) {
             if ($this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s')) {
                 return 'En ligne';
@@ -97,7 +100,4 @@ class User extends Authenticatable implements ReactsInterface
             }
         }
     }
-
-
-
 }
