@@ -190,7 +190,7 @@
     <script>
         window.fourSucres = {
             user: @auth @json(user()->only(['id', 'name', 'email'])) @else null @endauth,
-            hasNotifications: @json((bool) $notifications_count)
+            hasNotifications: @auth @json((bool) $notifications_count) @else null @endauth,
         }
     </script>
     <script src="{{ mix('/js/app.js') }}"></script>
