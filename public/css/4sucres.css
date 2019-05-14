@@ -10702,6 +10702,11 @@ footer {
   margin-top: -60%;
 }
 
+.toast {
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+}
+
 .card-header {
   border: 0;
   font-weight: bold;
