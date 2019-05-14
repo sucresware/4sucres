@@ -19,7 +19,7 @@
 
     <div class="col overflow-ellipsis">
         <div class="discussion-title overflow-ellipsis mb-2 mb-lg-0">
-            @if (auth()->guest() || (auth()->check() && $discussion->has_read()->wherePivot('user_id', auth()->user()->id)->count()))
+            @if (auth()->guest() || (auth()->check() && $discussion->has_read()->wherePivot('user_id', user()->id)->count()))
                 <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
             @else
                 <strong>
@@ -36,7 +36,7 @@
     @if ($discussion->private)
         <div class="col-auto text-small">
             @foreach($discussion->members as $user)
-                @if ($user->id != auth()->user()->id)
+                @if ($user->id != user()->id)
                     <a href="{{ $user->link }}"><img src="{{ $user->avatar_link }}" class="img-fluid rounded mr-1" width="16"></a>
                     <a href="{{ $user->link }}">{{ $user->display_name }}</a>
                 @endif

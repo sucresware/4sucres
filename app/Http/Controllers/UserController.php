@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function profile()
     {
-        $user = auth()->user();
+        $user = user();
 
         return redirect($user->link);
     }
@@ -27,13 +27,13 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->firstOrFail();
 
-        if (auth()->user()->can('update achievements')) {
+        if (user()->can('update achievements')) {
             $achievements = Achievement::pluck('name', 'id');
         } else {
             $achievements = [];
         }
 
-        if (auth()->user()->can('update roles')) {
+        if (user()->can('update roles')) {
             $roles = Role::pluck('name', 'id');
         } else {
             $roles = [];
@@ -63,15 +63,15 @@ class UserController extends Controller
 
         $user->display_name = request()->display_name;
 
-        if (auth()->user()->can('update shown_role')) {
+        if (user()->can('update shown_role')) {
             $user->shown_role = request()->shown_role;
         }
 
-        if (auth()->user()->can('update achievements')) {
+        if (user()->can('update achievements')) {
             $user->achievements()->sync(request()->achievements);
         }
 
-        if (auth()->user()->can('update roles')) {
+        if (user()->can('update roles')) {
             $user->roles()->sync(request()->role);
         }
 

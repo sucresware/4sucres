@@ -73,11 +73,11 @@
                 <div class="card-footer bg-light">
                     <div class="text-right">
                         @auth
-                            @if ($user->id == auth()->user()->id)
+                            @if ($user->id == user()->id)
                                 <a href="{{ route('user.edit', $user->name) }}" class="btn btn-primary">Modifier mon profil</a>
                         @else
                             <a href="{{ route('private_discussions.create', [$user->id, $user->name]) }}" class="btn btn-primary">Envoyer un message privé</a>
-                                @if (auth()->user()->can('bypass users guard'))
+                                @if (user()->can('bypass users guard'))
                                     <a href="{{ route('user.edit', $user->name) }}" class="btn btn-secondary">Modifier le profil</a>
                             @endif
                         @endif

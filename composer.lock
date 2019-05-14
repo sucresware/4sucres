@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84989588dcd732426ef0d2fee2651f3e",
+    "content-hash": "e1587c2e9e75ceee704a9d94af875d59",
     "packages": [
         {
             "name": "appstract/laravel-options",
@@ -208,6 +208,60 @@
                 "laravel-websockets"
             ],
             "time": "2019-02-27T14:44:42+00:00"
+        },
+        {
+            "name": "calebporzio/awesome-helpers",
+            "version": "v2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/calebporzio/awesome-helpers.git",
+                "reference": "771ca5da52fbaede81551387b986865d0d96cd8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/calebporzio/awesome-helpers/zipball/771ca5da52fbaede81551387b986865d0d96cd8a",
+                "reference": "771ca5da52fbaede81551387b986865d0d96cd8a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.8",
+                "illuminate/support": "5.7.*|5.8.*",
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Calebporzio\\AwesomeHelpers\\AwesomeHelpersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Calebporzio\\AwesomeHelpers\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "Helper functions I find super-duper handy",
+            "homepage": "https://github.com/calebporzio/awesome-helpers",
+            "keywords": [
+                "awesome-helpers",
+                "calebporzio"
+            ],
+            "time": "2019-04-30T15:46:48+00:00"
         },
         {
             "name": "cboden/ratchet",

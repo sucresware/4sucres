@@ -13,7 +13,7 @@
                         <a class="mr-1" href="#reply" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
                     @endif
 
-                    @if (($post->user->id == auth()->user()->id && !$post->deleted) || auth()->user()->can('bypass discussions guard'))
+                    @if (($post->user->id == user()->id && !$post->deleted) || user()->can('bypass discussions guard'))
                         <a class="mr-1" href="{{ route('discussions.posts.edit', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-edit"></i></a>
                         @if (!$post->deleted)
                             <a class="mr-1 text-danger" href="{{ route('discussions.posts.delete', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-trash"></i></a>
@@ -35,7 +35,7 @@
             @if (!$post->deleted)
                 {!! $post->presented_body !!}
             @else
-                @if (auth()->check() && auth()->user()->can('read deleted posts'))
+                @if (auth()->check() && user()->can('read deleted posts'))
                     <small><i>Message supprimé</i></small><br>
                     <br>
 

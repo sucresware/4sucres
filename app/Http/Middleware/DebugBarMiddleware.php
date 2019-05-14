@@ -16,7 +16,7 @@ class DebugBarMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->can('debug mode enabled')) {
+        if (auth()->check() && user()->can('debug mode enabled')) {
             config('app.debug', true);
             \Debugbar::enable();
         } else {

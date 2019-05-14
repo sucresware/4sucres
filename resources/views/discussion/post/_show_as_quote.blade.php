@@ -8,7 +8,7 @@
         @if (!$post->deleted)
             {!! $post->presented_light_body !!}
         @else
-            @if (auth()->check() && auth()->user()->can('read deleted posts'))
+            @if (auth()->check() && user()->can('read deleted posts'))
                 <small><i>Message supprimé</i></small><br>
                 <br>
 

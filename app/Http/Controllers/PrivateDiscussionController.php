@@ -11,14 +11,14 @@ class PrivateDiscussionController extends Controller
 {
     public function index()
     {
-        $private_discussions = Discussion::private(auth()->user())->get();
+        $private_discussions = Discussion::private(user())->get();
 
         return view('discussion.private.index', compact('private_discussions'));
     }
 
     public function create(User $user)
     {
-        $from = auth()->user();
+        $from = user();
         $to = $user;
 
         return view('discussion.private.create', compact('from', 'to'));
@@ -26,7 +26,7 @@ class PrivateDiscussionController extends Controller
 
     public function store(User $user)
     {
-        $from = auth()->user();
+        $from = user();
         $to = $user;
 
         request()->validate([
@@ -37,14 +37,14 @@ class PrivateDiscussionController extends Controller
 
         $discussion = Discussion::create([
             'title' => request()->title,
-            'user_id' => auth()->user()->id,
+            'user_id' => user()->id,
             'category_id' => 0,
             'private' => true,
         ]);
 
         $post = $discussion->posts()->create([
             'body' => request()->body,
-            'user_id' => auth()->user()->id,
+            'user_id' => user()->id,
         ]);
 
         $discussion->members()->attach([$from->id, $to->id]);

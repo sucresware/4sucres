@@ -34,7 +34,7 @@ class Category extends Model
 
     public function scopeFiltered($query)
     {
-        if (!auth()->user()->can('use restricted categories')) {
+        if (!user()->can('use restricted categories')) {
             return $query->where('restricted', false);
         } else {
             return $query;

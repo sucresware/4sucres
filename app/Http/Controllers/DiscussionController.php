@@ -12,11 +12,11 @@ class DiscussionController extends Controller
 {
     public function create()
     {
-        if (auth()->user()->restricted) {
+        if (user()->restricted) {
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
         }
 
-        if (auth()->user()->cannot('create discussions')) {
+        if (user()->cannot('create discussions')) {
             return abort(403);
         }
 
@@ -27,7 +27,7 @@ class DiscussionController extends Controller
 
     public function preview()
     {
-        if (auth()->user()->cannot('create discussions')) {
+        if (user()->cannot('create discussions')) {
             return abort(403);
         }
 
@@ -45,11 +45,11 @@ class DiscussionController extends Controller
 
     public function store()
     {
-        if (auth()->user()->restricted) {
+        if (user()->restricted) {
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
         }
 
-        if (auth()->user()->cannot('create discussions')) {
+        if (user()->cannot('create discussions')) {
             return abort(403);
         }
 
@@ -62,16 +62,16 @@ class DiscussionController extends Controller
 
         $discussion = Discussion::create([
             'title' => request()->title,
-            'user_id' => auth()->user()->id,
+            'user_id' => user()->id,
             'category_id' => request()->category,
         ]);
 
         $post = $discussion->posts()->create([
             'body' => request()->body,
-            'user_id' => auth()->user()->id,
+            'user_id' => user()->id,
         ]);
 
-        $discussion->subscribed()->attach(auth()->user()->id);
+        $discussion->subscribed()->attach(user()->id);
 
         return redirect(Discussion::linkTo($post));
     }
@@ -107,7 +107,7 @@ class DiscussionController extends Controller
 
         $discussions = Discussion::query();
         $discussions = $discussions->whereHas('subscribed', function ($q) {
-            return $q->where('user_id', auth()->user()->id);
+            return $q->where('user_id', user()->id);
         });
 
         if (request()->input('page', 1) == 1) {
@@ -134,20 +134,20 @@ class DiscussionController extends Controller
             return abort(410);
         }
 
-        if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', auth()->user()->id)->count() == 0)) {
+        if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', user()->id)->count() == 0)) {
             return abort(403);
         }
 
         $posts = $discussion->posts()->paginate(10);
 
-        $discussion->has_read()->attach(auth()->user());
+        $discussion->has_read()->attach(user());
 
         return view('discussion.show', compact('discussion', 'posts'));
     }
 
     public function update(Discussion $discussion, $slug)
     {
-        if (($discussion->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($discussion->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -159,7 +159,7 @@ class DiscussionController extends Controller
         $discussion->title = request()->title;
         $discussion->category_id = request()->category;
 
-        if (auth()->user()->can('bypass discussions guard')) {
+        if (user()->can('bypass discussions guard')) {
             $discussion->sticky = request()->sticky ?? false;
             $discussion->locked = request()->locked ?? false;
         }
@@ -178,7 +178,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $discussion->subscribed()->attach(auth()->user()->id);
+        $discussion->subscribed()->attach(user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,
@@ -192,7 +192,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $discussion->subscribed()->detach(auth()->user()->id);
+        $discussion->subscribed()->detach(user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,

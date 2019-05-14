@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="container">
-    @if ($discussion->user_id == auth()->user()->id || auth()->user()->can('bypass discussions guard'))
+    @if ($discussion->user_id == user()->id || user()->can('bypass discussions guard'))
         <div class="card mb-3">
             <form action="{{ route('discussions.update', [$discussion->id, $discussion->slug]) }}" method="post">
                 <div class="card-body">

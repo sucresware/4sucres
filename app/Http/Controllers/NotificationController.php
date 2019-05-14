@@ -22,7 +22,7 @@ class NotificationController extends Controller
 
     public function show(Notification $notification)
     {
-        if ($notification->user_id != auth()->user()->id) {
+        if ($notification->user_id != user()->id) {
             return abort(403);
         }
         $notification->seen = true;

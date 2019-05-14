@@ -12,11 +12,11 @@ class DiscussionPostController extends Controller
 {
     public function store(Discussion $discussion, $slug)
     {
-        if (auth()->user()->restricted && auth()->user()->restricted_posts_remaining <= 0) {
+        if (user()->restricted && user()->restricted_posts_remaining <= 0) {
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de continuer à répondre !');
         }
 
-        if ($discussion->locked || auth()->user()->cannot('create discussions')) {
+        if ($discussion->locked || user()->cannot('create discussions')) {
             return abort(403);
         }
 
@@ -27,7 +27,7 @@ class DiscussionPostController extends Controller
 
         $post = $discussion->posts()->create([
             'body' => request()->input('body'),
-            'user_id' => auth()->user()->id,
+            'user_id' => user()->id,
         ]);
 
         // return redirect(route('discussions.show', [
@@ -40,7 +40,7 @@ class DiscussionPostController extends Controller
 
     public function edit(Discussion $discussion, $slug, Post $post)
     {
-        if ((($post->user->id != auth()->user()->id || $post->deleted) && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if ((($post->user->id != user()->id || $post->deleted) && user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -52,7 +52,7 @@ class DiscussionPostController extends Controller
 
     public function update(Discussion $discussion, $slug, Post $post)
     {
-        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -68,7 +68,7 @@ class DiscussionPostController extends Controller
 
     public function delete(Discussion $discussion, $slug, Post $post)
     {
-        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 
@@ -77,7 +77,7 @@ class DiscussionPostController extends Controller
 
     public function destroy(Discussion $discussion, $slug, Post $post)
     {
-        if (($post->user->id != auth()->user()->id && auth()->user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
             return abort(403);
         }
 

@@ -12,7 +12,7 @@
         </div>
         <div class="col-auto">
             @if (!$discussion->private)
-                @if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', auth()->user()->id)->count())
+                @if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', user()->id)->count())
                     <a href="{{ route('discussions.unsubscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">Se désabonner</a>
                 @else
                     <a href="{{ route('discussions.subscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">S'abonner</a>
@@ -42,7 +42,7 @@
             <i class="fas fa-lock"></i> Cette discussion est désormais verrouillée.
         </div>
     @endif
-    @if (!$discussion->locked || (auth()->check() && $discussion->locked && auth()->user()->can('bypass discussions guard')))
+    @if (!$discussion->locked || (auth()->check() && $discussion->locked && user()->can('bypass discussions guard')))
         <div class="card" id="reply">
             <div class="card-body bg-light" >
                 <h2 class="h6">Répondre</h2>

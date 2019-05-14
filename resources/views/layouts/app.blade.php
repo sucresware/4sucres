@@ -84,7 +84,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-center" href="{{ route('private_discussions.index') }}">
-                                        @if ($private_unread_count = \App\Models\Discussion::private(auth()->user())->count() - \App\Models\Discussion::private(auth()->user())->read(auth()->user())->count())
+                                        @if ($private_unread_count = \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count())
                                             <i class="fas fa-envelope text-danger"></i>
                                         @else
                                             <i class="fas fa-envelope"></i>
@@ -106,14 +106,14 @@
                             <div class="row no-gutters account-block mb-3 mb-md-0">
                                 <div class="col account-details bg-darker rounded text-md-right">
                                     <span class="account-username">
-                                        <a href="{{ route('profile') }}">{{ auth()->user()->display_name }}</a>
+                                        <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
                                     </span>
                                     <br>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-1"></i> Déconnexion</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                                 </div>
                                 <div class="col-auto account-image rounded">
-                                    <img src="{{ auth()->user()->avatar ? url('storage/avatars/' . auth()->user()->avatar) : url('/img/guest.png') }}" class="img-fluid">
+                                    <img src="{{ user()->avatar ? url('storage/avatars/' . user()->avatar) : url('/img/guest.png') }}" class="img-fluid">
                                 </div>
                             </div>
                         @endguest
@@ -134,15 +134,15 @@
             </div>
         </div>
 
-        @if (auth()->check() && auth()->user()->restricted)
+        @if (auth()->check() && user()->restricted)
             <div class="bg-primary shadow">
                 <div class="container text-white py-2">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
                         <div class="col">
                             <strong>Compte limité</strong><br>
-                            @if($remains = auth()->user()->restricted_posts_remaining)
-                                Ne t'inquiètes pas mon ami, tu peux profiter du forum en attendant de recevoir ton email de vérification ({{ auth()->user()->restricted_posts_remaining }} réponse(s) restante(s))
+                            @if($remains = user()->restricted_posts_remaining)
+                                Ne t'inquiètes pas mon ami, tu peux profiter du forum en attendant de recevoir ton email de vérification ({{ user()->restricted_posts_remaining }} réponse(s) restante(s))
                             @else
                                 Tu dois maintenant vérifier ton adresse email pour continuer !
                             @endif
@@ -181,7 +181,7 @@
 
     @include('sweetalert::alert')
     {!! GoogleReCaptchaV3::init() !!}
-    <script> window.fourSucres = { user: @auth @json(auth()->user()->only(['id', 'name', 'email'])) @else null @endauth } </script>
+    <script> window.fourSucres = { user: @auth @json(user()->only(['id', 'name', 'email'])) @else null @endauth } </script>
     <script src="{{ mix('/js/app.js') }}"></script>
     @stack('js')
 </body>

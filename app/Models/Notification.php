@@ -17,8 +17,7 @@ class Notification extends Model
         static::created(function ($notification) {
             try {
                 // (new RealtimeNotify())->notify($notification);
-            } catch (\Exception $e) {
-            }
+            } catch (\Exception $e) { }
 
             return $notification;
         });
@@ -31,6 +30,6 @@ class Notification extends Model
 
     public function scopeCurated($query)
     {
-        return $query->where('user_id', auth()->user()->id)->where('seen', false);
+        return $query->where('user_id', user()->id)->where('seen', false);
     }
 }
