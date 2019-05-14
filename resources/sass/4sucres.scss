@@ -189,3 +189,13 @@ hr {
 .post {
     border-bottom: 1px solid #f2f2f2;
 }
+
+.alert-minimalist {
+    background-color: #f2f4f8;
+    border-color: $border-color;
+    color: $body-color;
+}
+
+.alert-minimalist>[data-notify="title"] {
+    color: $body-color;
+}

@@ -3,6 +3,7 @@ require('sceditor/minified/sceditor.min.js')
 require('sceditor/minified/formats/bbcode.js')
 require('select2')
 require('@fancyapps/fancybox/dist/jquery.fancybox.min.js')
+require('bootstrap-notify/bootstrap-notify.min.js')
 
 let $ = require("jquery")
 let baffle = require('baffle')
@@ -15,12 +16,20 @@ window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    wssPort: 6001,
-    encrypted: false,
-    disableStats: true,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: true
 })
+
+$.notifyDefaults({
+    type: 'toast',
+    template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert">' +
+        '<a href="{3}" target="{4}" data-notify="url"><div class="toast-body" data-notify="message">{2}</span></a>' +
+        '</div>',
+    animate: {
+        enter: 'animated fadeInRight faster',
+        exit: 'animated fadeOutRight faster'
+    }
+});
 
 $.ajaxSetup({
     headers: {
@@ -29,13 +38,24 @@ $.ajaxSetup({
 });
 
 if (window.fourSucres.user) {
+    var pusher = window.Echo
+        .private('user.' + window.fourSucres.user.id)
+        .listen('NotificationCreated', (e) => {
+            console.log(e.notification)
+            $.notify({
+                message: e.notification.text,
+                url: e.notification.href
+            }, {})
+        })
+
     setInterval(() => {
         $.getJSON('/api/v0/ping')
             .done(function (resp) {})
             .fail(function () {
                 window.location.reload();
             })
-    }, 1000 * 60 * 2);
+    }, 1000 * 60 * 2)
+
 }
 
 /**

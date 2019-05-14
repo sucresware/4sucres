@@ -68,3 +68,10 @@ Route::group(['prefix' => '/api/v0'], function () {
         Route::get('/ping', 'Api\ActivityController@ping');
     });
 });
+
+if (config('app.env') == 'local') {
+    Route::get('/storage/avatars/{file}', function ($file) {
+        if (!File::exists(base_path($file))) $file = 'public/img/guest.png';
+        return response()->file(base_path($file));
+    });
+}

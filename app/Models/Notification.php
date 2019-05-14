@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\NotificationCreated;
 use Illuminate\Database\Eloquent\Model;
-
-// use FollowWork\Helpers\RealtimeNotify;
 
 class Notification extends Model
 {
@@ -15,9 +14,7 @@ class Notification extends Model
         parent::boot();
 
         static::created(function ($notification) {
-            try {
-                // (new RealtimeNotify())->notify($notification);
-            } catch (\Exception $e) { }
+            event(new NotificationCreated($notification));
 
             return $notification;
         });

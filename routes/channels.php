@@ -11,6 +11,6 @@
 |
 */
 
-Broadcast::channel('counter', function ($user) {
-    return ['id' => $user->id, 'name' => $user->name];
+Broadcast::channel('user.{user_id}', function ($user, $user_id) {
+    return $user->id == $user_id;
 });
