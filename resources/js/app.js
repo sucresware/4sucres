@@ -22,8 +22,8 @@ window.Echo = new Echo({
 
 $.notifyDefaults({
     type: 'toast',
-    template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert">' +
-        '<a href="{3}" target="{4}" data-notify="url"><div class="toast-body" data-notify="message">{2}</span></a>' +
+    template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert" style="cursor: pointer;" onclick="window.location.href=\'{3}\'">' +
+        '<div class="toast-body" data-notify="message">{2}</span>' +
         '</div>',
     animate: {
         enter: 'animated fadeInRight faster',

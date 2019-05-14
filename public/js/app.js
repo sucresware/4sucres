@@ -53152,7 +53152,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 });
 $.notifyDefaults({
   type: 'toast',
-  template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert">' + '<a href="{3}" target="{4}" data-notify="url"><div class="toast-body" data-notify="message">{2}</span></a>' + '</div>',
+  template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert" style="cursor: pointer;" onclick="window.location.href=\'{3}\'">' + '<div class="toast-body" data-notify="message">{2}</span>' + '</div>',
   animate: {
     enter: 'animated fadeInRight faster',
     exit: 'animated fadeOutRight faster'
