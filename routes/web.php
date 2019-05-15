@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::get('/settings', 'UserController@settings')->name('user.settings');
+    Route::put('/settings', 'UserController@saveSettings');
+
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::get('/notifications/clear', 'NotificationController@clear')->name('notifications.clear');
     Route::get('/notifications/{notification}', 'NotificationController@show')->name('notifications.show');

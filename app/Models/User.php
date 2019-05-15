@@ -39,6 +39,7 @@ class User extends Authenticatable implements ReactsInterface
         'last_activity' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'settings' => 'array',
     ];
 
     public function verify_user()
@@ -99,5 +100,33 @@ class User extends Authenticatable implements ReactsInterface
                 return 'Actif ' . $this->last_activity->diffForHumans();
             }
         }
+    }
+
+    public function getSetting($key, $default = null)
+    {
+        return data_get($this->settings, $key, $default);
+    }
+
+    public function setSetting($key, $value)
+    {
+        $currentSettings = $this->settings;
+        data_set($currentSettings, $key, $value);
+        $this->settings = $currentSettings;
+        $this->save();
+
+        return $this;
+    }
+
+    public function setMultipleSettings(array $settings)
+    {
+        $currentSettings = $this->settings;
+        foreach ($settings as $key => $value) {
+            data_set($currentSettings, $key, $value);
+        }
+
+        $this->settings = $currentSettings;
+        $this->save();
+
+        return $this;
     }
 }

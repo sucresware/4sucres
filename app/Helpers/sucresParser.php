@@ -154,20 +154,25 @@ class sucresParser
                 $url = trim($preg_result[2][$k]);
                 $hits = Regex::match($re, $url);
                 if ($hits->hasMatch()) {
-                    $lines = explode("\n", $this->content);
-                    $lines = array_map(function ($elem) {
-                        return trim(trim($elem, '<br>'), '<br/>');
-                    }, $lines);
-                    $inline = !(in_array($preg_result[0][$k], $lines));
+                    if (auth()->check() && user()->getSetting('layout.stickers.inline'))
+                    {
+                        $lines = explode("\n", $this->content);
+                        $lines = array_map(function ($elem) {
+                            return trim(trim($elem, '<br>'), '<br/>');
+                        }, $lines);
+                        $inline = !(in_array($preg_result[0][$k], $lines));
 
-                    if ($inline) {
-                        $preview = '<img class="sticker" src="' . $url . '">';
-                        $markup = "<img class='sticker-inline tooltip-inverse' src='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
+                        if ($inline) {
+                            $preview = '<img class="sticker" src="' . $url . '">';
+                            $markup = "<img class='sticker-inline tooltip-inverse' src='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
+                        } else {
+                            $markup = "<img class='sticker' src='$url'>";
+                        }
                     } else {
                         $markup = "<img class='sticker' src='$url'>";
                     }
+
                     $this->content = str_replace($preg_result[0][$k], $markup, $this->content);
-                    break;
                 }
             }
 

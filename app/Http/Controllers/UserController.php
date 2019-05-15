@@ -16,6 +16,25 @@ class UserController extends Controller
         return redirect($user->link);
     }
 
+    public function settings()
+    {
+        $user = user();
+
+        return view('user.settings', compact('user'));
+    }
+
+    public function saveSettings()
+    {
+        $user = user();
+
+        $user->setMultipleSettings([
+            'layout.sidebar.right' => request()->input('layout_sidebar_right', false),
+            'layout.stickers.inline' => request()->input('layout_stickers_inline', false),
+        ]);
+
+        return redirect(route('user.settings'))->with('success', 'C\'est enregistré !');
+    }
+
     public function show($name)
     {
         $user = User::where('name', $name)->firstOrFail();
