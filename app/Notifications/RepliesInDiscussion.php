@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use App\Models\Discussion;
 use Illuminate\Bus\Queueable;
 use NotificationChannels\WebPush\WebPushChannel;
