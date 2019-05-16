@@ -53,8 +53,8 @@
             <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow">
                 <div class="container justify-content-between">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{--  <img src="{{ url('/svg/4sucres.svg') }}" height="50" class="d-none d-md-inline-block">  --}}
-                        <img src="{{ url('/img/4sucres_white.png') }}" height="30px">
+                        <img src="{{ url('/svg/4sucres.svg') }}" height="35px" class="d-sm-none">
+                        <img src="{{ url('/img/4sucres_white.png') }}" height="30px" class="d-none d-sm-inline-block">
                     </a>
 
                     @auth
@@ -83,23 +83,23 @@
                         </a>
                     @endauth
 
-                    <a class="d-block d-md-none" data-toggle="collapse" data-target="#navbarSupportedContent">
+                    <a href="#" class="d-block d-md-none" data-toggle="collapse" data-target="#navbarSupportedContent" >
                         <span class="fa-stack">
                             <i class="fas fa-circle fa-stack-2x text-darker"></i>
                             <i class="fas fa-bars fa-stack-1x fa-inverse"></i>
                         </span>
                     </a>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {{--  <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-md-none d-lg-block"> Forum</span></a>
                             </li>
                             {{--  <li class="nav-item">
                                 <a class="nav-link text-center" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-md-none d-lg-block"> Classement</span></a>
-                            </li>  --}}
+                            </li>
                         </ul>
-                    </div>
+                    </div>  --}}
 
                     <div class="collapse navbar-collapse flex-grow-0 order-md-10 pl-md-2" id="navbarSupportedContent">
                         @guest
