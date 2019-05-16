@@ -15,8 +15,6 @@
             <div class="card-body">
                 <h1 class="h6">Nouveau message privé pour {{ $to->name }}</h1>
                 @csrf
-                {!! GoogleReCaptchaV3::renderField('create_private_discussion_id', 'create_private_discussion_action') !!}
-
                 {!! BootForm::text('title', 'Sujet') !!}
                 @include('includes/_editor', ['name' => 'body', 'value' => old('body')])
             </div>

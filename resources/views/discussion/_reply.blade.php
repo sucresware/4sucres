@@ -4,7 +4,6 @@
 
 <form action="{{ route('discussions.posts.store', [$discussion->id, $discussion->slug]) }}" method="post">
     @csrf
-    {!! GoogleReCaptchaV3::renderField('reply_to_discussion_id', 'reply_to_discussion_action') !!}
     @include('includes/_editor', ['name' => 'body'])
 
     <div class="text-right">

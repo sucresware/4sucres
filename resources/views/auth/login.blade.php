@@ -9,20 +9,24 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('login') }}" id="login">
                     <div class="card-body">
                         <h1 class="h6">Connexion</h1>
-                        @csrf
-                        {!! GoogleReCaptchaV3::renderField('login_id', 'login_action') !!}
 
+                        @csrf
                         {!! BootForm::text('email', 'Adresse email*') !!}
                         {!! BootForm::password('password', 'Mot de passe*') !!}
                         {!! BootForm::checkbox('remember', 'Se souvenir de moi', 1, old('remember', 1)) !!}
 
+                        @if ($errors->has('g-recaptcha-response'))
+                            <span class="text-danger">
+                                {{ $errors->first('g-recaptcha-response') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="card-footer bg-light">
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Connexion</button>
+                            {!! NoCaptcha::displaySubmit('login', 'Connexion', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
                 </form>

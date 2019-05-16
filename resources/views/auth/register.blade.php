@@ -14,14 +14,12 @@
                     'method' => 'post',
                     'left_column_class' => 'col-md-2',
                     'left_column_offset_class' => 'col-md-offset-2',
-                    'right_column_class' => 'col-md-10'
+                    'right_column_class' => 'col-md-10',
+                    'id' => 'register',
                 ]) !!}
-                {{--  <form method="POST" action="{{  }}">  --}}
                     <div class="card-body">
-
                         <div class="text-center">
                             <h1>Formulaire d'admission</h1>
-
                             <img src="https://image.noelshack.com/fichiers/2018/49/1/1543859026-ne-tinquiete-pas-ca-va-bien-spasser-ne-tinquiete-pas-kekeh.png" class="img-fluid" width="60px">
                             <p>Ne t'inquiète pas ça va bien se passer, bien se passer ne t'inquiète pas.</p>
                         </div>
@@ -29,7 +27,6 @@
                         <hr>
 
                         @csrf
-                        {!! GoogleReCaptchaV3::renderField('register_id', 'register_action') !!}
 
                         {!! BootForm::text('name', 'Pseudo*', old('name'), ['help_text' => "Tu peux définir un nom d'affichage différent plus tard !"]) !!}
                         {!! BootForm::text('email', 'Adresse email*', old('email'), ['help_text' => "Ton email ne sera jamais partagé ou affiché publiquement."]) !!}
@@ -88,7 +85,6 @@
                                     <input name="referrer" id="referrer_onche.party" type="radio" value="onche.party" {{ old('referrer') == 'onche.party' ? 'checked' : '' }} class="custom-control-input">
                                     <label for="referrer_onche.party" class="custom-control-label mb-2 mb-md-0"><img src="{{ url('/img/forums/onche.party.jpg') }}" class="rounded img-fluid" width="64px"></label>
                                 </div>
-
                                 <br>
 
                                 @if ($errors->has('referrer'))
@@ -99,6 +95,11 @@
                             </div>
                         </div>
 
+                        @if ($errors->has('g-recaptcha-response'))
+                            <span class="text-danger">
+                                {{ $errors->first('g-recaptcha-response') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="card-footer bg-light">
                         <div class="text-center mb-3">
@@ -106,7 +107,7 @@
                         </div>
 
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Inscription</button>
+                            {!! NoCaptcha::displaySubmit('register', 'Inscription', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
 

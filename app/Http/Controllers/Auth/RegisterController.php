@@ -10,7 +10,6 @@ use App\Models\VerifyUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class RegisterController extends Controller
 {
@@ -30,7 +29,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6'],
             'dob' => ['required', 'date', 'before:' . $min_date, 'after:' . $max_date],
             'gender' => ['required', 'in:M,F'],
-            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('register_action')],
+            'g-recaptcha-response' => 'required|captcha',
         ], [
             'gender.in' => 'Désolé, pas de sucres non genrés ici. Tu peux trouver ta place sur <a href="http://www.madmoizelle.com/">mademoiZelle.com</a>',
             'dob.before' => 'Tu dois avoir plus de 13 ans pour t\'inscrire ici.',

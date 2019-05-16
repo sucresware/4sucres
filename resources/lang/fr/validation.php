@@ -127,8 +127,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'g-recaptcha-response' => [
+            'required' => 'Vérifie que t\'es pas un PNJ.',
+            'captcha' => 'D\'après Google, t\'es un PNJ. Réessaie plus tard.',
         ],
     ],
 

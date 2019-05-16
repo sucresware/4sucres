@@ -18,6 +18,7 @@ class LoginController extends Controller
         $validator = Validator::make($request->input(), [
             'email' => 'required|email',
             'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
         $validator->validate();
 

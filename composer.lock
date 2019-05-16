@@ -4,8 +4,67 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc48cc5f8f68929cbfb7c23b2cd95118",
+    "content-hash": "f7240f7a67726748b1dd7d16622a6861",
     "packages": [
+        {
+            "name": "anhskohbo/no-captcha",
+            "version": "3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anhskohbo/no-captcha.git",
+                "reference": "fd08c84bd0e05f4a048a9bba800ab64ada9fadfc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/fd08c84bd0e05f4a048a9bba800ab64ada9fadfc",
+                "reference": "fd08c84bd0e05f4a048a9bba800ab64ada9fadfc",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+                "php": ">=5.5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider"
+                    ],
+                    "aliases": {
+                        "NoCaptcha": "Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Anhskohbo\\NoCaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "anhskohbo",
+                    "email": "anhskohbo@gmail.com"
+                }
+            ],
+            "description": "No CAPTCHA reCAPTCHA For Laravel.",
+            "keywords": [
+                "captcha",
+                "laravel",
+                "laravel4",
+                "laravel5",
+                "no-captcha",
+                "recaptcha"
+            ],
+            "time": "2019-02-25T10:51:21+00:00"
+        },
         {
             "name": "appstract/laravel-options",
             "version": "2.2.0",
@@ -5342,76 +5401,6 @@
             "time": "2017-11-27T11:13:29+00:00"
         },
         {
-            "name": "timehunter/laravel-google-recaptcha-v3",
-            "version": "2.2.16",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RyanDaDeng/laravel-google-recaptcha-v3.git",
-                "reference": "5350ed454c10f1bf83512ea5aadd1e12bc952701"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RyanDaDeng/laravel-google-recaptcha-v3/zipball/5350ed454c10f1bf83512ea5aadd1e12bc952701",
-                "reference": "5350ed454c10f1bf83512ea5aadd1e12bc952701",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.2",
-                "php": ">=5.5"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.0",
-                "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "~7.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "TimeHunter\\LaravelGoogleReCaptchaV3\\Providers\\GoogleReCaptchaV3ServiceProvider"
-                    ],
-                    "aliases": {
-                        "GoogleReCaptchaV3": "TimeHunter\\LaravelGoogleReCaptchaV3\\Facades\\GoogleReCaptchaV3"
-                    }
-                },
-                "branch-alias": {
-                    "dev-master": "3.0.*-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TimeHunter\\LaravelGoogleReCaptchaV3\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ryan Deng",
-                    "email": "ryandadeng@gmail.com",
-                    "homepage": "https://ryandeng.com"
-                }
-            ],
-            "description": "Laravel Package for google reCAPTCHA v3",
-            "homepage": "https://github.com/RyanDaDeng/laravel-google-recaptcha-v3",
-            "keywords": [
-                "Google ReCaptcha",
-                "GoogleReCaptcha",
-                "Laravel reCAPTCHA",
-                "google recaptcha v3",
-                "laravel",
-                "laravel google recaptcha",
-                "laravel google recaptcha v3",
-                "laravel recaptcha v3",
-                "recaptcha",
-                "recaptcha v3",
-                "recaptcha v3 laravel"
-            ],
-            "time": "2019-04-28T13:03:38+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v3.3.3",
             "source": {
@@ -8292,6 +8281,143 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2019-04-04T09:56:43+00:00"
+        },
+        {
+            "name": "timehunter/laravel-google-recaptcha-v2",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RyanDaDeng/laravel-google-recaptcha-v2.git",
+                "reference": "d7cd773ff7198e22f392aa4c7f090339bc38e9db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RyanDaDeng/laravel-google-recaptcha-v2/zipball/d7cd773ff7198e22f392aa4c7f090339bc38e9db",
+                "reference": "d7cd773ff7198e22f392aa4c7f090339bc38e9db",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TimeHunter\\LaravelGoogleReCaptchaV2\\Providers\\GoogleReCaptchaV2ServiceProvider"
+                    ],
+                    "aliases": {
+                        "GoogleReCaptchaV2": "TimeHunter\\LaravelGoogleReCaptchaV2\\Facades\\GoogleReCaptchaV2"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TimeHunter\\LaravelGoogleReCaptchaV2\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Deng",
+                    "email": "ryandadeng@gmail.com",
+                    "homepage": "https://ryandeng.com"
+                }
+            ],
+            "description": "Laravel Package for reCAPTCHA v2",
+            "homepage": "https://github.com/RyanDaDeng/laravel-google-recaptcha-v2",
+            "keywords": [
+                "Google ReCaptcha",
+                "GoogleReCaptcha",
+                "Laravel reCAPTCHA",
+                "google recaptcha v2",
+                "laravel",
+                "laravel google recaptcha",
+                "laravel google recaptcha v2",
+                "laravel recaptcha v2",
+                "reCAPTCHA V2",
+                "recaptcha",
+                "recaptcha v2 laravel"
+            ],
+            "time": "2019-01-08T09:49:11+00:00"
+        },
+        {
+            "name": "timehunter/laravel-google-recaptcha-v3",
+            "version": "2.2.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RyanDaDeng/laravel-google-recaptcha-v3.git",
+                "reference": "5350ed454c10f1bf83512ea5aadd1e12bc952701"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RyanDaDeng/laravel-google-recaptcha-v3/zipball/5350ed454c10f1bf83512ea5aadd1e12bc952701",
+                "reference": "5350ed454c10f1bf83512ea5aadd1e12bc952701",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TimeHunter\\LaravelGoogleReCaptchaV3\\Providers\\GoogleReCaptchaV3ServiceProvider"
+                    ],
+                    "aliases": {
+                        "GoogleReCaptchaV3": "TimeHunter\\LaravelGoogleReCaptchaV3\\Facades\\GoogleReCaptchaV3"
+                    }
+                },
+                "branch-alias": {
+                    "dev-master": "3.0.*-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TimeHunter\\LaravelGoogleReCaptchaV3\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Deng",
+                    "email": "ryandadeng@gmail.com",
+                    "homepage": "https://ryandeng.com"
+                }
+            ],
+            "description": "Laravel Package for google reCAPTCHA v3",
+            "homepage": "https://github.com/RyanDaDeng/laravel-google-recaptcha-v3",
+            "keywords": [
+                "Google ReCaptcha",
+                "GoogleReCaptcha",
+                "Laravel reCAPTCHA",
+                "google recaptcha v3",
+                "laravel",
+                "laravel google recaptcha",
+                "laravel google recaptcha v3",
+                "laravel recaptcha v3",
+                "recaptcha",
+                "recaptcha v3",
+                "recaptcha v3 laravel"
+            ],
+            "time": "2019-04-28T13:03:38+00:00"
         },
         {
             "name": "webmozart/assert",

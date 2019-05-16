@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
 use App\Notifications\NewPrivateDiscussion;
-use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class PrivateDiscussionController extends Controller
 {
@@ -33,7 +32,6 @@ class PrivateDiscussionController extends Controller
         request()->validate([
             'title' => 'required|min:10',
             'body' => 'required|min:10',
-            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_private_discussion_action')],
         ]);
 
         $discussion = Discussion::create([

@@ -15,7 +15,6 @@
             <div class="card-body">
                 <h1 class="h6">Nouvelle discussion</h1>
                 @csrf
-                {!! GoogleReCaptchaV3::renderField('create_discussion_id', 'create_discussion_action') !!}
 
                 <div class="row">
                     <div class="col-md-8">

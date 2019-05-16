@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
-use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class DiscussionController extends Controller
 {
@@ -57,7 +56,6 @@ class DiscussionController extends Controller
             'title' => 'required|min:4|max:255',
             'body' => 'required|min:3|max:3000',
             'category' => 'required|exists:categories,id',
-            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('create_discussion_action')],
         ]);
 
         $discussion = Discussion::create([

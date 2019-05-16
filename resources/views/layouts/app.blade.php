@@ -24,6 +24,7 @@
     <meta name="theme-color" content="#3b4252">
     <meta name="msapplication-TileColor" content="#3b4252">
     <meta name="msapplication-TileImage" content="{{ url('/mstile-144x144.png') }}">
+    {!! NoCaptcha::renderJs('fr') !!}
 
     @if (config('app.env') === 'production')
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -187,7 +188,7 @@
     @endif
 
     @include('sweetalert::alert')
-    {!! GoogleReCaptchaV3::init() !!}
+
     <script>
         window.fourSucres = {
             user: @auth @json(user()->only(['id', 'name', 'email'])) @else null @endauth,
