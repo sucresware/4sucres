@@ -51,14 +51,44 @@
     <div id="app">
         <div class="sticky-top">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow">
-                <div class="container">
+                <div class="container justify-content-between">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{--  <img src="{{ url('/svg/4sucres.svg') }}" height="50" class="d-none d-md-inline-block">  --}}
                         <img src="{{ url('/img/4sucres_white.png') }}" height="30px">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+
+                    @auth
+                        <a class="ml-auto text-center mr-1 order-md-7" href="{{ route('notifications.index') }}">
+                            <span class="fa-stack" id="notifications_indicator">
+                                <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                                @if ($notifications_count)
+                                    <i class="fas fa-bell fa-stack-1x fa-inverse"></i>
+                                    <span class="badge badge-danger">{{ $notifications_count }}</span>
+                                @else
+                                    <i class="fas fa-bell fa-stack-1x"></i>
+                                @endif
+                            </span>
+                        </a>
+
+                        <a class="text-center mr-1 order-md-8" href="{{ route('private_discussions.index') }}">
+                            <span class="fa-stack" id="private_discussions_indicator">
+                                <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                                @if ($private_unread_count)
+                                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                                    <span class="badge badge-danger">{{ $private_unread_count }}</span>
+                                @else
+                                    <i class="fas fa-envelope fa-stack-1x"></i>
+                                @endif
+                            </span>
+                        </a>
+                    @endauth
+
+                    <a class="d-block d-md-none" data-toggle="collapse" data-target="#navbarSupportedContent">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                            <i class="fas fa-bars fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
@@ -69,38 +99,9 @@
                                 <a class="nav-link text-center" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-md-none d-lg-block"> Classement</span></a>
                             </li>  --}}
                         </ul>
+                    </div>
 
-                        @auth
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link text-center pr-0" href="{{ route('notifications.index') }}">
-                                        <span class="fa-stack" id="notifications_indicator">
-                                            <i class="fas fa-circle fa-stack-2x text-darker"></i>
-                                            @if ($notifications_count)
-                                                <i class="fas fa-bell fa-stack-1x fa-inverse"></i>
-                                                <span class="badge badge-danger">{{ $notifications_count }}</span>
-                                            @else
-                                                <i class="fas fa-bell fa-stack-1x"></i>
-                                            @endif
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-center pl-0" href="{{ route('private_discussions.index') }}">
-                                        <span class="fa-stack" id="private_discussions_indicator">
-                                            <i class="fas fa-circle fa-stack-2x text-darker"></i>
-                                            @if ($private_unread_count)
-                                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                                                <span class="badge badge-danger">{{ $private_unread_count }}</span>
-                                            @else
-                                                <i class="fas fa-envelope fa-stack-1x"></i>
-                                            @endif
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        @endauth
-
+                    <div class="collapse navbar-collapse flex-grow-0 order-md-10 pl-md-2" id="navbarSupportedContent">
                         @guest
                             <div class="row no-gutters account-block mb-3 mb-md-0">
                                 <div class="col account-details bg-darker rounded text-md-right text-center text-md-left">
