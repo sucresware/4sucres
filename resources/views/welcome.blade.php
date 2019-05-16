@@ -13,7 +13,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-3 col-xl-2 mb-3 @if (auth()->check() && user()->getSetting('layout.sidebar.right')) order-md-2 @endif">
+        <div class="col-12 col-lg-3 col-xl-2 mb-3 @if (auth()->check() && user()->getSetting('layout.sidebar', 'left') == 'right') order-md-2 @endif">
             <div class="mb-3">
                 @auth
                     @can('create discussions')

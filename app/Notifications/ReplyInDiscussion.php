@@ -3,12 +3,10 @@
 namespace App\Notifications;
 
 use App\Models\Post;
-use App\Models\Discussion;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\BroadcastMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 
-class ReplyInDiscussion extends Notification
+class ReplyInDiscussion extends DefaultNotification
 {
     use Queueable;
 
@@ -23,7 +21,16 @@ class ReplyInDiscussion extends Notification
 
     public function via($notifiable)
     {
-        return $this->save_to_database ? ['database', 'broadcast'] : ['broadcast'];
+        $via = ['broadcast'];
+        if ($this->save_to_database) {
+            $via[] = 'database';
+        }
+
+        if (User::find($notifiable->id)->is_eligible_for_webpush) {
+            $via[] = WebPushChannel::class;
+        }
+
+        return $via;
     }
 
     public function toArray($notifiable)
@@ -33,26 +40,21 @@ class ReplyInDiscussion extends Notification
         ]);
     }
 
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage(array_merge($this->attributes(), [
-            'title' => '<i class="fas fa-asterisk text-orange"></i> Oh putain ! Une nouvelle réponse !',
-            'url' => route('notifications.show', $this->id),
-            'private' => $this->post->discussion->private,
-        ]));
-    }
-
     protected function attributes()
     {
-        if (!$this->post->discussion->private) {
-            $text = '<b>' . $this->post->user->display_name . '</b> a posté une réponse dans <b>' . $this->post->discussion->title . '</b>';
-        } else {
-            $text = '<b>' . $this->post->user->display_name . '</b> a répondu dans la discussion privée <b>' . $this->post->discussion->title . '</b>';
-        }
-
-        return [
-            'text' => $text,
+        $attributes = [
+            'title' => 'Oh putain ! Une nouvelle réponse !',
             'target' => $this->post->link,
         ];
+
+        if (!$this->post->discussion->private) {
+            $attributes['html'] = '<b>' . $this->post->user->display_name . '</b> a posté une réponse dans <b>' . $this->post->discussion->title . '</b>';
+            $attributes['text'] = $this->post->user->display_name . ' a posté une réponse dans : ' . $this->post->discussion->title;
+        } else {
+            $attributes['html'] = '<b>' . $this->post->user->display_name . '</b> a répondu dans la discussion privée <b>' . $this->post->discussion->title . '</b>';
+            $attributes['text'] = $this->post->user->display_name . ' a répondu dans la discussion privée : ' . $this->post->discussion->title;
+        }
+
+        return $attributes;
     }
 }

@@ -4,10 +4,9 @@ namespace App\Notifications;
 
 use App\Models\Discussion;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\BroadcastMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 
-class RepliesInDiscussion extends Notification
+class RepliesInDiscussion extends DefaultNotification
 {
     use Queueable;
 
@@ -20,25 +19,31 @@ class RepliesInDiscussion extends Notification
 
     public function via($notifiable)
     {
-        return ['database'];
+        $via = [
+            'database',
+        ];
+
+        if (User::find($notifiable->id)->is_eligible_for_webpush) {
+            $via[] = WebPushChannel::class;
+        }
+
+        return $via;
     }
 
     public function toArray($notifiable)
     {
-        return [
-            'text' => 'Plusieurs réponses ont été postées sur la discussion <b>' . $this->discussion->title . '</b>',
-            'target' => $this->discussion->link,
+        return array_merge($this->attributes(), [
             'discussion_id' => $this->discussion->id,
-        ];
+        ]);
     }
 
-    public function toBroadcast($notifiable)
+    protected function attributes()
     {
-        return new BroadcastMessage([
-            'title' => '<i class="fas fa-asterisk text-orange"></i> Oh putain ! Des nouvelles réponses !',
-            'text' => 'Plusieurs réponses ont été postées sur la discussion <b>' . $this->discussion->title . '</b>',
+        return [
+            'title' => 'Oui, allo ?',
             'target' => $this->discussion->link,
-            'url' => route('notifications.show', $this->id),
-        ]);
+            'html' => 'Plusieurs réponses ont été postées sur la discussion <b>' . $this->discussion->title . '</b>',
+            'text' => 'Plusieurs réponses ont été postées sur la discussion : ' . $this->discussion->title,
+        ];
     }
 }

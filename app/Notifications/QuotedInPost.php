@@ -4,10 +4,8 @@ namespace App\Notifications;
 
 use App\Models\Post;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class QuotedInPost extends Notification
+class QuotedInPost extends DefaultNotification
 {
     use Queueable;
 
@@ -18,27 +16,22 @@ class QuotedInPost extends Notification
         $this->post = $post;
     }
 
-    public function via($notifiable)
-    {
-        return ['database', 'broadcast'];
-    }
-
     public function toArray($notifiable)
     {
-        return [
-            'text' => '<b>' . $this->post->user->display_name . '</b> t\'as répondu dans la discussion <b>' . $this->post->discussion->title . '</b>',
-            'target' => $this->post->link,
-            'post_id' => $this->post->id,
-        ];
+        return array_merge($this->attributes(), [
+            'post_id' => $this->post->discussion->id,
+        ]);
     }
 
-    public function toBroadcast($notifiable)
+    protected function attributes()
     {
-        return new BroadcastMessage([
-            'title' => '<i class="fas fa-asterisk text-orange"></i> Hey! T\'as été cité !',
-            'text' => '<b>' . $this->post->user->display_name . '</b> t\'as répondu dans la discussion <b>' . $this->post->discussion->title . '</b>',
+        $attributes = [
+            'title' => 'Hey! T\'as été cité !',
             'target' => $this->post->link,
-            'url' => route('notifications.show', $this->id),
-        ]);
+            'html' => '<b>' . $this->post->user->display_name . '</b> t\'as répondu dans la discussion <b>' . $this->post->discussion->title . '</b>',
+            'text' => $this->post->user->display_name . ' t\'as répondu dans la discussion : ' . $this->post->discussion->title,
+        ];
+
+        return $attributes;
     }
 }

@@ -13,6 +13,10 @@
 
 Route::get('/', 'DiscussionController@index')->name('home');
 
+Route::get('/test', function () {
+    return view('user.webpush');
+});
+
 Route::get('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', 'Auth\RegisterController@submit');
 Route::get('/auth/verify_email/{token}', 'Auth\RegisterController@verify')->name('auth.verify_email');
@@ -69,6 +73,11 @@ Route::group(['prefix' => '/api/v0'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::post('/imgur-gateway/upload', 'Api\ImgurGatewayController@upload');
         Route::get('/ping', 'Api\ActivityController@ping');
+
+        Route::post('/webpush/subscribe', function (\Illuminate\Http\Request $request) {
+            user()->updatePushSubscription($request->input('endpoint'), $request->input('keys.p256dh'), $request->input('keys.auth'));
+            return response()->json(['success' => true]);
+        });
     });
 });
 

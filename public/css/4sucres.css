@@ -10707,10 +10707,13 @@ footer {
           backdrop-filter: none;
 }
 
+.dimmed-border-bottom {
+  border-bottom: 1px solid #f2f2f2;
+}
+
 .card-header {
   border: 0;
   font-weight: bold;
-  padding-bottom: 0;
 }
 
 h1,

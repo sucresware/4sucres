@@ -56351,7 +56351,7 @@ if (window.fourSucres.user) {
   window.Echo["private"]('App.Models.User.' + window.fourSucres.user.id).notification(function (notification) {
     $.notify({
       title: notification.title,
-      message: notification.text,
+      message: notification.html,
       url: notification.url
     }, {});
     notification_sound.play();

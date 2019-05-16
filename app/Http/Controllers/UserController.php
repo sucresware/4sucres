@@ -28,8 +28,10 @@ class UserController extends Controller
         $user = user();
 
         $user->setMultipleSettings([
-            'layout.sidebar.right' => request()->input('layout_sidebar_right', false),
-            'layout.stickers.inline' => request()->input('layout_stickers_inline', false),
+            'layout.sidebar' => request()->input('sidebar', 'left'),
+            'layout.stickers' => request()->input('stickers', 'default'),
+            'webpush.enabled' => (bool)request()->input('optin_webpush', 0),
+            'webpush.idle_wait' => request()->input('idle_wait', 1),
         ]);
 
         return redirect(route('user.settings'))->with('success', 'C\'est enregistré !');

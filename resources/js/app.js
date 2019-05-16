@@ -64,7 +64,7 @@ if (window.fourSucres.user) {
         .notification((notification) => {
             $.notify({
                 title: notification.title,
-                message: notification.text,
+                message: notification.html,
                 url: notification.url
             }, {})
             notification_sound.play()

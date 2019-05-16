@@ -6,12 +6,13 @@ use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 
 class User extends Authenticatable implements ReactsInterface
 {
-    use Notifiable, HasRoles, Reacts;
+    use Notifiable, HasRoles, Reacts, HasPushSubscriptions;
 
     /**
      * The attributes that are mass assignable.
@@ -128,5 +129,13 @@ class User extends Authenticatable implements ReactsInterface
         $this->save();
 
         return $this;
+    }
+
+    public function getIsEligibleForWebpushAttribute()
+    {
+        return ($this->getSetting('webpush.enabled', false) &&
+            now() > $this->last_activity
+            ->addMinutes(2) // GET "/ping" interval
+            ->addMinutes($this->getSetting('webpush.idle_wait', 1)));
     }
 }

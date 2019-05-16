@@ -154,8 +154,7 @@ class sucresParser
                 $url = trim($preg_result[2][$k]);
                 $hits = Regex::match($re, $url);
                 if ($hits->hasMatch()) {
-                    if (auth()->check() && user()->getSetting('layout.stickers.inline'))
-                    {
+                    if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
                         $lines = explode("\n", $this->content);
                         $lines = array_map(function ($elem) {
                             return trim(trim($elem, '<br>'), '<br/>');

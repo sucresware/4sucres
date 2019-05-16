@@ -4,10 +4,8 @@ namespace App\Notifications;
 
 use App\Models\Discussion;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class NewPrivateDiscussion extends Notification
+class NewPrivateDiscussion extends DefaultNotification
 {
     use Queueable;
 
@@ -18,27 +16,22 @@ class NewPrivateDiscussion extends Notification
         $this->discussion = $discussion;
     }
 
-    public function via($notifiable)
-    {
-        return ['database', 'broadcast'];
-    }
-
     public function toArray($notifiable)
     {
-        return [
-            'text' => '<b>' . $this->discussion->user->display_name . '</b> a commencé une discussion privée avec toi.',
-            'target' => $this->discussion->link,
+        return array_merge($this->attributes(), [
             'discussion_id' => $this->discussion->id,
-        ];
+        ]);
     }
 
-    public function toBroadcast($notifiable)
+    protected function attributes()
     {
-        return new BroadcastMessage([
-            'title' => '<i class="fas fa-asterisk text-orange"></i> Faut pas que ça se sache !',
-            'text' => '<b>' . $this->discussion->user->display_name . '</b> a commencé une discussion privée avec toi.',
+        $attributes = [
+            'title' => 'Oh putain j\'me suis dit oulaaah !',
             'target' => $this->discussion->link,
-            'url' => route('notifications.show', $this->id),
-        ]);
+            'html' => '<b>' . $this->discussion->user->display_name . '</b> a commencé une discussion privée avec toi.',
+            'text' => $this->discussion->user->display_name . ' a commencé une discussion privée avec toi.',
+        ];
+
+        return $attributes;
     }
 }
