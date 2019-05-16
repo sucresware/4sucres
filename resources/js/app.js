@@ -85,14 +85,6 @@ if (window.fourSucres.user) {
                 '<span class="badge badge-danger">&bullet;</span>'
             $("#notifications_indicator").html(markup)
         })
-
-    setInterval(() => {
-        $.getJSON('/api/v0/ping')
-            .done(function (resp) {})
-            .fail(function () {
-                window.location.reload();
-            })
-    }, 1000 * 60 * 2)
 }
 
 /**

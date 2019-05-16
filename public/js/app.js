@@ -56365,11 +56365,6 @@ if (window.fourSucres.user) {
     var markup = '<i class="fas fa-circle fa-stack-2x text-darker"></i>' + '<i class="fas fa-bell fa-stack-1x fa-inverse"></i>' + '<span class="badge badge-danger">&bullet;</span>';
     $("#notifications_indicator").html(markup);
   });
-  setInterval(function () {
-    $.getJSON('/api/v0/ping').done(function (resp) {}).fail(function () {
-      window.location.reload();
-    });
-  }, 1000 * 60 * 2);
 }
 /**
  * Notifications

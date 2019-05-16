@@ -72,7 +72,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['prefix' => '/api/v0'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::post('/imgur-gateway/upload', 'Api\ImgurGatewayController@upload');
-        Route::get('/ping', 'Api\ActivityController@ping');
 
         Route::post('/webpush/subscribe', function (\Illuminate\Http\Request $request) {
             user()->updatePushSubscription($request->input('endpoint'), $request->input('keys.p256dh'), $request->input('keys.auth'));

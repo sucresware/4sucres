@@ -135,7 +135,6 @@ class User extends Authenticatable implements ReactsInterface
     {
         return ($this->getSetting('webpush.enabled', false) &&
             now() > $this->last_activity
-            ->addMinutes(2) // GET "/ping" interval
             ->addMinutes($this->getSetting('webpush.idle_wait', 1)));
     }
 }

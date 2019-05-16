@@ -129,17 +129,17 @@
             </nav>
         </div>
 
-        <div class="bg-darker shadow">
+        {{--  <div class="bg-darker shadow">
             <div class="container text-white py-2">
                 <div class="row justify-content-between font-small">
                     <div class="col-auto">
                     </div>
                     <div class="col-auto">
-                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-md-inline-block">{{str_plural('utilisateur', $presence_counter)}} en ligne</span></small>
+                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-md-inline-block">{{ str_plural('utilisateur', $presence_counter) }} {{str_plural('actif', $presence_counter)}}</span></small>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  --}}
 
         @if (auth()->check() && user()->restricted)
             <div class="bg-primary shadow">

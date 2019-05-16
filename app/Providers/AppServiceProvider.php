@@ -23,10 +23,10 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, config('app.locale'));
 
         View::composer('*', function ($view) {
-            $view
-                ->with('presence_counter', Cache::remember('presence_counter', 3, function () {
-                    return User::online()->count();
-                }));
+            // $view
+            //     ->with('presence_counter', Cache::remember('presence_counter', 3, function () {
+            //         return User::online()->count();
+            //     }));
 
             if (auth()->check())
                 $view
