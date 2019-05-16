@@ -56400,14 +56400,6 @@ var init_spoilers = function init_spoilers() {
     });
   });
 };
-
-var init_select2 = function init_select2() {
-  $('.select2').each(function (k, el) {
-    $(el).select2({
-      theme: 'bootstrap4'
-    });
-  });
-};
 /**
  * Editor
  */
@@ -56719,7 +56711,11 @@ $(document).ready(function () {
   init_spoilers();
   init_baffle();
   init_actions();
-  init_select2();
+  $('select').each(function (k, el) {
+    $(el).select2({
+      theme: 'bootstrap4'
+    });
+  });
   bs_custom_file_input__WEBPACK_IMPORTED_MODULE_1___default.a.init();
   $('[data-toggle="tooltip"]').tooltip({
     container: 'body'

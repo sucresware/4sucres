@@ -122,14 +122,6 @@ var init_spoilers = function () {
     })
 }
 
-var init_select2 = function () {
-    $('.select2').each(function (k, el) {
-        $(el).select2({
-            theme: 'bootstrap4',
-        })
-    })
-}
-
 /**
  * Editor
  */
@@ -446,7 +438,13 @@ $(document).ready(function () {
     init_spoilers()
     init_baffle()
     init_actions()
-    init_select2()
+
+    $('select').each(function (k, el) {
+        $(el).select2({
+            theme: 'bootstrap4',
+        })
+    })
+
     bsCustomFileInput.init()
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
