@@ -30,10 +30,10 @@ class AppServiceProvider extends ServiceProvider
 
             if (auth()->check())
                 $view
-                    ->with('notifications_count', Cache::remember('notifications_count', 3, function () {
+                    ->with('notifications_count', Cache::remember('notifications_count_' . user()->id, 1, function () {
                         return user()->unreadNotifications->count();
                     }))
-                    ->with('private_unread_count', Cache::remember('private_unread_count', 3, function () {
+                    ->with('private_unread_count', Cache::remember('private_unread_count_' . user()->id, 1, function () {
                         return \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count();
                     }));
 
