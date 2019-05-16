@@ -15,7 +15,17 @@
                         @method('put')
                         @csrf
 
-                        {!! BootForm::file('avatar', 'Photo de profil') !!}
+                        <div class="form-group mb-3 {{ $errors->has('avatar') ? 'is-invalid' : '' }}">
+                            <label for="avatar" class="col-form-label {{ $errors->has('avatar') ? 'text-danger' : '' }}">Photo de profil</label>
+                            <div class="custom-file {{ $errors->has('avatar') ? 'is-invalid' : '' }}">
+                                <input type="file" class="custom-file-input {{ $errors->has('avatar') ? 'is-invalid' : '' }}" id="avatar" name="avatar">
+                                <label class="custom-file-label" for="customFile" data-browse="Choisir un fichier">Aucun fichier choisi</label>
+                                @if ($errors->has('avatar'))
+                                    <div class="invalid-feedback">{{ $errors->first('avatar') }}</div>
+                                @endif
+                            </div>
+                        </div>
+
                         {!! BootForm::text('display_name', 'Nom d\'affichage*', old('display_name', $user->display_name)) !!}
 
                         @can('update shown_role')
