@@ -9,12 +9,12 @@
             {!! $post->presented_light_body !!}
         @else
             @if (auth()->check() && user()->can('read deleted posts'))
-                <small><i>Message supprimé</i></small><br>
+                <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span>
                 <br>
 
                 {!! $post->presented_light_body !!}
             @else
-                <small><i>Message supprimé</i></small>
+                <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span>
             @endif
         @endif
     </div>
