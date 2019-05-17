@@ -148,6 +148,6 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getNameAttribute()
     {
-        return $this->deleted_at ? 'UtilisateurSupprimé' : $this->attributes['display_name'];
+        return $this->deleted_at ? 'UtilisateurSupprimé' : $this->attributes['name'];
     }
 }
