@@ -455,7 +455,7 @@ $(document).ready(function () {
     init_baffle()
     init_actions()
 
-    $('select').each(function (k, el) {
+    $('select:visible').each(function (k, el) {
         $(el).select2({
             theme: 'bootstrap4',
         })
@@ -518,6 +518,6 @@ function highlight(target) {
 function setAltFavicon() {
     $('link[rel="icon"]').each((k, el) => {
         var $el = $(el)
-        $el.attr('href', '/favicon-' + $el.attr('sizes') + '-alt.png');
+        $el.attr('href', '/img/icons/favicon-' + $el.attr('sizes') + '-alt.png');
     })
 }

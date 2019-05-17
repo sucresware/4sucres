@@ -322,3 +322,15 @@ footer {
 .dimmed-border-bottom {
     border-bottom: 1px solid #f2f2f2;
 }
+
+// TODO - Separate files. I'll take care of that.
+@mixin flex($direction: column, $justify: normal, $align: normal) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+.flex-center {
+    @include flex(column, center, center);
+}

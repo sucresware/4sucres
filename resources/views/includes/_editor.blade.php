@@ -23,7 +23,7 @@
 </div>
 
 <div class="modal fade" id="risibank" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><img src="/img/risibank_logo.png" style="height: 30px;">
@@ -73,7 +73,7 @@
 </div>
 
 <div class="modal fade" id="noelshack" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><img src="/img/noelshack_logo.png" style="height: 30px;">
@@ -99,7 +99,7 @@
 </div>
 
 <div class="modal fade" id="imgur" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><img src="/img/imgur_logo.png" style="height: 30px;">
@@ -128,7 +128,7 @@
 </div>
 
 <div class="modal fade" id="preview" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Prévisualisation</h5>

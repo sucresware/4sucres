@@ -16,14 +16,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/4sucres.css') }}" rel="stylesheet">
 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/apple-touch-icon-144x144.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/apple-touch-icon-152x152.png') }}">
-    <link rel="icon" type="image/png" href="{{ url('/favicon-32x32.png') }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ url('/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/img/icons/apple-touch-icon-152x152.png') }}">
+    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="shortcut icon" href="{{ url('/img/icons/favicon.ico') }}">
     <meta name="application-name" content="4sucres">
     <meta name="theme-color" content="#3b4252">
     <meta name="msapplication-TileColor" content="#3b4252">
-    <meta name="msapplication-TileImage" content="{{ url('/mstile-144x144.png') }}">
+    <meta name="msapplication-TileImage" content="{{ url('/img/icons/mstile-144x144.png') }}">
     {!! NoCaptcha::renderJs('fr') !!}
 
     @if (config('app.env') === 'production')
@@ -106,8 +107,8 @@
                         @guest
                             <div class="row no-gutters account-block mb-3 mb-md-0">
                                 <div class="col account-details bg-darker rounded text-md-right text-center text-md-left">
-                                    <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus"></i> Inscription</a>
-                                    <a href="{{ route('login') }}"><i class="fas fa-power-off"></i> Connexion</a>
+                                    <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus mr-2"></i>Inscription</a>
+                                    <a href="{{ route('login') }}"><i class="fas fa-power-off mr-2"></i>Connexion</a>
                                 </div>
                             </div>
                         @else
@@ -117,11 +118,11 @@
                                         <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
                                     </span>
                                     <br>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-1"></i> Déconnexion</a>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-2"></i>Déconnexion</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                                 </div>
-                                <div class="col-auto account-image rounded">
-                                    <img src="{{ user()->avatar ? url('storage/avatars/' . user()->avatar) : url('/img/guest.png') }}" class="img-fluid">
+                                <div class="col-auto account-image">
+                                    <img src="{{ user()->avatar ? url('storage/avatars/' . user()->avatar) : url('/img/guest.png') }}" class="img-fluid rounded">
                                 </div>
                             </div>
                         @endguest
@@ -171,7 +172,9 @@
             &copy; 2019<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
-            <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> - <a href="{{ route('charter') }}">Charte d'utilisation</a>
+            <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span> 
+            <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span> 
+            <a href="https://github.com/4sucres/board" target="_blank">GitHub</a>
         </footer>
     </div>
 
