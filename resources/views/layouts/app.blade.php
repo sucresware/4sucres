@@ -121,8 +121,8 @@
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-1"></i> Déconnexion</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                                 </div>
-                                <div class="col-auto account-image rounded">
-                                    <img src="{{ user()->avatar ? url('storage/avatars/' . user()->avatar) : url('/img/guest.png') }}" class="img-fluid">
+                                <div class="col-auto account-image">
+                                    <img src="{{ user()->avatar ? url('storage/avatars/' . user()->avatar) : url('/img/guest.png') }}" class="img-fluid rounded">
                                 </div>
                             </div>
                         @endguest
