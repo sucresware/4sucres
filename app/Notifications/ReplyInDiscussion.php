@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use NotificationChannels\WebPush\WebPushChannel;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class ReplyInDiscussion extends DefaultNotification
 {
@@ -25,10 +26,9 @@ class ReplyInDiscussion extends DefaultNotification
         $via = ['broadcast'];
         if ($this->save_to_database) {
             $via[] = 'database';
-        }
-
-        if (User::find($notifiable->id)->is_eligible_for_webpush) {
-            $via[] = WebPushChannel::class;
+            if (User::find($notifiable->id)->is_eligible_for_webpush) {
+                $via[] = WebPushChannel::class;
+            }
         }
 
         return $via;
@@ -57,5 +57,15 @@ class ReplyInDiscussion extends DefaultNotification
         }
 
         return $attributes;
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        $attributes = $this->attributes();
+
+        return new BroadcastMessage(array_merge($attributes, [
+            'title' => $attributes['title'],
+            'url' => $this->save_to_database ? route('notifications.show', $this->id) : $attributes['target'],
+        ]));
     }
 }
