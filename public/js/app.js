@@ -50348,7 +50348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/*!
- * Select2 4.0.7-rc.0
+ * Select2 4.0.7
  * https://select2.github.io
  *
  * Released under the MIT license
@@ -56320,8 +56320,8 @@ var csrf_token = $("meta[name=csrf-token]").attr('content');
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "42268be9b70f192a408a",
-  cluster: "eu",
+  key: "",
+  cluster: "mt1",
   encrypted: true
 }); // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
@@ -56772,7 +56772,7 @@ function highlight(target) {
 function setAltFavicon() {
   $('link[rel="icon"]').each(function (k, el) {
     var $el = $(el);
-    $el.attr('href', '/favicon-' + $el.attr('sizes') + '-alt.png');
+    $el.attr('href', '/img/icons/favicon-' + $el.attr('sizes') + '-alt.png');
   });
 }
 
@@ -56854,8 +56854,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laragon\www\4sucres\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laragon\www\4sucres\resources\sass\4sucres.scss */"./resources/sass/4sucres.scss");
+__webpack_require__(/*! D:\Projets\Web\4sucres\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Projets\Web\4sucres\resources\sass\4sucres.scss */"./resources/sass/4sucres.scss");
 
 
 /***/ })
