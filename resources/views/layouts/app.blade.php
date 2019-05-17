@@ -16,14 +16,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/4sucres.css') }}" rel="stylesheet">
 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/apple-touch-icon-144x144.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/apple-touch-icon-152x152.png') }}">
-    <link rel="icon" type="image/png" href="{{ url('/favicon-32x32.png') }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ url('/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/img/icons/apple-touch-icon-152x152.png') }}">
+    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="shortcut icon" href="{{ url('/img/icons/favicon.ico') }}">
     <meta name="application-name" content="4sucres">
     <meta name="theme-color" content="#3b4252">
     <meta name="msapplication-TileColor" content="#3b4252">
-    <meta name="msapplication-TileImage" content="{{ url('/mstile-144x144.png') }}">
+    <meta name="msapplication-TileImage" content="{{ url('/img/icons/mstile-144x144.png') }}">
     {!! NoCaptcha::renderJs('fr') !!}
 
     @if (config('app.env') === 'production')

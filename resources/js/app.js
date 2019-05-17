@@ -502,6 +502,6 @@ function highlight(target) {
 function setAltFavicon() {
     $('link[rel="icon"]').each((k, el) => {
         var $el = $(el)
-        $el.attr('href', '/favicon-' + $el.attr('sizes') + '-alt.png');
+        $el.attr('href', '/img/icons/favicon-' + $el.attr('sizes') + '-alt.png');
     })
 }
