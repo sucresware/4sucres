@@ -140,4 +140,14 @@ class User extends Authenticatable implements ReactsInterface
             now() > $this->last_activity
             ->addMinutes($this->getSetting('webpush.idle_wait', 1)));
     }
+
+    public function getDisplayNameAttribute()
+    {
+        return $this->deleted_at ? 'Utilisateur supprimé' : $this->attributes['display_name'];
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->deleted_at ? 'UtilisateurSupprimé' : $this->attributes['display_name'];
+    }
 }

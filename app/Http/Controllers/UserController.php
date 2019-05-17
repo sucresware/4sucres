@@ -41,6 +41,10 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->firstOrFail();
 
+        if ($user->deleted_at) {
+            return abort(410);
+        }
+
         return view('user.show', compact('user'));
     }
 
@@ -98,5 +102,29 @@ class UserController extends Controller
         $user->save();
 
         return redirect($user->link);
+    }
+
+    public function delete($name)
+    {
+        if (user()->cannot('delete users')) {
+            return abort(403);
+        }
+
+        $user = User::where('name', $name)->firstOrFail();
+
+        return view('user.delete', compact('user'));
+    }
+
+    public function destroy($name)
+    {
+        if (user()->cannot('delete users')) {
+            return abort(403);
+        }
+
+        $user = User::where('name', $name)->firstOrFail();
+        $user->deleted_at = now();
+        $user->save();
+
+        return redirect()->route('home');
     }
 }
