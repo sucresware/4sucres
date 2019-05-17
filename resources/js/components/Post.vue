@@ -34,7 +34,9 @@
                 <i class="fas fa-fw fa-edit"></i>
               </a>
             </template>
-            <template v-if="!post.deleted_at">
+            <template
+              v-if="(auth_user && post.user.id == auth_user.id && !post.deleted_at) || auth_user_can('bypass discussions guard') && !post.deleted_at"
+            >
               <a
                 class="mr-1 text-danger"
                 :href="route('discussions.posts.delete', [post.discussion.id, post.discussion.slug, post.id])"
