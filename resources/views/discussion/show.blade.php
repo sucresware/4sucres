@@ -21,11 +21,11 @@
         </div>
     </div>
 
-    <div class="pb-0">
+    {{--  <div class="pb-0">
         {{ $posts->links() }}
-    </div>
+    </div>  --}}
 
-    <div class="card mb-3">
+    {{--  <div class="card mb-3">
         @foreach($posts as $post)
             <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
                 @include('discussion.post._show')
@@ -35,7 +35,9 @@
 
     <div class="pb-0">
         {{ $posts->links() }}
-    </div>
+    </div>  --}}
+
+    <discussion-show-component :discussion-id="{{ $discussion->id }}" :default-page="{{ $posts->currentPage() }}"></discussion-show-component>
 
     @if ($discussion->locked)
         <div class="alert alert-secondary text-center">

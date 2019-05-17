@@ -189,12 +189,21 @@
 
     @include('sweetalert::alert')
 
+    @php
+        if (auth()->check()) {
+            $user = array_merge(user()->only(['id', 'name', 'email']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')]);
+        } else {
+            $user = null;
+        }
+    @endphp
+
     <script>
         window.fourSucres = {
-            user: @auth @json(user()->only(['id', 'name', 'email'])) @else null @endauth,
+            user: @json($user),
             hasNotifications: @auth @json((bool) $notifications_count) @else null @endauth,
         }
     </script>
+    @routes
     <script src="{{ mix('/js/app.js') }}"></script>
     @stack('js')
 </body>

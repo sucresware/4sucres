@@ -13,10 +13,6 @@
 
 Route::get('/', 'DiscussionController@index')->name('home');
 
-Route::get('/test', function () {
-    return view('user.webpush');
-});
-
 Route::get('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', 'Auth\RegisterController@submit');
 Route::get('/auth/verify_email/{token}', 'Auth\RegisterController@verify')->name('auth.verify_email');
@@ -78,6 +74,8 @@ Route::group(['prefix' => '/api/v0'], function () {
             return response()->json(['success' => true]);
         });
     });
+
+    Route::get('/discussions/{discussion}', 'Api\DiscussionController@show');
 });
 
 if (config('app.env') == 'local') {

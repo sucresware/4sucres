@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Spatie\Regex\Regex;
+use \ForceUTF8\Encoding;
 
 class sucresParser
 {
@@ -43,7 +44,7 @@ class sucresParser
             $this->renderQuotes();
         }
 
-        return $this->content;
+        return Encoding::toUTF8($this->content);
     }
 
     public function https()

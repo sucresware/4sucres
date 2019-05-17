@@ -16,7 +16,7 @@ import {
     Howler
 } from 'howler';
 
-// window.Vue = require('vue');
+window.Vue = require('vue');
 window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -25,12 +25,28 @@ window.Echo = new Echo({
     encrypted: true
 })
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-// const app = new Vue({
-//     el: '#app',
-// });
+Vue.mixin({
+    data: function () {
+        return {
+            get auth_user() {
+                return window.fourSucres.user;
+            }
+        }
+    },
+    methods: {
+        auth_user_can: function (permission) {
+            return (this.auth_user && this.auth_user.permissions.includes(permission))
+        },
+        route: route,
+    }
+})
+
+const app = new Vue({
+    el: '#app',
+});
 
 window.notification_sound = new Howl({
     src: ['/audio/intuition.mp3', '/audio/intuition.mp3'],
