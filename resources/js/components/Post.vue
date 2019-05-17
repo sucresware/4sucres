@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import iziToast from "iziToast";
+import iziToast from "izitoast";
 
 export default {
   props: ["post"],

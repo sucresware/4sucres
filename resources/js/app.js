@@ -6,7 +6,7 @@ let $ = require("jquery")
 let baffle = require('baffle')
 let csrf_token = $("meta[name=csrf-token]").attr('content');
 
-import iziToast from 'iziToast'
+import iziToast from 'izitoast'
 import Echo from "laravel-echo"
 import bsCustomFileInput from 'bs-custom-file-input'
 import VueClipboard from 'vue-clipboard2'
