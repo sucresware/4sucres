@@ -1,7 +1,3 @@
-@push('css')
-    <link rel="stylesheet" href="{{ url('/css/sceditor.css') }}">
-@endpush
-
 <form action="{{ route('discussions.posts.store', [$discussion->id, $discussion->slug]) }}" method="post">
     @csrf
     @include('includes/_editor', ['name' => 'body'])

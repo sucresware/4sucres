@@ -124,8 +124,6 @@ class DiscussionController extends Controller
     {
         $discussion = Discussion::query()
             ->withTrashed()
-            ->with('posts')
-            ->with('posts.user')
             ->findOrFail($id);
 
         if ($discussion->trashed()) {
@@ -136,7 +134,11 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $posts = $discussion->posts()->paginate(10);
+        $posts = $discussion
+            ->posts()
+            ->with('user')
+            ->with('discussion')
+            ->paginate(10);
 
         $discussion->has_read()->attach(user());
 

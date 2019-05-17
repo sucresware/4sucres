@@ -21,13 +21,16 @@ class User extends Authenticatable implements ReactsInterface
      */
     protected $guarded = [];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    protected $appends = [
+        'link',
+        'avatar_link'
+    ];
+
     protected $hidden = [
         'password', 'remember_token',
+        'gender', 'dob',
+        'created_at', 'updated_at', 'email_verified_at', 'last_activity',
+        'avatar',
     ];
 
     /**

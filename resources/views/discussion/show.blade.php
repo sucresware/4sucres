@@ -25,13 +25,7 @@
         {{ $posts->links() }}
     </div>
 
-    <div class="card mb-3">
-        @foreach($posts as $post)
-            <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
-                @include('discussion.post._show')
-            </div>
-        @endforeach
-    </div>
+    <discussion :discussion-id="{{ $discussion->id }}" :initial-paginator="{{ $posts->toJson() }}"></discussion>
 
     <div class="pb-0">
         {{ $posts->links() }}

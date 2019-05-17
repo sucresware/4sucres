@@ -17,6 +17,17 @@ class Post extends Model implements ReactableInterface
     use SoftDeletes, Reactable;
     protected $guarded = [];
 
+    protected $appends = [
+        'link',
+        'presented_body',
+        'presented_created_at',
+        'presented_updated_at',
+    ];
+
+    protected $hidden = [
+        ''
+    ];
+
     public static function boot()
     {
         parent::boot();
@@ -98,8 +109,18 @@ class Post extends Model implements ReactableInterface
         return (new sucresParser($this->body, true))->render();
     }
 
+    public function getPresentedCreatedAtAttribute()
+    {
+        return $this->created_at->format('d/m/Y à H:i:s');
+    }
+
+    public function getPresentedUpdatedAtAttribute()
+    {
+        return $this->updated_at->format('d/m/Y à H:i:s');
+    }
+
     public function getLinkAttribute()
     {
-        return Discussion::link_to_post($this);
+        return route('posts.show', $this);
     }
 }
