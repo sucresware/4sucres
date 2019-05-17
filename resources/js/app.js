@@ -439,7 +439,7 @@ $(document).ready(function () {
     init_baffle()
     init_actions()
 
-    $('select').each(function (k, el) {
+    $('select:visible').each(function (k, el) {
         $(el).select2({
             theme: 'bootstrap4',
         })
