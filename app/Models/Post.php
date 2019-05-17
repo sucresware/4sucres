@@ -7,14 +7,13 @@ use App\Helpers\sucresParser;
 use App\Notifications\MentionnedInPost;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use App\Notifications\QuotedInPost;
 
 class Post extends Model implements ReactableInterface
 {
-    use SoftDeletes, Reactable;
+    use Reactable;
     protected $guarded = [];
 
     protected $appends = [

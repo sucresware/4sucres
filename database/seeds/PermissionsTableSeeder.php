@@ -30,6 +30,8 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'update achievements']);
         Permission::firstOrCreate(['name' => 'update roles']);
         Permission::firstOrCreate(['name' => 'debug mode enabled']);
+        Permission::firstOrCreate(['name' => 'ban users']);
+        Permission::firstOrCreate(['name' => 'delete users']);
 
         $admin->givePermissionTo('bypass users guard');
         $admin->givePermissionTo('use restricted categories');
@@ -41,6 +43,8 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('update achievements');
         $admin->givePermissionTo('update roles');
         $admin->givePermissionTo('debug mode enabled');
+        $admin->givePermissionTo('ban users');
+        $admin->givePermissionTo('delete users');
 
         $moderator->givePermissionTo('bypass users guard');
         $moderator->givePermissionTo('use restricted categories');
@@ -50,6 +54,7 @@ class PermissionsTableSeeder extends Seeder
         $moderator->givePermissionTo('restore posts');
         $moderator->givePermissionTo('read deleted posts');
         $moderator->givePermissionTo('update achievements');
+        $moderator->givePermissionTo('ban users');
 
         $supporter->givePermissionTo('update shown_role');
         $supporter->givePermissionTo('create discussions');

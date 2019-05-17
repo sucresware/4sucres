@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Notifications\ReplyInDiscussion;
 use App\Notifications\RepliesInDiscussion;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discussion extends Model
 {
-    use SoftDeletes;
     protected $guarded = [];
     protected $dates = ['last_reply_at'];
 
@@ -61,12 +59,15 @@ class Discussion extends Model
 
     public function scopePublic($query)
     {
-        return $query->where('private', false);
+        return $query
+            ->where('deleted_at', null)
+            ->where('private', false);
     }
 
     public function scopePrivate($query, User $user)
     {
         return $query
+            ->where('deleted_at', null)
             ->whereHas('members', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })

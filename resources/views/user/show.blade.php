@@ -81,6 +81,9 @@
                                 @if (user()->can('bypass users guard'))
                                     <a href="{{ route('user.edit', $user->name) }}" class="btn btn-secondary">Modifier le profil</a>
                                 @endif
+                                @if (user()->can('delete users'))
+                                    <a href="{{ route('user.delete', $user->name) }}" class="btn btn-danger">Supprimer l'utilisateur</a>
+                                @endif
                             @endif
                         @endauth
                     </div>

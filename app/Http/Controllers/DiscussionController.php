@@ -123,10 +123,9 @@ class DiscussionController extends Controller
     public function show($id, $slug) // Ne pas utiliser Discussion $discussion (pour laisser possible le 410)
     {
         $discussion = Discussion::query()
-            ->withTrashed()
             ->findOrFail($id);
 
-        if ($discussion->trashed()) {
+        if ($discussion->deleted_at) {
             return abort(410);
         }
 

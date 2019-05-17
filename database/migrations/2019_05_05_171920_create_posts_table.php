@@ -12,7 +12,6 @@ class CreatePostsTable extends Migration
             $table->bigInteger('discussion_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->text('body');
-            $table->boolean('deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

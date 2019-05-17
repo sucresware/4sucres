@@ -19,13 +19,13 @@
           </a>
           <template v-if="auth_user">
             <!-- <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_post.id" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a> -->
-            <template v-if="!post.deleted">
+            <template v-if="!post.deleted_at">
               <a class="mr-1" href="#reply" data-action="quotePost" :data-id="post.id">
                 <i class="fas fa-fw fa-quote-right"></i>
               </a>
             </template>
             <template
-              v-if="(auth_user && post.user.id == auth_user.id && !post.deleted) || auth_user_can('bypass discussions guard')"
+              v-if="(auth_user && post.user.id == auth_user.id && !post.deleted_at) || auth_user_can('bypass discussions guard')"
             >
               <a
                 class="mr-1"
@@ -34,7 +34,7 @@
                 <i class="fas fa-fw fa-edit"></i>
               </a>
             </template>
-            <template v-if="!post.deleted">
+            <template v-if="!post.deleted_at">
               <a
                 class="mr-1 text-danger"
                 :href="route('discussions.posts.delete', [post.discussion.id, post.discussion.slug, post.id])"
@@ -54,18 +54,21 @@
 
       <small>
         <a :href="post.link">le {{ post.presented_created_at }}</a>
-        <template v-if="post.created_at != post.updated_at">
+        <template v-if="!post.deleted_at && post.created_at != post.updated_at">
           <span class="text-muted">(modifié le {{ post.presented_updated_at }})</span>
+        </template>
+        <template v-if="post.deleted_at">
+          <span class="text-muted">(suppr. le {{ post.presented_updated_at }})</span>
         </template>
       </small>
 
       <hr>
 
       <div class="post-content">
-        <div v-if="post.deleted" class="text-danger mb-3">
+        <div v-if="post.deleted_at" class="text-danger mb-3">
           <i class="fas fa-times"></i> Message supprimé
         </div>
-        <div v-if="!post.deleted || auth_user_can('read deleted posts')">
+        <div v-if="!post.deleted_at || auth_user_can('read deleted posts')">
           <div v-html="post.presented_body"></div>
         </div>
       </div>

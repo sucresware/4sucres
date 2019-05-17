@@ -76,13 +76,15 @@ class DiscussionPostController extends Controller
 
         if ($post->id == $discussion->posts[0]->id) {
             $discussion->posts()->update([
-                'deleted' => true,
+                'deleted_at' => now(),
             ]);
-            $discussion->delete();
+
+            $discussion->deleted_at = now();
+            $discussion->save();
 
             return redirect(route('home'));
         } else {
-            $post->deleted = true;
+            $post->deleted_at = now();
             $post->save();
 
             return redirect(route('discussions.show', [
