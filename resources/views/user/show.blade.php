@@ -38,8 +38,8 @@
 
                     <h3 class="h5">Statistiques</h5>
                     <div class="p-1">
-                        <strong>Nombre de topics:</strong> {{ $discussions = \App\Models\Discussion::public()->where('user_id', $user->id)->count() }}<br>
-                        <strong>Nombre de messages:</strong> {{ \App\Models\Post::where('user_id', $user->id)->whereHas('discussion', function($q){$q->public();})->count() - $discussions}}<br>
+                        <strong>Nombre de topics :</strong> {{ $discussions = \App\Models\Discussion::public()->where('user_id', $user->id)->count() }}<br>
+                        <strong>Nombre de messages :</strong> {{ \App\Models\Post::where('user_id', $user->id)->whereHas('discussion', function($q){$q->public();})->count() - $discussions}}<br>
                     </div>
 
                     <hr>
@@ -47,7 +47,7 @@
                     <h3 class="h5">Dernières participations</h5>
                     <div class="p-1 pb-3">
                         @foreach (\App\Models\Post::where('user_id', $user->id)->whereHas('discussion', function($q){$q->public();})->orderBy('updated_at', 'DESC')->limit(10)->get() as $post)
-                            <a href="{{ route('discussions.show', [$post->discussion->id, $post->discussion->slug]) }}">{{ $post->discussion->title }}</a><br>
+                            <a href="{{ $post->getLinkAttribute() }}">{{ $post->discussion->title }}</a><br>
                         @endforeach
                     </div>
 
