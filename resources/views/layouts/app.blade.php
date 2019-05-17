@@ -107,8 +107,8 @@
                         @guest
                             <div class="row no-gutters account-block mb-3 mb-md-0">
                                 <div class="col account-details bg-darker rounded text-md-right text-center text-md-left">
-                                    <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus"></i> Inscription</a>
-                                    <a href="{{ route('login') }}"><i class="fas fa-power-off"></i> Connexion</a>
+                                    <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus mr-2"></i>Inscription</a>
+                                    <a href="{{ route('login') }}"><i class="fas fa-power-off mr-2"></i>Connexion</a>
                                 </div>
                             </div>
                         @else
@@ -118,7 +118,7 @@
                                         <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
                                     </span>
                                     <br>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-1"></i> Déconnexion</a>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-2"></i>Déconnexion</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                                 </div>
                                 <div class="col-auto account-image">
