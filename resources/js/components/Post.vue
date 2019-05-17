@@ -2,19 +2,25 @@
   <div class="post p-3 row no-gutters" :id="'p' + post.id">
     <div class="col-auto mr-3">
       <a :href="post.user.link">
-        <img :src="'/storage/avatars/' + post.user.avatar" class="post-image rounded">
+        <img :src="post.user.avatar_link" class="post-image rounded">
       </a>
     </div>
     <div class="col">
       <template v-if="!post.discussion.private">
         <div class="float-right">
-          <a class="mr-1" :href="post.link">
+          <a
+            class="mr-1"
+            href="javascript:void(0)"
+            v-clipboard:copy="post.link"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
+          >
             <i class="fas fa-fw fa-link"></i>
           </a>
           <template v-if="auth_user">
             <!-- <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_post.id" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a> -->
             <template v-if="!post.deleted">
-              <a class="mr-1" href="#reply" data-action="quotePost" data-id="post.id">
+              <a class="mr-1" href="#reply" data-action="quotePost" :data-id="post.id">
                 <i class="fas fa-fw fa-quote-right"></i>
               </a>
             </template>
@@ -48,9 +54,9 @@
 
       <small>
         <a :href="post.link">le {{ post.presented_created_at }}</a>
-        <div v-if="post.created_at != post.updated_at">
+        <template v-if="post.created_at != post.updated_at">
           <span class="text-muted">(modifié le {{ post.presented_updated_at }})</span>
-        </div>
+        </template>
       </small>
 
       <hr>
@@ -68,8 +74,23 @@
 </template>
 
 <script>
+import iziToast from "iziToast";
+
 export default {
   props: ["post"],
-  mounted() {}
+  methods: {
+    onCopy: function(e) {
+      iziToast.success({
+        title: "Lien copié !",
+        message: "Le lien vers le message a été copié dans le presse-papiers"
+      });
+    },
+    onError: function(e) {
+      iziToast.error({
+        title: "Arf, ça marche pas !",
+        message: "Impossible de copier le lien (psst, change de navigateur)"
+      });
+    }
+  }
 };
 </script>

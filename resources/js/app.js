@@ -1,16 +1,15 @@
 require('./bootstrap')
-require('sceditor/minified/sceditor.min.js')
-require('sceditor/minified/formats/bbcode.js')
 require('select2')
 require('@fancyapps/fancybox/dist/jquery.fancybox.min.js')
-require('bootstrap-notify/bootstrap-notify.min.js')
 
 let $ = require("jquery")
 let baffle = require('baffle')
 let csrf_token = $("meta[name=csrf-token]").attr('content');
 
+import iziToast from 'iziToast'
 import Echo from "laravel-echo"
 import bsCustomFileInput from 'bs-custom-file-input'
+import VueClipboard from 'vue-clipboard2'
 import {
     Howl,
     Howler
@@ -24,6 +23,10 @@ window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     encrypted: true
 })
+
+iziToast.settings({
+    position: 'topRight'
+});
 
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
@@ -44,6 +47,8 @@ Vue.mixin({
     }
 })
 
+Vue.use(VueClipboard)
+
 const app = new Vue({
     el: '#app',
 });
@@ -51,21 +56,6 @@ const app = new Vue({
 window.notification_sound = new Howl({
     src: ['/audio/intuition.mp3', '/audio/intuition.mp3'],
     volume: 0.5,
-});
-
-$.notifyDefaults({
-    type: 'toast',
-    template: '<div data-notify="container" class="toast fade show toast-{0}" role="alert">' +
-        '<div class="toast-header" data-notify="title">' +
-        '<strong class="mr-auto">{1}</strong>' +
-        '<small>à l\'instant</small>' +
-        '</div>' +
-        '<div class="toast-body" data-notify="message" style="cursor: pointer;" onclick="window.location.href=\'{3}\'">{2}</div>' +
-        '</div>',
-    animate: {
-        enter: 'animated fadeIn faster',
-        exit: 'animated fadeOut faster'
-    }
 });
 
 $.ajaxSetup({
@@ -78,11 +68,21 @@ if (window.fourSucres.user) {
     window.Echo
         .private('App.Models.User.' + window.fourSucres.user.id)
         .notification((notification) => {
-            $.notify({
+            iziToast.success({
                 title: notification.title,
                 message: notification.html,
-                url: notification.url
-            }, {})
+                buttons: [
+                    ['<button>Voir</button>', function (instance, toast) {
+                        window.location.href = notification.url
+                    }],
+                ],
+                balloon: 1,
+                layout: 2,
+                icon: 'fas fa-asterisk',
+                iconColor: '#D08770',
+                backgroundColor: '#fff',
+                maxWidth: '400px'
+            });
             notification_sound.play()
             setAltFavicon()
 

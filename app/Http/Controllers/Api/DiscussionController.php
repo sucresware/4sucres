@@ -15,17 +15,6 @@ class DiscussionController extends Controller
             ->with('discussion')
             ->paginate(10);
 
-        $posts->map(function ($post) {
-            $post->presented_body = $post->presented_body;
-            $post->link = $post->link;
-            $post->user->link = $post->user->link;
-            $post->user->avatar = $post->user->avatar;
-            $post->presented_created_at = $post->created_at->format('d/m/Y à H:i:s');
-            $post->presented_updated_at = $post->updated_at->format('d/m/Y à H:i:s');
-
-            return $post;
-        });
-
         return response()->json($posts);
     }
 }

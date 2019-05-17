@@ -38,7 +38,7 @@ class DefaultNotification extends Notification implements ShouldQueue
         $attributes = $this->attributes();
 
         return new BroadcastMessage(array_merge($attributes, [
-            'title' => '<i class="fas fa-asterisk text-orange"></i> ' . $attributes['title'],
+            'title' => $attributes['title'],
             'url' => route('notifications.show', $this->id),
         ]));
     }

@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/u/{user}/edit', 'UserController@edit')->name('user.edit');
     Route::put('/u/{user}', 'UserController@update')->name('user.update');
 
+    Route::get('/p/{id}', 'PostController@show')->name('posts.show');
+
     Route::get('d/create', 'DiscussionController@create')->name('discussions.create');
     Route::post('/d/preview', 'DiscussionController@preview')->name('discussions.preview');
     Route::post('d', 'DiscussionController@store')->name('discussions.store');

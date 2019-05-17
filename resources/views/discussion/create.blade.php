@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@push('css')
-    <link rel="stylesheet" href="{{ url('/css/sceditor.css') }}">
-@endpush
-
 @section('title')
     Nouvelle discussion
 @endsection
