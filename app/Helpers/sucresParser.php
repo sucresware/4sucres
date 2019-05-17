@@ -299,7 +299,7 @@ class sucresParser
 
             $this->content = str_replace(
                 $tag,
-                '<a href="' . $user->link . '" class="badge badge-primary">@' . $user->name . '</a>' . ' ',
+                '<a href="' . $user->link . '" class="badge badge-primary align-middle">@' . $user->name . '</a>' . ' ',
                 $this->content
             );
         }
