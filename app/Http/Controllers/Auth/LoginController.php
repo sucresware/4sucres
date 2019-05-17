@@ -28,10 +28,10 @@ class LoginController extends Controller
             'email' => request()->email,
             'password' => request()->password,
         ], $remember)) {
-            // if (user()->email_verified_at == null) {
-            //     auth()->logout();
-            //     return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de te connecter !');
-            // }
+            if (user()->deleted_at) {
+                auth()->logout();
+                return redirect()->route('home')->with('error', 'Désolé mec, c\'est terminé.');
+            }
 
             return redirect()->route('home');
         } else {
