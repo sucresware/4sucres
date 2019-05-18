@@ -77,9 +77,10 @@ class RegisterController extends Controller
         $verify_user = VerifyUser::create([
             'user_id' => $user->id,
             'token' => str_random(40),
+            'scope' => VerifyUser::SCOPE_VERIFY_EMAIL,
         ]);
 
-        Mail::to($user)->send(new VerifyEmail($user));
+        Mail::to($user)->send(new VerifyEmail($user, $verify_user->token));
 
         Auth::login($user);
 
