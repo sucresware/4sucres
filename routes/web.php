@@ -39,8 +39,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::get('/profile', 'UserController@profile')->name('profile');
-    Route::get('/settings', 'UserController@settings')->name('user.settings');
-    Route::put('/settings', 'UserController@saveSettings');
+
+    Route::get('/settings', 'UserSettingsController@index')->name('user.settings');
+    Route::get('/settings/profile/{name?}', 'UserSettingsController@profile')->name('user.settings.profile');
+    Route::put('/settings/profile/{name?}', 'UserSettingsController@updateProfile');
+    Route::get('/settings/account/email', 'UserSettingsController@accountEmail')->name('user.settings.account.email');
+    Route::put('/settings/account/email', 'UserSettingsController@updateAccountEmail');
+    Route::get('/settings/account/password', 'UserSettingsController@accountPassword')->name('user.settings.account.password');
+    Route::put('/settings/account/password', 'UserSettingsController@updateAccountPassword');
+    Route::get('/settings/layout', 'UserSettingsController@layout')->name('user.settings.layout');
+    Route::put('/settings/layout', 'UserSettingsController@updateLayout');
+    Route::get('/settings/notifications', 'UserSettingsController@notifications')->name('user.settings.notifications');
+    Route::put('/settings/notifications', 'UserSettingsController@updateNotifications');
 
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::get('/notifications/clear', 'NotificationController@clear')->name('notifications.clear');
@@ -50,8 +60,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/d/p/{user}-{name}/create', 'PrivateDiscussionController@create')->name('private_discussions.create');
     Route::post('/d/p/{user}-{name}', 'PrivateDiscussionController@store')->name('private_discussions.store');
 
-    Route::get('/u/{user}/edit', 'UserController@edit')->name('user.edit');
-    Route::put('/u/{user}', 'UserController@update')->name('user.update');
     Route::get('/u/{user}/delete', 'UserController@delete')->name('user.delete');
     Route::delete('/u/{user}', 'UserController@destroy')->name('user.destroy');
 

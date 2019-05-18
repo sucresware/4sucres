@@ -163,6 +163,45 @@
 
         {{--  @yield('main')  --}}
 
+        @if (session('success'))
+            <div class="alert alert-success shadow">
+                <div class="container">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto mr-2"><i class="fas fa-check-circle"></i></div>
+                        <div class="col">
+                            {!! session('success') !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if (session('info'))
+            <div class="alert alert-info shadow">
+                <div class="container">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto mr-2"><i class="fas fa-info-triangle"></i></div>
+                        <div class="col">
+                            {!! session('info') !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger shadow">
+                <div class="container">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="col">
+                            {!! session('error') !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <main class="py-4">
             @yield('content')
         </main>
@@ -172,21 +211,21 @@
             &copy; 2019<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
-            <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span> 
-            <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span> 
+            <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>
+            <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="https://github.com/4sucres/board" target="_blank">GitHub</a>
         </footer>
     </div>
 
-    @if (session('success'))
+    @if (session('swal-success'))
         @php alert()->success(null, session('success'))->persistent(); @endphp
     @endif
 
-    @if (session('info'))
+    @if (session('swal-info'))
         @php alert()->info(null, session('info'))->persistent(); @endphp
     @endif
 
-    @if (session('error'))
+    @if (session('swal-error'))
         @php alert()->error(null, session('error'))->persistent(); @endphp
     @endif
 

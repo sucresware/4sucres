@@ -7,8 +7,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <form method="POST" action="{{ route('user.settings', []) }}" enctype='multipart/form-data' id="settings">
+        <div class="col-lg-3 col-xl-2 mb-3">
+            @include('user.settings._navigation')
+        </div>
+        <div class="col-lg-7 col-xl-8">
+            <form method="POST" action="{{ route('user.settings.layout', []) }}" enctype='multipart/form-data' id="settings">
                 @method('put')
                 @csrf
 
@@ -57,95 +60,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-3">
-                    <div class="card-header">
-                        Gestion des notifications
-                    </div>
-                    <div class="card-body">
-                        {{--  <div class="row">
-                            <div class="col-md-3">Je souhaite être notifié..</div>
-                            <div class="col-md-9">
-                                <div class="form-group mb-1">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
-                                            De toutes les nouvelles discussions
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-1">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
-                                            Quand je reçois un message privé
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-1">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
-                                            Quand je suis cité/mentionné
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  --}}
-                        <div class="form-group">
-                            <div class="alert alert-primary">
-                                <div class="row align-items-center">
-                                    <div class="col col-md-8">
-                                        <p>
-                                            Le WebPush c'est génial, so STARTUP NATION !<br>
-                                            Ça permet de reçevoir une notification sur ton téléphone (ou PC) sans même que ton navigateur soit ouvert. Un peu comme un app, mais avec 3 lettres en moins.<br>
-                                        </p>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="optin_webpush" name="optin_webpush" {{ old('optin_webpush', $user->getSetting('webpush.enabled', 0)) ? 'checked' : '' }} value="1">
-                                            <label class="custom-control-label" for="optin_webpush">
-                                                Activer les notifications WebPush (expérimental)
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="d-none d-md-flex col-md-4 pr-1">
-                                        <a href='{{ url('/img/settings/notifications.webpush.gif') }}' data-toggle='fancybox' data-type='image'>
-                                            <img src="{{ url('/img/settings/notifications.webpush.gif') }}" class="img-fluid rounded">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="webpush_settings" style="display: none;">
-                            <div class="alert border">
-                                <p>
-                                    Tu dois autoriser <strong>chaque appareil</strong> sur lequel tu veux recevoir des notifications WebPush :<br>
-                                    <small>Si y'a rien quand t'appuie sur "Autoriser cet appareil", y'a un souci.</small>
-                                </p>
-
-                                <a href="javascript:void(0)" class="btn btn-primary mb-1" id="enable-webpush" onclick="enableNotifications()">Autoriser cet appareil</a>
-                                {{--  <a href="javascript:void(0)" class="btn btn-danger mb-1" id="disable-webpush">Révoquer cet appareil</a>  --}}
-                                {{--  <a href="javascript:void(0)" class="btn btn-danger mb-1" id="">Révoquer tous les appareils</a>  --}}
-                                <a href="javascript:void(0)" class="btn btn-secondary mb-1" id="test-notification" style="display: none;" onclick="testNotification()">Envoyer une notification de test</a>
-                            </div>
-
-                            {!! BootForm::select('idle_wait', 'Lorsque je ne suis pas actif&middot;ve sur 4sucres, envoyer les notifications WebPush :', [
-                                0 => 'immédiatement',
-                                1 => 'après 1 minute d\'inactivité',
-                                2 => 'après 2 minutes d\'inactivité',
-                                5 => 'après 5 minutes d\'inactivité',
-                                10 => 'après 10 minutes d\'inactivité',
-                                15 => 'après 15 minutes d\'inactivité',
-                                20 => 'après 20 minutes d\'inactivité',
-                                30 => 'après 30 minutes d\'inactivité',
-                            ], old('idle_wait', $user->getSetting('webpush.idle_wait', 1)), [
-                                'help_text' => 'FYI: Garder un onglet ouvert sur 4sucres.org est considéré comme une activité.'
-                            ]) !!}
-                        </div>
-                    </div>
-                </div>
 
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer les paramètres</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
                 </div>
             </form>
         </div>

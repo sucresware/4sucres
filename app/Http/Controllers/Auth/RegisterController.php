@@ -85,7 +85,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         return redirect()->route('home')
-            ->with('success', 'Ton compte a bien été créé !');
+            ->with('swal-success', 'Ton compte a bien été créé ! Bienvenue sur 4sucres.org');
     }
 
     public function verify($token)
@@ -101,6 +101,6 @@ class RegisterController extends Controller
         $verify_user->delete();
 
         return redirect()->route('home')
-            ->with('success', 'Bienvenue à bord ' . $user->name . ' !');
+            ->with('swal-success', 'Bienvenue à bord ' . $user->name . ' !');
     }
 }

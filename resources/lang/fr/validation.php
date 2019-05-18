@@ -177,5 +177,6 @@ return [
         'size' => 'taille',
         'reply' => 'réponse',
         'dob' => 'date de naissance',
+        'current_password' => 'mot de passe actuel',
     ],
 ];

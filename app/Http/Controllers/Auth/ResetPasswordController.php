@@ -37,6 +37,6 @@ class ResetPasswordController extends Controller
             ->log('Mot de passe modifié');
 
         return redirect()->route('home')
-            ->with('success', 'Mot de passe modifié, bon retour !');
+            ->with('swal-success', 'Mot de passe modifié, bon retour !');
     }
 }

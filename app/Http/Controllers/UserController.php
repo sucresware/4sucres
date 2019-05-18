@@ -16,27 +16,6 @@ class UserController extends Controller
         return redirect($user->link);
     }
 
-    public function settings()
-    {
-        $user = user();
-
-        return view('user.settings', compact('user'));
-    }
-
-    public function saveSettings()
-    {
-        $user = user();
-
-        $user->setMultipleSettings([
-            'layout.sidebar' => request()->input('sidebar', 'left'),
-            'layout.stickers' => request()->input('stickers', 'default'),
-            'webpush.enabled' => (bool)request()->input('optin_webpush', 0),
-            'webpush.idle_wait' => request()->input('idle_wait', 1),
-        ]);
-
-        return redirect(route('user.settings'))->with('success', 'C\'est enregistré !');
-    }
-
     public function show($name)
     {
         $user = User::where('name', $name)->firstOrFail();
@@ -60,48 +39,6 @@ class UserController extends Controller
         $roles = user()->can('update roles') ? Role::pluck('name', 'id') : [];
 
         return view('user.edit', compact('user', 'achievements', 'roles'));
-    }
-
-    public function update($name)
-    {
-        $user = User::where('name', $name)->firstOrFail();
-
-        if ($user->id != user()->id && !user()->can('bypass users guard')) {
-            return abort(403);
-        }
-
-        request()->validate([
-            'display_name' => ['required', 'string', 'max:255', 'min:4'],
-            'shown_role' => ['string', 'max:255'],
-            'avatar' => ['image', 'max:2048'],
-        ]);
-
-        if (request()->hasFile('avatar')) {
-            $avatar_name = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
-
-            $img = Image::make(request()->avatar)
-                ->fit(300)
-                ->save(storage_path('app/public/avatars/' . $avatar_name));
-            $user->avatar = $avatar_name;
-        }
-
-        $user->display_name = request()->display_name;
-
-        if (user()->can('update shown_role')) {
-            $user->shown_role = request()->shown_role;
-        }
-
-        if (user()->can('update achievements')) {
-            $user->achievements()->sync(request()->achievements);
-        }
-
-        if (user()->can('update roles')) {
-            $user->roles()->sync(request()->role);
-        }
-
-        $user->save();
-
-        return redirect($user->link);
     }
 
     public function delete($name)

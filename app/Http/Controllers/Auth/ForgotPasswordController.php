@@ -39,6 +39,6 @@ class ForgotPasswordController extends Controller
         }
 
         return redirect()->route('password.request')
-            ->with('success', 'Des instructions viennent de t\'être envoyées par email. Si t\'as rien reçu dans 10 minutes, vérifies dans tes spams');
+            ->with('swal-success', 'Des instructions viennent de t\'être envoyées par email. Si t\'as rien reçu dans 10 minutes, vérifies dans tes spams');
     }
 }
