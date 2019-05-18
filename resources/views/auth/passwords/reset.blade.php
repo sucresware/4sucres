@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Connexion
+    Redéfinir mon mot de passe
 @endsection
 
 @section('content')
@@ -9,14 +9,14 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <form method="POST" action="{{ route('login') }}" id="login">
+                <form method="POST" action="{{ route('password.update', $token) }}" id="reset">
                     <div class="card-body">
-                        <h1 class="h6">Connexion</h1>
+                        <h1 class="h6">Redéfinir mon mot de passe</h1>
 
                         @csrf
-                        {!! BootForm::text('email', 'Adresse email*') !!}
-                        {!! BootForm::password('password', 'Mot de passe*') !!}
-                        {!! BootForm::checkbox('remember', 'Se souvenir de moi', 1, old('remember', 1)) !!}
+                        {!! BootForm::hidden('token', $token) !!}
+                        {!! BootForm::password('password', 'Nouveau mot de passe*') !!}
+                        {!! BootForm::password('password_confirmation', 'Nouveau mot de passe (confirmation)*') !!}
 
                         @if ($errors->has('g-recaptcha-response'))
                             <span class="text-danger">
@@ -25,12 +25,8 @@
                         @endif
                     </div>
                     <div class="card-footer bg-light">
-                        <div class="float-left">
-                            <a href="{{ route('password.request') }}">Mot de passe oublié</a>
-                        </div>
-
                         <div class="text-right">
-                            {!! NoCaptcha::displaySubmit('login', 'Connexion', ['class' => 'btn btn-primary']) !!}
+                            {!! NoCaptcha::displaySubmit('reset', 'C\'est bon, je vais m\'en souvenir', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
                 </form>

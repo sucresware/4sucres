@@ -17,6 +17,11 @@ Route::get('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', 'Auth\RegisterController@submit');
 Route::get('/auth/verify_email/{token}', 'Auth\RegisterController@verify')->name('auth.verify_email');
 
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('/password/reset/{token}', 'Auth\ResetPasswordController@reset')->name('password.update');
+
 Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@submit');
 

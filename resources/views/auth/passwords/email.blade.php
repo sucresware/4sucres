@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Connexion
+    Mot de passe oublié
 @endsection
 
 @section('content')
@@ -9,14 +9,12 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <form method="POST" action="{{ route('login') }}" id="login">
+                <form method="POST" action="{{ route('password.email') }}" id="request_reset">
                     <div class="card-body">
-                        <h1 class="h6">Connexion</h1>
+                        <h1 class="h6">Mot de passe oublié</h1>
 
                         @csrf
                         {!! BootForm::text('email', 'Adresse email*') !!}
-                        {!! BootForm::password('password', 'Mot de passe*') !!}
-                        {!! BootForm::checkbox('remember', 'Se souvenir de moi', 1, old('remember', 1)) !!}
 
                         @if ($errors->has('g-recaptcha-response'))
                             <span class="text-danger">
@@ -25,12 +23,8 @@
                         @endif
                     </div>
                     <div class="card-footer bg-light">
-                        <div class="float-left">
-                            <a href="{{ route('password.request') }}">Mot de passe oublié</a>
-                        </div>
-
                         <div class="text-right">
-                            {!! NoCaptcha::displaySubmit('login', 'Connexion', ['class' => 'btn btn-primary']) !!}
+                            {!! NoCaptcha::displaySubmit('request_reset', 'Aide-moi à récupérer mon compte !', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
                 </form>

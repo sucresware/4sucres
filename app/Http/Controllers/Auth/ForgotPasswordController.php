@@ -2,29 +2,43 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use App\Models\VerifyUser;
+use App\Mail\ResetPassword;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
-    |
-    */
-
-    use SendsPasswordResetEmails;
-
-    /**
-     * Create a new controller instance.
-     */
-    public function __construct()
+    public function showLinkRequestForm()
     {
-        $this->middleware('guest');
+        return view('auth.passwords.email');
+    }
+
+    public function sendResetLinkEmail()
+    {
+        request()->validate([
+            'email' => ['required', 'string', 'email'],
+        ]);
+
+        $user = User::where('email', request()->email)->first();
+
+        if ($user != null) {
+            $verify_user = VerifyUser::create([
+                'user_id' => $user->id,
+                'token' => str_random(40),
+                'scope' => VerifyUser::SCOPE_RESET_PASSWORD,
+            ]);
+
+            Mail::to($user)->send(new ResetPassword($user, $verify_user->token));
+
+            activity()
+                ->performedOn($user)
+                ->withProperties(['level' => 'info'])
+                ->log('Demande de mot de passe oublié');
+        }
+
+        return redirect()->route('password.request')
+            ->with('success', 'Des instructions viennent de t\'être envoyées par email. Si t\'as rien reçu dans 10 minutes, vérifies dans tes spams');
     }
 }
