@@ -106,24 +106,40 @@ class UserController extends Controller
 
     public function delete($name)
     {
+        $user = User::where('name', $name)->firstOrFail();
+
         if (user()->cannot('delete users')) {
+            activity()
+                ->performedOn($user)
+                ->withProperties(['level' => 'warning'])
+                ->log('Tentative de suppression d\'utilisateur refusée (GET)');
+
             return abort(403);
         }
-
-        $user = User::where('name', $name)->firstOrFail();
 
         return view('user.delete', compact('user'));
     }
 
     public function destroy($name)
     {
+        $user = User::where('name', $name)->firstOrFail();
+
         if (user()->cannot('delete users')) {
+            activity()
+                ->performedOn($user)
+                ->withProperties(['level' => 'warning'])
+                ->log('Tentative de suppression d\'utilisateur refusée (DELETE)');
+
             return abort(403);
         }
 
-        $user = User::where('name', $name)->firstOrFail();
         $user->deleted_at = now();
         $user->save();
+
+        activity()
+            ->performedOn($user)
+            ->withProperties(['level' => 'notice'])
+            ->log('Utilisateur supprimé');
 
         return redirect()->route('home');
     }

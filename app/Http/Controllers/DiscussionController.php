@@ -71,6 +71,11 @@ class DiscussionController extends Controller
 
         $discussion->subscribed()->attach(user()->id);
 
+        activity()
+            ->performedOn($discussion)
+            ->withProperties(['level' => 'info'])
+            ->log('Nouvelle discussion');
+
         return redirect($post->link);
     }
 

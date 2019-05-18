@@ -29,6 +29,7 @@
         "realrashid/sweet-alert": "^1.1",
         "realripley00/bootstrap-4-form": "^1.1",
         "sentry/sentry-laravel": "1.0.2",
+        "spatie/laravel-activitylog": "^3.5",
         "spatie/laravel-permission": "^2.37",
         "spatie/regex": "^1.4",
         "tightenco/ziggy": "^0.7.1",

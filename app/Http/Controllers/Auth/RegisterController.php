@@ -69,6 +69,11 @@ class RegisterController extends Controller
                 break;
         }
 
+        activity()
+            ->performedOn($user)
+            ->withProperties(['level' => 'info'])
+            ->log('Nouvelle inscription');
+
         $verify_user = VerifyUser::create([
             'user_id' => $user->id,
             'token' => str_random(40),

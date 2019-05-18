@@ -28,6 +28,11 @@ class DiscussionPostController extends Controller
             'user_id' => user()->id,
         ]);
 
+        activity()
+            ->performedOn($post)
+            ->withProperties(['level' => 'info'])
+            ->log('Nouveau post');
+
         return redirect($post->link);
     }
 
@@ -62,6 +67,11 @@ class DiscussionPostController extends Controller
     public function delete(Discussion $discussion, $slug, Post $post)
     {
         if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
+            activity()
+                ->performedOn($discussion)
+                ->withProperties(['level' => 'warning'])
+                ->log('Tentative de suppression de post/discussion refusée (GET)');
+
             return abort(403);
         }
 
@@ -71,6 +81,11 @@ class DiscussionPostController extends Controller
     public function destroy(Discussion $discussion, $slug, Post $post)
     {
         if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
+            activity()
+                ->performedOn($discussion)
+                ->withProperties(['level' => 'warning'])
+                ->log('Tentative de suppression de post/discussion refusée (DELETE)');
+
             return abort(403);
         }
 
@@ -82,10 +97,20 @@ class DiscussionPostController extends Controller
             $discussion->deleted_at = now();
             $discussion->save();
 
+            activity()
+                ->performedOn($discussion)
+                ->withProperties(['level' => 'notice'])
+                ->log('Discussion supprimée');
+
             return redirect(route('home'));
         } else {
             $post->deleted_at = now();
             $post->save();
+
+            activity()
+                ->performedOn($post)
+                ->withProperties(['level' => 'notice'])
+                ->log('Post supprimé');
 
             return redirect(route('discussions.show', [
                 $discussion->id,
