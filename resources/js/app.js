@@ -178,7 +178,6 @@ let autocomplete = {
     
                 // Calls callback with the search values thanks to search terms
                 search: function (term, callback) {
-                    console.log(term)
                     callback( autocomplete.filter(term) );
                 },
     
@@ -204,7 +203,11 @@ let autocomplete = {
             let meta = $('meta[name=users]');
             let users = meta.attr('content');
             meta.remove();
-            autocomplete.users = JSON.parse(users) || [];
+            try {
+                autocomplete.users = JSON.parse(users) || [];
+            } catch (error) {
+                autocomplete.users = [];
+            }
         }
 
         return autocomplete.users;
@@ -385,7 +388,7 @@ let noelshack = {
             success: function (resp) {
                 var regex = /(?:https:\/\/www\.noelshack\.com\/)(\d{4})-(\d{2})-(\d*)-(.*)$/gs;
                 var results = regex.exec(resp)
-                console.log(results);
+                // console.log(results);
                 if (results != null) {
                     var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
@@ -463,7 +466,7 @@ let imgur = {
                 return xhr
             },
             success: function (resp) {
-                console.log(resp)
+                // console.log(resp)
                 if (resp.success) {
                     var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
