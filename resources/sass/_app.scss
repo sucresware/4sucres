@@ -335,3 +335,20 @@ footer {
 .flex-center {
     @include flex(column, center, center);
 }
+
+.textcomplete-dropdown {
+    padding: 0;
+
+    .textcomplete-item {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+
+        &.active {
+            background-color: rgba($body-color, .1);
+        }
+
+        &:hover {
+            background-color: rgba($body-color, .15);
+        }
+    }
+}
