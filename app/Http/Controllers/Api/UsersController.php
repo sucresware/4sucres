@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class UsersController extends Controller
 {
@@ -22,8 +23,10 @@ class UsersController extends Controller
 
     public function all()
     {
-        $users = User::enabled();
+        $users = Cache::rememberForever('api_plucked_users', function () {
+            return User::enabled()->pluck('name');
+        });
 
-        return response()->json($users->pluck('name'));
+        return response()->json($users);
     }
 }
