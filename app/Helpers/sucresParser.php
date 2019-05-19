@@ -11,13 +11,15 @@ use \ForceUTF8\Encoding;
 class sucresParser
 {
     public $content;
+    protected $post;
     protected $bbcode_parser;
     protected $lightweight;
     protected $protections;
 
-    public function __construct($content, $lightweight = false)
+    public function __construct(Post $post, $lightweight = false)
     {
-        $this->content = $content;
+        $this->post = $post;
+        $this->content = $post->body;
         $this->lightweight = $lightweight;
         $this->parser = new \ChrisKonnertz\BBCode\BBCode();
         $this->protections = [];
@@ -323,7 +325,7 @@ class sucresParser
 
             $this->content = str_replace(
                 $tag,
-                view('discussion.post._show_as_quote', compact('post'))->render(),
+                view('discussion.post._show_as_quote', array_merge(compact('post'), [ 'current' => $this->post ]))->render(),
                 $this->content
             );
         }

@@ -6,12 +6,30 @@
             <small>{{ '@' . $post->user->name }}</small>
         </div>
         <div>
-            <a href="{{ $post->getLinkAttribute() }}" title="Voir l'original">
+            @if ($post->discussion_id !== $current->discussion_id)
+                <a href="{{ $post->discussion->link }}" target="_blank" title="Voir le topic" class="text-small mr-2">
+                    {{ $post->discussion->title }}
+                </a>
+            @endif
+            
+            <a href="{{ $post->getLinkAttribute() }}" title="Voir le contexte" class="text-small">
                 <i class="fas fa-link"></i>
             </a>
         </div>
     </div>
     <div class="quote-content post-content">
-        @include('discussion.post._post_content')
+    @if (!$post->deleted)
+        {!! $post->presented_body !!}
+    @else
+        @if (auth()->check() && user()->can('read deleted posts'))
+            <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span><br>
+            <br>
+            <div class="deleted-message-content text-italic text-muted">
+                {!! $post->presented_body !!}
+            </div>
+        @else
+            <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span>
+        @endif
+    @endif
     </div>
 </blockquote>
