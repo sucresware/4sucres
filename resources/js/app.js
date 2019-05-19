@@ -207,7 +207,7 @@ let autocomplete = {
             autocomplete.users = JSON.parse(users) || [];
         }
 
-        return ['Hawezo', 'Haw\'', "Himler", 'Hamlet', 'Ha', 'YvonEnbaver'];//autocomplete.users;
+        return autocomplete.users;
     }
 };
 
