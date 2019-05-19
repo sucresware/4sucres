@@ -4,6 +4,7 @@ require('@fancyapps/fancybox/dist/jquery.fancybox.min.js')
 
 let $ = require("jquery")
 let baffle = require('baffle')
+let { Textcomplete, Textarea } = require('textcomplete');
 let csrf_token = $("meta[name=csrf-token]").attr('content');
 
 import iziToast from 'izitoast'
@@ -14,6 +15,7 @@ import {
     Howl,
     Howler
 } from 'howler';
+
 
 window.Vue = require('vue');
 window.Pusher = require('pusher-js');
@@ -122,6 +124,14 @@ var init_spoilers = function () {
     })
 }
 
+var init_select2 = function () {
+    $('select:visible').each(function (k, el) {
+        $(el).select2({
+            theme: 'bootstrap4',
+        })
+    })
+}
+
 /**
  * Editor
  */
@@ -136,6 +146,63 @@ $(document).on("mousedown", "[data-bbcode]", function () {
         $(editor).val(str + "[" + $(this).attr("data-bbcode") + "]" + "[/" + $(this).attr("data-bbcode") + "]")
     }
 })
+
+let autocomplete = {
+    users: undefined,
+    regex: /(@|#u:)([\w\d-]+)$/,
+    selector: 'textarea.sucresBB-editor',
+    init: () => {
+        autocomplete.loadUsers().then(() => {
+            autocomplete.apply();
+        });
+    },
+    apply: () => {
+        $(autocomplete.selector).each(function() {
+            let _editor = new Textarea($(this)[0]);
+            let _textcomplete = new Textcomplete(_editor);
+    
+            _textcomplete.register([{
+                // Matches @<username> or #u:<id>
+                match: autocomplete.regex,
+    
+                // Calls callback with the search values thanks to search terms
+                search: function (term, callback) {
+                    callback( autocomplete.filter(term) );
+                },
+    
+                // The way it's rendered in the dropdown
+                template: function (name) {
+                    return `${name}`;
+                },
+    
+                // The output when user selects in the dropdown
+                replace: function (username) {
+                  return `@${username} `; 
+                }
+            }])
+        });
+    },
+    filter: (term) => {
+        return $.grep(autocomplete.getUsers(), user => {
+            return user.toLowerCase().startsWith(term.toLowerCase());
+        });
+    },
+    loadUsers: () => {
+        return new Promise((resolve, reject) => {
+            $.get('/api/v0/users/all') // TODO - remove hardcode
+             .then(result => {
+                autocomplete.users = result;
+                resolve();
+             })
+             .fail(() => {
+                reject();
+             });
+        });
+    },
+    getUsers: () => {
+        return autocomplete.users;
+    }
+};
 
 var init_actions = function () {
     $('[data-action]').each(function (k, el) {
@@ -311,7 +378,7 @@ let noelshack = {
             success: function (resp) {
                 var regex = /(?:https:\/\/www\.noelshack\.com\/)(\d{4})-(\d{2})-(\d*)-(.*)$/gs;
                 var results = regex.exec(resp)
-                console.log(results);
+                // console.log(results);
                 if (results != null) {
                     var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
@@ -389,7 +456,7 @@ let imgur = {
                 return xhr
             },
             success: function (resp) {
-                console.log(resp)
+                // console.log(resp)
                 if (resp.success) {
                     var editor = $(".sucresBB-editor")
                     var str = $(editor).val()
@@ -438,13 +505,9 @@ $(document).ready(function () {
     init_spoilers()
     init_baffle()
     init_actions()
+    init_select2();
 
-    $('select:visible').each(function (k, el) {
-        $(el).select2({
-            theme: 'bootstrap4',
-        })
-    })
-
+    autocomplete.init();
     bsCustomFileInput.init()
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
