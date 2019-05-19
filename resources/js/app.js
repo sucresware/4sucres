@@ -152,6 +152,11 @@ let autocomplete = {
     regex: /(@|#u:)([\w\d-]+)$/,
     selector: 'textarea.sucresBB-editor',
     init: () => {
+        autocomplete.loadUsers().then(() => {
+            autocomplete.apply();
+        });
+    },
+    apply: () => {
         $(autocomplete.selector).each(function() {
             let _editor = new Textarea($(this)[0]);
             let _textcomplete = new Textcomplete(_editor);
@@ -182,18 +187,19 @@ let autocomplete = {
             return user.toLowerCase().startsWith(term.toLowerCase());
         });
     },
+    loadUsers: () => {
+        return new Promise((resolve, reject) => {
+            $.get('/api/v0/users/all') // TODO - remove hardcode
+             .then(result => {
+                autocomplete.users = result;
+                resolve();
+             })
+             .fail(() => {
+                reject();
+             });
+        });
+    },
     getUsers: () => {
-        if (undefined === autocomplete.users) {
-            let meta = $('meta[name=users]');
-            let users = meta.attr('content');
-            meta.remove();
-            try {
-                autocomplete.users = JSON.parse(users) || [];
-            } catch (error) {
-                autocomplete.users = [];
-            }
-        }
-
         return autocomplete.users;
     }
 };
