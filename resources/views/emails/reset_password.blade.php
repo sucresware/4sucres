@@ -5,7 +5,7 @@ Yo {{ $user->display_name }} !
 
 Balance ton nouveau mot de passe ici :
 
-@component('mail::button', ['url' => route('password.reset', $token))])
+@component('mail::button', ['url' => route('password.reset', $token)])
 Changer mon mot de passe
 @endcomponent
 
