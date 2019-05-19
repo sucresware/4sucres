@@ -68,8 +68,8 @@ class SearchController extends Controller
                 $users
                     ->getCollection()
                     ->transform(function ($user) use ($query) {
-                        $user->name = str_ireplace($query, '<u>' . $query . '</u>', e($user->name));
-                        $user->display_name = str_ireplace($query, '<u>' . $query . '</u>', e($user->display_name));
+                        $user->name_for_search = str_ireplace($query, '<u>' . $query . '</u>', e($user->name));
+                        $user->display_name_for_search = str_ireplace($query, '<u>' . $query . '</u>', e($user->display_name));
                         return $user;
                     });
 

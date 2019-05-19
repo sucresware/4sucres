@@ -83,8 +83,8 @@
                                         <a href="{{ $user->link }}"><img src="{{ $user->avatar_link }}" class="rounded" height="32px"></a>
                                     </div>
                                     <div class="col">
-                                        <a href="{!! $user->link !!}"><strong>{!! $user->display_name !!}</strong></a><br>
-                                        <a href="{!! $user->link !!}"><small>{!! '@' . $user->name !!}</small></a>
+                                        <a href="{!! $user->link !!}"><strong>{!! $user->display_name_for_search !!}</strong></a><br>
+                                        <a href="{!! $user->link !!}"><small>{!! '@' . $user->name_for_search !!}</small></a>
                                     </div>
                                 </div>
                             </div>
