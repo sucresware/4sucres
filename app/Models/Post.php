@@ -100,12 +100,12 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedBodyAttribute()
     {
-        return (new sucresParser($this->body))->render();
+        return (new sucresParser($this))->render();
     }
 
     public function getPresentedLightBodyAttribute()
     {
-        return (new sucresParser($this->body, true))->render();
+        return (new sucresParser($this, true))->render();
     }
 
     public function getPresentedCreatedAtAttribute()
