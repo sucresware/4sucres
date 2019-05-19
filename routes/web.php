@@ -92,6 +92,8 @@ Route::group(['prefix' => '/api/v0'], function () {
         });
     });
 
+    Route::get('/users', 'Api\UsersController@index');
+    Route::get('/users/all', 'Api\UsersController@all');
     Route::get('/discussions/{discussion}', 'Api\DiscussionController@show');
 });
 

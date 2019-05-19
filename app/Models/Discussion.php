@@ -15,6 +15,10 @@ class Discussion extends Model
     protected $guarded = [];
     protected $dates = ['last_reply_at'];
 
+    protected $appends = [
+        'link',
+    ];
+
     public static function boot()
     {
         parent::boot();

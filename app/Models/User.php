@@ -28,8 +28,8 @@ class User extends Authenticatable implements ReactsInterface
 
     protected $hidden = [
         'password', 'remember_token',
-        'gender', 'dob',
-        'created_at', 'updated_at', 'email_verified_at', 'last_activity',
+        'email', 'gender', 'dob',
+        'email_verified_at', 'settings',
         'avatar',
     ];
 
@@ -88,6 +88,11 @@ class User extends Authenticatable implements ReactsInterface
     public function scopeOnline($query)
     {
         return $query->where('last_activity', '>', Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
+    }
+
+    public function scopeEnabled($query)
+    {
+        return $query->where('deleted_at', null);
     }
 
     public function getOnlineAttribute()
