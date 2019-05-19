@@ -202,3 +202,21 @@ hr {
 .alert-minimalist>[data-notify="title"] {
     color: $body-color;
 }
+
+.btn-darker {
+    color: #fff;
+    background-color: $darker;
+    border-color: $darker;
+}
+
+.input-darker {
+    color: #fff;
+    background-color: $darker;
+    border-color: $darker;
+
+    &:focus {
+        color: #fff;
+        background-color: $darker;
+        border-color: lighten($darker, 10%);
+    }
+}

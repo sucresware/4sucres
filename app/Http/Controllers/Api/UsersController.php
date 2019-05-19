@@ -10,7 +10,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::enabled();
+        $users = User::notTrashed();
 
         if ($q = request()->input('query')) {
             $users = $users->where('name', 'like', $q . '%');
@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function all()
     {
         $users = Cache::rememberForever('api_plucked_users', function () {
-            return User::enabled()->pluck('name');
+            return User::notTrashed()->pluck('name');
         });
 
         return response()->json($users);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e5b0de6485b12434436a053384673f8",
+    "content-hash": "995663d6abd1d12fe6827353996d7955",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -447,6 +447,42 @@
                 "stream_filter_register"
             ],
             "time": "2019-04-09T12:31:48+00:00"
+        },
+        {
+            "name": "delight-im/str",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/delight-im/PHP-Str.git",
+                "reference": "ea3e40132e9d4ce27da337dae6286f2478b15f56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/delight-im/PHP-Str/zipball/ea3e40132e9d4ce27da337dae6286f2478b15f56",
+                "reference": "ea3e40132e9d4ce27da337dae6286f2478b15f56",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Delight\\Str\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Convenient object-oriented operations on strings",
+            "homepage": "https://github.com/delight-im/PHP-Str",
+            "keywords": [
+                "string",
+                "strings"
+            ],
+            "time": "2016-07-27T22:19:41+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

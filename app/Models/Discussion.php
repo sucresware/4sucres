@@ -64,14 +64,14 @@ class Discussion extends Model
     public function scopePublic($query)
     {
         return $query
-            ->where('deleted_at', null)
+            ->notTrashed()
             ->where('private', false);
     }
 
     public function scopePrivate($query, User $user)
     {
         return $query
-            ->where('deleted_at', null)
+            ->notTrashed()
             ->whereHas('members', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
@@ -85,6 +85,11 @@ class Discussion extends Model
             ->whereHas('has_read', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             });
+    }
+
+    public function scopeNotTrashed($query)
+    {
+        return $query->where('deleted_at', null);
     }
 
     public function getPresentedLastReplyAtAttribute()

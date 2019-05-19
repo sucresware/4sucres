@@ -28,6 +28,8 @@ Route::post('/login', 'Auth\LoginController@submit');
 Route::get('/d', 'DiscussionController@index')->name('discussions.index');
 Route::get('/d/c/{category}-{slug}', 'DiscussionController@index')->name('discussions.categories.index');
 
+Route::get('/search', 'SearchController@query')->name('search.query');
+
 Route::get('d/{id}-{slug}', 'DiscussionController@show')->name('discussions.show');
 Route::get('/u/{name}', 'UserController@show')->name('user.show');
 

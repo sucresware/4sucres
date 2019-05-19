@@ -122,4 +122,9 @@ class Post extends Model implements ReactableInterface
     {
         return route('posts.show', $this);
     }
+
+    public function scopeNotTrashed($query)
+    {
+        return $query->where('deleted_at', null);
+    }
 }

@@ -85,23 +85,34 @@
                         </a>
                     @endauth
 
-                    <a href="#" class="d-block d-md-none" data-toggle="collapse" data-target="#navbarSupportedContent" >
+                    <a href="#" class="d-block d-md-none" data-toggle="collapse" data-target="#navbarSupportedContent">
                         <span class="fa-stack">
                             <i class="fas fa-circle fa-stack-2x text-darker"></i>
                             <i class="fas fa-bars fa-stack-1x fa-inverse"></i>
                         </span>
                     </a>
 
-                    {{--  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-md-none d-lg-block"> Forum</span></a>
+                                <form id="search" action="{{ route('search.query') }}">
+                                    <div class="input-group mb-0">
+                                        <input type="text" name="query" class="form-control input-darker" value="{{ $query ?? null }}">
+                                        <input type="hidden" name="scope" value="{{ $scope ?? null }}">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="d-inline btn btn-darker"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
                             </li>
                             {{--  <li class="nav-item">
+                                <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-md-none d-lg-block"> Forum</span></a>
+                            </li>  --}}
+                            {{--  <li class="nav-item">
                                 <a class="nav-link text-center" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-md-none d-lg-block"> Classement</span></a>
-                            </li>
+                            </li> --}}
                         </ul>
-                    </div>  --}}
+                    </div>
 
                     <div class="collapse navbar-collapse flex-grow-0 order-md-10 pl-md-2" id="navbarSupportedContent">
                         @guest
