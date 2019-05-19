@@ -35,29 +35,29 @@
             <div class="modal-body">
                 <ul class="nav nav-tabs" id="risibank" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="risibank-popular-tab" data-toggle="tab" href="#popular" role="tab">Populaires</a>
+                        <a class="nav-link active" id="risibank-popular-tab" data-toggle="tab" href="#popular_tab" role="tab">Populaires</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="risibank-latest-tab" data-toggle="tab" href="#latest" role="tab">Nouveaux</a>
+                        <a class="nav-link" id="risibank-latest-tab" data-toggle="tab" href="#latest_tab" role="tab">Nouveaux</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="risibank-random-tab" data-toggle="tab" href="#random" role="tab">Random</a>
+                        <a class="nav-link" id="risibank-random-tab" data-toggle="tab" href="#random_tab" role="tab">Random</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="risibank-search-tab" data-toggle="tab" href="#search" role="tab">Recherche</a>
+                        <a class="nav-link" id="risibank-search-tab" data-toggle="tab" href="#search_tab" role="tab">Recherche</a>
                     </li>
                 </ul>
                 <div class="tab-content py-3" id="risibank-content">
-                    <div class="tab-pane fade show active" id="popular" role="tabpanel">
+                    <div class="tab-pane fade show active" id="popular_tab" role="tabpanel">
                         <div id="risibank-popular" class="text-center"></div>
                     </div>
-                    <div class="tab-pane fade" id="latest" role="tabpanel">
+                    <div class="tab-pane fade" id="latest_tab" role="tabpanel">
                         <div id="risibank-latest" class="text-center"></div>
                     </div>
-                    <div class="tab-pane fade" id="random" role="tabpanel">
+                    <div class="tab-pane fade" id="random_tab" role="tabpanel">
                         <div id="risibank-random" class="text-center"></div>
                     </div>
-                    <div class="tab-pane fade" id="search" role="tabpanel">
+                    <div class="tab-pane fade" id="search_tab" role="tabpanel">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="risibank-searchfield">
                             <div class="input-group-append">
