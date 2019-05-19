@@ -1,3 +1,10 @@
+@php
+    if (!isset($current)) {
+        $current = (new stdClass);
+        $current->discussion_id = null;
+    }
+@endphp
+
 <blockquote class="p-2 shadow-sm">
     <div class="quote-header mb-2 d-flex justify-content-between">
         <div>
