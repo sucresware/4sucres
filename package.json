@@ -39,6 +39,7 @@
         "pusher-js": "^4.4.0",
         "scriptjs": "^2.5.9",
         "select2": "^4.0.7-rc.0",
+        "textcomplete": "^0.17.1",
         "vue-clipboard2": "^0.3.0",
         "vue-infinite-loading": "^2.4.4"
     }
