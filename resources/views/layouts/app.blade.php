@@ -218,15 +218,15 @@
     </div>
 
     @if (session('swal-success'))
-        @php alert()->success(null, session('success'))->persistent(); @endphp
+        @php alert()->success(null, session('swal-success'))->persistent(); @endphp
     @endif
 
     @if (session('swal-info'))
-        @php alert()->info(null, session('info'))->persistent(); @endphp
+        @php alert()->info(null, session('swal-info'))->persistent(); @endphp
     @endif
 
     @if (session('swal-error'))
-        @php alert()->error(null, session('error'))->persistent(); @endphp
+        @php alert()->error(null, session('swal-error'))->persistent(); @endphp
     @endif
 
     @include('sweetalert::alert')
