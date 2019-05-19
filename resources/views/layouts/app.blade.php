@@ -98,7 +98,7 @@
                                 <form id="search" action="{{ route('search.query') }}">
                                     <div class="input-group mb-0">
                                         <input type="text" name="query" class="form-control input-darker" value="{{ $query ?? null }}">
-                                        <input type="hidden" name="scope" value="{{ $scope ?? null }}">
+                                        <input type="hidden" name="scope" value="{{ $scope ?? 'posts' }}">
                                         <div class="input-group-append">
                                             <button type="submit" class="d-inline btn btn-darker"><i class="fas fa-search"></i></button>
                                         </div>
