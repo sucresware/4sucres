@@ -104,22 +104,6 @@ if (window.fourSucres.user) {
 }
 
 /**
- * Notifications
- */
-
-// var open_notifications_socket = function () {
-//     console.log("join");
-//     window.Echo.join('counter')
-//         .here((users) => {
-//             console.log(users)
-//             window.fourSucres.count = users.length
-//             updatePresenceCounter()
-//         })
-//         .joining(user => window.fourSucres.count++)
-//         .leaving(user => window.fourSucres.count--)
-// }
-
-/**
  * Custom BBCode
  */
 
@@ -466,12 +450,17 @@ $(document).ready(function () {
         container: 'body'
     })
     $('[data-toggle="fancybox"]').fancybox({})
-    // open_notifications_socket()
+
     if (location.hash && $(location.hash)) {
         scrollTo($(location.hash));
         if (location.hash.substr(0, 1) == 'p') highlight($(location.hash));
     }
     if (window.fourSucres.hasNotifications) setAltFavicon()
+
+    $('form.disable-on-submit').submit(function (e) {
+        console.log($(this));
+        $(this).find('button').attr('disabled', true);
+    });
 })
 
 function getInputSelection(elem) {

@@ -38,7 +38,7 @@
     @endif
 
     <div class="card">
-        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post">
+        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post" class="disable-on-submit">
             <div class="card-body">
                 @csrf
                 @method('put')

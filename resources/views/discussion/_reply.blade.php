@@ -1,4 +1,4 @@
-<form action="{{ route('discussions.posts.store', [$discussion->id, $discussion->slug]) }}" method="post">
+<form action="{{ route('discussions.posts.store', [$discussion->id, $discussion->slug]) }}" method="post" class="disable-on-submit">
     @csrf
     @include('includes/_editor', ['name' => 'body'])
 
