@@ -18,7 +18,7 @@ class SearchController extends Controller
         switch ($scope) {
             case 'discussions':
                 $discussions = Discussion::query()
-                    ->notTrashed()
+                    ->public()
                     ->where('title', 'like', '%' .  $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->paginate(15);
