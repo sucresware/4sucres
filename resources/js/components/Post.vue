@@ -71,7 +71,10 @@
           <i class="fas fa-times"></i> Message supprimé
         </div>
         <div v-if="!post.deleted_at || auth_user_can('read deleted posts')">
-          <div v-html="post.presented_body"></div>
+          <div
+            :class="{'deleted-message-content text-italic text-muted': (post.deleted_at)}"
+            v-html="post.presented_body"
+          ></div>
         </div>
       </div>
     </div>

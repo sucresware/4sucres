@@ -25,18 +25,13 @@
         </div>
     </div>
     <div class="quote-content post-content">
-    @if (!$post->deleted)
-        {!! $post->presented_light_body !!}
-    @else
-        @if (auth()->check() && user()->can('read deleted posts'))
-            <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span><br>
-            <br>
-            <div class="deleted-message-content text-italic text-muted">
-                {!! $post->presented_light_body !!}
-            </div>
-        @else
-            <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span>
+        @if ($post->deleted_at)
+            <div class="text-danger mb-3"><i class="fas fa-times"></i> Message supprimé</div>
         @endif
-    @endif
+        @if (!$post->deleted_at || auth()->check() && user()->can('read deleted posts'))
+            @if ($post->deleted_at) <div class="deleted-message-content text-italic text-muted"> @endif
+                {!! $post->presented_light_body !!}
+            @if ($post->deleted_at) </div> @endif
+        @endif
     </div>
 </blockquote>

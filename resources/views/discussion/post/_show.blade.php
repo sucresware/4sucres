@@ -9,13 +9,13 @@
 
                 @if (auth()->check())
                     {{--  <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_{{ $post->id }}" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a>  --}}
-                    @if (!$post->deleted)
+                    @if (!$post->deleted_at)
                         <a class="mr-1" href="#reply" data-action='quotePost' data-id='{{ $post->id }}'><i class="fas fa-fw fa-quote-right"></i></a>
                     @endif
 
-                    @if (($post->user->id == user()->id && !$post->deleted) || user()->can('bypass discussions guard'))
+                    @if (($post->user->id == user()->id && !$post->deleted_at) || user()->can('bypass discussions guard'))
                         <a class="mr-1" href="{{ route('discussions.posts.edit', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-edit"></i></a>
-                        @if (!$post->deleted)
+                        @if (!$post->deleted_at)
                             <a class="mr-1 text-danger" href="{{ route('discussions.posts.delete', [$discussion->id, $discussion->slug, $post->id]) }}"><i class="fas fa-fw fa-trash"></i></a>
                         @endif
                     @endif
@@ -32,17 +32,13 @@
         <hr>
 
         <div class="post-content">
-            @if (!$post->deleted)
-                {!! $post->presented_body !!}
-            @else
-                @if (auth()->check() && user()->can('read deleted posts'))
-                    <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span><br>
-                    <br>
-
+            @if ($post->deleted_at)
+                <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span>
+            @endif
+            @if (!$post->deleted_at || auth()->check() && user()->can('read deleted posts'))
+                @if ($post->deleted_at) <div class="deleted-message-content text-italic text-muted"> @endif
                     {!! $post->presented_body !!}
-                @else
-                    <span class="text-danger"><i class="fas fa-times"></i> Message supprimé</span>
-                @endif
+                @if ($post->deleted_at) </div> @endif
             @endif
         </div>
     </div>
