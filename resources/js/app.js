@@ -158,6 +158,8 @@ $(document).on("mousedown", "[data-mdcode]", function () {
 let editor = {
     selector: $('textarea.sucresMD-editor')[0],
     init: () => {
+        if (!editor.selector) return;
+
         window.simplemde = new SimpleMDE({
             element: editor.selector,
             forceSync: true,
