@@ -156,6 +156,7 @@ class sucresParsedown extends \ParsedownCheckbox
         $link = $this->renderVocaroo($link);
         $link = $this->renderTwitchClips($link);
         $link = $this->renderVocaBank($link);
+        $link = $this->renderNoelshack($link);
         return $link;
     }
 
@@ -226,6 +227,23 @@ class sucresParsedown extends \ParsedownCheckbox
             $markup .= '</div>';
             $markup .= '<div class="integration-text"><i class="fas fa-microphone text-primary"></i> <a target="_blank" href="' . $match->group(0) . '">Écouter sur VocaBank</a></div>';
             $markup .= '</div>';
+
+            return $markup;
+        }
+
+        return $link;
+    }
+
+    public function renderNoelshack($link)
+    {
+        $matchs = Regex::matchAll('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $link);
+        foreach ($matchs->results() as $match) {
+            if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
+                $preview = '<img class="sticker" src="' . $match->group(0) . '">';
+                $markup = "<img class='sticker-inline tooltip-inverse' src='" . $match->group(0) . "' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
+            } else {
+                $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
+            }
 
             return $markup;
         }
