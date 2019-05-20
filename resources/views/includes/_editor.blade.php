@@ -1,32 +1,8 @@
-<div class="editor-buttons btn-toolbar" data-parent="sucresBB-editor">
-    <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="b"><i class="fas fa-bold"></i></button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="i"><i class="fas fa-italic"></i></button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="u"><i class="fas fa-underline"></i></button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="s"><i class="fas fa-strikethrough"></i></button>
-    </div>
-    <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="url"><i class="fas fa-link"></i></button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="img"><i class="fas fa-image"></i></button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="youtube"><i class="fab fa-youtube"></i></button>
-    </div>
-    <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="spoiler"><div class="spoiler">Spoiler</div></button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="mock">mDr</button>
-        <button type="button" class="btn btn-sm btn-outline-primary" data-bbcode="glitch">░█</button>
-    </div>
-    <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-primary" data-action="openRisibank" data-toggle="modal" data-target="#risibank"><img src="/img/risibank_logo.png" style="height: 20px;"></button>
-        {{--  <button type="button" class="btn btn-sm btn-outline-primary" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>  --}}
-        <button type="button" class="btn btn-sm btn-outline-primary" data-action="openImgur" data-toggle="modal" data-target="#imgur"><img src="/img/imgur_logo.png" style="height: 20px;"></button>
-    </div>
-</div>
-
 <div class="modal fade" id="risibank" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><img src="/img/risibank_logo.png" style="height: 30px;">
+                <h5 class="modal-title"><img src="/img/editor/risidex_logo.png" style="height: 30px;">
                 </h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span>
@@ -143,4 +119,17 @@
     </div>
 </div>
 
-{!! BootForm::textarea('body', false, old('body', $value ?? ''), ['style' => 'width: 100%;', 'class' => 'sucresBB-editor']) !!}
+{!! BootForm::textarea('body', false, old('body', $value ?? ''), ['style' => 'width: 100%;', 'class' => 'sucresMD-editor']) !!}
+
+<div class="editor-buttons btn-toolbar" data-parent="sucresBB-editor">
+    <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="||"><div class="spoiler">Spoiler</div></button>
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="%">mDr</button>
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="@">░█</button>
+    </div>
+    <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-light" data-action="openRisibank" data-toggle="modal" data-target="#risibank"><img src="/img/editor/risidex_logo.png" style="height: 20px;"></button>
+        {{--  <button type="button" class="btn btn-sm btn-light" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>  --}}
+        <button type="button" class="btn btn-sm btn-light" data-action="openImgur" data-toggle="modal" data-target="#imgur"><img src="/img/imgur_logo.png" style="height: 20px;"></button>
+    </div>
+</div>

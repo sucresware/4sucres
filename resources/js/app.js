@@ -1,21 +1,24 @@
 require('./bootstrap')
 require('select2')
 require('@fancyapps/fancybox/dist/jquery.fancybox.min.js')
+require('@fancyapps/fancybox/dist/jquery.fancybox.min.js')
 
 let $ = require("jquery")
 let baffle = require('baffle')
-let { Textcomplete, Textarea } = require('textcomplete');
 let csrf_token = $("meta[name=csrf-token]").attr('content');
 
 import iziToast from 'izitoast'
 import Echo from "laravel-echo"
 import bsCustomFileInput from 'bs-custom-file-input'
 import VueClipboard from 'vue-clipboard2'
+import SimpleMDE from 'simplemde'
 import {
     Howl,
     Howler
 } from 'howler';
-
+import Textcomplete from 'textcomplete/lib/textcomplete';
+import CodeMirrorEditor from 'textcomplete.codemirror';
+import hljs from 'highlightjs';
 
 window.Vue = require('vue');
 window.Pusher = require('pusher-js');
@@ -136,51 +139,94 @@ var init_select2 = function () {
  * Editor
  */
 
-$(document).on("mousedown", "[data-bbcode]", function () {
-    var editor = $("." + $(this).parent(".btn-group").parent(".editor-buttons").attr("data-parent"))
-    var str = $(editor).val()
-    var selection = getInputSelection($(editor))
-    if (selection.length > 0) {
-        $(editor).val(str.replace(selection, "[" + $(this).attr("data-bbcode") + "]" + selection + "[/" + $(this).attr("data-bbcode") + "]"))
+$(document).on("mousedown", "[data-mdcode]", function () {
+    let cm = window.simplemde.codemirror;
+    let startPoint = cm.getCursor('start');
+    let endPoint = cm.getCursor('end');
+
+    if (startPoint.ch == endPoint.ch) {
+        cm.setSelection(startPoint, startPoint)
+        cm.replaceSelection($(this).attr("data-mdcode") + "…" + $(this).attr("data-mdcode"))
     } else {
-        $(editor).val(str + "[" + $(this).attr("data-bbcode") + "]" + "[/" + $(this).attr("data-bbcode") + "]")
+        cm.setSelection(endPoint, endPoint)
+        cm.replaceSelection($(this).attr("data-mdcode"))
+        cm.setSelection(startPoint, startPoint)
+        cm.replaceSelection($(this).attr("data-mdcode"))
     }
 })
+
+let editor = {
+    selector: $('textarea.sucresMD-editor')[0],
+    init: () => {
+        window.simplemde = new SimpleMDE({
+            element: editor.selector,
+            forceSync: true,
+            promptURLs: true,
+            spellChecker: false,
+            status: false,
+            tabSize: 4,
+            insertTexts: {
+                horizontalRule: ["", "\n\n-----\n\n"],
+                table: ["", "\n| Colonne 1 | Colonne 2 | Colonne 3 |\n| -------- | -------- | -------- |\n| Texte    | Texte     | Texte    |\n"],
+            },
+            renderingConfig: {
+                codeSyntaxHighlighting: true,
+            },
+            toolbar: [
+                'bold',
+                'italic',
+                'strikethrough',
+                '|',
+                'code',
+                'unordered-list',
+                'ordered-list',
+                '|',
+                'link',
+                'image',
+                'table',
+                'horizontal-rule',
+                '|',
+                'guide',
+            ],
+        });
+        window.simplemde.codemirror.on('focus', () => {
+            autocomplete.init();
+        })
+    }
+}
 
 let autocomplete = {
     users: undefined,
     regex: /(@|#u:)([\w\d-]+)$/,
-    selector: 'textarea.sucresBB-editor',
+    selector: $('.CodeMirror').find('textarea')[0],
     init: () => {
         autocomplete.loadUsers().then(() => {
             autocomplete.apply();
         });
     },
     apply: () => {
-        $(autocomplete.selector).each(function() {
-            let _editor = new Textarea($(this)[0]);
-            let _textcomplete = new Textcomplete(_editor);
-    
-            _textcomplete.register([{
-                // Matches @<username> or #u:<id>
-                match: autocomplete.regex,
-    
-                // Calls callback with the search values thanks to search terms
-                search: function (term, callback) {
-                    callback( autocomplete.filter(term) );
-                },
-    
-                // The way it's rendered in the dropdown
-                template: function (name) {
-                    return `${name}`;
-                },
-    
-                // The output when user selects in the dropdown
-                replace: function (username) {
-                  return `@${username} `; 
-                }
-            }])
-        });
+        let _editor = new CodeMirrorEditor(window.simplemde.codemirror)
+        let _textcomplete = new Textcomplete(_editor);
+
+        _textcomplete.register([{
+            // Matches @<username> or #u:<id>
+            match: autocomplete.regex,
+
+            // Calls callback with the search values thanks to search terms
+            search: function (term, callback) {
+                callback(autocomplete.filter(term));
+            },
+
+            // The way it's rendered in the dropdown
+            template: function (name) {
+                return `${name}`;
+            },
+
+            // The output when user selects in the dropdown
+            replace: function (username) {
+                return `@${username} `;
+            }
+        }])
     },
     filter: (term) => {
         return $.grep(autocomplete.getUsers(), user => {
@@ -190,13 +236,13 @@ let autocomplete = {
     loadUsers: () => {
         return new Promise((resolve, reject) => {
             $.get('/api/v0/users/all') // TODO - remove hardcode
-             .then(result => {
-                autocomplete.users = result;
-                resolve();
-             })
-             .fail(() => {
-                reject();
-             });
+                .then(result => {
+                    autocomplete.users = result;
+                    resolve();
+                })
+                .fail(() => {
+                    reject();
+                });
         });
     },
     getUsers: () => {
@@ -215,6 +261,7 @@ var init_actions = function () {
                     var post_id = $(e.target).closest('div.row.hover-accent').attr('data-id')
                     var post_slug = $(e.target).closest('div.row.hover-accent').attr('data-slug')
                     window.location.href = '/d/' + post_id + '-' + post_slug
+
                     break
                 case 'quotePost':
                     var editor = $(".sucresBB-editor")
@@ -231,10 +278,10 @@ var init_actions = function () {
                 case 'insertRisibank':
                     let src = $(e.target).closest('a').attr('data-src')
 
-                    var editor = $(".sucresBB-editor")
-                    var str = $(editor).val()
-                    $(editor).val(str + "[img]" + src + "[/img]")
-                    $("#risibank").modal('hide')
+                    let cm = window.simplemde.codemirror;
+                    let endPoint = cm.getCursor('end');
+                    cm.setSelection(endPoint, endPoint)
+                    cm.replaceSelection(src)
 
                     break
                 case 'openNoelshack':
@@ -249,8 +296,7 @@ var init_actions = function () {
 }
 
 var preview_action = function () {
-    var editor = $(".sucresBB-editor")
-    var str = $(editor).val()
+    let simplemde = window.simplemde;
     $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-sync fa-spin fa-1x"></i></div>')
 
     $.ajax({
@@ -258,7 +304,7 @@ var preview_action = function () {
         url: '/d/preview',
         data: {
             '_token': csrf_token,
-            'body': str,
+            'body': simplemde.value(),
         },
         success: function (resp) {
             $("#preview-dom").html('<div class="post-content">' + resp.render + '</div>')
@@ -378,11 +424,11 @@ let noelshack = {
             success: function (resp) {
                 var regex = /(?:https:\/\/www\.noelshack\.com\/)(\d{4})-(\d{2})-(\d*)-(.*)$/gs;
                 var results = regex.exec(resp)
-                // console.log(results);
                 if (results != null) {
-                    var editor = $(".sucresBB-editor")
-                    var str = $(editor).val()
-                    $(editor).val(str + "[url=" + resp + "][img]https://image.noelshack.com/fichiers/" + results[1] + "/" + results[2] + "/" + results[3] + "/" + results[4] + "[/img][/url]")
+                    let cm = window.simplemde.codemirror;
+                    let endPoint = cm.getCursor('end');
+                    cm.setSelection(endPoint, endPoint)
+                    cm.replaceSelection('![](https://image.noelshack.com/fichiers/' + results[1] + '/' + results[2] + '/' + results[3] + '/' + results[4] + ')')
                     $("#noelshack").modal('hide')
                 } else {
                     noelshack.setError(resp)
@@ -456,11 +502,11 @@ let imgur = {
                 return xhr
             },
             success: function (resp) {
-                // console.log(resp)
                 if (resp.success) {
-                    var editor = $(".sucresBB-editor")
-                    var str = $(editor).val()
-                    $(editor).val(str + "[img]" + resp.file.link + "[/img]")
+                    let cm = window.simplemde.codemirror;
+                    let endPoint = cm.getCursor('end');
+                    cm.setSelection(endPoint, endPoint)
+                    cm.replaceSelection('![](' + resp.file.link + ')')
                     $("#imgur").modal('hide')
                 } else {
                     imgur.setError(resp.error)
@@ -501,13 +547,15 @@ let imgur = {
     }
 };
 
+hljs.initHighlightingOnLoad();
+
 $(document).ready(function () {
     init_spoilers()
     init_baffle()
     init_actions()
     init_select2();
 
-    autocomplete.init();
+    editor.init();
     bsCustomFileInput.init()
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
@@ -521,7 +569,6 @@ $(document).ready(function () {
     if (window.fourSucres.hasNotifications) setAltFavicon()
 
     $('form.disable-on-submit').submit(function (e) {
-        console.log($(this));
         $(this).find('button').attr('disabled', true);
     });
 })
