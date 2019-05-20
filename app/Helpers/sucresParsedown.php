@@ -12,8 +12,8 @@ class sucresParsedown extends \ParsedownCheckbox
     {
         parent::__construct();
 
-        $this->InlineTypes['@'][] = 'Glitch';
-        $this->inlineMarkerList .= '@';
+        $this->InlineTypes['+'][] = 'Glitch';
+        $this->inlineMarkerList .= '+';
 
         $this->InlineTypes['%'][] = 'Mock';
         $this->inlineMarkerList .= '%';
@@ -40,7 +40,7 @@ class sucresParsedown extends \ParsedownCheckbox
 
     protected function inlineGlitch($excerpt)
     {
-        $regex = Regex::match('/^\@(.*?)\@/', $excerpt['text']);
+        $regex = Regex::match('/^\+(.*?)\+/', $excerpt['text']);
         if ($regex->hasMatch()) {
             return [
                 'extent' => strlen($regex->group(0)),

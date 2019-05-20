@@ -125,7 +125,7 @@
     <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-light" data-mdcode="||"><div class="spoiler">Spoiler</div></button>
         <button type="button" class="btn btn-sm btn-light" data-mdcode="%">mDr</button>
-        <button type="button" class="btn btn-sm btn-light" data-mdcode="@">░█</button>
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="+">░█</button>
     </div>
     <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-light" data-action="openRisibank" data-toggle="modal" data-target="#risibank"><img src="/img/editor/risidex_logo.png" style="height: 20px;"></button>
