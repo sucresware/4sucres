@@ -96,13 +96,13 @@ class sucresParsedown extends \ParsedownCheckbox
         $regex = Regex::match('/^\~(.*?)\~/', $excerpt['text']);
 
         if ($regex->hasMatch()) {
-            $input = $regex->group(1);
+            $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $regex->group(1));
             $output = '';
             for ($i = 0; $i < strlen($input); $i++) {
                 $char = $input[$i];
                 list(, $code) = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
                 if ($code >= 33 && $code <= 270) {
-                    $output .=  mb_convert_encoding('&#' . intval($code + 65248) . ';', 'UTF-8', 'HTML-ENTITIES');
+                    $output .= mb_convert_encoding('&#' . intval($code + 65248) . ';', 'UTF-8', 'HTML-ENTITIES');
                 } elseif ($code == 32) {
                     $output .= chr($code);
                 }
