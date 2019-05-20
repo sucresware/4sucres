@@ -22,13 +22,13 @@
     </div>
 
     <div class="pb-0">
-        {{ $posts->links() }}
+        {{ $posts->onEachSide(1)->links() }}
     </div>
 
     <discussion :discussion-id="{{ $discussion->id }}" :initial-paginator="{{ $posts->toJson() }}"></discussion>
 
     <div class="pb-0">
-        {{ $posts->links() }}
+        {{ $posts->onEachSide(1)->links() }}
     </div>
 
     @if ($discussion->locked)
