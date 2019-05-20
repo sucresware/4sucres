@@ -264,9 +264,11 @@ var init_actions = function () {
 
                     break
                 case 'quotePost':
-                    var editor = $(".sucresBB-editor")
-                    var str = $(editor).val()
-                    $(editor).val(str + '#p:' + $(e.target).closest('a').attr('data-id') + ' ')
+                    let quote = '#p:' + $(e.target).closest('a').attr('data-id') + "\r\n\r\n";
+                    var cm2 = window.simplemde.codemirror;
+                    var endPoint2 = cm2.getCursor('end');
+                    cm2.setSelection(endPoint2, endPoint2)
+                    cm2.replaceSelection(quote)
                     break
                 case 'openPreview':
                     e.preventDefault()
