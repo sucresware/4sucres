@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Discussion;
 use Illuminate\Support\Str;
+use Spatie\Regex\Regex;
 
 class SearchController extends Controller
 {
@@ -26,7 +27,8 @@ class SearchController extends Controller
                 $discussions
                     ->getCollection()
                     ->transform(function ($discussion) use ($query) {
-                        $discussion->title = str_ireplace($query, '<u>' . $query . '</u>', e($discussion->title));
+                        $discussion->title = Regex::replace('/(' . $query . ')/mi', '<u>$1</u>', $discussion->title)->result();
+
                         return $discussion;
                     });
 
@@ -52,6 +54,7 @@ class SearchController extends Controller
                         $after = (new \Delight\Str\Str($after))->truncateSafely(50);
 
                         $post->trimmed_body = $before . '<u>' . $query . '</u>' . $after;
+
                         return $post;
                     });
 
@@ -68,8 +71,9 @@ class SearchController extends Controller
                 $users
                     ->getCollection()
                     ->transform(function ($user) use ($query) {
-                        $user->name_for_search = str_ireplace($query, '<u>' . $query . '</u>', e($user->name));
-                        $user->display_name_for_search = str_ireplace($query, '<u>' . $query . '</u>', e($user->display_name));
+                        $user->name_for_search = Regex::replace('/(' . $query . ')/mi', '<u>$1</u>', $user->name)->result();
+                        $user->display_name_for_search = Regex::replace('/(' . $query . ')/mi', '<u>$1</u>', $user->display_name)->result();
+
                         return $user;
                     });
 
