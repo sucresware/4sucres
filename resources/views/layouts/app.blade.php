@@ -52,7 +52,7 @@
 <body>
     <div id="app">
         <div class="sticky-top">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
                 <div class="container justify-content-between">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ url('/svg/4sucres.svg') }}" height="35px" class="d-sm-none">
@@ -60,7 +60,7 @@
                     </a>
 
                     @auth
-                        <a class="ml-auto text-center mr-1 order-md-7" href="{{ route('notifications.index') }}">
+                        <a class="ml-auto text-center mr-1 order-lg-7" href="{{ route('notifications.index') }}">
                             <span class="fa-stack" id="notifications_indicator">
                                 <i class="fas fa-circle fa-stack-2x text-darker"></i>
                                 @if ($notifications_count)
@@ -72,7 +72,7 @@
                             </span>
                         </a>
 
-                        <a class="text-center mr-1 order-md-8" href="{{ route('private_discussions.index') }}">
+                        <a class="text-center mr-1 order-lg-8" href="{{ route('private_discussions.index') }}">
                             <span class="fa-stack" id="private_discussions_indicator">
                                 <i class="fas fa-circle fa-stack-2x text-darker"></i>
                                 @if ($private_unread_count)
@@ -85,14 +85,14 @@
                         </a>
                     @endauth
 
-                    <a href="#" class="d-block d-md-none" data-toggle="collapse" data-target="#navbarSupportedContent">
+                    <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">
                         <span class="fa-stack">
                             <i class="fas fa-circle fa-stack-2x text-darker"></i>
                             <i class="fas fa-bars fa-stack-1x fa-inverse"></i>
                         </span>
                     </a>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse my-3 my-lg-3" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <form id="search" action="{{ route('search.query') }}">
@@ -106,25 +106,25 @@
                                 </form>
                             </li>
                             {{--  <li class="nav-item">
-                                <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-md-none d-lg-block"> Forum</span></a>
+                                <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-lg-none d-lg-block"> Forum</span></a>
                             </li>  --}}
                             {{--  <li class="nav-item">
-                                <a class="nav-link text-center" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-md-none d-lg-block"> Classement</span></a>
+                                <a class="nav-link text-center" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-lg-none d-lg-block"> Classement</span></a>
                             </li> --}}
                         </ul>
                     </div>
 
-                    <div class="collapse navbar-collapse flex-grow-0 order-md-10 pl-md-2" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse flex-grow-0 order-lg-10 pl-lg-2" id="navbarSupportedContent">
                         @guest
-                            <div class="row no-gutters account-block mb-3 mb-md-0">
-                                <div class="col account-details bg-darker rounded text-md-right text-center text-md-left">
+                            <div class="row no-gutters account-block mb-3 mb-lg-0">
+                                <div class="col account-details bg-darker rounded text-lg-right text-center text-lg-left">
                                     <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus mr-2"></i>Inscription</a>
                                     <a href="{{ route('login') }}"><i class="fas fa-power-off mr-2"></i>Connexion</a>
                                 </div>
                             </div>
                         @else
-                            <div class="row no-gutters account-block mb-3 mb-md-0">
-                                <div class="col account-details bg-darker rounded text-md-right">
+                            <div class="row no-gutters account-block mb-3 mb-lg-0">
+                                <div class="col account-details bg-darker rounded text-lg-right">
                                     <span class="account-username">
                                         <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
                                     </span>
@@ -148,7 +148,7 @@
                     <div class="col-auto">
                     </div>
                     <div class="col-auto">
-                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-md-inline-block">{{ str_plural('utilisateur', $presence_counter) }} {{str_plural('actif', $presence_counter)}}</span></small>
+                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-lg-inline-block">{{ str_plural('utilisateur', $presence_counter) }} {{str_plural('actif', $presence_counter)}}</span></small>
                     </div>
                 </div>
             </div>
