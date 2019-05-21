@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-use App\Notifications\MentionnedInPost;
-use Illuminate\Database\Eloquent\Model;
-use App\Notifications\ReplyInDiscussion;
 use App\Notifications\RepliesInDiscussion;
-use Illuminate\Support\Facades\Notification;
+use App\Notifications\ReplyInDiscussion;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Discussion extends Model
 {
@@ -152,6 +149,7 @@ class Discussion extends Model
         $pagniator = 10;
         $post_position = array_search($post->id, $post->discussion->posts->pluck('id')->toArray()) + 1;
         $guessed_page = ceil($post_position / $pagniator);
+
         return $post->discussion->link . '?page=' . $guessed_page . '#p' . $post->id;
     }
 }

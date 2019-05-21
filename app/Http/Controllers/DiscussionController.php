@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Category;
 use App\Models\Discussion;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DiscussionController extends Controller

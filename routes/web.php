@@ -90,6 +90,7 @@ Route::group(['prefix' => '/api/v0'], function () {
 
         Route::post('/webpush/subscribe', function (\Illuminate\Http\Request $request) {
             user()->updatePushSubscription($request->input('endpoint'), $request->input('keys.p256dh'), $request->input('keys.auth'));
+
             return response()->json(['success' => true]);
         });
     });
@@ -101,7 +102,10 @@ Route::group(['prefix' => '/api/v0'], function () {
 
 if (config('app.env') == 'local') {
     Route::get('/storage/avatars/{file}', function ($file) {
-        if (!File::exists(base_path($file))) $file = 'public/img/guest.png';
+        if (!File::exists(base_path($file))) {
+            $file = 'public/img/guest.png';
+        }
+
         return response()->file(base_path($file));
     });
 }

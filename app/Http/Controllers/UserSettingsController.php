@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Achievement;
-use Spatie\Permission\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
+use Spatie\Permission\Models\Role;
 
 class UserSettingsController extends Controller
 {
@@ -18,8 +18,11 @@ class UserSettingsController extends Controller
 
     public function profile($name = null)
     {
-        if ($name) $user = User::where('name', $name)->firstOrFail();
-        else $user = user();
+        if ($name) {
+            $user = User::where('name', $name)->firstOrFail();
+        } else {
+            $user = user();
+        }
 
         if ($user->id != user()->id && !user()->can('bypass users guard')) {
             return abort(403);
@@ -118,7 +121,7 @@ class UserSettingsController extends Controller
         $user = user();
 
         $user->setMultipleSettings([
-            'webpush.enabled' => (bool)request()->input('optin_webpush', 0),
+            'webpush.enabled' => (bool) request()->input('optin_webpush', 0),
             'webpush.idle_wait' => request()->input('idle_wait', 1),
         ]);
 
@@ -156,6 +159,7 @@ class UserSettingsController extends Controller
 
         if (!Hash::check(request()->password, $user->password)) {
             $validator->errors()->add('password', 'Le mot de passe est incorrect');
+
             return redirect(route('user.settings.account.password'))->withErrors($validator)->withInput(request()->input());
         }
 

@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Models\User;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
             //         return User::online()->count();
             //     }));
 
-            if (auth()->check())
+            if (auth()->check()) {
                 $view
                     ->with('notifications_count', Cache::remember('notifications_count_' . user()->id, 1, function () {
                         return user()->unreadNotifications->count();
@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
                     ->with('private_unread_count', Cache::remember('private_unread_count_' . user()->id, 1, function () {
                         return \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count();
                     }));
+            }
 
             return $view;
         });
@@ -45,5 +46,6 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot()
-    { }
+    {
+    }
 }

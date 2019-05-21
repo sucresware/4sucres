@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | VAPID Authentication
@@ -32,5 +31,4 @@ return [
         'key' => env('GCM_KEY'),
         'sender_id' => env('GCM_SENDER_ID'),
     ],
-
 ];

@@ -1,7 +1,7 @@
 <?php
-return [
 
-    /**
+return [
+    /*
      * Set Imgur application client_id and secret key.
      */
 

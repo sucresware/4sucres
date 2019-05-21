@@ -5,8 +5,8 @@ namespace App\Notifications;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use NotificationChannels\WebPush\WebPushChannel;
 use Illuminate\Notifications\Messages\BroadcastMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 
 class ReplyInDiscussion extends DefaultNotification
 {

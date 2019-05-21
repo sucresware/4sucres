@@ -30,6 +30,7 @@ class LoginController extends Controller
         ], $remember)) {
             if (user()->deleted_at) {
                 auth()->logout();
+
                 return redirect()->route('home')->with('error', 'Désolé mec, c\'est terminé.');
             }
 

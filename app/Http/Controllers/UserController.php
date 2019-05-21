@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Achievement;
 use App\Models\User;
-use Intervention\Image\Facades\Image;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller

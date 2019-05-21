@@ -1,5 +1,13 @@
-<?php
-
+# ecs.yml
+parameters:
+    skip:
+        PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer:
+            - 'storage/*'
+            - 'vendor/*'
+            - 'boostrap/cache/*'
+            - '*.blade.php'
+services:
+  PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: ~
 $finder = PhpCsFixer\Finder::create()
     ->notPath('bootstrap/cache')
     ->notPath('storage')

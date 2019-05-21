@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 use App\Helpers\sucresHelper;
+use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
 class TrimStrings extends Middleware
 {
@@ -20,8 +20,9 @@ class TrimStrings extends Middleware
     /**
      * Transform the given value.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed  $value
+     *
      * @return mixed
      */
     protected function transform($key, $value)
