@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Discussion;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Notifications\NewPrivateDiscussion;
+use Illuminate\Http\Request;
 
 class PrivateDiscussionController extends Controller
 {

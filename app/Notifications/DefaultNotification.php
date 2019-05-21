@@ -4,11 +4,11 @@ namespace App\Notifications;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
+use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class DefaultNotification extends Notification implements ShouldQueue
 {
@@ -23,7 +23,7 @@ class DefaultNotification extends Notification implements ShouldQueue
     {
         $via = [
             'database',
-            'broadcast'
+            'broadcast',
         ];
 
         if (User::find($notifiable->id)->is_eligible_for_webpush) {
@@ -47,7 +47,7 @@ class DefaultNotification extends Notification implements ShouldQueue
     {
         $attributes = $this->attributes();
 
-        return (new WebPushMessage)
+        return (new WebPushMessage())
             ->data([
                 'url' => route('notifications.show', $this->id),
             ])

@@ -3,9 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
-use NotificationChannels\WebPush\WebPushMessage;
 
 class MentionnedInPost extends DefaultNotification
 {

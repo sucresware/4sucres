@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use App\Helpers\sucresParser;
 use App\Notifications\MentionnedInPost;
+use App\Notifications\QuotedInPost;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
-use App\Notifications\QuotedInPost;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
 class Post extends Model implements ReactableInterface
 {
     use Reactable;
+
     protected $guarded = [];
 
     protected $appends = [
@@ -24,7 +24,7 @@ class Post extends Model implements ReactableInterface
     ];
 
     protected $hidden = [
-        ''
+        '',
     ];
 
     public static function boot()

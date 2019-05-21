@@ -4,16 +4,19 @@ namespace App\Helpers;
 
 use App\Models\Post;
 use App\Models\User;
+use ForceUTF8\Encoding;
 use Spatie\Regex\Regex;
-use \ForceUTF8\Encoding;
-use Illuminate\Support\Str;
 
 class sucresParser
 {
     public $content;
+
     protected $post;
+
     protected $parser;
+
     protected $lightweight;
+
     protected $protections;
 
     public function __construct(Post $post, $lightweight = false)
@@ -32,7 +35,7 @@ class sucresParser
             '/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m',
             '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m',
             '/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m',
-            '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/m'
+            '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/m',
         ]);
 
         $this->renderMD()

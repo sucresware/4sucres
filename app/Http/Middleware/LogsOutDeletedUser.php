@@ -17,26 +17,29 @@ class LogsOutDeletedUser
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @return void
+     * @param \Illuminate\Contracts\Auth\Factory $auth
      */
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;
     }
+
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         if ($this->auth->check() && $this->auth->user()->deleted_at) {
             auth()->logout();
+
             return redirect()->route('home')->with('error', 'Désolé mec, c\'est terminé.');
         }
+
         return $next($request);
     }
 }

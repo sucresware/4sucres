@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     use SoftDeletes;
+
     protected $guarded = [];
 
     public static function boot()

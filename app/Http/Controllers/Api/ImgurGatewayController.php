@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ImgurGatewayController extends Controller
 {
-    public function upload(Request $request){
+    public function upload(Request $request)
+    {
         $request->validate([
-             'file' => ['required', 'image']
+             'file' => ['required', 'image'],
         ]);
 
         try {
@@ -17,14 +18,14 @@ class ImgurGatewayController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'error' => 'Une erreur est survenue lors de l\'envoi à Imgur'
+                'error' => 'Une erreur est survenue lors de l\'envoi à Imgur',
                 // 'exception' => $e->getMessage()
             ]);
         }
 
         return response()->json([
             'success' => true,
-            'file' => $image->usual()
+            'file' => $image->usual(),
         ]);
     }
 }

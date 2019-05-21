@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Mail\VerifyEmail;
-use App\Models\VerifyUser;
-use App\Models\Achievement;
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyEmail;
+use App\Models\Achievement;
+use App\Models\User;
+use App\Models\VerifyUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Cache;
 
 class RegisterController extends Controller
 {
@@ -52,21 +52,27 @@ class RegisterController extends Controller
         switch (request()->referrer) {
             case 'none.none':
                 $user->achievements()->attach(Achievement::where('name', 'Esprit libre')->first());
+
                 break;
             case 'avenoel.org':
                 $user->achievements()->attach(Achievement::where('name', 'Noëliste')->first());
+
                 break;
             case 'jeuxvideo.com':
                 $user->achievements()->attach(Achievement::where('name', 'ISSOU !')->first());
+
                 break;
             case '2sucres.org':
                 $user->achievements()->attach(Achievement::where('name', 'Ça fait 6 sucres')->first());
+
                 break;
             case 'lebunker.net':
                 $user->achievements()->attach(Achievement::where('name', 'Bunkered')->first());
+
                 break;
             case 'onche.party':
                 $user->achievements()->attach(Achievement::where('name', 'Tu veux du ponche ?')->first());
+
                 break;
         }
 
