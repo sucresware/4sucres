@@ -3,11 +3,15 @@ risky: true
 enabled:
   - ordered_imports
   - short_array_syntax
+  - concat_with_spaces
 disabled:
   - unused_use
+  - concat_without_spaces
 finder:
   name: "*.php"
   not-name:
     - "*.blade.php"
     - index.php
     - server.php
+
+    'array_syntax' => ['syntax' => 'short'],
