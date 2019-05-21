@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Spatie\Regex\Regex;
 
-class sucresParsedown extends \ParsedownCheckbox
+class SucresParsedown extends \ParsedownCheckbox
 {
     protected $urlIgnoreRegex = [];
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Helpers\sucresHelper;
+use App\Helpers\SucresHelper;
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
 class TrimStrings extends Middleware
@@ -31,6 +31,6 @@ class TrimStrings extends Middleware
             return $value;
         }
 
-        return is_string($value) ? sucresHelper::unicodeTrim($value) : $value;
+        return is_string($value) ? SucresHelper::unicodeTrim($value) : $value;
     }
 }
