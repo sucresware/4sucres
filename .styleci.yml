@@ -8,7 +8,6 @@ disabled:
   - unused_use
   - concat_without_spaces
   - yoda_style
-  - blank_link_before_declare
 finder:
   name: "*.php"
   not-name:
