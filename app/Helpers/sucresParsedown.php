@@ -23,9 +23,6 @@ class sucresParsedown extends \ParsedownCheckbox
 
         $this->InlineTypes['~'][] = 'Aesthetic';
         $this->inlineMarkerList .= '~';
-
-        $this->InlineTypes['-'][] = 'Center';
-        $this->inlineMarkerList .= '-';
     }
 
     protected function blockHeader($line)
@@ -91,22 +88,6 @@ class sucresParsedown extends \ParsedownCheckbox
                     'name' => 'span',
                     'text' => $regex->group(1),
                     'attributes' => ['class' => 'spoiler'],
-                ],
-            ];
-        }
-    }
-
-    protected function inlineCenter($excerpt)
-    {
-        $regex = Regex::match('/^\-(.*?)\-/', $excerpt['text']);
-        if ($regex->hasMatch()) {
-
-            return [
-                'extent' => strlen($regex->group(0)),
-                'element' => [
-                    'name' => 'span',
-                    'text' => $regex->group(1),
-                    'attributes' => ['class' => 'markdown-text-center',],
                 ],
             ];
         }
