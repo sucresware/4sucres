@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <form action="{{ route('discussions.store') }}" method="post" class="disable-on-submit">
+        <form action="{{ route('discussions.store') }}" method="post" data-disable-on-submit>
             <div class="card-body">
                 <h1 class="h6">Nouvelle discussion</h1>
                 @csrf
@@ -24,7 +24,7 @@
             </div>
             <div class="card-footer bg-light">
                 <div class="text-right">
-                    <button class="btn btn-secondary" data-action="openPreview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>
+                    <button class="btn btn-secondary" data-action="open-preview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>
                     <button type="submit" class="btn btn-primary">Ouvrir le débat</button>
                 </div>
             </div>

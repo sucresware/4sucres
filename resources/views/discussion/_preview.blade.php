@@ -1,4 +1,4 @@
-<div class="row mx-0 gutters-sm align-items-center p-3 hover-accent" data-action="gotoDiscussion" data-id="{{ $discussion->id }}" data-slug="{{ $discussion->slug }}">
+<div class="row mx-0 gutters-sm align-items-center p-3 hover-accent" data-action="open-discussion" data-id="{{ $discussion->id }}" data-slug="{{ $discussion->slug }}">
     @if ($discussion->sticky)
         <div class="sidetag">
             <i class="fas fa-fw fa-map-pin text-success"></i>

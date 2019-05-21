@@ -20,7 +20,7 @@
           <template v-if="auth_user">
             <!-- <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_post.id" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a> -->
             <template v-if="!post.deleted_at">
-              <a class="mr-1" href="#reply" data-action="quotePost" :data-id="post.id">
+              <a class="mr-1" href="#reply" data-action="quote-post" :data-id="post.id">
                 <i class="fas fa-fw fa-quote-right"></i>
               </a>
             </template>

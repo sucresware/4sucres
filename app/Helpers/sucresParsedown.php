@@ -144,7 +144,7 @@ class sucresParsedown extends \ParsedownCheckbox
                 $image['markup'] = "<img class='sticker' src='$url'>";
             }
         } else {
-            $image['markup'] = "<a href='$url' data-toggle='fancybox' data-type='image' class='my-2'><img src='$url' class='img-fluid'></a>";
+            $image['markup'] = "<a href='$url' data-toggle='lightbox' data-type='image' class='my-2'><img src='$url' class='img-fluid'></a>";
         }
 
         return $image;

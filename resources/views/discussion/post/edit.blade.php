@@ -38,7 +38,7 @@
     @endif
 
     <div class="card">
-        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post" class="disable-on-submit">
+        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post" data-disable-on-submit>
             <div class="card-body">
                 @csrf
                 @method('put')
@@ -47,7 +47,7 @@
             <div class="card-footer bg-light">
                 <div class="text-right">
                     <a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-secondary">Annuler</a>
-                    <button class="btn btn-secondary" data-action="openPreview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>
+                    <button class="btn btn-secondary" data-action="open-preview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>
                     <button type="submit" class="btn btn-primary">Oupsi la faute de frappe</button>
                 </div>
             </div>

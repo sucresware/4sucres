@@ -4,6 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    @auth
+        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
+        <meta name="user-notification-count" content="{{ json_encode($notifications_count) }}" />
+    @endauth
+
     <title>
         @hasSection ('title')
             @yield('title') - 4sucres.org
@@ -65,7 +71,7 @@
                                 <i class="fas fa-circle fa-stack-2x text-darker"></i>
                                 @if ($notifications_count)
                                     <i class="fas fa-bell fa-stack-1x fa-inverse"></i>
-                                    <span class="badge badge-danger">{{ $notifications_count }}</span>
+                                    <span class="badge badge-danger badge-pill">{{ $notifications_count }}</span>
                                 @else
                                     <i class="fas fa-bell fa-stack-1x"></i>
                                 @endif
@@ -77,7 +83,7 @@
                                 <i class="fas fa-circle fa-stack-2x text-darker"></i>
                                 @if ($private_unread_count)
                                     <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                                    <span class="badge badge-danger">{{ $private_unread_count }}</span>
+                                    <span class="badge badge-danger badge-pill">{{ $private_unread_count }}</span>
                                 @else
                                     <i class="fas fa-envelope fa-stack-1x"></i>
                                 @endif
@@ -242,20 +248,6 @@
 
     @include('sweetalert::alert')
 
-    @php
-        if (auth()->check()) {
-            $user = array_merge(user()->only(['id', 'name', 'email']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')]);
-        } else {
-            $user = null;
-        }
-    @endphp
-
-    <script>
-        window.fourSucres = {
-            user: @json($user),
-            hasNotifications: @auth @json((bool) $notifications_count) @else null @endauth,
-        }
-    </script>
     @routes
     <script src="{{ mix('/js/app.js') }}"></script>
     @stack('js')

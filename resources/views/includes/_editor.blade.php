@@ -37,7 +37,7 @@
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="risibank-searchfield">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" id="risibank-searchaction"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-primary" data-action="risibank-search"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                         <div id="risibank-search" class="text-center"></div>
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button type="submit" id="imgur-uploadaction" class="btn btn-primary"><i class="fas fa-upload mr-1"></i> Envoyer</button>
+                        <span data-action="imgur-upload" class="btn btn-primary"><i class="fas fa-upload mr-1"></i> Envoyer</span>
                     </div>
                 </div>
             </div>
@@ -124,12 +124,16 @@
 <div class="editor-buttons btn-toolbar" data-parent="sucresBB-editor">
     <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-light" data-mdcode="||"><div class="spoiler">Spoiler</div></button>
-        <button type="button" class="btn btn-sm btn-light" data-mdcode="%">mDr</button>
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="%">MdR</button>
         <button type="button" class="btn btn-sm btn-light" data-mdcode="@">░█</button>
     </div>
     <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-light" data-action="openRisibank" data-toggle="modal" data-target="#risibank"><img src="/img/editor/risidex_logo.png" style="height: 20px;"></button>
+        <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#risibank">
+            <img src="/img/editor/risidex_logo.png" style="height: 20px;">
+        </button>
         {{--  <button type="button" class="btn btn-sm btn-light" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>  --}}
-        <button type="button" class="btn btn-sm btn-light" data-action="openImgur" data-toggle="modal" data-target="#imgur"><img src="/img/imgur_logo.png" style="height: 20px;"></button>
+        <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#imgur">
+            <img src="/img/imgur_logo.png" style="height: 20px;">
+        </button>
     </div>
 </div>
