@@ -52,21 +52,27 @@ class RegisterController extends Controller
         switch (request()->referrer) {
             case 'none.none':
                 $user->achievements()->attach(Achievement::where('name', 'Esprit libre')->first());
+
                 break;
             case 'avenoel.org':
                 $user->achievements()->attach(Achievement::where('name', 'Noëliste')->first());
+
                 break;
             case 'jeuxvideo.com':
                 $user->achievements()->attach(Achievement::where('name', 'ISSOU !')->first());
+
                 break;
             case '2sucres.org':
                 $user->achievements()->attach(Achievement::where('name', 'Ça fait 6 sucres')->first());
+
                 break;
             case 'lebunker.net':
                 $user->achievements()->attach(Achievement::where('name', 'Bunkered')->first());
+
                 break;
             case 'onche.party':
                 $user->achievements()->attach(Achievement::where('name', 'Tu veux du ponche ?')->first());
+
                 break;
         }
 

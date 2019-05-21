@@ -13,6 +13,7 @@ class ReplyInDiscussion extends DefaultNotification
     use Queueable;
 
     public $post;
+
     public $save_to_database;
 
     public function __construct(Post $post, $save_to_database = true)

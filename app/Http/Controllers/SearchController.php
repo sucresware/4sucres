@@ -35,6 +35,7 @@ class SearchController extends Controller
                 return $return->with([
                     'discussions' => $discussions,
                 ]);
+
                 break;
             case 'posts':
                 $posts = Post::query()
@@ -61,6 +62,7 @@ class SearchController extends Controller
                 return $return->with([
                     'posts' => $posts,
                 ]);
+
                 break;
             case 'users':
                 $users = User::query()

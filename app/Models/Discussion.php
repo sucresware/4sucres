@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 class Discussion extends Model
 {
     protected $guarded = [];
+
     protected $dates = ['last_reply_at'];
 
     protected $appends = [

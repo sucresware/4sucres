@@ -13,6 +13,7 @@ use Qirolab\Laravel\Reactions\Traits\Reactable;
 class Post extends Model implements ReactableInterface
 {
     use Reactable;
+
     protected $guarded = [];
 
     protected $appends = [

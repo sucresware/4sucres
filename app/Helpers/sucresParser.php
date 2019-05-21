@@ -10,9 +10,13 @@ use Spatie\Regex\Regex;
 class sucresParser
 {
     public $content;
+
     protected $post;
+
     protected $parser;
+
     protected $lightweight;
+
     protected $protections;
 
     public function __construct(Post $post, $lightweight = false)
