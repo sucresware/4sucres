@@ -20,7 +20,7 @@ class SucresParser
         $this->post = $post;
         $this->content = $post->body;
         $this->lightweight = $lightweight;
-        $this->parser = new sucresParsedown();
+        $this->parser = new SucresParsedown();
     }
 
     public function render()

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Helpers\sucresParser;
+use App\Helpers\SucresParser;
 use App\Notifications\MentionnedInPost;
 use App\Notifications\QuotedInPost;
 use Illuminate\Database\Eloquent\Model;
@@ -99,12 +99,12 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedBodyAttribute()
     {
-        return (new sucresParser($this))->render();
+        return (new SucresParser($this))->render();
     }
 
     public function getPresentedLightBodyAttribute()
     {
-        return (new sucresParser($this, true))->render();
+        return (new SucresParser($this, true))->render();
     }
 
     public function getPresentedCreatedAtAttribute()
