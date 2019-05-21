@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <form action="{{ route('private_discussions.store', [$to->id, $to->name]) }}" method="post" class="disable-on-submit">
+        <form action="{{ route('private_discussions.store', [$to->id, $to->name]) }}" method="post" data-disable-on-submit>
             <div class="card-body">
                 <h1 class="h6">Nouveau message privé pour {{ $to->name }}</h1>
                 @csrf

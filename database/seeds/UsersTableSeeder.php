@@ -23,6 +23,16 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
         ])->assignRole('admin');
 
+        User::firstOrCreate([
+            'email' => 'lorem@ipsum.dev',
+        ], [
+            'name' => 'Hawezo',
+            'display_name' => 'Hawezo',
+            'shown_role' => 'gbesoindundeuxiemecompte',
+            'password' => \Hash::make('1234'),
+            'email_verified_at' => now(),
+        ])->assignRole('admin');
+
         // User::firstOrCreate([
         //     'email' => '',
         // ], [

@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
                                     <div class="d-none d-md-flex col-md-4 pr-1">
-                                        <a href='{{ url('/img/settings/notifications.webpush.gif') }}' data-toggle='fancybox' data-type='image'>
+                                        <a href='{{ url('/img/settings/notifications.webpush.gif') }}' data-toggle='lightbox' data-type='image'>
                                             <img src="{{ url('/img/settings/notifications.webpush.gif') }}" class="img-fluid rounded">
                                         </a>
                                     </div>

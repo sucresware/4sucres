@@ -339,8 +339,8 @@ footer {
 
 .fa-stack>.badge {
     position: relative;
-    margin-left: 60%;
-    margin-top: -60%;
+    right: -13px;
+    bottom: -4px;
 }
 
 .toast {
@@ -401,4 +401,8 @@ footer {
         background-position: center !important;
         background-repeat: no-repeat !important;
     }
+}
+
+.pointer {
+    cursor: pointer;
 }

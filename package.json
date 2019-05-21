@@ -43,6 +43,7 @@
         "simplemde": "^1.11.2",
         "textcomplete": "^0.17.1",
         "textcomplete.codemirror": "^0.2.1",
+        "voca": "^1.4.0",
         "vue-clipboard2": "^0.3.0",
         "vue-infinite-loading": "^2.4.4"
     }

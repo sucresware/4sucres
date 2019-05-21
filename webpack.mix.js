@@ -25,9 +25,10 @@ mix
     .copyDirectory('resources/vendor',   'public/vendor')
 
     .copyDirectory('resources/public',   'public/')
-
+    
     .options({
         processCssUrls: false
     })
     .version()
+    
 ;
