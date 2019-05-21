@@ -12,14 +12,17 @@ class sucresParsedown extends \ParsedownCheckbox
     {
         parent::__construct();
 
-        $this->InlineTypes['@'][] = 'Glitch';
-        $this->inlineMarkerList .= '@';
+        $this->InlineTypes['+'][] = 'Glitch';
+        $this->inlineMarkerList .= '+';
 
         $this->InlineTypes['%'][] = 'Mock';
         $this->inlineMarkerList .= '%';
 
         $this->InlineTypes['|'][] = 'Spoiler';
         $this->inlineMarkerList .= '|';
+
+        $this->InlineTypes['~'][] = 'Aesthetic';
+        $this->inlineMarkerList .= '~';
     }
 
     protected function blockHeader($line)
@@ -40,7 +43,7 @@ class sucresParsedown extends \ParsedownCheckbox
 
     protected function inlineGlitch($excerpt)
     {
-        $regex = Regex::match('/^\@(.*?)\@/', $excerpt['text']);
+        $regex = Regex::match('/^\+(.*?)\+/', $excerpt['text']);
         if ($regex->hasMatch()) {
             return [
                 'extent' => strlen($regex->group(0)),
@@ -83,6 +86,33 @@ class sucresParsedown extends \ParsedownCheckbox
                     'name' => 'span',
                     'text' => $regex->group(1),
                     'attributes' => ['class' => 'spoiler',],
+                ],
+            ];
+        }
+    }
+
+    protected function inlineAesthetic($excerpt)
+    {
+        $regex = Regex::match('/^\~(.*?)\~/', $excerpt['text']);
+
+        if ($regex->hasMatch()) {
+            $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $regex->group(1));
+            $output = '';
+            for ($i = 0; $i < strlen($input); $i++) {
+                $char = $input[$i];
+                list(, $code) = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
+                if ($code >= 33 && $code <= 270) {
+                    $output .= mb_convert_encoding('&#' . intval($code + 65248) . ';', 'UTF-8', 'HTML-ENTITIES');
+                } elseif ($code == 32) {
+                    $output .= chr($code);
+                }
+            }
+
+            return [
+                'extent' => strlen($regex->group(0)),
+                'element' => [
+                    'name' => 'span',
+                    'text' => trim($output),
                 ],
             ];
         }

@@ -78,7 +78,7 @@
                 </div>
             @endif
 
-            {{ $discussions->links() }}
+            {{ $discussions->onEachSide(1)->links() }}
         </div>
     </div>
 </div>

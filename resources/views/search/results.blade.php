@@ -40,7 +40,7 @@
                             </span>
                         </div>
                     @endforelse
-                    {!! $posts->appends(request()->input())->links() !!}
+                    {!! $posts->appends(request()->input())->onEachSide(1)->links() !!}
                 </div>
             @endisset
             @isset ($discussions)
@@ -67,7 +67,7 @@
                             </span>
                         </div>
                     @endforelse
-                    {!! $discussions->appends(request()->input())->links() !!}
+                    {!! $discussions->appends(request()->input())->onEachSide(1)->links() !!}
                 </div>
             @endisset
             @isset ($users)
@@ -96,7 +96,7 @@
                             </span>
                         </div>
                     @endforelse
-                    {!! $users->appends(request()->input())->links() !!}
+                    {!! $users->appends(request()->input())->onEachSide(1)->links() !!}
                 </div>
             @endisset
         </div>

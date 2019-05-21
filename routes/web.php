@@ -37,6 +37,8 @@ Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/charter', 'HomeController@charter')->name('charter');
 Route::get('/leaderboard', 'HomeController@leaderboard')->name('leaderboard');
 
+Route::get('/p/{id}', 'PostController@show')->name('posts.show');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -64,8 +66,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/u/{user}/delete', 'UserController@delete')->name('user.delete');
     Route::delete('/u/{user}', 'UserController@destroy')->name('user.destroy');
-
-    Route::get('/p/{id}', 'PostController@show')->name('posts.show');
 
     Route::get('d/create', 'DiscussionController@create')->name('discussions.create');
     Route::post('/d/preview', 'DiscussionController@preview')->name('discussions.preview');

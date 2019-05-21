@@ -124,8 +124,9 @@
 <div class="editor-buttons btn-toolbar" data-parent="sucresBB-editor">
     <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-light" data-mdcode="||"><div class="spoiler">Spoiler</div></button>
-        <button type="button" class="btn btn-sm btn-light" data-mdcode="%">MdR</button>
-        <button type="button" class="btn btn-sm btn-light" data-mdcode="@">░█</button>
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="%">mDr</button>
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="+">░█</button>
+        <button type="button" class="btn btn-sm btn-light" data-mdcode="~">ｖａｐｏｒ</button>
     </div>
     <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#risibank">
