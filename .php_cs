@@ -16,5 +16,11 @@ return PhpCsFixer\Config::create()
         'ordered_imports' => true,
         'yoda_style' => false,
         'concat_space' => ['spacing' => 'one'],
+        'blank_line_before_statement' => [
+            'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
+        ],
+        'class_attributes_separation' => [
+            'elements' => ['const', 'method', 'property'],
+        ],
     ])
     ->setFinder($finder);

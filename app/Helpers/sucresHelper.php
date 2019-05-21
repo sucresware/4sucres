@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class SucresHelper
+class sucresHelper
 {
     /**
      * Matches what we call "unicode whitespace", i.e. normal ASCII whitespace as well as special
