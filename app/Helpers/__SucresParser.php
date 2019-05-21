@@ -7,7 +7,7 @@ use App\Models\User;
 use ForceUTF8\Encoding;
 use Spatie\Regex\Regex;
 
-class sucresParser
+class SucresParser
 {
     public $content;
     protected $post;
