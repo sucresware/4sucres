@@ -13,5 +13,3 @@ finder:
     - "*.blade.php"
     - index.php
     - server.php
-
-    'array_syntax' => ['syntax' => 'short'],
