@@ -1,8 +1,7 @@
-php:
-  preset: recommended
-  disabled:
-    - unused_use
-  finder:
-    not-name:
-      - index.php
-      - server.php
+preset: recommended
+disabled:
+  - unused_use
+finder:
+  not-name:
+    - index.php
+    - server.php
