@@ -1,7 +1,6 @@
 preset: symfony
 risky: true
 enabled:
-  - long_array_syntax
   - ordered_imports
   - short_array_syntax
 disabled:
