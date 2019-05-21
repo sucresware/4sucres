@@ -7,6 +7,7 @@ enabled:
 disabled:
   - unused_use
   - concat_without_spaces
+  - yoda_style
 finder:
   name: "*.php"
   not-name:
