@@ -5,7 +5,6 @@ enabled:
   - ordered_imports
   - short_array_syntax
 disabled:
-  - align_double_arrow
   - unused_use
 finder:
   name: "*.php"
