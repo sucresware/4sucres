@@ -7,7 +7,7 @@ use App\Models\User;
 use ForceUTF8\Encoding;
 use Spatie\Regex\Regex;
 
-class sucresParser
+class SucresParser
 {
     public $content;
 
@@ -24,7 +24,7 @@ class sucresParser
         $this->post = $post;
         $this->content = $post->body;
         $this->lightweight = $lightweight;
-        $this->parser = new sucresParsedown();
+        $this->parser = new SucresParsedown();
     }
 
     public function render()

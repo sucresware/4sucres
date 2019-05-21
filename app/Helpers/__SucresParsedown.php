@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Spatie\Regex\Regex;
 
-class sucresParsedown extends \ParsedownCheckbox
+class SucresParsedown extends \ParsedownCheckbox
 {
     protected $urlIgnoreRegex = [];
 
@@ -44,7 +44,7 @@ class sucresParsedown extends \ParsedownCheckbox
 
     protected function inlineGlitch($excerpt)
     {
-        $regex = Regex::match('/^\+(.*?)\+/', $excerpt['text']);
+        $regex = Regex::match('/^\+\+(.*?)\+\+/', $excerpt['text']);
         if ($regex->hasMatch()) {
             return [
                 'extent' => strlen($regex->group(0)),
@@ -59,7 +59,7 @@ class sucresParsedown extends \ParsedownCheckbox
 
     protected function inlineMock($excerpt)
     {
-        $regex = Regex::match('/^\%(.*?)\%/', $excerpt['text']);
+        $regex = Regex::match('/^\%\%(.*?)\%\%/', $excerpt['text']);
         if ($regex->hasMatch()) {
             $str = str_split(strtolower($regex->group(1)));
             foreach ($str as &$char) {
@@ -95,7 +95,7 @@ class sucresParsedown extends \ParsedownCheckbox
 
     protected function inlineAesthetic($excerpt)
     {
-        $regex = Regex::match('/^\~(.*?)\~/', $excerpt['text']);
+        $regex = Regex::match('/^\~\~(.*?)\~\~/', $excerpt['text']);
 
         if ($regex->hasMatch()) {
             $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $regex->group(1));
