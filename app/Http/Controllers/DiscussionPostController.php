@@ -24,7 +24,7 @@ class DiscussionPostController extends Controller
         ]);
 
         $post = $discussion->posts()->create([
-            'body' => request()->input('body'),
+            'body'    => request()->input('body'),
             'user_id' => user()->id,
         ]);
 

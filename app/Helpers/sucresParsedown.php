@@ -38,6 +38,7 @@ class sucresParsedown extends \ParsedownCheckbox
     public function setIgnoreRegex($urlIgnoreRegex)
     {
         $this->urlIgnoreRegex = $urlIgnoreRegex;
+
         return $this;
     }
 
@@ -46,11 +47,11 @@ class sucresParsedown extends \ParsedownCheckbox
         $regex = Regex::match('/^\+(.*?)\+/', $excerpt['text']);
         if ($regex->hasMatch()) {
             return [
-                'extent' => strlen($regex->group(0)),
+                'extent'  => strlen($regex->group(0)),
                 'element' => [
-                    'name' => 'span',
-                    'text' => $regex->group(1),
-                    'attributes' => ['class' => 'baffle',],
+                    'name'       => 'span',
+                    'text'       => $regex->group(1),
+                    'attributes' => ['class' => 'baffle'],
                 ],
             ];
         }
@@ -62,11 +63,13 @@ class sucresParsedown extends \ParsedownCheckbox
         if ($regex->hasMatch()) {
             $str = str_split(strtolower($regex->group(1)));
             foreach ($str as &$char) {
-                if (rand(0, 1)) $char = strtoupper($char);
+                if (rand(0, 1)) {
+                    $char = strtoupper($char);
+                }
             }
 
             return [
-                'extent' => strlen($regex->group(0)),
+                'extent'  => strlen($regex->group(0)),
                 'element' => [
                     'name' => 'span',
                     'text' => implode('', $str),
@@ -79,13 +82,12 @@ class sucresParsedown extends \ParsedownCheckbox
     {
         $regex = Regex::match('/^\|\|(.*?)\|\|/', $excerpt['text']);
         if ($regex->hasMatch()) {
-
             return [
-                'extent' => strlen($regex->group(0)),
+                'extent'  => strlen($regex->group(0)),
                 'element' => [
-                    'name' => 'span',
-                    'text' => $regex->group(1),
-                    'attributes' => ['class' => 'spoiler',],
+                    'name'       => 'span',
+                    'text'       => $regex->group(1),
+                    'attributes' => ['class' => 'spoiler'],
                 ],
             ];
         }
@@ -98,7 +100,7 @@ class sucresParsedown extends \ParsedownCheckbox
         if ($regex->hasMatch()) {
             $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $regex->group(1));
             $output = '';
-            for ($i = 0; $i < strlen($input); $i++) {
+            for ($i = 0; $i < strlen($input); ++$i) {
                 $char = $input[$i];
                 list(, $code) = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
                 if ($code >= 33 && $code <= 270) {
@@ -109,7 +111,7 @@ class sucresParsedown extends \ParsedownCheckbox
             }
 
             return [
-                'extent' => strlen($regex->group(0)),
+                'extent'  => strlen($regex->group(0)),
                 'element' => [
                     'name' => 'span',
                     'text' => trim($output),
@@ -121,11 +123,14 @@ class sucresParsedown extends \ParsedownCheckbox
     protected function inlineUrl($excerpt)
     {
         $link = parent::inlineUrl($excerpt);
-        if (!isset($link)) return null;
+        if (!isset($link)) {
+            return null;
+        }
 
         foreach ($this->urlIgnoreRegex as $regex) {
             if (Regex::match($regex, $link['element']['attributes']['href'])->hasMatch()) {
                 $link['markup'] = $this->renderEmbed($link['element']['attributes']['href']);
+
                 return $link;
             }
         }
@@ -136,7 +141,9 @@ class sucresParsedown extends \ParsedownCheckbox
     protected function inlineLink($excerpt)
     {
         $link = parent::inlineLink($excerpt);
-        if (!isset($link)) return null;
+        if (!isset($link)) {
+            return null;
+        }
 
         if ($link['element']['text'] == '') {
             $link['element']['text'] = $link['element']['attributes']['href'];
@@ -159,10 +166,12 @@ class sucresParsedown extends \ParsedownCheckbox
     {
         $image = parent::inlineImage($excerpt);
 
-        if (!isset($image)) return null;
+        if (!isset($image)) {
+            return null;
+        }
 
         $url = $image['element']['attributes']['src'];
-        $url = str_replace("http://", "https://", $url);
+        $url = str_replace('http://', 'https://', $url);
 
         $regex = Regex::match('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $url);
 
@@ -187,6 +196,7 @@ class sucresParsedown extends \ParsedownCheckbox
         $link = $this->renderTwitchClips($link);
         $link = $this->renderVocaBank($link);
         $link = $this->renderNoelshack($link);
+
         return $link;
     }
 
@@ -195,7 +205,7 @@ class sucresParsedown extends \ParsedownCheckbox
         $matchs = Regex::matchAll('/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m', $link);
 
         foreach ($matchs->results() as $match) {
-            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' . $match->group(1) . '?rel=0" allowfullscreen></iframe>';
             $markup .= '</div>';
@@ -212,7 +222,7 @@ class sucresParsedown extends \ParsedownCheckbox
     {
         $matchs = Regex::matchAll('/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m', $link);
         foreach ($matchs->results() as $match) {
-            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
             $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
             $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $match->group(1) . '&command=download_mp3" type="audio/mpeg">';
@@ -233,7 +243,7 @@ class sucresParsedown extends \ParsedownCheckbox
         $matchs = Regex::matchAll('/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m', $link);
 
         foreach ($matchs->results() as $match) {
-            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://clips.twitch.tv/embed?autoplay=false&clip=' . $match->group(1) . '" allowfullscreen></iframe>';
             $markup .= '</div>';
@@ -251,7 +261,7 @@ class sucresParsedown extends \ParsedownCheckbox
         $matchs = Regex::matchAll('/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m', $link);
 
         foreach ($matchs->results() as $match) {
-            $markup  = '<div class="integration my-2 shadow-sm" style="max-width: 600px">';
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 600px">';
             $markup .= '<div style="max-width: 600px" class="border-bottom">';
             $markup .= '<iframe width="100%" height="120" scrolling="no" frameborder="no" src="' . $match->group(0) . '/iframe"></iframe>';
             $markup .= '</div>';

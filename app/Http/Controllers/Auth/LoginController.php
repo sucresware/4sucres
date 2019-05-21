@@ -16,8 +16,8 @@ class LoginController extends Controller
     public function submit(Request $request)
     {
         $validator = Validator::make($request->input(), [
-            'email' => 'required|email',
-            'password' => 'required',
+            'email'                => 'required|email',
+            'password'             => 'required',
             'g-recaptcha-response' => 'required|captcha',
         ]);
         $validator->validate();
@@ -30,6 +30,7 @@ class LoginController extends Controller
         ], $remember)) {
             if (user()->deleted_at) {
                 auth()->logout();
+
                 return redirect()->route('home')->with('error', 'Désolé mec, c\'est terminé.');
             }
 

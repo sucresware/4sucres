@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Carbon;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Qirolab\Laravel\Reactions\Traits\Reacts;
-use NotificationChannels\WebPush\HasPushSubscriptions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Traits\Reacts;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements ReactsInterface
 {
@@ -23,7 +23,7 @@ class User extends Authenticatable implements ReactsInterface
 
     protected $appends = [
         'link',
-        'avatar_link'
+        'avatar_link',
     ];
 
     protected $hidden = [
@@ -40,10 +40,10 @@ class User extends Authenticatable implements ReactsInterface
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'last_activity' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'settings' => 'array',
+        'last_activity'     => 'datetime',
+        'created_at'        => 'datetime',
+        'updated_at'        => 'datetime',
+        'settings'          => 'array',
     ];
 
     public function verify_user()
@@ -68,7 +68,7 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getRestrictedAttribute()
     {
-        return (bool)($this->email_verified_at == null);
+        return (bool) ($this->email_verified_at == null);
     }
 
     public function getRestrictedPostsCreatedAttribute()
@@ -97,7 +97,7 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getOnlineAttribute()
     {
-        return ($this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
+        return $this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s');
     }
 
     public function getPresentedLastActivityAttribute()
@@ -141,9 +141,9 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getIsEligibleForWebpushAttribute()
     {
-        return ($this->getSetting('webpush.enabled', false) &&
+        return $this->getSetting('webpush.enabled', false) &&
             now() > $this->last_activity
-            ->addMinutes($this->getSetting('webpush.idle_wait', 1)));
+            ->addMinutes($this->getSetting('webpush.idle_wait', 1));
     }
 
     public function getDisplayNameAttribute()

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
+use App\Mail\ResetPassword;
 use App\Models\User;
 use App\Models\VerifyUser;
-use App\Mail\ResetPassword;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
@@ -26,8 +26,8 @@ class ForgotPasswordController extends Controller
         if ($user != null) {
             $verify_user = VerifyUser::create([
                 'user_id' => $user->id,
-                'token' => str_random(40),
-                'scope' => VerifyUser::SCOPE_RESET_PASSWORD,
+                'token'   => str_random(40),
+                'scope'   => VerifyUser::SCOPE_RESET_PASSWORD,
             ]);
 
             Mail::to($user)->send(new ResetPassword($user, $verify_user->token));

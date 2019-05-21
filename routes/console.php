@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Post;
-use Spatie\Regex\Regex;
 use Illuminate\Foundation\Inspiring;
+use Spatie\Regex\Regex;
 
 /*
 |--------------------------------------------------------------------------

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Category;
 use App\Models\Discussion;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DiscussionController extends Controller
@@ -53,19 +53,19 @@ class DiscussionController extends Controller
         }
 
         request()->validate([
-            'title' => 'required|min:4|max:255',
-            'body' => 'required|min:3|max:3000',
+            'title'    => 'required|min:4|max:255',
+            'body'     => 'required|min:3|max:3000',
             'category' => 'required|exists:categories,id',
         ]);
 
         $discussion = Discussion::create([
-            'title' => request()->title,
-            'user_id' => user()->id,
+            'title'       => request()->title,
+            'user_id'     => user()->id,
             'category_id' => request()->category,
         ]);
 
         $post = $discussion->posts()->create([
-            'body' => request()->body,
+            'body'    => request()->body,
             'user_id' => user()->id,
         ]);
 
@@ -156,7 +156,7 @@ class DiscussionController extends Controller
         }
 
         request()->validate([
-            'title' => 'required|min:4|max:255',
+            'title'    => 'required|min:4|max:255',
             'category' => 'required|exists:categories,id',
         ]);
 

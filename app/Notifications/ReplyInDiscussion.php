@@ -5,8 +5,8 @@ namespace App\Notifications;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use NotificationChannels\WebPush\WebPushChannel;
 use Illuminate\Notifications\Messages\BroadcastMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 
 class ReplyInDiscussion extends DefaultNotification
 {
@@ -44,7 +44,7 @@ class ReplyInDiscussion extends DefaultNotification
     protected function attributes()
     {
         $attributes = [
-            'title' => 'Oh putain ! Une nouvelle réponse !',
+            'title'  => 'Oh putain ! Une nouvelle réponse !',
             'target' => $this->post->link,
         ];
 
@@ -65,7 +65,7 @@ class ReplyInDiscussion extends DefaultNotification
 
         return new BroadcastMessage(array_merge($attributes, [
             'title' => $attributes['title'],
-            'url' => $this->save_to_database ? route('notifications.show', $this->id) : $attributes['target'],
+            'url'   => $this->save_to_database ? route('notifications.show', $this->id) : $attributes['target'],
         ]));
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Achievement;
-use Spatie\Permission\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
+use Spatie\Permission\Models\Role;
 
 class UserSettingsController extends Controller
 {
@@ -18,8 +18,11 @@ class UserSettingsController extends Controller
 
     public function profile($name = null)
     {
-        if ($name) $user = User::where('name', $name)->firstOrFail();
-        else $user = user();
+        if ($name) {
+            $user = User::where('name', $name)->firstOrFail();
+        } else {
+            $user = user();
+        }
 
         if ($user->id != user()->id && !user()->can('bypass users guard')) {
             return abort(403);
@@ -69,8 +72,8 @@ class UserSettingsController extends Controller
 
         request()->validate([
             'display_name' => ['required', 'string', 'max:255', 'min:4'],
-            'shown_role' => ['string', 'max:255'],
-            'avatar' => ['image', 'max:2048'],
+            'shown_role'   => ['string', 'max:255'],
+            'avatar'       => ['image', 'max:2048'],
         ]);
 
         if (request()->hasFile('avatar')) {
@@ -106,7 +109,7 @@ class UserSettingsController extends Controller
         $user = user();
 
         $user->setMultipleSettings([
-            'layout.sidebar' => request()->input('sidebar', 'left'),
+            'layout.sidebar'  => request()->input('sidebar', 'left'),
             'layout.stickers' => request()->input('stickers', 'default'),
         ]);
 
@@ -118,7 +121,7 @@ class UserSettingsController extends Controller
         $user = user();
 
         $user->setMultipleSettings([
-            'webpush.enabled' => (bool)request()->input('optin_webpush', 0),
+            'webpush.enabled'   => (bool) request()->input('optin_webpush', 0),
             'webpush.idle_wait' => request()->input('idle_wait', 1),
         ]);
 
@@ -149,13 +152,14 @@ class UserSettingsController extends Controller
         $user = user();
 
         $validator = Validator::make(request()->input(), [
-            'password' => ['required'],
+            'password'     => ['required'],
             'new_password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
         $validator->validate();
 
         if (!Hash::check(request()->password, $user->password)) {
             $validator->errors()->add('password', 'Le mot de passe est incorrect');
+
             return redirect(route('user.settings.account.password'))->withErrors($validator)->withInput(request()->input());
         }
 

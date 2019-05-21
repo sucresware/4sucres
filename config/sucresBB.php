@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'logo' => '/vendor/devdojo/chatter/assets/images/logo-light.png',
+    'logo'     => '/vendor/devdojo/chatter/assets/images/logo-light.png',
     'security' => [
         'limit_time_between_posts' => true,
-        'time_between_posts' => 1, // In minutes
+        'time_between_posts'       => 1, // In minutes
     ],
 
     /*
@@ -30,11 +30,11 @@ return [
     'order_by' => [
         'posts' => [
             'order' => 'created_at',
-            'by' => 'ASC',
+            'by'    => 'ASC',
         ],
         'discussions' => [
             'order' => 'last_reply_at',
-            'by' => 'DESC',
+            'by'    => 'DESC',
         ],
     ],
 
@@ -52,7 +52,7 @@ return [
 
     'email' => [
         'enabled' => false,
-        'view' => 'chatter::email',
+        'view'    => 'chatter::email',
     ],
 
     /*
@@ -109,25 +109,25 @@ return [
     */
 
     'middleware' => [
-        'global' => ['web'],
-        'home' => [],
+        'global'     => ['web'],
+        'home'       => [],
         'discussion' => [
-            'index' => [],
-            'show' => [],
-            'create' => [],
-            'store' => [],
+            'index'   => [],
+            'show'    => [],
+            'create'  => [],
+            'store'   => [],
             'destroy' => [],
-            'edit' => [],
-            'update' => [],
+            'edit'    => [],
+            'update'  => [],
         ],
         'post' => [
-            'index' => [],
-            'show' => [],
-            'create' => [],
-            'store' => [],
+            'index'   => [],
+            'show'    => [],
+            'create'  => [],
+            'store'   => [],
             'destroy' => [],
-            'edit' => [],
-            'update' => [],
+            'edit'    => [],
+            'update'  => [],
         ],
         'category' => [
             'show' => [],

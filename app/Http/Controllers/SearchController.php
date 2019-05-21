@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Discussion;
 use Illuminate\Support\Str;
 use Spatie\Regex\Regex;
 
@@ -14,13 +14,13 @@ class SearchController extends Controller
     {
         $query = request()->input('query');
         $scope = request()->input('scope', 'posts');
-        $return = view('search.results',  compact('query', 'scope'));
+        $return = view('search.results', compact('query', 'scope'));
 
         switch ($scope) {
             case 'discussions':
                 $discussions = Discussion::query()
                     ->public()
-                    ->where('title', 'like', '%' .  $query . '%')
+                    ->where('title', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->paginate(15);
 
@@ -33,13 +33,14 @@ class SearchController extends Controller
                     });
 
                 return $return->with([
-                    'discussions' => $discussions
+                    'discussions' => $discussions,
                 ]);
+
                 break;
             case 'posts':
                 $posts = Post::query()
                     ->notTrashed()
-                    ->where('body', 'like', '%' .  $query . '%')
+                    ->where('body', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->with('discussion')
                     ->paginate(10);
@@ -59,8 +60,9 @@ class SearchController extends Controller
                     });
 
                 return $return->with([
-                    'posts' => $posts
+                    'posts' => $posts,
                 ]);
+
                 break;
             case 'users':
                 $users = User::query()
@@ -78,7 +80,7 @@ class SearchController extends Controller
                     });
 
                 return $return->with([
-                    'users' => $users
+                    'users' => $users,
                 ]);
         }
 

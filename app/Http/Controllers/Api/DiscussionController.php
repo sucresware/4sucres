@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Discussion;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Discussion;
 
 class DiscussionController extends Controller
 {

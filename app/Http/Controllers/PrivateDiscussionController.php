@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Discussion;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Notifications\NewPrivateDiscussion;
+use Illuminate\Http\Request;
 
 class PrivateDiscussionController extends Controller
 {
@@ -31,18 +31,18 @@ class PrivateDiscussionController extends Controller
 
         request()->validate([
             'title' => 'required|min:10',
-            'body' => 'required|min:10',
+            'body'  => 'required|min:10',
         ]);
 
         $discussion = Discussion::create([
-            'title' => request()->title,
-            'user_id' => user()->id,
+            'title'       => request()->title,
+            'user_id'     => user()->id,
             'category_id' => 0,
-            'private' => true,
+            'private'     => true,
         ]);
 
         $post = $discussion->posts()->create([
-            'body' => request()->body,
+            'body'    => request()->body,
             'user_id' => user()->id,
         ]);
 

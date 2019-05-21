@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Models\User;
 use App\Models\Discussion;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use NotificationChannels\WebPush\WebPushChannel;
 
@@ -41,10 +41,10 @@ class RepliesInDiscussion extends DefaultNotification
     protected function attributes()
     {
         return [
-            'title' => 'Oui, allo ?',
+            'title'  => 'Oui, allo ?',
             'target' => $this->discussion->link,
-            'html' => 'Plusieurs réponses ont été postées sur la discussion <b>' . $this->discussion->title . '</b>',
-            'text' => 'Plusieurs réponses ont été postées sur la discussion : ' . $this->discussion->title,
+            'html'   => 'Plusieurs réponses ont été postées sur la discussion <b>' . $this->discussion->title . '</b>',
+            'text'   => 'Plusieurs réponses ont été postées sur la discussion : ' . $this->discussion->title,
         ];
     }
 }

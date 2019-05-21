@@ -18,9 +18,10 @@ class sucresHelper
     const RE_UNICODE_WS = '[\pZ\p{Cc}\x{feff}]';
 
     /**
-     * Like trim() but also handles unicode specific properties
+     * Like trim() but also handles unicode specific properties.
      *
      * @param string $str
+     *
      * @return string
      */
     public static function unicodeTrim($str): string

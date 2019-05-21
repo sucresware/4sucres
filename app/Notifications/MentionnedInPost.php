@@ -3,9 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
-use NotificationChannels\WebPush\WebPushMessage;
 
 class MentionnedInPost extends DefaultNotification
 {
@@ -28,10 +26,10 @@ class MentionnedInPost extends DefaultNotification
     protected function attributes()
     {
         $attributes = [
-            'title' => 'Hey! T\'as été mentionné !',
+            'title'  => 'Hey! T\'as été mentionné !',
             'target' => $this->post->link,
-            'html' => '<b>' . $this->post->user->display_name . '</b> t\'as mentionné dans la discussion <b>' . $this->post->discussion->title . '</b>',
-            'text' => $this->post->user->display_name . ' t\'as mentionné dans la discussion : ' . $this->post->discussion->title,
+            'html'   => '<b>' . $this->post->user->display_name . '</b> t\'as mentionné dans la discussion <b>' . $this->post->discussion->title . '</b>',
+            'text'   => $this->post->user->display_name . ' t\'as mentionné dans la discussion : ' . $this->post->discussion->title,
         ];
 
         return $attributes;

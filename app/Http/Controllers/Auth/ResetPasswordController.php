@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\VerifyUser;
-use App\Mail\ResetPassword;
 use App\Http\Controllers\Controller;
+use App\Models\VerifyUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
