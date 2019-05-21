@@ -1,7 +1,15 @@
-preset: recommended
+preset: symfony
+risky: true
+enabled:
+  - long_array_syntax
+  - ordered_imports
+  - short_array_syntax
 disabled:
+  - align_double_arrow
   - unused_use
 finder:
+  name: "*.php"
   not-name:
+    - "*.blade.php"
     - index.php
     - server.php
