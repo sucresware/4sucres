@@ -2,8 +2,37 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Carbon;
+
 class SucresHelper
 {
+    const NICEDATE_MINIMAL = 0;
+    const NICEDATE_WITH_HOURS = 1;
+
+    public static function niceDate(Carbon $date, $ret_type = self::NICEDATE_WITH_HOURS)
+    {
+        $diffInDays = $date->copy()->startOfDay()->diffInWeekDays(now()->startOfDay());
+
+        switch ($diffInDays) {
+            case 0:
+                $markup = 'aujourd\'hui';
+
+                break;
+            case 1:
+                $markup = 'hier';
+
+                break;
+            default:
+                $markup = 'le ' . $date->format('d/m/Y');
+        }
+
+        if ($ret_type == self::NICEDATE_WITH_HOURS) {
+            $markup .= ' à ' . $date->format('H:i:s');
+        }
+
+        return $markup;
+    }
+
     /**
      * Matches what we call "unicode whitespace", i.e. normal ASCII whitespace as well as special
      * unicode control and whitespace properties. Use only in regex with /u modifier!
