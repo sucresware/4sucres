@@ -36,7 +36,7 @@ Artisan::command('convert_all_posts_from_bbcode_to_markdown', function () {
         $post->body = Regex::replace('/\[i(?:(?:=)(.*?)|)\](.*?)\[\/i\]/', '*$2*', $post->body)->result();
         $post->body = Regex::replace('/\[s(?:(?:=)(.*?)|)\](.*?)\[\/s\]/', '~~$2~~', $post->body)->result();
         $post->body = Regex::replace('/\[code(?:(?:=)(.*?)|)\](.*?)\[\/code\]/', '````' . "\r\n " . '$2' . "\r\n " . '```', $post->body)->result();
-        $post->body = Regex::replace('/\[url(?:(?:=)(.*?)|)\](.*?)\[\/url\]/', '[$1]($2)', $post->body)->result();
+        $post->body = Regex::replace('/\[url(?:(?:=)(.*?)|)\](.*?)\[\/url\]/', '[$2]($1)', $post->body)->result();
         $post->body = Regex::replace('/\[img(?:(?:=)(.*?)|)\](.*?)\[\/img\]/', '![]($2)', $post->body)->result();
         $post->body = Regex::replace('/\[spoiler(?:(?:=)(.*?)|)\](.*?)\[\/spoiler\]/', '||$2||', $post->body)->result();
         $post->body = Regex::replace('/\[mock(?:(?:=)(.*?)|)\](.*?)\[\/mock\]/', '%$2%', $post->body)->result();
