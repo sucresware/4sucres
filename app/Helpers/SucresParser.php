@@ -128,7 +128,7 @@ class SucresParser
             $target = SucresHelper::unicodeTrim(str_replace(['#p:'], '', $excerpt));
             $post = Post::find($target);
 
-            if ($post->discussion->private) {
+            if ($post && $post->discussion->private) {
                 continue;
             }
 
