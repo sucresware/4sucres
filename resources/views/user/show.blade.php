@@ -30,7 +30,21 @@
                     <h3 class="h5">Profil du Sucre</h5>
                     <div class="p-1">
                         <strong>Classification :</strong> {{ $user->shown_role }}<br>
-                        <strong>Membre depuis :</strong> {{ ($user->created_at->diffInDays(now()) < 1) ? 'aujourd\'hui' : $user->created_at->diffInDays(now()) . ' jour(s)' }} ({{ $user->created_at->format('d/m/Y') }})<br>
+                        <strong>Membre depuis :</strong>
+                        @php
+                            $diffInDays = $user->created_at->startOfDay()->diffInWeekDays(now()->startOfDay());
+                        @endphp
+                        @switch($diffInDays)
+                            @case(0)
+                                <span class="text-warning">aujourd'hui</span>
+                                @break
+                            @case(1)
+                                <span class="text-warning">hier</span>
+                                @break
+                            @default
+                                {{ $diffInDays . ' ' . str_plural('jour', $diffInDays) }}
+                        @endswitch
+                        ({{ $user->created_at->format('d/m/Y') }})<br>
                         <strong>Dernière activité :</strong> {{ $user->last_activity->diffForHumans() }}<br>
                     </div>
 
