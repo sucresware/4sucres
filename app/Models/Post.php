@@ -27,55 +27,38 @@ class Post extends Model implements ReactableInterface
     {
         parent::boot();
 
-        self::created(function ($post) {
-            $discussion = $post->discussion;
+        self::created(function ($created_post) {
+            $discussion = $created_post->discussion;
             ++$discussion->replies;
             $discussion->last_reply_at = now();
             $discussion->save();
 
-            $post->discussion->has_read()->sync([]);
-            $post->discussion->notify_subscibers($post);
+            $created_post->discussion->has_read()->sync([]);
+            $created_post->discussion->notify_subscibers($created_post);
 
-            if (!$post->discussion->private) {
-                $preg_result = [];
-                preg_match_all('/(?:@|#u:)(?:\w+)(?:<br\/>|<br>|[\s]|$|\z)/', $post->body, $preg_result);
-                $mentioned_users = [];
+            if (!$created_post->discussion->private) {
+                $parser = new SucresParser($created_post);
 
-                foreach ($preg_result[0] as $tag) {
-                    $tag = trim($tag);
-                    $clear_tag = trim(str_replace(['@', '#u:'], '', $tag));
+                $mentioned_users = $parser->getMentions(SucresParser::MENTIONS_RETURN_USERS)
+                    ->unique()
+                    ->reject(function ($user) use ($created_post) {
+                        return $user->id == $created_post->user->id;
+                    });
 
-                    if ($clear_tag == $post->user->name) {
-                        continue;
-                    }
-                    $user = User::where('name', $clear_tag)->first();
-                    if (!$user) {
-                        continue;
-                    }
+                $quoted_users = $parser->getQuotedUsers()
+                    ->unique()
+                    ->reject(function ($user) use ($created_post) {
+                        return $user->id == $created_post->user->id;
+                    });
 
-                    $mentioned_users[$user->id] = $user;
+                Notification::send($mentioned_users, new MentionnedInPost($created_post));
+                Notification::send($quoted_users, new QuotedInPost($created_post));
                 }
 
-                Notification::send($mentioned_users, new MentionnedInPost($post));
+            return true;
+        });
 
-                $preg_result = [];
-                preg_match_all('/(?:#p:)(?:\d+)(?:<br\/>|<br>|[\s]|$|\z)/', $post->body, $preg_result);
-                $quoted_users = [];
-
-                foreach ($preg_result[0] as $tag) {
-                    $tag = trim($tag);
-                    $clear_tag = trim(str_replace(['#p:'], '', $tag));
-
-                    $p = Post::find($clear_tag);
-                    if (!$p || $p->discussion->private) {
-                        continue;
-                    }
-                    if ($post->user->id == $p->user->id) {
-                        continue;
-                    }
-
-                    $quoted_users[$p->user->id] = $p->user;
-                }
+        self::updated(function ($updated_post) {
 
                 Notification::send($quoted_users, new QuotedInPost($post));
             }
