@@ -53,7 +53,7 @@ class DiscussionController extends Controller
         }
 
         request()->validate([
-            'title'    => 'required|min:4|max:255',
+            'title'    => 'required|min:3|max:255',
             'body'     => 'required|min:3|max:3000',
             'category' => 'required|exists:categories,id',
         ]);

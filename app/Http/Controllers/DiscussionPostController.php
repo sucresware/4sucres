@@ -55,7 +55,7 @@ class DiscussionPostController extends Controller
         }
 
         request()->validate([
-            'body' => 'required|min:10',
+            'body' => 'required|min:3',
         ]);
 
         $post->body = request()->input('body');

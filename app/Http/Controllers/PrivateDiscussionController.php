@@ -30,8 +30,8 @@ class PrivateDiscussionController extends Controller
         $to = $user;
 
         request()->validate([
-            'title' => 'required|min:10',
-            'body'  => 'required|min:10',
+            'title' => 'required|min:3',
+            'body'  => 'required|min:3',
         ]);
 
         $discussion = Discussion::create([
