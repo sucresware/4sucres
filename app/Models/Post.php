@@ -13,6 +13,7 @@ use Qirolab\Laravel\Reactions\Traits\Reactable;
 class Post extends Model implements ReactableInterface
 {
     use Reactable;
+
     protected $guarded = [];
 
     protected $appends = [
@@ -20,10 +21,6 @@ class Post extends Model implements ReactableInterface
         'presented_body',
         'presented_created_at',
         'presented_updated_at',
-    ];
-
-    protected $hidden = [
-        '',
     ];
 
     public static function boot()
@@ -104,7 +101,7 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedLightBodyAttribute()
     {
-        return (new SucresParser($this, true))->render();
+        return (new SucresParser($this))->render(false);
     }
 
     public function getPresentedCreatedAtAttribute()

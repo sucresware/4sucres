@@ -9,23 +9,28 @@ use Spatie\Regex\Regex;
 
 class SucresParser
 {
+    const MENTIONS_RETURN_COMPLETE = 1;
+    const MENTIONS_RETURN_USERS = 2;
+    const MENTIONS_RETURN_USER_IDS = 3;
+    const QUOTES_RETURN_COMPLETE = 1;
+    const QUOTES_RETURN_POSTS = 2;
+    const QUOTES_RETURN_POST_IDS = 3;
+
     public $content;
     protected $post;
     protected $parser;
-    protected $lightweight;
     protected $protections;
 
-    public function __construct(Post $post, $lightweight = false)
+    public function __construct(Post $post)
     {
         $this->post = $post;
         $this->content = $post->body;
-        $this->lightweight = $lightweight;
         $this->parser = new SucresParsedown();
     }
 
-    public function render()
+    public function render($quotes = true, $allow_html = false)
     {
-        $this->parser->setSafeMode(true);
+        $this->parser->setSafeMode(!$allow_html);
         $this->parser->setIgnoreRegex([
             '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m',
             '/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m',
@@ -34,10 +39,11 @@ class SucresParser
             '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/m',
         ]);
 
-        $this->renderMD()
+        $this
+            ->renderMD()
             ->renderMentions();
 
-        if (!$this->lightweight) {
+        if ($quotes) {
             $this->renderQuotes();
         }
 
@@ -53,43 +59,104 @@ class SucresParser
 
     public function renderMentions()
     {
-        $matchs = Regex::matchAll('/(?:@|#u:)(?:(\w|-)*)/m', $this->content);
-
-        foreach ($matchs->results() as $match) {
-            $tag = trim($match->group(0));
-            $clear_tag = trim(str_replace(['@', '#u:'], '', $tag));
-
-            $user = User::where('name', $clear_tag)->first();
-            if (!$user) {
+        foreach ($this->getMentions() as $mention) {
+            if (!$mention['user']) {
                 continue;
             }
 
             $this->content = str_replace(
-                $tag,
-                '<a href="' . $user->link . '" class="badge badge-primary align-middle">@' . $user->name . '</a>' . ' ',
+                $mention['excerpt'],
+                '<a href="' . $mention['user']->link . '" class="badge badge-primary align-middle">@' . $mention['user']->name . '</a>' . ' ',
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderQuotes()
+    {
+        foreach ($this->getQuotes() as $quote) {
+            if (!$quote['post']) {
+                continue;
+            }
+
+            $this->content = str_replace(
+                $quote['excerpt'],
+                view('discussion.post._show_as_quote', array_merge(['post' => $quote['post']], ['current' => $quote['post']]))->render(),
                 $this->content
             );
         }
     }
 
-    public function renderQuotes()
+    public function getMentions($ret_type = self::MENTIONS_RETURN_COMPLETE)
     {
+        $mentions = [];
+        $matchs = Regex::matchAll('/(?:@|#u:)(?:(\w|-)*)/m', $this->content);
+
+        foreach ($matchs->results() as $match) {
+            $excerpt = SucresHelper::unicodeTrim($match->group(0));
+            $target = SucresHelper::unicodeTrim(str_replace(['@', '#u:'], '', $excerpt));
+            $user = User::where('name', $target)->first();
+
+            if ($user && $ret_type != self::MENTIONS_RETURN_COMPLETE) {
+                $mentions[] = self::MENTIONS_RETURN_USERS ? $user : $user->id;
+            } elseif ($ret_type == self::MENTIONS_RETURN_COMPLETE) {
+                $mentions[] = [
+                    'excerpt' => $excerpt,
+                    'user'    => $user, // /!\ Can return null if user was not found
+                ];
+            }
+        }
+
+        return collect($mentions);
+    }
+
+    public function hasMentions()
+    {
+        return count($this->getMentions(self::MENTIONS_RETURN_USER_IDS)) != 0;
+    }
+
+    public function getQuotes($ret_type = self::QUOTES_RETURN_COMPLETE)
+    {
+        $quotes = [];
         $matchs = Regex::matchAll('/(?:#p:)(?:(\w|-)*)/m', $this->content);
 
         foreach ($matchs->results() as $match) {
-            $tag = trim($match->group(0));
-            $clear_tag = trim(str_replace(['#p:'], '', $tag));
+            $excerpt = SucresHelper::unicodeTrim($match->group(0));
+            $target = SucresHelper::unicodeTrim(str_replace(['#p:'], '', $excerpt));
+            $post = Post::find($target);
 
-            $post = Post::find($clear_tag);
-            if (!$post || $post->discussion->private) {
+            if ($post->discussion->private) {
                 continue;
             }
 
-            $this->content = str_replace(
-                $tag,
-                view('discussion.post._show_as_quote', array_merge(compact('post'), ['current' => $this->post]))->render(),
-                $this->content
-            );
+            if ($post && $ret_type != self::QUOTES_RETURN_COMPLETE) {
+                $quotes[] = self::QUOTES_RETURN_POSTS ? $post : $post->id;
+            } elseif ($ret_type == self::QUOTES_RETURN_COMPLETE) {
+                $quotes[] = [
+                    'excerpt' => $excerpt,
+                    'post'    => $post, // /!\ Can return null if post was not found
+                ];
+            }
         }
+
+        return collect($quotes);
+    }
+
+    public function hasQuotes()
+    {
+        return count($this->getQuotes(self::QUOTES_RETURN_POST_IDS)) != 0;
+    }
+
+    public function getQuotedUsers()
+    {
+        $users = [];
+
+        foreach ($this->getQuotes(self::QUOTES_RETURN_POSTS) as $quote) {
+            $users[] = $quote->user;
+        }
+
+        return collect($users);
     }
 }
