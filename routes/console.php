@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Regex\Regex;
 
 /*
@@ -46,4 +47,8 @@ Artisan::command('convert_all_posts_from_bbcode_to_markdown', function () {
     }
 
     $bar->finish();
+});
+
+Artisan::command('clear_posts_renders', function () {
+    Cache::tags('posts')->flush();
 });
