@@ -176,12 +176,14 @@ class SucresParsedown extends \ParsedownCheckbox
         $regex = Regex::match('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $url);
 
         if ($regex->hasMatch()) {
-            if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
-                $preview = '<img class="sticker" src="' . $url . '">';
-                $image['markup'] = "<img class='sticker-inline tooltip-inverse' src='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
-            } else {
-                $image['markup'] = "<img class='sticker' src='$url'>";
-            }
+            // if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
+            //     $preview = '<img class="sticker" src="' . $url . '">';
+            //     $image['markup'] = "<img class='sticker-inline tooltip-inverse' src='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
+            // } else {
+            // $image['markup'] = "<img class='sticker' src='$url'>";
+            // }
+
+            $image['markup'] = "<img class='sticker' src='$url'>";
         } else {
             $image['markup'] = "<a href='$url' data-toggle='lightbox' data-type='image' class='my-2'><img src='$url' class='img-fluid'></a>";
         }
@@ -279,12 +281,14 @@ class SucresParsedown extends \ParsedownCheckbox
     {
         $matchs = Regex::matchAll('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $link);
         foreach ($matchs->results() as $match) {
-            if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
-                $preview = '<img class="sticker" src="' . $match->group(0) . '">';
-                $markup = "<img class='sticker-inline tooltip-inverse' src='" . $match->group(0) . "' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
-            } else {
-                $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
-            }
+            // if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
+            //     $preview = '<img class="sticker" src="' . $match->group(0) . '">';
+            //     $markup = "<img class='sticker-inline tooltip-inverse' src='" . $match->group(0) . "' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
+            // } else {
+            //     $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
+            // }
+
+            $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
 
             return $markup;
         }
