@@ -1,3 +1,10 @@
+<!--
+    Toi qui voit ce message, félicitation pour ton Ctrl+U.
+
+    Poste le message suivant sur le Discord de 4sucres (https://discord.me/4sucres):
+    C'était vraiment la meilleure farce du monde ! J'ai beaucoup ri ! Merci @MGK !
+-->
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
