@@ -21,8 +21,8 @@
                     </div>
 
                     <div class="badge badge-light">
-                        <i class="fas fa-circle {{ $user->online ? 'text-success' : 'text-danger' }} mr-1"></i>
-                        {{ $user->online ? 'En ligne' : 'Hors ligne' }}
+                        <i class="fas fa-circle {{ $user->online_circle_color }} mr-1"></i>
+                        {{ $user->presented_last_activity }}
                     </div>
 
                     <hr>

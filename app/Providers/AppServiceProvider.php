@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             // $view
             //     ->with('presence_counter', Cache::remember('presence_counter', 3, function () {
-            //         return User::online()->count();
+            //         return User::active()->count();
             //     }));
 
             if (auth()->check()) {

@@ -85,8 +85,14 @@ class User extends Authenticatable implements ReactsInterface
         return 3 - $this->restricted_posts_created;
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('last_activity', '>', Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
+    }
+
     public function scopeOnline($query)
     {
+        // FIXME
         return $query->where('last_activity', '>', Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
     }
 
@@ -97,7 +103,21 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getOnlineAttribute()
     {
+        // FIXME
         return $this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s');
+    }
+
+    public function getOnlineCircleColorAttribute()
+    {
+        if ($this->last_activity) {
+            if ($this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s')) {
+                return 'text-success';
+            } elseif ($this->last_activity > Carbon::now()->subMinutes(60)->format('Y-m-d H:i:s')) {
+                return 'text-muted';
+            } else {
+                return 'text-danger';
+            }
+        }
     }
 
     public function getPresentedLastActivityAttribute()
@@ -105,8 +125,10 @@ class User extends Authenticatable implements ReactsInterface
         if ($this->last_activity) {
             if ($this->last_activity > Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s')) {
                 return 'En ligne';
+            } elseif ($this->last_activity > Carbon::now()->subMinutes(60)->format('Y-m-d H:i:s')) {
+                return 'Inactif ' . str_replace('il y a', 'depuis', $this->last_activity->diffForHumans());
             } else {
-                return 'Actif ' . $this->last_activity->diffForHumans();
+                return 'Hors ligne';
             }
         }
     }
