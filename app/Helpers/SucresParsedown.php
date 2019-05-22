@@ -152,9 +152,9 @@ class SucresParsedown extends \ParsedownCheckbox
         $url = $link['element']['attributes']['href'];
 
         if ($link['element']['text'] != $url) {
-            $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . '<a href="#">$url</a>';
+            $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . '<a href="#">' . $url . '</a>';
         } else {
-            $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . '<a href="#">$url</a>';
+            $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . '<a href="#">' . $url . '</a>';
         }
 
         $link['markup'] = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $link['element']['text'] . '</a>';
