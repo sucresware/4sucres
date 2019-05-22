@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SucresParser;
 use App\Models\Category;
 use App\Models\Discussion;
 use App\Models\Post;
@@ -38,7 +39,7 @@ class DiscussionController extends Controller
         $post->body = request()->body;
 
         return response([
-            'render' => $post->presented_body,
+            'render' => (new SucresParser($post))->render(),
         ]);
     }
 
