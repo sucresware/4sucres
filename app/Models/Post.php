@@ -4,11 +4,9 @@ namespace App\Models;
 
 use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
-use App\Jobs\ForgetCacheJob;
 use App\Notifications\MentionnedInPost;
 use App\Notifications\QuotedInPost;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
@@ -65,13 +63,6 @@ class Post extends Model implements ReactableInterface
         });
 
         self::updated(function ($updated_post) {
-            Cache::tags('posts')->forget($updated_post->id . ':render');
-
-            Post::where('body', 'like', '%#p:' . $updated_post->id . '%')->pluck('id')->each(function ($id) {
-                dispatch(new ForgetCacheJob($id . ':render', 'posts'));
-                dispatch(new ForgetCacheJob($id . ':renderWithoutQuotes', 'posts'));
-            });
-
             return true;
         });
     }
@@ -88,16 +79,12 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedBodyAttribute()
     {
-        return Cache::tags('posts')->remember($this->id . ':render', now()->addWeeks(2), function () {
-            return (new SucresParser($this))->render();
-        });
+        return (new SucresParser($this))->render();
     }
 
     public function getPresentedLightBodyAttribute()
     {
-        return Cache::tags('posts')->remember($this->id . ':renderWithoutQuotes', now()->addWeeks(2), function () {
-            return (new SucresParser($this))->render(false);
-        });
+        return (new SucresParser($this))->render(false);
     }
 
     public function getPresentedDateAttribute()
