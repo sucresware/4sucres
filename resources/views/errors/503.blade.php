@@ -63,27 +63,28 @@
                     <div class="spoiler">si tu lis ça t'es pd</div><br>
                     <div class="spoiler">mdrr, le site revient dans 5 minutes, juste le temps de la blague</div>
                 </div>
-                <div class="animated fadeInDown">
+                <div class="">
                     {!! File::get(base_path('/resources/svg/4sucres_alt.svg')) !!}
                 </div>
-                <div class="post mt-5 p-3 row no-gutters shadow animated fadeInDown">
+                <div class="post mt-5 p-3 row no-gutters shadow ">
                     <div class="col-auto mr-3">
                         <img src="https://4sucres.org/storage/avatars/84_avatar1558102073.png" class="post-image rounded">
                     </div>
                     <div class="col">
                         <strong>PipBoy</strong>
                         <small>@PipBoy</small><br>
-                        <small id="date">le 17/05/2019 à 16:09:57</small>
+                        <small id="date">aujourd'hui à 16:09:57</small>
                         <hr>
 
                         <div class="post-content">
-                            <p class="mb-0">à dans 5 jours <img class="sticker-inline tooltip-inverse" src="https://image.noelshack.com/fichiers/2018/26/7/1530476579-reupjesus.png" data-toggle="tooltip" data-placement="top" data-html="true" title="" data-original-title="<img class=&quot;sticker&quot; src=&quot;https://image.noelshack.com/fichiers/2018/26/7/1530476579-reupjesus.png&quot;>"></p>
+                            <p class="">je l'avais dit <img class="sticker-inline tooltip-inverse" src="https://image.noelshack.com/fichiers/2018/26/7/1530476579-reupjesus.png" data-toggle="tooltip" data-placement="top" data-html="true" title="" data-original-title="<img class=&quot;sticker&quot; src=&quot;https://image.noelshack.com/fichiers/2018/26/7/1530476579-reupjesus.png&quot;>"></p>
+
+                            <p class="mb-0 baffle"><strong>Hacked By PipBoy</strong></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center mt-5">
-                    <p><strong>Hacked By PipBoy</strong></p>
                     <div class="spoiler">mdrr, le site revient dans 5 minutes, juste le temps de la blague</div><br>
                     <div class="spoiler">si tu lis ça t'es pd</div><br>
                     <div class="spoiler">\o/</div>
