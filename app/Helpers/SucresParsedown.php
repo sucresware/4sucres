@@ -196,6 +196,7 @@ class SucresParsedown extends \ParsedownCheckbox
         $link = $this->renderTwitchClips($link);
         $link = $this->renderVocaBank($link);
         $link = $this->renderNoelshack($link);
+        $link = $this->renderStrawpoll($link);
 
         return $link;
     }
@@ -284,6 +285,27 @@ class SucresParsedown extends \ParsedownCheckbox
             } else {
                 $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
             }
+
+            return $markup;
+        }
+
+        return $link;
+    }
+
+    public function renderStrawpoll($link)
+    {
+        $matchs = Regex::matchAll('/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m', $link);
+
+        foreach ($matchs->results() as $match) {
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 680px">';
+            $markup .= '<div style="max-width: 680px" class="border-bottom d-none d-lg-block">';
+            $markup .= '<iframe style="width:680px; height:457px; border:0;" scrolling="no" frameborder="no" src="https://www.strawpoll.me/embed_1/' . $match->group(1) . '/r"></iframe>';
+            $markup .= '</div>';
+            $markup .= '<div class="border-bottom d-lg-none p-2 text-center" style="background-color: #ffd756">';
+            $markup .= '<a color="#000" target="_blank" href="' . $match->group(0) . '">' . $match->group(0) . '</a>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="' . $match->group(0) . '">Voter sur StrawPoll</a></div>';
+            $markup .= '</div>';
 
             return $markup;
         }
