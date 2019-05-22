@@ -55,13 +55,7 @@
       <br>
 
       <small>
-        <a :href="post.link">le {{ post.presented_created_at }}</a>
-        <template v-if="!post.deleted_at && post.created_at != post.updated_at">
-          <span class="text-muted">(modifié le {{ post.presented_updated_at }})</span>
-        </template>
-        <template v-if="post.deleted_at">
-          <span class="text-muted">(suppr. le {{ post.presented_updated_at }})</span>
-        </template>
+        <a :href="post.link">{{ post.presented_date }}</a>
       </small>
 
       <hr>

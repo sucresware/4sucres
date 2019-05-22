@@ -24,10 +24,7 @@
         @endif
 
         <a href="{{ $post->user->link }}"><strong>{{ $post->user->display_name }}</strong></a> <small>{{ '@' . $post->user->name }}</small><br>
-        <small><a href="{{ $post->link }}">le {{ $post->created_at->format('d/m/Y à H:i:s') }}</a>
-        @if ($post->created_at != $post->updated_at)
-            <span class="text-muted">(modifié le {{ $post->updated_at->format('d/m/Y à H:i:s') }})</span>
-        @endif</small>
+        <small><a href="{{ $post->link }}">{{ $post->presented_date }}</a></small>
 
         <hr>
 

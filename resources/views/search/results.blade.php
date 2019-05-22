@@ -30,7 +30,7 @@
 
                                 <a href="{{ $post->user->link }}"><img src="{{ $post->user->avatar_link }}" class="rounded" height="14px"></a>
                                 <a href="{{ $post->user->link }}"><strong>{{ $post->user->display_name }}</strong></a>
-                                le {{ $post->presented_created_at }}
+                                {{ $post->presented_date }}
                             </div>
                         </div>
                     @empty

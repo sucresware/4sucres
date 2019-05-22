@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
 use App\Jobs\ForgetCacheJob;
 use App\Notifications\MentionnedInPost;
@@ -21,8 +22,11 @@ class Post extends Model implements ReactableInterface
     protected $appends = [
         'link',
         'presented_body',
-        'presented_created_at',
-        'presented_updated_at',
+        'presented_date',
+    ];
+
+    protected $casts = [
+        'deleted_at' => 'timestamp',
     ];
 
     public static function boot()
@@ -96,14 +100,19 @@ class Post extends Model implements ReactableInterface
         });
     }
 
-    public function getPresentedCreatedAtAttribute()
+    public function getPresentedDateAttribute()
     {
-        return $this->created_at->format('d/m/Y à H:i:s');
-    }
+        $markup = SucresHelper::niceDate($this->created_at);
 
-    public function getPresentedUpdatedAtAttribute()
-    {
-        return $this->updated_at->format('d/m/Y à H:i:s');
+        if ($this->deleted_at) {
+            $markup .= ' (supprimé ' . SucresHelper::niceDate($this->created_at) . ')';
+        } else {
+            if ($this->created_at != $this->updated_at) {
+                $markup .= ' (modifié ' . SucresHelper::niceDate($this->created_at) . ')';
+            }
+        }
+
+        return $markup;
     }
 
     public function getLinkAttribute()
