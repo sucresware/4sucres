@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-body">
             <div class="text-center text-muted">
-                <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid mb-3" width="100px">
+                <img src="{{ url('img/errors/410.png') }}" class="img-fluid mb-3" width="480px">
                 <h1>Erreur 410</h1>
                 <p>La page que tu cherches a été supprimée, pas de BOL !</p>
             </div>
