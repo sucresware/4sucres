@@ -52,6 +52,7 @@ $container-max-widths: (md: 720px,
 
 @import '~bootstrap/scss/bootstrap';
 @import '_app';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
 .card-header {
     border: 0;

@@ -17,41 +17,19 @@
             4sucres.org
         @endif
     </title>
-    <meta name="description" content="Et vous, combien de sucres vous prenez dans votre café ?">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/4sucres.css') }}" rel="stylesheet">
 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
+    {{--  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/img/icons/apple-touch-icon-152x152.png') }}">
     <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32.png') }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16.png') }}" sizes="16x16">
-    <link rel="shortcut icon" href="{{ url('/img/icons/favicon.ico') }}">
+    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16.png') }}" sizes="16x16">  --}}
+    <link rel="shortcut icon" href="{{ url('/img/icons/favicon_admin.ico') }}">
     <meta name="application-name" content="4sucres">
     <meta name="theme-color" content="#3b4252">
     <meta name="msapplication-TileColor" content="#3b4252">
-    <meta name="msapplication-TileImage" content="{{ url('/img/icons/mstile-144x144.png') }}">
-    {!! NoCaptcha::renderJs('fr') !!}
-
-    @if (config('app.env') === 'production')
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139755516-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'UA-139755516-1');
-        </script>
-
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-1896835277768477",
-                enable_page_level_ads: true
-            });
-        </script>
-    @endif
+    {{--  <meta name="msapplication-TileImage" content="{{ url('/img/icons/mstile-144x144.png') }}">  --}}
 
     @stack('css')
 </head>
@@ -157,38 +135,6 @@
             </nav>
         </div>
 
-        {{--  <div class="bg-darker shadow">
-            <div class="container text-white py-2">
-                <div class="row justify-content-between font-small">
-                    <div class="col-auto">
-                    </div>
-                    <div class="col-auto">
-                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-lg-inline-block">{{ str_plural('utilisateur', $presence_counter) }} {{str_plural('actif', $presence_counter)}}</span></small>
-                    </div>
-                </div>
-            </div>
-        </div>  --}}
-
-        @if (auth()->check() && user()->restricted)
-            <div class="bg-primary shadow">
-                <div class="container text-white py-2">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
-                        <div class="col">
-                            <strong>Compte limité</strong><br>
-                            @if($remains = user()->restricted_posts_remaining)
-                                Ne t'inquiètes pas mon ami, tu peux profiter du forum en attendant de recevoir ton email de vérification ({{ user()->restricted_posts_remaining }} réponse(s) restante(s))
-                            @else
-                                Tu dois maintenant vérifier ton adresse email pour continuer !
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        {{--  @yield('main')  --}}
-
         @if (session('success'))
             <div class="alert alert-success shadow">
                 <div class="container">
@@ -229,7 +175,16 @@
         @endif
 
         <main class="py-4">
-            @yield('content')
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-xl-2 mb-3">
+                        @include('admin._navigation')
+                    </div>
+                    <div class="col-lg-7 col-xl-8">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer>
@@ -259,6 +214,7 @@
 
     @routes
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('/js/admin.js') }}"></script>
     @stack('js')
 </body>
 </html>
