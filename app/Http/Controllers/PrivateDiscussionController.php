@@ -18,6 +18,10 @@ class PrivateDiscussionController extends Controller
 
     public function create(User $user)
     {
+        if (user()->restricted) {
+            return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
+        }
+
         $from = user();
         $to = $user;
 
@@ -26,6 +30,10 @@ class PrivateDiscussionController extends Controller
 
     public function store(User $user)
     {
+        if (user()->restricted) {
+            return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
+        }
+
         $from = user();
         $to = $user;
 
