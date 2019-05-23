@@ -22,7 +22,7 @@ class ActionHandler {
     initialize() {
         let that = this;
 
-        $(document).on('click', '[data-action]', function(event) {
+        $(document).on('click', '[data-action]', function (event) {
             let element = $(this),
                 actionData = element.data('action'),
                 actionName = `on${v.capitalize(v.camelCase(actionData))}`;
@@ -88,7 +88,10 @@ class ActionHandler {
     onOpenDiscussion(element) {
         let id = element.data('id') || undefined,
             slug = element.data('slug') || undefined,
-            url = route(ON_OPEN_DISCUSSION_ROUTE, { id, slug }).url();
+            url = route(ON_OPEN_DISCUSSION_ROUTE, {
+                id,
+                slug
+            }).url();
 
         if (undefined === id || undefined === slug) {
             console.log('There is no destination for this URL.');
@@ -99,6 +102,7 @@ class ActionHandler {
         } else {
         window.location.href = url;
     }
+}
 }
 
 export default new ActionHandler();
