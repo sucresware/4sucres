@@ -9,7 +9,7 @@ const PREVIEW_ROUTE = 'discussions.preview';
 
 /**
  * Gère le chargement des actions.
- * Une action est définie par un attribut `data-action` dont la valeur 
+ * Une action est définie par un attribut `data-action` dont la valeur
  * est sous la forme `action-name` et dont la fonction associée est sous
  * la forme `onActionName`.
  */
@@ -57,7 +57,7 @@ class ActionHandler {
     onOpenPreview(element, event) {
         event.preventDefault();
         $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-sync fa-spin fa-1x"></i></div>')
-    
+
         $.ajax({
             type: 'POST',
             url: route(PREVIEW_ROUTE).url(),
@@ -96,13 +96,15 @@ class ActionHandler {
         if (undefined === id || undefined === slug) {
             console.log('There is no destination for this URL.');
         }
-        
+
+        let last = (window.event.altKey) ? '?page=last' : '';
+
         if (window.event.ctrlKey) {
-            window.open(url, '_blank').focus();
+            window.open(url + last, '_blank').focus();
         } else {
-        window.location.href = url;
+            window.location.href = url + last;
+        }
     }
-}
 }
 
 export default new ActionHandler();
