@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
+import Echo from './echo';
+
 import {
     Toast
 } from './toasts.js';
@@ -10,9 +10,6 @@ import {
 } from 'howler';
 
 const DefaultOptions = {
-    broadcaster: 'pusher',
-    key: '',
-    cluster: '',
     privateMessageNotificationSelector: '#private_discussions_indicator',
     genericNotificationSelector: '#notifications_indicator',
     notificationMarkup: `<i class="fas fa-circle fa-stack-2x text-darker"></i>` +
@@ -37,12 +34,6 @@ class NotificationHandler {
             ...DefaultOptions,
             ...options
         };
-        this.options.key = process.env.MIX_PUSHER_APP_KEY;
-        this.options.cluster = process.env.MIX_PUSHER_APP_CLUSTER;
-
-        if (process.env.NODE_ENV === 'development') {
-            Pusher.logToConsole = true;
-        }
 
         this.initialize();
         this.register();
@@ -133,16 +124,7 @@ class NotificationHandler {
             return;
         }
 
-        this.echo =
-            new Echo({
-                broadcaster: this.options.broadcaster,
-                key: this.options.key,
-                cluster: this.options.cluster,
-                encrypted: true
-            });
-
-        this.echo
-            .private(`App.Models.User.${user.id}`)
+        Echo.echo.private(`App.Models.User.${user.id}`)
             .notification((notification) => {
                 console.log('notified')
                 this.notifyUser(notification);
