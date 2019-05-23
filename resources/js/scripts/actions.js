@@ -94,6 +94,9 @@ class ActionHandler {
             console.log('There is no destination for this URL.');
         }
         
+        if (window.event.ctrlKey) {
+            window.open(url, '_blank').focus();
+        } else {
         window.location.href = url;
     }
 }
