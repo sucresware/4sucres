@@ -1,8 +1,13 @@
 import $ from 'jquery';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import { Toast } from './toasts.js';
-import { Howl, Howler } from 'howler';
+import {
+    Toast
+} from './toasts.js';
+import {
+    Howl,
+    Howler
+} from 'howler';
 
 const DefaultOptions = {
     broadcaster: 'pusher',
@@ -11,9 +16,9 @@ const DefaultOptions = {
     privateMessageNotificationSelector: '#private_discussions_indicator',
     genericNotificationSelector: '#notifications_indicator',
     notificationMarkup: `<i class="fas fa-circle fa-stack-2x text-darker"></i>` +
-                        `<i class="fas %icon% fa-stack-1x fa-inverse"></i>` +
-                        `<span class="badge badge-danger badge-pill badge-notification">%count%</span>`,
-    notificationSound: [ '/audio/intuition.mp3' ],
+        `<i class="fas %icon% fa-stack-1x fa-inverse"></i>` +
+        `<span class="badge badge-danger badge-pill badge-notification">%count%</span>`,
+    notificationSound: ['/audio/intuition.mp3'],
     notificationVolume: .4, // TODO - User option?
     normalFavicon: '/img/icons/favicon.ico',
     notificationFavicon: '/img/icons/favicon-alt.ico',
@@ -21,14 +26,17 @@ const DefaultOptions = {
 
 const NotificationTypes = {
     NEW_PRIVATE_DISCUSSION: 'App\\Notifications\\NewPrivateDiscussion',
-    NEW_MENTION:            'App\\QuotedInPost\\QuotedInPost',
-    NEW_REPLY:              'App\\Notifications\\ReplyInDiscussion'
+    NEW_MENTION: 'App\\QuotedInPost\\QuotedInPost',
+    NEW_REPLY: 'App\\Notifications\\ReplyInDiscussion'
 }
 
 class NotificationHandler {
 
     constructor(options) {
-        this.options = { ...DefaultOptions, ...options };
+        this.options = {
+            ...DefaultOptions,
+            ...options
+        };
         this.options.key = process.env.MIX_PUSHER_APP_KEY;
         this.options.cluster = process.env.MIX_PUSHER_APP_CLUSTER;
 
@@ -64,7 +72,7 @@ class NotificationHandler {
     updateFavicon() {
         // TODO - sized favicons.
         // Needs a favicon for each size.
-        let faviconMetas = [ 'shortcut icon', 'apple-touch-icon-precomposed', 'icon' ];
+        let faviconMetas = ['shortcut icon', 'apple-touch-icon-precomposed', 'icon'];
         $.each(faviconMetas, (i, e) => {
             $(`link[rel='${e}']`).attr('href', this.options.notificationFavicon);
         });
@@ -98,14 +106,14 @@ class NotificationHandler {
     }
 
     updateHtml(notification) {
-        let isPrivate = notification.type == NotificationTypes.NEW_PRIVATE_DISCUSSION 
-                            || (notification.type == NotificationTypes.NEW_REPLY 
-                                    && notification.private);
+        let isPrivate = notification.type == NotificationTypes.NEW_PRIVATE_DISCUSSION ||
+            (notification.type == NotificationTypes.NEW_REPLY &&
+                notification.private);
 
         let getMarkup = (icon) => {
             return String(this.options.notificationMarkup)
-                    .replace('%icon%', icon)
-                    .replace('%count%', '&bullet;');
+                .replace('%icon%', icon)
+                .replace('%count%', '&bullet;');
         };
 
         $(this.options.genericNotificationSelector)
@@ -115,7 +123,7 @@ class NotificationHandler {
             $(this.options.privateMessageNotificationSelector)
                 .html(getMarkup('fa-envelope'));
         }
-        
+
     }
 
     register() {
@@ -125,7 +133,7 @@ class NotificationHandler {
             return;
         }
 
-        this.echo = 
+        this.echo =
             new Echo({
                 broadcaster: this.options.broadcaster,
                 key: this.options.key,

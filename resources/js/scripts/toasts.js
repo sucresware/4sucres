@@ -1,6 +1,6 @@
 import iziToast from 'izitoast'
 
-// TODO - CSS 
+// TODO - CSS
 // box-shadow: 2px 2px 20px 0px #0000007d;
 
 const DefaultOptions = {
@@ -14,7 +14,10 @@ const DefaultOptions = {
 class ToastWrapper {
 
     constructor(options) {
-        this.options = { ...DefaultOptions, ...options };
+        this.options = {
+            ...DefaultOptions,
+            ...options
+        };
 
         iziToast.settings({
             position: this.options.toastPosition
@@ -39,7 +42,7 @@ class ToastWrapper {
         type = this.getType(type);
 
         return iziToast[type]({
-            ... {
+            ...{
                 timeout: this.options.toastTimeout
             },
             ...options
@@ -49,7 +52,7 @@ class ToastWrapper {
     getType(type) {
         switch (type) {
             case 'danger':
-            case 'error': 
+            case 'error':
                 return 'danger';
 
             case 'success':
@@ -58,7 +61,7 @@ class ToastWrapper {
             case 'warn':
             case 'warning':
                 return 'warning';
-            
+
             case 'info':
             default:
                 return 'info';
@@ -68,4 +71,6 @@ class ToastWrapper {
 
 var Toast = new ToastWrapper(DefaultOptions);
 export default Toast;
-export { Toast };
+export {
+    Toast
+};
