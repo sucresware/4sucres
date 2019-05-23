@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import SimpleMDE from 'simplemde'
+import EasyMDE from 'easymde'
 import AutoComplete from 'textcomplete/lib/textcomplete';
 import CodeMirrorEditor from 'textcomplete.codemirror';
 
@@ -8,11 +8,11 @@ const DefaultOptions = {
         selector: 'textarea.sucresMD-editor',
         insertTexts: {
             horizontalRule: [
-                "", 
+                "",
                 "\n\n---\n\n"
             ],
             table: [
-                "", 
+                "",
                 "\n| Colonne 1 | Colonne 2 | Colonne 3 |\n| -------- | -------- | -------- |\n| Texte    | Texte     | Texte    |\n"
             ],
         },
@@ -47,22 +47,26 @@ const DefaultOptions = {
 class EditorWrapper {
 
     constructor(options) {
-        this.options = { ...DefaultOptions, ...options };
+        this.options = {
+            ...DefaultOptions,
+            ...options
+        };
         $(document).ready(() => this.initialize());
     }
 
     initialize() {
         let element = $(this.options.editor.selector)[0];
-        
+
         if (!element) {
             return;
         }
 
-        this.editor = new SimpleMDE({
+        this.editor = new EasyMDE({
             element: element,
             forceSync: true,
             promptURLs: true,
             spellChecker: false,
+            autoDownloadFontAwesome: false,
             status: false,
             tabSize: 4,
             insertTexts: this.options.editor.insertTexts,
@@ -71,7 +75,7 @@ class EditorWrapper {
             },
             toolbar: this.options.editor.toolbar
         });
-        
+
         this.registerCustomCodes();
 
         this.getCodeMirror().on('focus', () => {
@@ -98,7 +102,7 @@ class EditorWrapper {
 
     registerAutocomplete() {
         let that = this;
-        this.autoComplete = new AutoComplete( new CodeMirrorEditor(this.getCodeMirror()) );
+        this.autoComplete = new AutoComplete(new CodeMirrorEditor(this.getCodeMirror()));
         this.autoComplete.register([{
             // Matches @<username> or #u:<id>
             match: this.options.autocomplete.regex,
@@ -152,7 +156,10 @@ class EditorWrapper {
 
             codeMirror.replaceSelection(replacement);
 
-            originalPoint = { ...originalPoint, ...originalPoint.ch += replacement.length - character.length };
+            originalPoint = {
+                ...originalPoint,
+                ...originalPoint.ch += replacement.length - character.length
+            };
             codeMirror.setSelection(originalPoint, originalPoint);
             codeMirror.focus();
         });
@@ -163,4 +170,6 @@ class EditorWrapper {
 var Editor = new EditorWrapper(DefaultOptions);
 
 export default Editor;
-export { Editor };
+export {
+    Editor
+};
