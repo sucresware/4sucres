@@ -131,6 +131,15 @@ class DiscussionController extends Controller
         $discussion = Discussion::query()
             ->findOrFail($id);
 
+        if (request()->page == 'last') {
+            $post = $discussion
+                ->hasMany(Post::class)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            return redirect(Discussion::link_to_post($post));
+        }
+
         if ($discussion->deleted_at) {
             return abort(410);
         }
