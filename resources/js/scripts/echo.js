@@ -28,7 +28,7 @@ class EchoWrapper {
             broadcaster: this.options.broadcaster,
             key: this.options.key,
             wsHost: window.location.hostname,
-            wsPort: 6001,
+            wsPort: 2053,
             disableStats: true,
         });
     }
