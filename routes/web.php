@@ -108,10 +108,11 @@ if (config('app.env') == 'local') {
 
         return response()->file(base_path($file));
     });
-
-    Route::view('/403', 'errors/403');
-    Route::view('/404', 'errors/404');
-    Route::view('/410', 'errors/410');
-    Route::view('/500', 'errors/500');
-    Route::view('/503', 'errors/503');
 }
+
+Route::view('/errors/403', 'errors/403');
+Route::view('/errors/404', 'errors/404');
+Route::view('/errors/410', 'errors/410');
+Route::view('/errors/429', 'errors/429');
+Route::view('/errors/500', 'errors/500');
+Route::view('/errors/503', 'errors/503');
