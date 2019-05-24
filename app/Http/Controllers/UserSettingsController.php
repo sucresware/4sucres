@@ -72,7 +72,7 @@ class UserSettingsController extends Controller
         }
 
         request()->validate([
-            'display_name' => ['required', 'string', 'max:255', 'min:4'],
+            'display_name' => ['required', 'string', 'max:35', 'min:4'],
             'shown_role'   => ['string', 'max:255'],
             'avatar'       => ['image', 'max:2048'],
         ]);

@@ -26,7 +26,7 @@ class RegisterController extends Controller
         $max_date = now()->setYear(1900);
 
         request()->validate([
-            'name'                 => ['required', 'string', 'alpha_dash', 'max:255', 'min:4', 'unique:users'],
+            'name'                 => ['required', 'string', 'alpha_dash', 'max:35', 'min:4', 'unique:users'],
             'email'                => ['required', 'string', 'email', 'not_throw_away', 'max:255', 'unique:users'],
             'password'             => ['required', 'string', 'min:6'],
             'dob'                  => ['required', 'date', 'before:' . $min_date, 'after:' . $max_date],
