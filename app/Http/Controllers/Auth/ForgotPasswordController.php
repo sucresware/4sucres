@@ -18,7 +18,8 @@ class ForgotPasswordController extends Controller
     public function sendResetLinkEmail()
     {
         request()->validate([
-            'email' => ['required', 'string', 'email'],
+            'email'                => ['required', 'string', 'email'],
+            'g-recaptcha-response' => ['required', 'captcha'],
         ]);
 
         $user = User::where('email', request()->email)->first();
