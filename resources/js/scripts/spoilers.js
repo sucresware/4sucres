@@ -11,7 +11,10 @@ const DefaultOptions = {
 class SpoilerLoader {
 
     constructor(options) {
-        this.options = { ...DefaultOptions, ...options };        
+        this.options = {
+            ...DefaultOptions,
+            ...options
+        };
         $(document).ready(() => this.initialize());
     }
 

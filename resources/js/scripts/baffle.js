@@ -13,11 +13,14 @@ const DefaultOptions = {
 class BaffleWrapper {
 
     constructor(options) {
-        this.options = { ...DefaultOptions, ...options };
+        this.options = {
+            ...DefaultOptions,
+            ...options
+        };
         this.baffleOptions = {
             characters: this.options.characters
         };
-        
+
         $(document).ready(() => this.baffle());
     }
 

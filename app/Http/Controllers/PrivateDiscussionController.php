@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SucresHelper;
 use App\Models\Discussion;
 use App\Models\User;
 use App\Notifications\NewPrivateDiscussion;
@@ -18,6 +19,10 @@ class PrivateDiscussionController extends Controller
 
     public function create(User $user)
     {
+        if (user()->restricted) {
+            return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
+        }
+
         $from = user();
         $to = $user;
 
@@ -26,6 +31,10 @@ class PrivateDiscussionController extends Controller
 
     public function store(User $user)
     {
+        if (user()->restricted) {
+            return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
+        }
+
         $from = user();
         $to = $user;
 
@@ -33,6 +42,8 @@ class PrivateDiscussionController extends Controller
             'title' => 'required|min:3',
             'body'  => 'required|min:3',
         ]);
+
+        SucresHelper::throttleOrFail(__METHOD__, 5, 1);
 
         $discussion = Discussion::create([
             'title'       => request()->title,

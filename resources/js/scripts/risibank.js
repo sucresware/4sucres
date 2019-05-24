@@ -70,7 +70,7 @@ class RisibankWrapper {
 
     setStickers(selector, stickers) {
         $(selector).empty();
-        
+
         if (stickers.length == 0) {
             this.setError(this.options.tabs.search, true);
             return this;
@@ -98,10 +98,10 @@ class RisibankWrapper {
     // TODO : Vue
     getStickerTemplate(link) {
         let template = `
-            <span class="pointer" 
-                data-action="insert-sticker" 
+            <span class="pointer"
+                data-action="insert-sticker"
                 data-src="%link%">
-                <img src="%link%" 
+                <img src="%link%"
                     class="img-thumbnail sticker">
             </span>`;
 
@@ -120,7 +120,7 @@ class RisibankWrapper {
 
     search(value) {
         this.setLoading(this.options.tabs.search);
-        
+
         let _search = value || $(this.options.searchFieldSelector).val(),
             _url = this.options.api.search.replace(/(%query%)/g, _search);
 

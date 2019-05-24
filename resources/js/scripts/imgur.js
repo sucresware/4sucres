@@ -22,7 +22,10 @@ const DefaultOptions = {
 class ImgurWrapper {
 
     constructor(options) {
-        this.options = { ...DefaultOptions, ...options };
+        this.options = {
+            ...DefaultOptions,
+            ...options
+        };
     }
 
     upload() {
@@ -102,4 +105,6 @@ class ImgurWrapper {
 
 const Imgur = new ImgurWrapper(DefaultOptions);
 export default Imgur;
-export { Imgur };
+export {
+    Imgur
+};

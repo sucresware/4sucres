@@ -38,7 +38,7 @@ class PostEffects {
         let that = this;
 
         $('a[href^="#p"]').click(function(e) { // Fix #16
-            if (location.hostname === this.hostname 
+            if (location.hostname === this.hostname
                 && this.pathname.replace(/^\//, "") === location.pathname.replace(/^\//, "")
             ) {
                 let target = $(that.hash).length ? $(that.hash) : $("[name=" + that.hash.slice(1) + "]");

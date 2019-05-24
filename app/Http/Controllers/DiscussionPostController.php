@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SucresHelper;
 use App\Models\Category;
 use App\Models\Discussion;
 use App\Models\Post;
@@ -20,8 +21,10 @@ class DiscussionPostController extends Controller
         }
 
         request()->validate([
-            'body' => 'required|min:3|max:3000',
+            'body' => ['required', 'min:3', 'max:3000'],
         ]);
+
+        SucresHelper::throttleOrFail(__METHOD__, 7, 1);
 
         $post = $discussion->posts()->create([
             'body'    => request()->input('body'),
@@ -58,6 +61,8 @@ class DiscussionPostController extends Controller
             'body' => 'required|min:3',
         ]);
 
+        SucresHelper::throttleOrFail(__METHOD__, 5, 3);
+
         $post->body = request()->input('body');
         $post->save();
 
@@ -90,6 +95,8 @@ class DiscussionPostController extends Controller
         }
 
         if ($post->id == $discussion->posts[0]->id) {
+            SucresHelper::throttleOrFail(__METHOD__ . '_D', 1, 5);
+
             $discussion->posts()->update([
                 'deleted_at' => now(),
             ]);
@@ -104,6 +111,8 @@ class DiscussionPostController extends Controller
 
             return redirect(route('home'));
         } else {
+            SucresHelper::throttleOrFail(__METHOD__, 5, 3);
+
             $post->deleted_at = now();
             $post->save();
 

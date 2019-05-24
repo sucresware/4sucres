@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2588c9f923d8fd9b4fc25351ec5a215e",
+    "content-hash": "3455d49ea52749e196369c65e824b7d5",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1009,6 +1009,73 @@
                 "trusted proxy"
             ],
             "time": "2019-01-10T14:06:47+00:00"
+        },
+        {
+            "name": "graham-campbell/throttle",
+            "version": "v7.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Laravel-Throttle.git",
+                "reference": "ab15752f6cfee2f9901a9af3524f53dfa95326cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Throttle/zipball/ab15752f6cfee2f9901a9af3524f53dfa95326cd",
+                "reference": "ab15752f6cfee2f9901a9af3524f53dfa95326cd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cache": "5.5.*|5.6.*|5.7.*|5.8.*",
+                "illuminate/contracts": "5.5.*|5.6.*|5.7.*|5.8.*",
+                "illuminate/http": "5.5.*|5.6.*|5.7.*|5.8.*",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "graham-campbell/analyzer": "^2.1",
+                "graham-campbell/testbench": "^5.2",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.5|^7.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.2-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "GrahamCampbell\\Throttle\\ThrottleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\Throttle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "Throttle Is A Rate Limiter For Laravel 5",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Laravel Throttle",
+                "Laravel-Throttle",
+                "framework",
+                "laravel",
+                "rate limit",
+                "throttle",
+                "throttling"
+            ],
+            "time": "2019-03-10T11:13:51+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -7629,74 +7696,6 @@
             "time": "2019-05-14T04:53:02+00:00"
         },
         {
-            "name": "recca0120/terminal",
-            "version": "v1.6.30",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/recca0120/laravel-terminal.git",
-                "reference": "b9f7ea050e1b29ad28c7b3befbc087f14a379737"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/recca0120/laravel-terminal/zipball/b9f7ea050e1b29ad28c7b3befbc087f14a379737",
-                "reference": "b9f7ea050e1b29ad28c7b3befbc087f14a379737",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^5.1",
-                "illuminate/database": "^5.1",
-                "illuminate/filesystem": "^5.1",
-                "illuminate/routing": "^5.1",
-                "illuminate/view": "^5.1",
-                "php": ">=5.5.9",
-                "symfony/finder": "^2.7|^3.0|^4.0",
-                "webmozart/glob": "^4.1"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "^1.6",
-                "mockery/mockery": "~0.9.4|~1.0",
-                "nesbot/carbon": "~1.20",
-                "phpunit/phpunit": "~4.8|~5.4|~6.1|~7.0",
-                "vlucas/phpdotenv": "^3.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Recca0120\\Terminal\\TerminalServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/polyfill.php"
-                ],
-                "psr-4": {
-                    "Recca0120\\Terminal\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "recca0120",
-                    "email": "recca0120@gmail.com"
-                }
-            ],
-            "description": "run laravel artisan command in web application",
-            "keywords": [
-                "artisan",
-                "console",
-                "laravel",
-                "terminal",
-                "web",
-                "web artisan"
-            ],
-            "time": "2019-02-26T20:38:03+00:00"
-        },
-        {
             "name": "sebastian/code-unit-reverse-lookup",
             "version": "1.0.1",
             "source": {
@@ -8264,16 +8263,16 @@
         },
         {
             "name": "spatie/laravel-web-tinker",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-web-tinker.git",
-                "reference": "f3ddf2e1b4b79a49920bc3ca878075cde156b6e9"
+                "reference": "73a9b988720e3ed9131809a16bbeb8de71d555f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-web-tinker/zipball/f3ddf2e1b4b79a49920bc3ca878075cde156b6e9",
-                "reference": "f3ddf2e1b4b79a49920bc3ca878075cde156b6e9",
+                "url": "https://api.github.com/repos/spatie/laravel-web-tinker/zipball/73a9b988720e3ed9131809a16bbeb8de71d555f6",
+                "reference": "73a9b988720e3ed9131809a16bbeb8de71d555f6",
                 "shasum": ""
             },
             "require": {
@@ -8320,7 +8319,7 @@
                 "spatie",
                 "web-tinker"
             ],
-            "time": "2019-04-13T10:47:47+00:00"
+            "time": "2019-05-23T09:36:40+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -8469,99 +8468,6 @@
                 "validate"
             ],
             "time": "2018-12-25T11:19:39+00:00"
-        },
-        {
-            "name": "webmozart/glob",
-            "version": "4.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webmozart/glob.git",
-                "reference": "3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/glob/zipball/3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe",
-                "reference": "3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.3|^7.0",
-                "webmozart/path-util": "^2.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.6",
-                "sebastian/version": "^1.0.1",
-                "symfony/filesystem": "^2.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webmozart\\Glob\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@gmail.com"
-                }
-            ],
-            "description": "A PHP implementation of Ant's glob.",
-            "time": "2015-12-29T11:14:33+00:00"
-        },
-        {
-            "name": "webmozart/path-util",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webmozart/path-util.git",
-                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/path-util/zipball/d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
-                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "webmozart/assert": "~1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.6",
-                "sebastian/version": "^1.0.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webmozart\\PathUtil\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@gmail.com"
-                }
-            ],
-            "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
-            "time": "2015-12-17T08:42:14+00:00"
         }
     ],
     "aliases": [],

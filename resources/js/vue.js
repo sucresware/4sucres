@@ -40,7 +40,7 @@ class VueWrapper {
         this.app = new VueJS({
             el: this.appSelector,
         });
-        
+
     }
 
     loadUserData() {

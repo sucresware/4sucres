@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Rules\Throttle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,9 +17,9 @@ class LoginController extends Controller
     public function submit(Request $request)
     {
         $validator = Validator::make($request->input(), [
-            'email'                => 'required|email',
+            'email'                => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
             'password'             => 'required',
-            'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => ['required', 'captcha'],
         ]);
         $validator->validate();
 

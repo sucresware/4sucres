@@ -9,7 +9,7 @@ const PREVIEW_ROUTE = 'discussions.preview';
 
 /**
  * Gère le chargement des actions.
- * Une action est définie par un attribut `data-action` dont la valeur 
+ * Une action est définie par un attribut `data-action` dont la valeur
  * est sous la forme `action-name` et dont la fonction associée est sous
  * la forme `onActionName`.
  */
@@ -22,7 +22,7 @@ class ActionHandler {
     initialize() {
         let that = this;
 
-        $(document).on('click', '[data-action]', function(event) {
+        $(document).on('click', '[data-action]', function (event) {
             let element = $(this),
                 actionData = element.data('action'),
                 actionName = `on${v.capitalize(v.camelCase(actionData))}`;
@@ -57,7 +57,7 @@ class ActionHandler {
     onOpenPreview(element, event) {
         event.preventDefault();
         $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-sync fa-spin fa-1x"></i></div>')
-    
+
         $.ajax({
             type: 'POST',
             url: route(PREVIEW_ROUTE).url(),
@@ -88,13 +88,22 @@ class ActionHandler {
     onOpenDiscussion(element) {
         let id = element.data('id') || undefined,
             slug = element.data('slug') || undefined,
-            url = route(ON_OPEN_DISCUSSION_ROUTE, { id, slug }).url();
+            url = route(ON_OPEN_DISCUSSION_ROUTE, {
+                id,
+                slug
+            }).url();
 
         if (undefined === id || undefined === slug) {
             console.log('There is no destination for this URL.');
         }
-        
-        window.location.href = url;
+
+        let last = (window.event.altKey) ? '?page=last' : '';
+
+        if (window.event.ctrlKey) {
+            window.open(url + last, '_blank').focus();
+        } else {
+            window.location.href = url + last;
+        }
     }
 }
 
