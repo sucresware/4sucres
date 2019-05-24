@@ -32,9 +32,6 @@ class SucresHelper
     {
         $throttle = Throttle::get(['ip' => request()->ip(), 'route' => $key], $maxAttempts, $decayInMinutes);
 
-        dump($throttle->check());
-        dump(count($throttle));
-
         if ($check = $throttle->check()) {
             $throttle->hit();
         }
