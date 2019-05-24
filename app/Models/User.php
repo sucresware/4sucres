@@ -8,11 +8,13 @@ use Illuminate\Support\Carbon;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements ReactsInterface
 {
-    use Notifiable, HasRoles, Reacts, HasPushSubscriptions;
+    use Notifiable, HasRoles, Reacts, HasPushSubscriptions, LogsActivity, CausesActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -32,6 +34,10 @@ class User extends Authenticatable implements ReactsInterface
         'email_verified_at', 'settings',
         'avatar',
     ];
+
+    protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'password', 'settings', 'email_verified_at', 'deleted_at'];
+    protected static $logOnlyDirty = true;
+    protected static $recordEvents = ['updated'];
 
     /**
      * The attributes that should be cast to native types.

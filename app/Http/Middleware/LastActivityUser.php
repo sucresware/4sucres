@@ -37,8 +37,8 @@ class LastActivityUser
         if ($this->auth->check()) {
             $user = $this->auth->user();
             $user->last_activity = now();
-            $user->timestamps = false;
-            $user->save();
+            $user->disableLogging();
+            $user->save(['timestamps' => false]);
         }
 
         return $next($request);

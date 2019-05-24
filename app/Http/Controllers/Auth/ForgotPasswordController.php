@@ -36,8 +36,12 @@ class ForgotPasswordController extends Controller
 
             activity()
                 ->performedOn($user)
-                ->withProperties(['level' => 'info'])
-                ->log('Demande de mot de passe oublié');
+                ->causedBy($user)
+                ->withProperties([
+                    'level'  => 'info',
+                    'method' => __METHOD__,
+                ])
+                ->log('PasswordRequest');
         }
 
         return redirect()->route('password.request')

@@ -99,6 +99,15 @@ class UserSettingsController extends Controller
         }
 
         // if (user()->can('update roles')) {
+        //     activity()
+        //         ->causedBy(auth()->user())
+        //         ->withProperties([
+        //             'level'    => 'warning',
+        //             'method'   => __METHOD__,
+        //             'elevated' => true,
+        //         ])
+        //         ->log('UserUpdated');
+
         //     $user->roles()->sync(request()->role);
         // }
 
@@ -144,11 +153,6 @@ class UserSettingsController extends Controller
         $user->email = request()->email;
         $user->save();
 
-        activity()
-            ->performedOn($user)
-            ->withProperties(['level' => 'info'])
-            ->log('Email modifié (paramètres)');
-
         return redirect(route('user.settings.account.email'))->with('success', 'Modifications enregistrées !');
     }
 
@@ -172,11 +176,6 @@ class UserSettingsController extends Controller
 
         $user->password = Hash::make(request()->new_password);
         $user->save();
-
-        activity()
-            ->performedOn($user)
-            ->withProperties(['level' => 'info'])
-            ->log('Mot de passe modifié (paramètres)');
 
         return redirect(route('user.settings.account.password'))->with('success', 'Modifications enregistrées !');
     }

@@ -13,7 +13,6 @@
         "appstract/laravel-options": "^2.2.0",
         "barryvdh/laravel-debugbar": "^3.2",
         "benjaminhoegh/parsedown-extreme": "^0.1.6",
-        "beyondcode/laravel-websockets": "^1.1",
         "calebporzio/awesome-helpers": "^2.4",
         "chriskonnertz/bbcode": "^1.1",
         "delight-im/str": "^2.4",

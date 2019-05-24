@@ -15,9 +15,13 @@ class UserController extends Controller
         return redirect($user->link);
     }
 
-    public function show($name)
+    public function show($nameOrId)
     {
-        $user = User::where('name', $name)->firstOrFail();
+        $user = User::where('name', $nameOrId)->first();
+
+        if (!$user) {
+            $user = User::findOrFail($nameOrId);
+        }
 
         if ($user->deleted_at) {
             return abort(410);
@@ -62,9 +66,12 @@ class UserController extends Controller
 
         if (user()->cannot('delete users')) {
             activity()
-                ->performedOn($user)
-                ->withProperties(['level' => 'warning'])
-                ->log('Tentative de suppression d\'utilisateur refusée (DELETE)');
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'level'  => 'warning',
+                    'method' => __METHOD__,
+                ])
+                ->log('PermissionWarn');
 
             return abort(403);
         }
@@ -73,9 +80,12 @@ class UserController extends Controller
         $user->save();
 
         activity()
-            ->performedOn($user)
-            ->withProperties(['level' => 'notice'])
-            ->log('Utilisateur supprimé');
+            ->causedBy(auth()->user())
+            ->withProperties([
+                'level'  => 'warning',
+                'method' => __METHOD__,
+            ])
+            ->log('UserSoftDeleted');
 
         return redirect()->route('home');
     }

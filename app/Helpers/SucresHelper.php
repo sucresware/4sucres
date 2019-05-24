@@ -15,10 +15,19 @@ class SucresHelper
         }
 
         if (!self::throttle($key, $maxAttempts, $decayInMinutes)) {
+            activity()
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'level'  => 'warning',
+                    'method' => __METHOD__,
+                    'key'    => $key,
+                ])
+                ->log('ThrottleHit');
+
             if (request()->ajax()) {
                 throw new TooManyRequestsHttpException($decayInMinutes);
             } elseif (request()->isMethod('post')) {
-                $response = back()->withInput()->with('error', 'Commence par cliquer plus lentement ¯\_(ツ). Réessaie dans ' . $decayInMinutes . ' ' . str_plural($decayInMinutes));
+                $response = back()->withInput()->with('error', 'Commence par cliquer plus lentement ¯\_(ツ). Réessaie dans ' . $decayInMinutes . ' ' . str_plural('minute', $decayInMinutes) . '.');
                 $response->throwResponse();
             }
 

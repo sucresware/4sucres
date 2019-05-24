@@ -31,11 +31,6 @@ class DiscussionPostController extends Controller
             'user_id' => user()->id,
         ]);
 
-        activity()
-            ->performedOn($post)
-            ->withProperties(['level' => 'info'])
-            ->log('Nouveau post');
-
         return redirect($post->link);
     }
 

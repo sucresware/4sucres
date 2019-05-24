@@ -14,3 +14,7 @@
 Broadcast::channel('App.Models.User.{user_id}', function ($user, $user_id) {
     return $user->id == $user_id;
 });
+
+Broadcast::channel('Activities', function ($user) {
+    return $user->hasRole('moderator') | $user->hasRole('admin');
+});
