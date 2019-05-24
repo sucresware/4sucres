@@ -220,3 +220,19 @@ hr {
         border-color: lighten($darker, 10%);
     }
 }
+
+p {
+    margin-bottom: 15px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+blockquote,
+.blockquote,
+.quote {
+    &>& {
+        margin-bottom: 0;
+    }
+}
