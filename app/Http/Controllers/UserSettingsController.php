@@ -95,9 +95,9 @@ class UserSettingsController extends Controller
             $user->achievements()->sync(request()->achievements);
         }
 
-        if (user()->can('update roles')) {
-            $user->roles()->sync(request()->role);
-        }
+        // if (user()->can('update roles')) {
+        //     $user->roles()->sync(request()->role);
+        // }
 
         $user->save();
 
