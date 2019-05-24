@@ -4,6 +4,7 @@ import LaravelEcho from "laravel-echo";
 const DefaultOptions = {
     broadcaster: 'pusher',
     key: '',
+    cluster: '',
 };
 
 class EchoWrapper {
@@ -15,6 +16,7 @@ class EchoWrapper {
         };
 
         this.options.key = process.env.MIX_PUSHER_APP_KEY;
+        this.options.cluster = process.env.MIX_PUSHER_APP_CLUSTER;
 
         if (process.env.NODE_ENV === 'development') {
             Pusher.logToConsole = true;
@@ -27,8 +29,9 @@ class EchoWrapper {
         this.echo = new LaravelEcho({
             broadcaster: this.options.broadcaster,
             key: this.options.key,
-            wsHost: window.location.hostname,
-            wsPort: 2053,
+            cluster: this.options.cluster,
+            // wsHost: window.location.hostname,
+            // wsPort: 2053,
             disableStats: true,
         });
     }
