@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
 use App\Models\Category;
 use App\Models\Discussion;
@@ -54,10 +55,12 @@ class DiscussionController extends Controller
         }
 
         request()->validate([
-            'title'    => 'required|min:3|max:255',
-            'body'     => 'required|min:3|max:3000',
-            'category' => 'required|exists:categories,id',
+            'title'    => ['required', 'min:3', 'max:255'],
+            'body'     => ['required', 'min:3', 'max:3000'],
+            'category' => ['required', 'exists:categories,id'],
         ]);
+
+        SucresHelper::throttleOrFail(__METHOD__, 5, 10);
 
         $discussion = Discussion::create([
             'title'       => request()->title,
@@ -169,6 +172,8 @@ class DiscussionController extends Controller
             'title'    => 'required|min:4|max:255',
             'category' => 'required|exists:categories,id',
         ]);
+
+        SucresHelper::throttleOrFail(__METHOD__, 3, 5);
 
         $discussion->title = request()->title;
         $discussion->category_id = request()->category;

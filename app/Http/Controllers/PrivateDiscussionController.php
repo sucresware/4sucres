@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SucresHelper;
 use App\Models\Discussion;
 use App\Models\User;
 use App\Notifications\NewPrivateDiscussion;
@@ -41,6 +42,8 @@ class PrivateDiscussionController extends Controller
             'title' => 'required|min:3',
             'body'  => 'required|min:3',
         ]);
+
+        SucresHelper::throttleOrFail(__METHOD__, 5, 1);
 
         $discussion = Discussion::create([
             'title'       => request()->title,

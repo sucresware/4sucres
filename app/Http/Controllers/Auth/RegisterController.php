@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\SucresHelper;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifyEmail;
 use App\Models\Achievement;
@@ -30,13 +31,15 @@ class RegisterController extends Controller
             'password'             => ['required', 'string', 'min:6'],
             'dob'                  => ['required', 'date', 'before:' . $min_date, 'after:' . $max_date],
             'gender'               => ['required', 'in:M,F'],
-            'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => ['required', 'captcha'],
         ], [
             'gender.in'            => 'Désolé, pas de sucres non genrés ici. Tu peux trouver ta place sur <a href="http://www.madmoizelle.com/">mademoiZelle.com</a>',
             'dob.before'           => 'Tu dois avoir plus de 13 ans pour t\'inscrire ici.',
             'dob.after'            => 'WTF l\'ancien !? T\'es né avant 1900?',
             'email.not_throw_away' => 'Un problème avec l\'adresse e-mail?',
         ]);
+
+        SucresHelper::throttleOrFail(__METHOD__, 1, 10);
 
         $user = User::create([
             'name'         => request()->name,

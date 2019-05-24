@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SucresHelper;
 use App\Models\Achievement;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -76,6 +77,8 @@ class UserSettingsController extends Controller
             'avatar'       => ['image', 'max:2048'],
         ]);
 
+        SucresHelper::throttleOrFail(__METHOD__, 10, 10);
+
         if (request()->hasFile('avatar')) {
             $avatar_name = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
 
@@ -136,6 +139,8 @@ class UserSettingsController extends Controller
             'email' => ['required', 'string', 'email', 'not_throw_away', 'max:255', 'unique:users,email,' . $user->id],
         ]);
 
+        SucresHelper::throttleOrFail(__METHOD__, 1, 10);
+
         $user->email = request()->email;
         $user->save();
 
@@ -156,6 +161,8 @@ class UserSettingsController extends Controller
             'new_password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
         $validator->validate();
+
+        SucresHelper::throttleOrFail(__METHOD__, 1, 10);
 
         if (!Hash::check(request()->password, $user->password)) {
             $validator->errors()->add('password', 'Le mot de passe est incorrect');

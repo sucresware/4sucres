@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SucresHelper;
 use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
@@ -15,6 +16,8 @@ class SearchController extends Controller
         $query = request()->input('query');
         $scope = request()->input('scope', 'posts');
         $return = view('search.results', compact('query', 'scope'));
+
+        SucresHelper::throttleOrFail(__METHOD__, 10, 1);
 
         switch ($scope) {
             case 'discussions':

@@ -2,10 +2,46 @@
 
 namespace App\Helpers;
 
+use GrahamCampbell\Throttle\Facades\Throttle;
 use Illuminate\Support\Carbon;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class SucresHelper
 {
+    public static function throttleOrFail($key = 'validation', $maxAttempts = 5, $decayInMinutes = 10)
+    {
+        if (auth()->check() && user()->can('bypass throttle')) {
+            return true;
+        }
+
+        if (!self::throttle($key, $maxAttempts, $decayInMinutes)) {
+            if (request()->ajax()) {
+                throw new TooManyRequestsHttpException($decayInMinutes);
+            } elseif (request()->isMethod('post')) {
+                $response = back()->withInput()->with('error', 'Commence par cliquer plus lentement ¯\_(ツ). Réessaie dans ' . $decayInMinutes . ' ' . str_plural($decayInMinutes));
+                $response->throwResponse();
+            }
+
+            throw new TooManyRequestsHttpException();
+        }
+
+        return true;
+    }
+
+    public static function throttle($key = 'validation', $maxAttempts = 5, $decayInMinutes = 10)
+    {
+        $throttle = Throttle::get(['ip' => request()->ip(), 'route' => $key], $maxAttempts, $decayInMinutes);
+
+        dump($throttle->check());
+        dump(count($throttle));
+
+        if ($check = $throttle->check()) {
+            $throttle->hit();
+        }
+
+        return $check;
+    }
+
     const NICEDATE_MINIMAL = 0;
     const NICEDATE_WITH_HOURS = 1;
 
