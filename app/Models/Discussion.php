@@ -21,6 +21,7 @@ class Discussion extends Model
 
     protected static $logAttributes = ['title', 'sticky', 'locked', 'deleted_at'];
     protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
 
     public static function boot()
     {

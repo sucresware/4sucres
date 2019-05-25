@@ -30,6 +30,7 @@ class Post extends Model implements ReactableInterface
 
     protected static $logAttributes = ['body', 'deleted_at'];
     protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
 
     public static function boot()
     {

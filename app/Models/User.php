@@ -35,9 +35,10 @@ class User extends Authenticatable implements ReactsInterface
         'avatar',
     ];
 
-    protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'password', 'settings', 'email_verified_at', 'deleted_at'];
+    protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'password', 'settings'];
     protected static $logOnlyDirty = true;
     protected static $recordEvents = ['updated'];
+    protected static $submitEmptyLogs = false;
 
     /**
      * The attributes that should be cast to native types.
