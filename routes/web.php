@@ -55,6 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/settings/layout', 'UserSettingsController@updateLayout');
     Route::get('/settings/notifications', 'UserSettingsController@notifications')->name('user.settings.notifications');
     Route::put('/settings/notifications', 'UserSettingsController@updateNotifications');
+    Route::get('/settings/connections', 'Settings\ConnectionsController@index')->name('user.settings.connections.index');
+    Route::get('/settings/connections/discord/setup', 'Settings\ConnectionsController@redirectToDiscord')->name('user.settings.connections.discord.setup');
+    Route::get('/settings/connections/discord/callback', 'Settings\ConnectionsController@handleDiscordCallback')->name('user.settings.connections.discord.callback');
 
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::get('/notifications/clear', 'NotificationController@clear')->name('notifications.clear');
