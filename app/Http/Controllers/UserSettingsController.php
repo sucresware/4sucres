@@ -71,8 +71,9 @@ class UserSettingsController extends Controller
             activity()
                 ->causedBy(auth()->user())
                 ->withProperties([
-                    'level'  => 'warning',
-                    'method' => __METHOD__,
+                    'level'        => 'warning',
+                    'method'       => __METHOD__,
+                    'request'      => request()->all(),
                 ])
                 ->log('PermissionWarn');
 
