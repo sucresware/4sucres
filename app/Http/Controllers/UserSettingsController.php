@@ -234,6 +234,15 @@ class UserSettingsController extends Controller
         $user->password = Hash::make(request()->new_password);
         $user->save();
 
+        activity()
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties([
+                'level'  => 'warning',
+                'method' => __METHOD__,
+            ])
+            ->log('PasswordChanged#Account');
+
         return redirect(route('user.settings.account.password'))->with('success', 'Modifications enregistrées !');
     }
 }

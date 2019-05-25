@@ -34,7 +34,7 @@ class ResetPasswordController extends Controller
             ->performedOn($user)
             ->causedBy($user)
             ->withProperties([
-                'level'  => 'info',
+                'level'  => 'warning',
                 'method' => __METHOD__,
             ])
             ->log('PasswordChanged#Email');
