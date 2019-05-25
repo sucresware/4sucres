@@ -21,15 +21,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/4sucres.css') }}" rel="stylesheet">
 
-    {{--  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/img/icons/apple-touch-icon-152x152.png') }}">
-    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32.png') }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16.png') }}" sizes="16x16">  --}}
-    <link rel="shortcut icon" href="{{ url('/img/icons/favicon_admin.ico') }}">
+    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32-admin.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16-admin.png') }}" sizes="16x16">
+    <link rel="shortcut icon" href="{{ url('/img/icons/favicon-admin.ico') }}">
     <meta name="application-name" content="4sucres">
     <meta name="theme-color" content="#3b4252">
     <meta name="msapplication-TileColor" content="#3b4252">
-    {{--  <meta name="msapplication-TileImage" content="{{ url('/img/icons/mstile-144x144.png') }}">  --}}
 
     @stack('css')
 </head>
@@ -44,15 +41,6 @@
                     </a>
 
                     @auth
-                        @if (user()->hasRole('admin') || user()->hasRole('moderator'))
-                            <a class="ml-auto text-center mr-1 order-lg-6" href="{{ route('admin.index') }}">
-                                <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x text-darker"></i>
-                                    <i class="fas fa-lock fa-stack-1x {{ (active('admin.*')) ? 'fa-inverse' : '' }}"></i>
-                                </span>
-                            </a>
-                        @endif
-
                         <a class="ml-auto text-center mr-1 order-lg-7" href="{{ route('notifications.index') }}">
                             <span class="fa-stack" id="notifications_indicator">
                                 <i class="fas fa-circle fa-stack-2x text-darker"></i>
@@ -76,6 +64,15 @@
                                 @endif
                             </span>
                         </a>
+
+                        @if (user()->hasRole('admin') || user()->hasRole('moderator'))
+                            <a class="text-center mr-1 order-lg-9" href="{{ route('admin.index') }}">
+                                <span class="fa-stack">
+                                    <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                                    <i class="fas fa-lock fa-stack-1x {{ (active('admin.*')) ? 'fa-inverse' : '' }}"></i>
+                                </span>
+                            </a>
+                        @endif
                     @endauth
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -180,7 +177,7 @@
                     <div class="col-lg-3 col-xl-2 mb-3">
                         @include('admin._navigation')
                     </div>
-                    <div class="col-lg-7 col-xl-8">
+                    <div class="col">
                         @yield('content')
                     </div>
                 </div>

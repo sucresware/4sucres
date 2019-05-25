@@ -2,13 +2,12 @@
   <div>
     <div
       :class="{
-        'p-1': true,
         'text-white bg-danger': activity.properties && (activity.properties.level == 'critical' || activity.properties.level == 'alert' || activity.properties.level == 'emergency'),
         'text-white bg-warning': activity.properties && activity.properties.level == 'warning'
       }"
     >
-      <div class="row">
-        <div class="col-sm-auto">
+      <div class="row align-items-center no-gutters text-monospace">
+        <div class="col-sm-auto p-1">
           <i :class="levelClass()"></i>
           <i
             :class="{
@@ -17,44 +16,36 @@
           }"
           ></i>
         </div>
-        <div class="col-sm text-monospace">{{ activity.created_at }}</div>
+        <div class="col-sm">{{ activity.created_at }}</div>
         <div class="col-sm">{{ description() }}</div>
         <div class="col-sm">
-          <a :href="subject().link">{{ subject().markup }}</a>
-        </div>
-        <div class="col-sm">
-          <a href="#" v-on:click="openPropertiesModal()">
-            <i class="fas fa-list"></i>
-          </a>
+          <button
+            class="btn btn-link btn-sm"
+            v-b-toggle="'context-' + activity.id"
+          >{{ subject().markup }}</button>
         </div>
         <div class="col-sm">
           <template v-if="activity.causer">
             <a :href="activity.causer.link" target="_blank">
-              <i class="fas fa-user fa-fw"></i>
+              <i class="fas fa-user"></i>
               {{ activity.causer.name }}
             </a>
           </template>
           <template v-else>
-            <i class="fas fa-user-times fa-fw"></i>
+            <i class="fas fa-user-times"></i>
             Inconnu
           </template>
         </div>
-      </div>
-    </div>
-
-    <div class="modal fade" :id="'properties-' + activity.id" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Propriétés</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        <b-collapse :id="'context-' + activity.id" class="col-12">
+          <div class="bg-light p-3 border-bottom border-top">
+            <a
+              :href="subject().link"
+              target="_blank"
+            >{{ activity.subject_type }} - {{ activity.subject_id }}</a>
+            <hr>
+            <pre>{{ activity.properties }}</pre>
           </div>
-          <div class="modal-body">
-            <pre><code class="json">{{ activity.properties }}</code></pre>
-          </div>
-        </div>
+        </b-collapse>
       </div>
     </div>
   </div>
@@ -69,11 +60,11 @@ export default {
     levelClass() {
       if (this.activity.properties && this.activity.properties.level) {
         switch (this.activity.properties.level) {
-          case "alert":
           case "emergency":
-            return ["fas", "fa-exclamation-circle", "fa-blink"];
           case "critical":
-            return ["fas", "fa-exclamation-triangle", "text-danger"];
+            return ["fas", "fa-exclamation-circle", "fa-blink"];
+          case "alert":
+            return ["fas", "fa-exclamation-circle"];
           case "error":
             return ["fas", "fa-square", "text-danger"];
           case "warning":
@@ -89,14 +80,14 @@ export default {
           case "deleted":
           case "created":
           case "updated":
-            return ["fa", "fa-square", "text-primary"];
+            return ["fas", "fa-circle", "text-primary"];
           default:
-            return ["fa", "fa-square", "text-muted"];
+            return ["fas", "fa-circle", "text-muted"];
         }
       }
     },
-    openPropertiesModal() {
-      $("#properties-" + this.activity.id).modal("toggle");
+    openContext() {
+      $("#context-" + this.activity.id).collapse("toggle");
     },
     description() {
       if (
@@ -112,26 +103,30 @@ export default {
       }
     },
     subject() {
-      let markup, link;
+      let markup, link, type;
 
       switch (this.activity.subject_type) {
         case "App\\Models\\Post":
-          markup = "Post";
+          type = "Post";
           link = "/p/" + this.activity.subject_id;
           break;
         case "App\\Models\\Discussion":
-          markup = "Discussion";
-          link = "/d/" + this.activity.subject_id + "-log";
+          type = "Discussion";
+          link = "/d/" + this.activity.subject_id + "-fromLogs";
           break;
         case "App\\Models\\User":
-          markup = "User";
+          type = "User";
           link = "/u/" + this.activity.subject_id;
           break;
         default:
-          markup = this.activity.subject_type;
+          type = this.activity.subject_type;
           break;
       }
+
+      if (!markup) markup = type;
+
       return {
+        type: type,
         markup: markup,
         link: link
       };

@@ -83,7 +83,7 @@ class RegisterController extends Controller
             ->performedOn($user)
             ->causedBy($user)
             ->withProperties([
-                'level'  => 'info',
+                'level'  => 'notice',
                 'method' => __METHOD__,
             ])
             ->log('RegisterSuccess');

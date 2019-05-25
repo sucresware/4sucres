@@ -37,7 +37,7 @@ class ResetPasswordController extends Controller
                 'level'  => 'info',
                 'method' => __METHOD__,
             ])
-            ->log('PasswordChanged (Email)');
+            ->log('PasswordChanged#Email');
 
         return redirect()->route('home')
             ->with('swal-success', 'Mot de passe modifié, bon retour !');

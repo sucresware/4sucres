@@ -35,9 +35,25 @@ class LoginController extends Controller
                 return redirect()->route('home')->with('error', 'Désolé mec, c\'est terminé.');
             }
 
+            activity()
+                ->causedBy(user())
+                ->withProperties([
+                    'level'  => 'info',
+                    'method' => __METHOD__,
+                ])
+                ->log('LoginSuccessful');
+
             return redirect()->route('home');
         } else {
             $validator->errors()->add('password', 'Le mot de passe est incorrect');
+
+            activity()
+                ->withProperties([
+                    'level'    => 'info',
+                    'method'   => __METHOD__,
+                    'email'    => request()->email,
+                ])
+                ->log('LoginFailed');
 
             return redirect(route('login'))->withErrors($validator)->withInput($request->input());
         }

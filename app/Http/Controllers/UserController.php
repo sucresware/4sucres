@@ -80,10 +80,12 @@ class UserController extends Controller
         $user->save();
 
         activity()
-            ->causedBy(auth()->user())
+            ->performedOn($user)
+            ->causedBy(user())
             ->withProperties([
-                'level'  => 'warning',
-                'method' => __METHOD__,
+                'level'    => 'error',
+                'method'   => __METHOD__,
+                'elevated' => true,
             ])
             ->log('UserSoftDeleted');
 
