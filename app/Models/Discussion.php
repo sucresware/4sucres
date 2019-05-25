@@ -6,15 +6,21 @@ use App\Notifications\RepliesInDiscussion;
 use App\Notifications\ReplyInDiscussion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Discussion extends Model
 {
+    use LogsActivity;
+
     protected $guarded = [];
     protected $dates = ['last_reply_at'];
 
     protected $appends = [
         'link',
     ];
+
+    protected static $logAttributes = ['title', 'sticky', 'locked', 'deleted_at'];
+    protected static $logOnlyDirty = true;
 
     public static function boot()
     {

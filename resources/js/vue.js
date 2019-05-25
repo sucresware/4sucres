@@ -1,7 +1,9 @@
-
 import $ from 'jquery';
 import VueClipboard from 'vue-clipboard2';
 import VueJS from 'vue';
+import BootstrapVue from 'bootstrap-vue'
+import vueHljs from "vue-hljs";
+import "vue-hljs/dist/vue-hljs.min.css";
 
 class VueWrapper {
 
@@ -20,7 +22,7 @@ class VueWrapper {
         this.files.keys().map(key => this.vue.component(key.split('/').pop().split('.')[0], this.files(key).default));
 
         this.vue.mixin({
-            data: function() {
+            data: function () {
                 return {
                     get auth_user() {
                         return that.user;
@@ -36,6 +38,8 @@ class VueWrapper {
         });
 
         this.vue.use(VueClipboard);
+        this.vue.use(BootstrapVue);
+        this.vue.use(vueHljs);
 
         this.app = new VueJS({
             el: this.appSelector,
@@ -54,4 +58,6 @@ class VueWrapper {
 
 const Vue = new VueWrapper();
 export default Vue;
-export { Vue };
+export {
+    Vue
+};

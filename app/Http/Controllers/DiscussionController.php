@@ -75,11 +75,6 @@ class DiscussionController extends Controller
 
         $discussion->subscribed()->attach(user()->id);
 
-        activity()
-            ->performedOn($discussion)
-            ->withProperties(['level' => 'info'])
-            ->log('Nouvelle discussion');
-
         return redirect($post->link);
     }
 
@@ -181,6 +176,15 @@ class DiscussionController extends Controller
         if (user()->can('bypass discussions guard')) {
             $discussion->sticky = request()->sticky ?? false;
             $discussion->locked = request()->locked ?? false;
+
+            activity()
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'level'    => 'warning',
+                    'method'   => __METHOD__,
+                    'elevated' => true,
+                ])
+                ->log('DiscussionUpdated');
         }
 
         $discussion->save();
