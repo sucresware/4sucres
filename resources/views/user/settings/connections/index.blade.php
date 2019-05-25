@@ -17,6 +17,8 @@
                 </div>
                 <div class="card-body">
                     <p>Connectez vos comptes à 4sucres pour pouvoir accéder à des intégrations spéciales !</p>
+                    <a href="{{ route('user.settings.connections.discord.setup') }}" class="btn bg-discord text-white"><i class="fab fa-discord fa-1x fa-fw"></i> Discord</a>
+                    <hr>
                 </div>
             </div>
         </div>
