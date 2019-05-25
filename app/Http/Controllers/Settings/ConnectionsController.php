@@ -17,7 +17,11 @@ class ConnectionsController extends Controller
 
     public function redirectToDiscord()
     {
-        return Socialite::with('discord')->redirect();
+        return Socialite::with('discord')
+            ->setScopes([
+                'guilds',
+            ])
+            ->redirect();
     }
 
     public function handleDiscordCallback()
@@ -28,10 +32,24 @@ class ConnectionsController extends Controller
             return redirect(route('user.settings.connections.index'))->with('error', 'Oupsi ! Impossible de connecter ton compte Discord pour le moment.');
         }
 
-        $discord = new DiscordClient(['token' => config('services.discord.client_id')]); // Token is required
+        $discord = new DiscordClient([
+            'tokenType' => 'OAuth',
+            'token'     => $discord_user->token,
+        ]);
 
-        var_dump($discord->guild->guilds(['guild.id' => 81384788765712384]));
+        dump($discord_user);
 
-        dd($discord_user);
+        $user = $discord->user->getCurrentUser();
+        $guilds = $discord->user->getCurrentUserGuilds();
+
+        dump($user);
+        dump($guilds);
+
+        $user_emojis = [];
+        foreach ($guilds as $guild) {
+            $emojis = $discord->emoji->listGuildEmojis(['guild.id' => $guild->id]);
+            dump($emojis);
+            $user_emojis[] = $emojis;
+        }
     }
 }
