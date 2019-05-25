@@ -49,7 +49,7 @@ class LoginController extends Controller
 
             activity()
                 ->withProperties([
-                    'level'    => 'info',
+                    'level'    => 'warning',
                     'method'   => __METHOD__,
                     'email'    => request()->email,
                 ])
