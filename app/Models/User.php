@@ -35,7 +35,7 @@ class User extends Authenticatable implements ReactsInterface
         'avatar',
     ];
 
-    protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'password', 'settings'];
+    protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'settings'];
     protected static $logOnlyDirty = true;
     protected static $recordEvents = ['updated'];
     protected static $submitEmptyLogs = false;
