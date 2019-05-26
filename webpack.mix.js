@@ -22,6 +22,7 @@ mix
     // Copies reused resources
     .copyDirectory('resources/img', 'public/img')
     .copyDirectory('resources/audio', 'public/audio')
+    .copyDirectory('resources/video', 'public/video')
     .copyDirectory('resources/svg', 'public/svg')
     .copyDirectory('resources/vendor', 'public/vendor')
 

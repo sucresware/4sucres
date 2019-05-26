@@ -55,13 +55,14 @@
     <div id="app" class="h-100">
         <div class="row no-gutters align-items-center justify-content-center h-100">
             <div class="col-10 col-md-6 col-lg-3">
-                <div class="mx-auto animated fadeIn" style="width: 250px">
+                <div class="animated fadeIn">
                     {!! File::get(base_path('/resources/svg/4sucres_alt.svg')) !!}
                 </div>
 
-                <video data-role="video" data-autoplay="true" loop="true" controls="true" class="mt-5 shadow img-fluid">
-                    <source src="{{ url('/video/503.webm')}}" type="video/webm">
-                </video>
+                <div class="text-center mt-5">
+                    <i class="fas fa-spin fa-circle-notch fa-2x mb-3"></i><br>
+                    De retour dans quelques minutes !
+                </div>
             </div>
         </div>
     </div>
