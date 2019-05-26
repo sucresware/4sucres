@@ -312,13 +312,18 @@ footer {
 }
 
 .sticker-inline {
-    max-height: 15px !important;
+    max-height: 20px !important;
     vertical-align: baseline !important;
 }
 
 .sticker {
     max-width: 68px !important;
     max-height: 51px !important;
+    vertical-align: baseline !important;
+}
+
+.emoji {
+    max-height: 20px !important;
     vertical-align: baseline !important;
 }
 

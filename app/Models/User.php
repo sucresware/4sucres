@@ -170,11 +170,16 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getDisplayNameAttribute()
     {
-        return $this->deleted_at ? 'Utilisateur supprimé' : $this->attributes['display_name'];
+        return $this->deleted_at ? 'Inconnu' : $this->attributes['display_name'];
     }
 
     public function getNameAttribute()
     {
-        return $this->deleted_at ? 'UtilisateurSupprimé' : $this->attributes['name'];
+        return $this->deleted_at ? 'Inconnu' : $this->attributes['name'];
+    }
+
+    public function discord_guilds()
+    {
+        return $this->belongsToMany(DiscordGuild::class);
     }
 }

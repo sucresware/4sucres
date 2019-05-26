@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\DiscordEmoji;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,6 +98,14 @@ Route::group(['prefix' => '/api/v0'], function () {
 
             return response()->json(['success' => true]);
         });
+
+        Route::get('/emojis/all', function () {
+            $emojis = DiscordEmoji::whereHas('guild.users', function ($q) {
+                return $q->where('user_id', user()->id);
+            })->get();
+
+            return response()->json($emojis);
+        })->name('api.emojis.all');
     });
 
     Route::get('/users', 'Api\UsersController@index')->name('api.users');
@@ -119,3 +129,4 @@ Route::view('/errors/410', 'errors/410');
 Route::view('/errors/429', 'errors/429');
 Route::view('/errors/500', 'errors/500');
 Route::view('/errors/503', 'errors/503');
+

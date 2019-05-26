@@ -33,11 +33,17 @@ const DefaultOptions = {
             'guide',
         ],
     },
-    autocomplete: {
+    userAutocomplete: {
         regex: /(@|#u:)([\w\d-]+)$/,
-        userFetchUrl: route('api.users.all').url(),
+        fetchUrl: route('api.users.all').url(),
         dropdownTemplate: '%user%',
         outputTemplate: '@%user% '
+    },
+    emojiAutocomplete: {
+        regex: /(:)([\w\d-]+)$/,
+        fetchUrl: route('api.emojis.all').url(),
+        dropdownTemplate: '<img src="%emojiLink%" width="20px"> :%emoji%:',
+        outputTemplate: ':%emoji%: '
     },
 }
 
@@ -84,12 +90,13 @@ class EditorWrapper {
     }
 
     initializeAutocomplete() {
-        this.loadUsers().then(() => this.registerAutocomplete());
+        this.loadUsers().then(() => this.registerUserAutocomplete());
+        this.loadEmojis().then(() => this.registerEmojiAutocomplete());
     }
 
     loadUsers() {
         return new Promise((resolve, reject) => {
-            $.get(this.options.autocomplete.userFetchUrl)
+            $.get(this.options.userAutocomplete.fetchUrl)
                 .then(result => {
                     this.autocompleteUsers = result;
                     resolve();
@@ -100,12 +107,25 @@ class EditorWrapper {
         });
     }
 
-    registerAutocomplete() {
+    loadEmojis() {
+        return new Promise((resolve, reject) => {
+            $.get(this.options.emojiAutocomplete.fetchUrl)
+                .then(result => {
+                    this.autocompleteEmojis = result;
+                    resolve();
+                })
+                .fail(() => {
+                    reject();
+                });
+        });
+    }
+
+    registerUserAutocomplete() {
         let that = this;
         this.autoComplete = new AutoComplete(new CodeMirrorEditor(this.getCodeMirror()));
         this.autoComplete.register([{
             // Matches @<username> or #u:<id>
-            match: this.options.autocomplete.regex,
+            match: this.options.userAutocomplete.regex,
 
             // Calls callback with the search values thanks to search terms
             search: function (term, callback) {
@@ -114,12 +134,36 @@ class EditorWrapper {
 
             // The way it's rendered in the dropdown
             template: function (user) {
-                return that.options.autocomplete.dropdownTemplate.replace('%user%', user);
+                return that.options.userAutocomplete.dropdownTemplate.replace('%user%', user);
             },
 
             // The output when user selects in the dropdown
             replace: function (user) {
-                return that.options.autocomplete.outputTemplate.replace('%user%', user);
+                return that.options.userAutocomplete.outputTemplate.replace('%user%', user);
+            }
+        }])
+    }
+
+    registerEmojiAutocomplete() {
+        let that = this;
+        this.emojiAutoComplete = new AutoComplete(new CodeMirrorEditor(this.getCodeMirror()));
+        this.emojiAutoComplete.register([{
+            // Matches :<name>:
+            match: this.options.emojiAutocomplete.regex,
+
+            // Calls callback with the search values thanks to search terms
+            search: function (term, callback) {
+                callback(that.applyEmojiAutocompleteFilter(term));
+            },
+
+            // The way it's rendered in the dropdown
+            template: function (emoji) {
+                return that.options.emojiAutocomplete.dropdownTemplate.replace('%emoji%', emoji.name).replace('%emojiLink%', emoji.link);
+            },
+
+            // The output when user selects in the dropdown
+            replace: function (emoji) {
+                return that.options.emojiAutocomplete.outputTemplate.replace('%emoji%', emoji.name);
             }
         }])
     }
@@ -127,6 +171,12 @@ class EditorWrapper {
     applyAutocompleteFilter(term) {
         return $.grep(this.autocompleteUsers, user => {
             return user.toLowerCase().startsWith(term.toLowerCase());
+        });
+    }
+
+    applyEmojiAutocompleteFilter(term) {
+        return $.grep(this.autocompleteEmojis, emoji => {
+            return emoji.name.toLowerCase().startsWith(term.toLowerCase());
         });
     }
 
