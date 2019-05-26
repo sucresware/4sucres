@@ -30,7 +30,7 @@ class User extends Authenticatable implements ReactsInterface
         'password', 'remember_token',
         'email', 'gender', 'dob',
         'email_verified_at', 'settings',
-        'avatar',
+        'avatar', 'api_token',
     ];
 
     /**
