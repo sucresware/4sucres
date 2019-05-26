@@ -14,7 +14,12 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements ReactsInterface
 {
-    use Notifiable, HasRoles, Reacts, HasPushSubscriptions, LogsActivity, CausesActivity;
+    use Notifiable;
+    use HasRoles;
+    use Reacts;
+    use HasPushSubscriptions;
+    use LogsActivity;
+    use CausesActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -183,5 +188,26 @@ class User extends Authenticatable implements ReactsInterface
     public function getNameAttribute()
     {
         return $this->deleted_at ? 'UtilisateurSupprimé' : $this->attributes['name'];
+    }
+
+    public function getRepliesCountAttribute()
+    {
+        $posts_count = $this
+            ->posts()
+            ->notTrashed()
+            ->whereHas('discussion', function ($q) {
+                $q->public();
+            })
+            ->count();
+
+        return $posts_count - $this->discussions_count;
+    }
+
+    public function getDiscussionsCountAttribute()
+    {
+        return $this
+            ->discussions()
+            ->public()
+            ->count();
     }
 }
