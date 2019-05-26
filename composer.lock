@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "461ab377b2f64ab84acc60e751ec61c0",
+    "content-hash": "cc6bc5df4871a14f25d72c75602a7321",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -799,6 +799,62 @@
                 "stream_filter_register"
             ],
             "time": "2019-04-09T12:31:48+00:00"
+        },
+        {
+            "name": "danielstjules/stringy",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danielstjules/Stringy.git",
+                "reference": "df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e",
+                "reference": "df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/polyfill-mbstring": "~1.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stringy\\": "src/"
+                },
+                "files": [
+                    "src/Create.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel St. Jules",
+                    "email": "danielst.jules@gmail.com",
+                    "homepage": "http://www.danielstjules.com"
+                }
+            ],
+            "description": "A string manipulation library with multibyte support",
+            "homepage": "https://github.com/danielstjules/Stringy",
+            "keywords": [
+                "UTF",
+                "helpers",
+                "manipulation",
+                "methods",
+                "multibyte",
+                "string",
+                "utf-8",
+                "utility",
+                "utils"
+            ],
+            "time": "2017-06-12T01:10:27+00:00"
         },
         {
             "name": "delight-im/str",
@@ -1769,6 +1825,64 @@
                 "psr-7"
             ],
             "time": "2018-07-31T19:32:56+00:00"
+        },
+        {
+            "name": "imagine/imagine",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avalanche123/Imagine.git",
+                "reference": "6a84addad63baeda0a25079580a2e369a36ceb29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/6a84addad63baeda0a25079580a2e369a36ceb29",
+                "reference": "6a84addad63baeda0a25079580a2e369a36ceb29",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.2.*",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.4"
+            },
+            "suggest": {
+                "ext-gd": "to use the GD implementation",
+                "ext-gmagick": "to use the Gmagick implementation",
+                "ext-imagick": "to use the Imagick implementation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Imagine\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image processing for PHP 5.3",
+            "homepage": "http://imagine.readthedocs.org/",
+            "keywords": [
+                "drawing",
+                "graphics",
+                "image manipulation",
+                "image processing"
+            ],
+            "time": "2018-12-07T16:51:20+00:00"
         },
         {
             "name": "intervention/image",
@@ -3359,6 +3473,214 @@
                 "serialize"
             ],
             "time": "2019-05-05T12:50:25+00:00"
+        },
+        {
+            "name": "orchestra/contracts",
+            "version": "v3.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/contracts.git",
+                "reference": "ee371953c60b8371ff896a9bba767295dee3f5da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/contracts/zipball/ee371953c60b8371ff896a9bba767295dee3f5da",
+                "reference": "ee371953c60b8371ff896a9bba767295dee3f5da",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "~5.8.0",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Contracts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Contracts for Orchestra Platform",
+            "keywords": [
+                "contracts",
+                "orchestra-platform",
+                "orchestral"
+            ],
+            "time": "2019-02-27T04:22:29+00:00"
+        },
+        {
+            "name": "orchestra/imagine",
+            "version": "v3.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/imagine.git",
+                "reference": "6e4e35f9db5509e3102452e3b7e1f5db4ad5bd4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/imagine/zipball/6e4e35f9db5509e3102452e3b7e1f5db4ad5bd4c",
+                "reference": "6e4e35f9db5509e3102452e3b7e1f5db4ad5bd4c",
+                "shasum": ""
+            },
+            "require": {
+                "imagine/imagine": "^1.2",
+                "orchestra/support-core": "~3.8.0",
+                "orchestra/support-providers": "~3.8.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "illuminate/container": "~5.8.0",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.5 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Imagine\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Imagine (Wrapper) Component for Laravel 5",
+            "keywords": [
+                "image",
+                "image-manipulation",
+                "laravel",
+                "orchestra-platform",
+                "orchestral"
+            ],
+            "time": "2019-02-27T05:13:29+00:00"
+        },
+        {
+            "name": "orchestra/support-core",
+            "version": "v3.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/support-core.git",
+                "reference": "7b4cbe02d5349ce24fada9ed519d25bd3257e094"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/support-core/zipball/7b4cbe02d5349ce24fada9ed519d25bd3257e094",
+                "reference": "7b4cbe02d5349ce24fada9ed519d25bd3257e094",
+                "shasum": ""
+            },
+            "require": {
+                "danielstjules/stringy": "^3.0",
+                "illuminate/support": "~5.8.0",
+                "orchestra/contracts": "~3.8.0",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Support\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Support (Core) Component for Orchestra Platform",
+            "homepage": "http://orchestraplatform.com/docs/latest/components/support/",
+            "keywords": [
+                "laravel",
+                "orchestra-platform",
+                "orchestral",
+                "utilities",
+                "validator"
+            ],
+            "time": "2019-02-27T05:08:11+00:00"
+        },
+        {
+            "name": "orchestra/support-providers",
+            "version": "v3.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/support-providers.git",
+                "reference": "0c8372a70caa315802d21cc7c5417ba5b6d3602e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/support-providers/zipball/0c8372a70caa315802d21cc7c5417ba5b6d3602e",
+                "reference": "0c8372a70caa315802d21cc7c5417ba5b6d3602e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.9",
+                "orchestra/contracts": "~3.8.0",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Support\\Providers\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Support (Providers) Component for Laravel and Orchestra Platform",
+            "homepage": "http://orchestraplatform.com/docs/latest/components/support/",
+            "keywords": [
+                "laravel",
+                "orchestra-platform",
+                "orchestral"
+            ],
+            "time": "2019-04-08T02:07:09+00:00"
         },
         {
             "name": "paragonie/random_compat",

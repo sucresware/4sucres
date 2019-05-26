@@ -33,6 +33,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'ban users']);
         Permission::firstOrCreate(['name' => 'delete users']);
         Permission::firstOrCreate(['name' => 'bypass throttle']);
+        Permission::firstOrCreate(['name' => 'upload animated avatars']);
 
         $admin->givePermissionTo('bypass users guard');
         $admin->givePermissionTo('use restricted categories');
@@ -47,6 +48,7 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('ban users');
         $admin->givePermissionTo('delete users');
         $admin->givePermissionTo('bypass throttle');
+        $admin->givePermissionTo('upload animated avatars');
 
         $moderator->givePermissionTo('bypass users guard');
         $moderator->givePermissionTo('use restricted categories');
@@ -58,10 +60,12 @@ class PermissionsTableSeeder extends Seeder
         $moderator->givePermissionTo('update achievements');
         $moderator->givePermissionTo('ban users');
         $moderator->givePermissionTo('bypass throttle');
+        $moderator->givePermissionTo('upload animated avatars');
 
         $supporter->givePermissionTo('update shown_role');
         $supporter->givePermissionTo('create discussions');
         $supporter->givePermissionTo('read deleted posts');
+        $supporter->givePermissionTo('upload animated avatars');
 
         $user->givePermissionTo('create discussions');
     }
