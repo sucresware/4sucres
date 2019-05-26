@@ -26,12 +26,35 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'name' => ['required', 'string', 'max:255'],
         ]);
 
+        $guild = new DiscordGuild([
+            'id'   => request()->id,
+            'icon' => request()->icon,
+            'name' => request()->name,
+        ]);
+
+        try {
+            // Vérification de l'existance de la PP du serveur
+            file_get_contents($guild->icon_link);
+        } catch (\Exception $e) {
+            activity()
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'level'        => 'warning',
+                    'method'       => __METHOD__,
+                    'request'      => request()->all(),
+                    'attributes'   => array_merge($guild->toArray(), ['link' => $guild->link]),
+                ])
+                ->log('DiscordGuildNotFound');
+
+            abort(404);
+        }
+
         $guild = DiscordGuild::updateOrCreate(['id'=> request()->id], [
             'icon' => request()->icon,
             'name' => request()->name,
         ]);
 
-        $guild->users()->attach(request()->user());
+        $guild->users()->syncWithoutDetaching(request()->user());
 
         return [
             'success' => true,
@@ -46,6 +69,31 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'animated'       => ['required', 'boolean'],
             'deleted'        => ['required', 'boolean'],
         ]);
+
+        $emoji = new DiscordEmoji([
+            'id'                => request()->id,
+            'name'              => request()->name,
+            'animated'          => request()->animated,
+            'deleted'           => request()->deleted,
+            'discord_guild_id'  => request()->guild_id,
+        ]);
+
+        try {
+            // Vérification de l'existance de l'emoji
+            file_get_contents($emoji->link);
+        } catch (\Exception $e) {
+            activity()
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'level'        => 'warning',
+                    'method'       => __METHOD__,
+                    'request'      => request()->all(),
+                    'attributes'   => array_merge($emoji->toArray(), ['link' => $emoji->link]),
+                ])
+                ->log('DiscordEmojiNotFound');
+
+            abort(404);
+        }
 
         $emoji = DiscordEmoji::updateOrCreate(['id'=> request()->id], [
             'name'              => request()->name,

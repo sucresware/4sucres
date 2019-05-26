@@ -37,6 +37,7 @@
                                     </label>
                                 </div>
                             </div>
+
                             <div class="d-none d-md-flex col-md-4 pr-1">
                                 <a href='{{ url('/img/settings/discord.connector.png') }}' data-toggle='lightbox' data-type='image'>
                                     <img src="{{ url('/img/settings/discord.connector.png') }}" class="img-fluid rounded">
@@ -44,8 +45,18 @@
                             </div>
                         </div>
 
-                    <a href="{{ route('user.settings.connections.discord.setup') }}" class="btn bg-discord text-white"><i class="fab fa-discord fa-1x fa-fw"></i> Discord</a>
-
+                    </div>
+                        <div class="alert white border">
+                            @foreach ($user->discord_guilds as $guild)
+                                @if (count($guild->emojis))
+                                    <div class="text-uppercase font-weight-bold font-sm">{{ $guild->name }}</div><br>
+                                    @foreach ($guild->emojis as $emoji)
+                                        <div class="emoji" style="background-image: url({{ $emoji->link }});" data-toggle="tooltip" data-placement="top" title="{{ $emoji->name }}"></div>
+                                    @endforeach
+                                    <hr>
+                                @endif
+                            @endforeach
+                        </div>
                 </div>
             </div>
         </div>

@@ -18,4 +18,11 @@ class DiscordGuild extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function getIconLinkAttribute()
+    {
+        $url = 'https://cdn.discordapp.com/icons/' . $this->id . '/' . $this->icon . '.png';
+
+        return $url;
+    }
 }
