@@ -28,7 +28,7 @@ class MentionnedInPost extends DefaultNotification
         $attributes = [
             'title'  => 'Hey! T\'as été mentionné !',
             'target' => $this->post->link,
-            'html'   => '<b>' . $this->post->user->display_name . '</b> t\'as mentionné dans la discussion <b>' . $this->post->discussion->title . '</b>',
+            'html'   => '<b>' . e($this->post->user->display_name) . '</b> t\'as mentionné dans la discussion <b>' . e($this->post->discussion->title) . '</b>',
             'text'   => $this->post->user->display_name . ' t\'as mentionné dans la discussion : ' . $this->post->discussion->title,
         ];
 

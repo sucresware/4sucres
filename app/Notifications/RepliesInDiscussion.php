@@ -43,7 +43,7 @@ class RepliesInDiscussion extends DefaultNotification
         return [
             'title'  => 'Oui, allo ?',
             'target' => $this->discussion->link,
-            'html'   => 'Plusieurs réponses ont été postées sur la discussion <b>' . $this->discussion->title . '</b>',
+            'html'   => 'Plusieurs réponses ont été postées sur la discussion <b>' . e($this->discussion->title) . '</b>',
             'text'   => 'Plusieurs réponses ont été postées sur la discussion : ' . $this->discussion->title,
         ];
     }
