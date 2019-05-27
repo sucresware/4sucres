@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
             ->cron('0 */2 * * *');
 
         $schedule
-            ->command('achievement:distribute')
+            ->command('achievements:distribute')
             ->twiceDaily(11, 23)
             ->withoutOverlapping();
     }

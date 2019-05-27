@@ -179,13 +179,13 @@ class EditorWrapper {
 
     applyAutocompleteFilter(term) {
         return $.grep(this.autocompleteUsers, user => {
-            return user.toLowerCase().startsWith(term.toLowerCase());
+            return user.toLowerCase().includes(term.toLowerCase());
         });
     }
 
     applyEmojiAutocompleteFilter(term) {
         return $.grep(this.autocompleteEmojis, emoji => {
-            return emoji.shortname.toLowerCase().startsWith(term.toLowerCase());
+            return emoji.shortname.toLowerCase().includes(term.toLowerCase());
         });
     }
 
