@@ -33,7 +33,7 @@ Route::get('/d/c/{category}-{slug}', 'DiscussionController@index')->name('discus
 Route::get('/search', 'SearchController@query')->name('search.query');
 
 Route::get('d/{id}-{slug}', 'DiscussionController@show')->name('discussions.show');
-Route::get('/u/{name}', 'UserController@show')->name('user.show');
+Route::get('/u/{nameOrId}', 'UserController@show')->name('user.show');
 
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/charter', 'HomeController@charter')->name('charter');

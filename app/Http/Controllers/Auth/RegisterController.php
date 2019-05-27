@@ -81,8 +81,12 @@ class RegisterController extends Controller
 
         activity()
             ->performedOn($user)
-            ->withProperties(['level' => 'info'])
-            ->log('Nouvelle inscription');
+            ->causedBy($user)
+            ->withProperties([
+                'level'  => 'notice',
+                'method' => __METHOD__,
+            ])
+            ->log('RegisterSuccess');
 
         $verify_user = VerifyUser::create([
             'user_id' => $user->id,
@@ -109,6 +113,15 @@ class RegisterController extends Controller
         auth()->login($user);
 
         $verify_user->delete();
+
+        activity()
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties([
+                'level'  => 'info',
+                'method' => __METHOD__,
+            ])
+            ->log('EmailVerified');
 
         return redirect()->route('home')
             ->with('swal-success', 'Bienvenue à bord ' . $user->name . ' !');

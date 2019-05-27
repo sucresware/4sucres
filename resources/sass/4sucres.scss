@@ -52,6 +52,7 @@ $container-max-widths: (md: 720px,
 
 @import '~bootstrap/scss/bootstrap';
 @import '_app';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
 .card-header {
     border: 0;
@@ -237,7 +238,36 @@ blockquote,
     }
 }
 
-
 .bg-discord {
     background-color: #7289DA;
+}
+
+@keyframes fa-blink {
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    75% {
+        opacity: 0.75;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.fa-blink {
+    -webkit-animation: fa-blink .75s linear infinite;
+    -moz-animation: fa-blink .75s linear infinite;
+    -ms-animation: fa-blink .75s linear infinite;
+    -o-animation: fa-blink .75s linear infinite;
+    animation: fa-blink .75s linear infinite;
 }

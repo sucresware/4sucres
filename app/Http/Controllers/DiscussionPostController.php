@@ -17,6 +17,15 @@ class DiscussionPostController extends Controller
         }
 
         if ($discussion->locked || user()->cannot('create discussions')) {
+            activity()
+                ->performedOn($discussion)
+                ->causedBy(user())
+                ->withProperties([
+                    'level'  => 'warning',
+                    'method' => __METHOD__,
+                ])
+                ->log('PermissionWarn');
+
             return abort(403);
         }
 
@@ -30,11 +39,6 @@ class DiscussionPostController extends Controller
             'body'    => request()->input('body'),
             'user_id' => user()->id,
         ]);
-
-        activity()
-            ->performedOn($post)
-            ->withProperties(['level' => 'info'])
-            ->log('Nouveau post');
 
         return redirect($post->link);
     }
@@ -54,6 +58,15 @@ class DiscussionPostController extends Controller
     public function update(Discussion $discussion, $slug, Post $post)
     {
         if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
+            activity()
+                ->performedOn($discussion)
+                ->causedBy(user())
+                ->withProperties([
+                    'level'  => 'warning',
+                    'method' => __METHOD__,
+                ])
+                ->log('PermissionWarn');
+
             return abort(403);
         }
 
@@ -72,11 +85,6 @@ class DiscussionPostController extends Controller
     public function delete(Discussion $discussion, $slug, Post $post)
     {
         if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
-            activity()
-                ->performedOn($discussion)
-                ->withProperties(['level' => 'warning'])
-                ->log('Tentative de suppression de post/discussion refusée (GET)');
-
             return abort(403);
         }
 
@@ -88,8 +96,12 @@ class DiscussionPostController extends Controller
         if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
             activity()
                 ->performedOn($discussion)
-                ->withProperties(['level' => 'warning'])
-                ->log('Tentative de suppression de post/discussion refusée (DELETE)');
+                ->causedBy(user())
+                ->withProperties([
+                    'level'  => 'warning',
+                    'method' => __METHOD__,
+                ])
+                ->log('PermissionWarn');
 
             return abort(403);
         }
@@ -106,8 +118,12 @@ class DiscussionPostController extends Controller
 
             activity()
                 ->performedOn($discussion)
-                ->withProperties(['level' => 'notice'])
-                ->log('Discussion supprimée');
+                ->causedBy(user())
+                ->withProperties([
+                    'level'  => 'warning',
+                    'method' => __METHOD__,
+                ])
+                ->log('DiscussionSoftDeleted');
 
             return redirect(route('home'));
         } else {
@@ -118,8 +134,12 @@ class DiscussionPostController extends Controller
 
             activity()
                 ->performedOn($post)
-                ->withProperties(['level' => 'notice'])
-                ->log('Post supprimé');
+                ->causedBy(user())
+                ->withProperties([
+                    'level'  => 'warning',
+                    'method' => __METHOD__,
+                ])
+                ->log('PostSoftDeleted');
 
             return redirect(route('discussions.show', [
                 $discussion->id,

@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Post extends Model implements ReactableInterface
 {
-    use Reactable;
+    use Reactable, LogsActivity;
 
     protected $guarded = [];
 
@@ -26,6 +27,10 @@ class Post extends Model implements ReactableInterface
     protected $casts = [
         'deleted_at' => 'timestamp',
     ];
+
+    protected static $logAttributes = ['body', 'deleted_at'];
+    protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
 
     public static function boot()
     {

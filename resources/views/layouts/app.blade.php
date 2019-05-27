@@ -89,6 +89,15 @@
                                 @endif
                             </span>
                         </a>
+
+                        @if (user()->hasRole('admin') || user()->hasRole('moderator'))
+                            <a class="text-center mr-1 order-lg-9" href="{{ route('admin.index') }}">
+                                <span class="fa-stack">
+                                    <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                                    <i class="fas fa-lock fa-stack-1x {{ (active('admin.*')) ? 'fa-inverse' : '' }}"></i>
+                                </span>
+                            </a>
+                        @endif
                     @endauth
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">

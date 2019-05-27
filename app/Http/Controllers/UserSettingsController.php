@@ -70,6 +70,15 @@ class UserSettingsController extends Controller
         $user = User::where('name', $name)->firstOrFail();
 
         if ($user->id != user()->id && !user()->can('bypass users guard')) {
+            activity()
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'level'        => 'warning',
+                    'method'       => __METHOD__,
+                    'request'      => request()->all(),
+                ])
+                ->log('PermissionWarn');
+
             return abort(403);
         }
 
@@ -97,21 +106,79 @@ class UserSettingsController extends Controller
             }
 
             $user->avatar = $avatar_name;
+
+            activity()
+                ->performedOn($user)
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'level'      => 'notice',
+                    'method'     => __METHOD__,
+                    'attributes' => [
+                        'avatar' => $avatar_name,
+                    ],
+                ])
+                ->log('UserAvatarUpdated');
         }
 
         $user->display_name = request()->display_name;
 
         if (user()->can('update shown_role')) {
+            $old_shown_role = $user->shown_role;
             $user->shown_role = request()->shown_role;
+
+            if ($user->shown_role != $old_shown_role) {
+                activity()
+                ->performedOn($user)
+                ->causedBy(user())
+                ->withProperties([
+                    'level'      => 'warning',
+                    'method'     => __METHOD__,
+                    'attributes' => [
+                        'shown_role' => request()->shown_role,
+                    ],
+                    'old' => [
+                        'shown_role' => $old_shown_role,
+                    ],
+                ])
+                ->log('UserShownRoleUpdated');
+            }
         }
 
         if (user()->can('update achievements')) {
-            $user->achievements()->sync(request()->achievements);
+            $sync = $user->achievements()->sync(request()->achievements);
+
+            if (count($sync['attached']) || count($sync['detached']) || count($sync['updated'])) {
+                activity()
+                ->performedOn($user)
+                ->causedBy(user())
+                ->withProperties([
+                    'level'        => 'alert',
+                    'method'       => __METHOD__,
+                    'elevated'     => true,
+                    'request'      => request()->all(),
+                    'sync'         => $sync,
+                ])
+                ->log('UserAchievementsUpdated');
+            }
         }
 
-        // if (user()->can('update roles')) {
-        //     $user->roles()->sync(request()->role);
-        // }
+        if (user()->can('update roles')) {
+            $sync = $user->roles()->sync(request()->role);
+
+            if (count($sync['attached']) || count($sync['detached']) || count($sync['updated'])) {
+                activity()
+                ->performedOn($user)
+                ->causedBy(user())
+                ->withProperties([
+                    'level'      => 'critical',
+                    'method'     => __METHOD__,
+                    'elevated'   => true,
+                    'request'    => request()->all(),
+                    'sync'       => $sync,
+                ])
+                ->log('UserRolesUpdated');
+            }
+        }
 
         $user->save();
 
@@ -155,11 +222,6 @@ class UserSettingsController extends Controller
         $user->email = request()->email;
         $user->save();
 
-        activity()
-            ->performedOn($user)
-            ->withProperties(['level' => 'info'])
-            ->log('Email modifié (paramètres)');
-
         return redirect(route('user.settings.account.email'))->with('success', 'Modifications enregistrées !');
     }
 
@@ -186,8 +248,12 @@ class UserSettingsController extends Controller
 
         activity()
             ->performedOn($user)
-            ->withProperties(['level' => 'info'])
-            ->log('Mot de passe modifié (paramètres)');
+            ->causedBy($user)
+            ->withProperties([
+                'level'  => 'warning',
+                'method' => __METHOD__,
+            ])
+            ->log('PasswordChanged#Account');
 
         return redirect(route('user.settings.account.password'))->with('success', 'Modifications enregistrées !');
     }

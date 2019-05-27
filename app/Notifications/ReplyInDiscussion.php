@@ -49,10 +49,10 @@ class ReplyInDiscussion extends DefaultNotification
         ];
 
         if (!$this->post->discussion->private) {
-            $attributes['html'] = '<b>' . $this->post->user->display_name . '</b> a posté une réponse dans <b>' . $this->post->discussion->title . '</b>';
+            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a posté une réponse dans <b>' . e($this->post->discussion->title) . '</b>';
             $attributes['text'] = $this->post->user->display_name . ' a posté une réponse dans : ' . $this->post->discussion->title;
         } else {
-            $attributes['html'] = '<b>' . $this->post->user->display_name . '</b> a répondu dans la discussion privée <b>' . $this->post->discussion->title . '</b>';
+            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a répondu dans la discussion privée <b>' . e($this->post->discussion->title) . '</b>';
             $attributes['text'] = $this->post->user->display_name . ' a répondu dans la discussion privée : ' . $this->post->discussion->title;
         }
 

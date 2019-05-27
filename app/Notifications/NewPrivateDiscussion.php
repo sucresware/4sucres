@@ -28,7 +28,7 @@ class NewPrivateDiscussion extends DefaultNotification
         $attributes = [
             'title'  => 'Oh putain j\'me suis dit oulaaah !',
             'target' => $this->discussion->link,
-            'html'   => '<b>' . $this->discussion->user->display_name . '</b> a commencé une discussion privée avec toi.',
+            'html'   => '<b>' . e($this->discussion->user->display_name) . '</b> a commencé une discussion privée avec toi.',
             'text'   => $this->discussion->user->display_name . ' a commencé une discussion privée avec toi.',
         ];
 

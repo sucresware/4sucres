@@ -14,7 +14,6 @@
         "barryvdh/laravel-cors": "^0.11.3",
         "barryvdh/laravel-debugbar": "^3.2",
         "benjaminhoegh/parsedown-extreme": "^0.1.6",
-        "beyondcode/laravel-websockets": "^1.1",
         "calebporzio/awesome-helpers": "^2.4",
         "chriskonnertz/bbcode": "^1.1",
         "delight-im/str": "^2.4",
@@ -48,6 +47,7 @@
         "spatie/regex": "^1.4",
         "tightenco/ziggy": "^0.7.1",
         "watson/active": "^3.1",
+        "yajra/laravel-datatables-oracle": "^9.3",
         "yish/imgur": "^1.0"
     },
     "require-dev": {
