@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Post;
-use function GuzzleHttp\json_decode;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Regex\Regex;
