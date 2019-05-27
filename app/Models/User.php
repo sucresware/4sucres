@@ -207,7 +207,7 @@ class User extends Authenticatable implements ReactsInterface
         });
 
         $discord_emojis = DiscordEmoji::whereHas('guild.users', function ($q) {
-            return $q->where('user_id', user()->id);
+            return $q->where('user_id', $this->id);
         })->get()
         ->transform(function ($emoji) {
             if ($emoji->require_colons) {
