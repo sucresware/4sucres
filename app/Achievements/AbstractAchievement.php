@@ -2,10 +2,8 @@
 
 namespace App\Achievements;
 
-use App\Models\Post;
-use App\Models\User;
 use App\Models\Achievement;
-use App\Notifications\ReplyInDiscussion;
+use App\Models\User;
 use App\Notifications\UnlockedAchievement;
 
 /**

@@ -122,7 +122,7 @@ Artisan::command('achievements:convert', function () {
         $bar->advance();
     }
 
-    Achievement::where('code', "")->delete();
+    Achievement::where('code', '')->delete();
 
     $bar->finish();
 });
