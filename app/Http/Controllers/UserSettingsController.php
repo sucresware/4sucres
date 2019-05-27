@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Imagine\Image\Box;
-use App\Models\Achievement;
-use Imagine\Imagick\Imagine;
 use App\Helpers\SucresHelper;
-use Imagine\Image\ImageInterface;
-use Spatie\Permission\Models\Role;
+use App\Models\Achievement;
+use App\Models\User;
+use App\Notifications\UnlockedAchievement;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Notifications\UnlockedAchievement;
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
+use Imagine\Imagick\Imagine;
+use Spatie\Permission\Models\Role;
 
 class UserSettingsController extends Controller
 {
@@ -149,9 +149,9 @@ class UserSettingsController extends Controller
             $sync = $user->achievements()->sync(request()->achievements);
 
             if (count($sync['attached']) || count($sync['detached']) || count($sync['updated'])) {
-                foreach($sync['attached'] as $achievement_id) {
+                foreach ($sync['attached'] as $achievement_id) {
                     $achievement = Achievement::find($achievement_id);
-                    $class = '\App\Achievements\Achievements\\'.$achievement->code;
+                    $class = '\App\Achievements\Achievements\\' . $achievement->code;
                     $user->notify(new UnlockedAchievement(new $class()));
                 }
 
