@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'name' => request()->name,
         ]);
 
-        $guild->users()->syncWithoutDetaching(user('api'));
+        DiscordGuild::findOrFail(request()->id)->users()->syncWithoutDetaching(user('api')); // <= Necessary beacuse `$guild->id` is set to 0 on creation (?!).
 
         return ['success' => true];
     });
