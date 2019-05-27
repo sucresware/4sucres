@@ -79,6 +79,16 @@ class User extends Authenticatable implements ReactsInterface
         return $this->belongsToMany(Achievement::class, 'user_achievement')->withPivot('unlocked_at');
     }
 
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function getRestrictedAttribute()
     {
         return (bool) ($this->email_verified_at == null);
@@ -86,7 +96,7 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getRestrictedPostsCreatedAttribute()
     {
-        return \App\Models\Post::where('user_id', user()->id)
+        return $this->posts()
             ->whereHas('discussion', function ($q) {
                 return $q->where('private', false);
             })
