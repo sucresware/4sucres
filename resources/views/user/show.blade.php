@@ -34,16 +34,14 @@
                         @php
                             $diffInDays = $user->created_at->startOfDay()->diffInWeekDays(now()->startOfDay());
                         @endphp
-                        @switch($diffInDays)
-                            @case(0)
-                                <span class="text-warning">aujourd'hui</span>
-                                @break
-                            @case(1)
-                                <span class="text-warning">hier</span>
-                                @break
-                            @default
-                                {{ $diffInDays . ' ' . str_plural('jour', $diffInDays) }}
-                        @endswitch
+
+                        @if ($user->created_at->isToday())
+                            <span class="text-warning">aujourd'hui</span>
+                        @elseif ($user->created_at->isLastDay())
+                            <span class="text-warning">hier</span>
+                        @else
+                            {{ $diffInDays . ' ' . str_plural('jour', $diffInDays) }}
+                        @endif
                         ({{ $user->created_at->format('d/m/Y') }})<br>
                         <strong>Dernière activité :</strong> {{ $user->last_activity->diffForHumans() }}<br>
                     </div>

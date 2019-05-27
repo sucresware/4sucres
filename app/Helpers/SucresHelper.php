@@ -53,23 +53,23 @@ class SucresHelper
 
     public static function niceDate(Carbon $date, $ret_type = self::NICEDATE_WITH_HOURS)
     {
-        $diffInDays = $date->copy()->startOfDay()->diffInWeekDays(now()->startOfDay());
-
-        switch ($diffInDays) {
-            case 0:
-                $markup = 'aujourd\'hui';
-
-                break;
-            case 1:
-                $markup = 'hier';
-
-                break;
-            default:
-                $markup = 'le ' . $date->format('d/m/Y');
+        if ($date->isToday()) {
+            $markup = 'aujourd\'hui';
+        } elseif ($date->isLastDay()) {
+            $markup = 'hier';
+        } else {
+            $markup = sprintf('le %s', $date->format('d/m/Y'));
         }
 
-        if ($ret_type == self::NICEDATE_WITH_HOURS) {
-            $markup .= ' à ' . $date->format('H:i:s');
+        switch ($ret_type) {
+            case self::NICEDATE_WITH_HOURS:
+                $markup .= sprintf(' à %s', $date->format('H:i:s'));
+
+                break;
+
+            case self::NICEDATE_MINIMAL:
+            default:
+                break;
         }
 
         return $markup;
