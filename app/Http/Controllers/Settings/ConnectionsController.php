@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use Laravel\Socialite\Facades\Socialite;
-use RestCord\DiscordClient;
 
 class ConnectionsController extends Controller
 {
@@ -13,5 +11,16 @@ class ConnectionsController extends Controller
         $user = user();
 
         return view('user.settings.connections.index', compact('user'));
+    }
+
+    public function regenToken()
+    {
+        $user = user();
+
+        $user->api_token = str_random(60);
+
+        $user->save();
+
+        return redirect(route('user.settings.connections.index'))->with('success', 'Token régénéré !');
     }
 }

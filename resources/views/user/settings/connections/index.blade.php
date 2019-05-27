@@ -16,7 +16,12 @@
                     Connexions
                 </div>
                 <div class="card-body dimmed-border-bottom">
-                    <p>Connectez vos comptes à 4sucres pour pouvoir accéder à des intégrations spéciales !</p>
+                    <p>
+                        Token personnel 4sucres :
+                        <span class="text-monospace">{{ $user->api_token }}</span>
+                    </p>
+
+                    <a href="{{ route('user.settings.connections.regen-token') }}" class="btn btn-danger">Régénérer</a>
                 </div>
                 <div class="card-body dimmed-border-bottom">
                     <div class="text-center font-weight-bold text-uppercase mb-3">Intégration Discord</div>
@@ -31,7 +36,7 @@
 
                                     @if ($user->can('sync discord emojis'))
                                     @else
-                                        <span class="text-danger">Oupsi! Cette fonctionnalité est réservée aux membres vérifés.</span>
+                                        <span class="text-danger">Oupsi ! Cette fonctionnalité est réservée aux membres vérifés.</span>
                                     @endif
                                 </div>
 

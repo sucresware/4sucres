@@ -15,11 +15,15 @@ use App\Models\DiscordGuild;
 */
 
 Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
-    Route::get('/user', function () {
-        return request()->user();
+    Route::get('/@me', function () {
+        return user('api');
     });
 
     Route::post('/discord-guilds', function () {
+        if (!user('api')->can('sync discord emojis')) {
+            abort(403);
+        }
+
         request()->validate([
             'id'   => ['required', 'integer'],
             'icon' => ['required', 'string', 'max:255'],
@@ -33,11 +37,10 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
         ]);
 
         try {
-            // Vérification de l'existance de la PP du serveur
             file_get_contents($guild->icon_link);
         } catch (\Exception $e) {
             activity()
-                ->causedBy(auth()->user())
+                ->causedBy(auth()->user('api'))
                 ->withProperties([
                     'level'        => 'warning',
                     'method'       => __METHOD__,
@@ -54,14 +57,16 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'name' => request()->name,
         ]);
 
-        $guild->users()->syncWithoutDetaching(request()->user());
+        $guild->users()->syncWithoutDetaching(user('api'));
 
-        return [
-            'success' => true,
-        ];
+        return ['success' => true];
     });
 
     Route::post('/discord-emojis', function () {
+        if (!user('api')->can('sync discord emojis')) {
+            abort(403);
+        }
+
         request()->validate([
             'id'             => ['required', 'integer'],
             'guild_id'       => ['required', 'integer', 'exists:discord_guilds,id'],
@@ -76,16 +81,15 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'name'              => request()->name,
             'animated'          => request()->input('animated', false),
             'deleted'           => request()->input('deleted', false),
-            'require_colons'    => request()->input('require_colons', false),
+            'require_colons'    => request()->input('require_colons', true),
             'discord_guild_id'  => request()->guild_id,
         ]);
 
         try {
-            // Vérification de l'existance de l'emoji
             file_get_contents($emoji->link);
         } catch (\Exception $e) {
             activity()
-                ->causedBy(auth()->user())
+                ->causedBy(auth()->user('api'))
                 ->withProperties([
                     'level'        => 'warning',
                     'method'       => __METHOD__,
@@ -101,7 +105,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'name'              => request()->name,
             'animated'          => request()->input('animated', false),
             'deleted'           => request()->input('deleted', false),
-            'require_colons'    => request()->input('require_colons', false),
+            'require_colons'    => request()->input('require_colons', true),
             'discord_guild_id'  => request()->guild_id,
         ]);
 

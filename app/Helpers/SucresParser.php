@@ -76,24 +76,30 @@ class SucresParser
         return $this;
     }
 
-    public function renderEmojis(){
+    public function renderEmojis()
+    {
         $matchs = Regex::matchAll('/\:[^\s<]+(\:|)/m', $this->content);
         $poster_emojis = $this->post->user->emojis;
 
         foreach ($matchs->results() as $match) {
             $excerpt = $match->group(0);
             $emoji = $poster_emojis->where('shortname', $excerpt)->first();
-            if (!$emoji) continue;
+            if (!$emoji) {
+                continue;
+            }
 
-            switch($emoji['type']) {
+            switch ($emoji['type']) {
                 case 'discord':
                     $markup = '<div class="emoji" style="background-image: url(' . $emoji['link'] . '"></div>';
+
                     break;
                 case 'smiley':
                     $markup = '<img src="' . $emoji['link'] . '">';
+
                     break;
                 case 'emoji':
                     $markup = $emoji['html'];
+
                     break;
                 default:
             }

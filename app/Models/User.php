@@ -186,6 +186,19 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getEmojisAttribute()
     {
+        $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
+            $smiley->type = 'smiley';
+            $smiley->link = url('/img/smileys/' . $smiley->image);
+
+            return $smiley;
+        });
+
+        $emojis = Cache::get('emojis')->transform(function ($smiley) {
+            $smiley->type = 'emoji';
+
+            return $smiley;
+        });
+
         $discord_emojis = DiscordEmoji::whereHas('guild.users', function ($q) {
             return $q->where('user_id', user()->id);
         })->get()
@@ -201,39 +214,47 @@ class User extends Authenticatable implements ReactsInterface
             return $emoji;
         });
 
-        $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
-            $smiley->type = 'smiley';
-            $smiley->link = url('/img/smileys/' . $smiley->image);
-
-            return $smiley;
-        });
-
-        $emojis = Cache::get('emojis')->transform(function ($smiley) {
-            $smiley->type = 'emoji';
-
-            return $smiley;
-        });
+        $duplicates = [];
 
         $all = collect(array_merge(
-            $discord_emojis->toArray(),
             $jvc_smileys->toArray(),
-            $emojis->toArray()
-        ))->transform(function($emoji){
+            $emojis->toArray(),
+            $discord_emojis->toArray()
+        ))->transform(function ($emoji) use (&$duplicates) {
             if (is_array($emoji)) {
-                return [
-                    'type' => $emoji['type'],
+                $e = [
+                    'type'      => $emoji['type'],
                     'shortname' => $emoji['shortname'],
-                    'link' => $emoji['link'] ?? '',
-                    'html' => $emoji['html'] ?? '',
+                    'link'      => $emoji['link'] ?? '',
+                    'html'      => $emoji['html'] ?? '',
                 ];
             } else {
-                return [
-                    'type' => $emoji->type,
+                $e = [
+                    'type'      => $emoji->type,
                     'shortname' => $emoji->shortname,
-                    'link' => $emoji->link ?? '',
-                    'html' => $emoji->html ?? '',
+                    'link'      => $emoji->link ?? '',
+                    'html'      => $emoji->html ?? '',
                 ];
             }
+
+            if (in_array($e['shortname'], $duplicates)) {
+                $name = $e['shortname'];
+                $counts = array_count_values($duplicates);
+                if (substr($name, -1, 1) == ':') {
+                    dump($e['shortname']);
+                    $e['shortname'] = substr($name, 0, -1) . '~' . $counts[$name] . ':';
+                    dump($e['shortname']);
+                } else {
+                    $e['shortname'] = $name . '~' . $counts[$name];
+                }
+
+                $duplicates[] = $name;
+            } else {
+                $duplicates[] = $e['shortname'];
+            }
+
+
+            return $e;
         });
 
         return $all;

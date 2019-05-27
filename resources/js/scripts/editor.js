@@ -95,8 +95,7 @@ class EditorWrapper {
     }
 
     initializeAutocomplete() {
-        this.loadUsers().then(() => this.registerUserAutocomplete());
-        this.loadEmojis().then(() => this.registerEmojiAutocomplete());
+        this.loadUsers().then(() => this.loadEmojis().then(() => this.registerAutocomplete()));
     }
 
     loadUsers() {
@@ -125,7 +124,7 @@ class EditorWrapper {
         });
     }
 
-    registerUserAutocomplete() {
+    registerAutocomplete() {
         let that = this;
         this.autoComplete = new AutoComplete(new CodeMirrorEditor(this.getCodeMirror()));
         this.autoComplete.register([{
@@ -147,12 +146,8 @@ class EditorWrapper {
                 return that.options.userAutocomplete.outputTemplate.replace('%user%', user);
             }
         }])
-    }
 
-    registerEmojiAutocomplete() {
-        let that = this;
-        this.emojiAutoComplete = new AutoComplete(new CodeMirrorEditor(this.getCodeMirror()));
-        this.emojiAutoComplete.register([{
+        this.autoComplete.register([{
             // Matches :<name>:
             match: this.options.emojiAutocomplete.regex,
 

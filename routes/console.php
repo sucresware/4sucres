@@ -65,7 +65,7 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
             $content = File::get(base_path('resources/datasources/emojis.json'));
             $emojis = collect(json_decode($content)->emojis);
             $emojis = $emojis->reject(function ($emoji) {
-                return ($emoji->shortname == "");
+                return $emoji->shortname == '';
             });
 
             return $emojis;

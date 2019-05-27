@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use App\Models\DiscordEmoji;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,8 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/settings/notifications', 'UserSettingsController@notifications')->name('user.settings.notifications');
     Route::put('/settings/notifications', 'UserSettingsController@updateNotifications');
     Route::get('/settings/connections', 'Settings\ConnectionsController@index')->name('user.settings.connections.index');
-    Route::get('/settings/connections/discord/setup', 'Settings\ConnectionsController@redirectToDiscord')->name('user.settings.connections.discord.setup');
-    Route::get('/settings/connections/discord/callback', 'Settings\ConnectionsController@handleDiscordCallback')->name('user.settings.connections.discord.callback');
+    Route::get('/settings/connections/regen-token', 'Settings\ConnectionsController@regenToken')->name('user.settings.connections.regen-token');
 
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::get('/notifications/clear', 'NotificationController@clear')->name('notifications.clear');
