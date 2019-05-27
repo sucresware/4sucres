@@ -251,7 +251,6 @@ class User extends Authenticatable implements ReactsInterface
                 $duplicates[] = $e['shortname'];
             }
 
-
             return $e;
         });
 
