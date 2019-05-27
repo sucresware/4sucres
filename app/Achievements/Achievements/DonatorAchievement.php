@@ -3,11 +3,13 @@
 namespace App\Achievements\Achievements;
 
 use App\Achievements\AbstractAchievement;
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\User;
 
 class DonatorAchievement extends AbstractAchievement
 {
-    public function canUnlock(Authenticatable $user): bool
+    const UNLOCKABLE = true;
+
+    public function canUnlock(User $user): bool
     {
         return parent::canUnlock($user) && $user->hasRole('supporter');
     }
@@ -23,8 +25,4 @@ class DonatorAchievement extends AbstractAchievement
         return 'A donné un café dans lequel mettre quatre sucres';
     }
 
-    public function getImage(): string
-    {
-        return 'sucre.png';
-    }
 }

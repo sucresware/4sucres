@@ -2,19 +2,19 @@
 
 namespace App\Achievements;
 
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\User;
 
 interface AchievementInterface
 {
     /**
      * Asserts that the given user can unlock this achievement.
      */
-    public function canUnlock(Authenticatable $user): bool;
+    public function canUnlock(User $user): bool;
 
     /**
      * Unlock and notifies the user.
      */
-    public function unlock(Authenticatable $user, bool $notify = true): void;
+    public function unlock(User $user, bool $notify = true): void;
 
     /**
      * Gets the image name of this achievement.

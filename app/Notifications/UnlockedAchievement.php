@@ -18,9 +18,7 @@ class UnlockedAchievement extends DefaultNotification
 
     public function toArray($notifiable)
     {
-        return array_merge($this->attributes(), [
-            'post_id' => $this->post->discussion->id,
-        ]);
+        return array_merge($this->attributes());
     }
 
     protected function attributes()

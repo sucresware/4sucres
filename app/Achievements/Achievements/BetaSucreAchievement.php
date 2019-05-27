@@ -3,7 +3,7 @@
 namespace App\Achievements\Achievements;
 
 use App\Achievements\AbstractAchievement;
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\User;
 
 class BetaSucreAchievement extends AbstractAchievement
 {
@@ -16,7 +16,9 @@ class BetaSucreAchievement extends AbstractAchievement
 
     const ENABLED = false;
 
-    public function canUnlock(Authenticatable $user): bool
+    const UNLOCKABLE = true;
+
+    public function canUnlock(User $user): bool
     {
         return parent::canUnlock($user)
             && $user->created_at <= self::BETA_END_TIME;

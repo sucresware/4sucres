@@ -2,12 +2,7 @@
 
 namespace App\Achievements;
 
-use App\Achievements\Achievements\AlphaSucreAchievement;
-use App\Achievements\Achievements\BetaSucreAchievement;
-use App\Achievements\Achievements\CrazyPosterAchievement;
-use App\Achievements\Achievements\DonatorAchievement;
-use App\Achievements\Achievements\ModeratorAchievement;
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\User;
 
 class AchievementManager
 {
@@ -15,22 +10,36 @@ class AchievementManager
      * List of achievements that should be checked by `probe()`.
      */
     const AVAILABLE_ACHIEVEMENTS = [
-        AlphaSucreAchievement::class,
-        BetaSucreAchievement::class,
-        CrazyPosterAchievement::class,
-        ModeratorAchievement::class,
-        DonatorAchievement::class,
+        \App\Achievements\Achievements\AlphaSucreAchievement::class,
+        \App\Achievements\Achievements\BetaSucreAchievement::class,
+        \App\Achievements\Achievements\ContributorAchievement::class,
+        \App\Achievements\Achievements\CrazyPosterAchievement::class,
+        \App\Achievements\Achievements\DebuggerAchievement::class,
+        \App\Achievements\Achievements\DonatorAchievement::class,
+        \App\Achievements\Achievements\GoodIdeaAchievement::class,
+        \App\Achievements\Achievements\MindFreeAchievement::class,
+        \App\Achievements\Achievements\ModeratorAchievement::class,
+        \App\Achievements\Achievements\NewcomerFromHelloChrismasAchievement::class,
+        \App\Achievements\Achievements\NewcomerFromOncheAchievement::class,
+        \App\Achievements\Achievements\NewcomerFromPlayVideoGamesDotComAchievement::class,
+        \App\Achievements\Achievements\NewcomerFromTheBunkerAchievement::class,
+        \App\Achievements\Achievements\NewcomerFromTwoSugarsAchievement::class,
+        \App\Achievements\Achievements\OlinuxAchievement::class,
+        \App\Achievements\Achievements\OpenTheDoorAchievement::class,
+        \App\Achievements\Achievements\RaiderAchievement::class,
+        \App\Achievements\Achievements\VeryGoodIdeaAchievement::class,
+        \App\Achievements\Achievements\TheLuckAchievement::class,
     ];
 
     /**
      * Checks if the given achievements can be unlocked by the given user.
      *
-     * @param Authenticatable   $user
+     * @param User              $user
      * @param array|string|null $achievements
      *
      * @return bool If not achievement is given, returns true
      */
-    public function canUnlock(Authenticatable $user, $achievements): bool
+    public function canUnlock(User $user, $achievements): bool
     {
         $achievements = $this->assertAchievements($achievements);
 
@@ -44,14 +53,14 @@ class AchievementManager
     /**
      * Unlocks the given achievements for the given user.
      *
-     * @param Authenticatable $user
-     * @param array|string    $achievements    A list of achievements
-     * @param bool            $assertCanUnlock Checks that the user can actually unlock this achievement.
-     *                                         Set false to force unlock.
+     * @param User         $user
+     * @param array|string $achievements    A list of achievements
+     * @param bool         $assertCanUnlock Checks that the user can actually unlock this achievement.
+     *                                      Set false to force unlock.
      *
      * @return array This list of unlocked achievements
      */
-    public function unlock(Authenticatable $user, $achievements, bool $assertCanUnlock = false): array
+    public function unlock(User $user, $achievements, bool $assertCanUnlock = false): array
     {
         $achievements = $this->assertAchievements($achievements);
 
@@ -74,12 +83,11 @@ class AchievementManager
     /**
      * Scoots the given user to unlocks its available-and-not-yet-acquired achievements.
      *
-     * @param Authenticatable   $user
+     * @param User              $user
      * @param array|string|null $achievements if null, all achievements in self::AVAILABLE_ACHIEVEMENTS will be checked
      */
-    public function probe(?Authenticatable $user, $achievements = null)
+    public function probe(?User $user, $achievements = null)
     {
-        // @todo Change this behavior? Otherwise, will crash if no user is passed.
         if (null === $user) {
             return;
         }

@@ -3,13 +3,15 @@
 namespace App\Achievements\Achievements;
 
 use App\Achievements\AbstractAchievement;
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\User;
 
 class ModeratorAchievement extends AbstractAchievement
 {
     const ENABLED = true;
 
-    public function canUnlock(Authenticatable $user): bool
+    const UNLOCKABLE = true;
+
+    public function canUnlock(User $user): bool
     {
         return parent::canUnlock($user)
             && ($user->hasRole('moderator')
@@ -28,6 +30,6 @@ class ModeratorAchievement extends AbstractAchievement
 
     public function getImage(): string
     {
-        return 'sucre.png';
+        return '410.png';
     }
 }

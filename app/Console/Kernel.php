@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\DistributeAchievementsCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,6 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        DistributeAchievementsCommand::class,
     ];
 
     /**
@@ -29,6 +31,11 @@ class Kernel extends ConsoleKernel
         $schedule
             ->command('backup:run')
             ->cron('0 */2 * * *');
+
+        $schedule
+            ->command('achievement:distribute')
+            ->twiceDaily(11, 23)
+            ->withoutOverlapping();
     }
 
     /**

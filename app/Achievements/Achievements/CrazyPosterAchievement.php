@@ -3,13 +3,15 @@
 namespace App\Achievements\Achievements;
 
 use App\Achievements\AbstractAchievement;
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\User;
 
 class CrazyPosterAchievement extends AbstractAchievement
 {
-    const POST_COUNT_TO_UNLOCK = 50;
+    const POST_COUNT_TO_UNLOCK = 1500;
 
-    public function canUnlock(Authenticatable $user): bool
+    const UNLOCKABLE = true;
+
+    public function canUnlock(User $user): bool
     {
         return parent::canUnlock($user)
             && $user->replies_count >= self::POST_COUNT_TO_UNLOCK;
@@ -22,11 +24,11 @@ class CrazyPosterAchievement extends AbstractAchievement
 
     public function getDescription(): string
     {
-        return 'A posté plus de 50 messages.';
+        return 'Pour avoir posté + de 1500 messages sur le forum.';
     }
 
     public function getImage(): string
     {
-        return '2sucres.png';
+        return 'crazyposter.png';
     }
 }

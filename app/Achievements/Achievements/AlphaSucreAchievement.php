@@ -3,7 +3,7 @@
 namespace App\Achievements\Achievements;
 
 use App\Achievements\AbstractAchievement;
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\User;
 
 class AlphaSucreAchievement extends AbstractAchievement
 {
@@ -11,7 +11,9 @@ class AlphaSucreAchievement extends AbstractAchievement
 
     const ENABLED = true;
 
-    public function canUnlock(Authenticatable $user): bool
+    const UNLOCKABLE = true;
+
+    public function canUnlock(User $user): bool
     {
         return parent::canUnlock($user)
             && $user->created_at <= self::ALPHA_END_TIME;
@@ -24,11 +26,11 @@ class AlphaSucreAchievement extends AbstractAchievement
 
     public function getDescription(): string
     {
-        return 'A été présent quand 4sucres n’était qu’un sujet de troll';
+        return 'A été présent quand 4sucres n’était qu’une idée';
     }
 
     public function getImage(): string
     {
-        return 'alpha.png';
+        return 'beta.png';
     }
 }
