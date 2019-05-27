@@ -17,6 +17,7 @@ class CreateDiscordEmojiTable extends Migration
             $table->string('name');
             $table->boolean('animated');
             $table->boolean('deleted');
+            $table->boolean('require_colons');
             $table->timestamps();
         });
     }

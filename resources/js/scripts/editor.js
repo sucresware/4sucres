@@ -3,6 +3,13 @@ import EasyMDE from 'easymde'
 import AutoComplete from 'textcomplete/lib/textcomplete';
 import CodeMirrorEditor from 'textcomplete.codemirror';
 
+let userMeta = $('meta[name=user-data]');
+let user;
+
+if (userMeta.length) {
+     user = JSON.parse(userMeta.attr('content'));
+}
+
 const DefaultOptions = {
     editor: {
         selector: 'textarea.sucresMD-editor',
@@ -41,9 +48,7 @@ const DefaultOptions = {
     },
     emojiAutocomplete: {
         regex: /(:)([\w\d-]+)$/,
-        fetchUrl: route('api.emojis.all').url(),
-        dropdownTemplate: '<img src="%emojiLink%" width="20px"> :%emoji%:',
-        outputTemplate: ':%emoji%: '
+        fetchUrl: route('api.users.emojis', [user.id]).url(),
     },
 }
 
@@ -153,17 +158,26 @@ class EditorWrapper {
 
             // Calls callback with the search values thanks to search terms
             search: function (term, callback) {
-                callback(that.applyEmojiAutocompleteFilter(term));
+                callback(that.applyEmojiAutocompleteFilter(':' + term));
             },
 
             // The way it's rendered in the dropdown
             template: function (emoji) {
-                return that.options.emojiAutocomplete.dropdownTemplate.replace('%emoji%', emoji.name).replace('%emojiLink%', emoji.link);
+                switch(emoji.type) {
+                    case 'discord':
+                        return '<div class="emoji emoji-sm" style="background-image: url(' + emoji.link + '"></div> ' + emoji.shortname;
+                    case 'smiley':
+                        return '<img src="' + emoji.link + '"> ' + emoji.shortname;
+                    case 'emoji':
+                        return emoji.html + ' ' + emoji.shortname;
+                    default:
+                        return emoji.shortname;
+                }
             },
 
             // The output when user selects in the dropdown
             replace: function (emoji) {
-                return that.options.emojiAutocomplete.outputTemplate.replace('%emoji%', emoji.name);
+                return emoji.shortname;
             }
         }])
     }
@@ -176,7 +190,7 @@ class EditorWrapper {
 
     applyEmojiAutocompleteFilter(term) {
         return $.grep(this.autocompleteEmojis, emoji => {
-            return emoji.name.toLowerCase().startsWith(term.toLowerCase());
+            return emoji.shortname.toLowerCase().startsWith(term.toLowerCase());
         });
     }
 

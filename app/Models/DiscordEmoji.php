@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class DiscordEmoji extends Model
 {
     protected $increments = false;
+
     protected $guarded = [];
+
     protected $appends = ['link'];
 
     public function guild()

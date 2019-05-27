@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-use App\Models\DiscordEmoji;
 use Spatie\Regex\Regex;
 
 class SucresParsedown extends \ParsedownCheckbox
@@ -24,9 +23,6 @@ class SucresParsedown extends \ParsedownCheckbox
 
         $this->InlineTypes['~'][] = 'Aesthetic';
         $this->inlineMarkerList .= '~';
-
-        $this->InlineTypes[':'][] = 'Emoji';
-        $this->inlineMarkerList .= ':';
     }
 
     protected function blockHeader($line)
@@ -315,25 +311,5 @@ class SucresParsedown extends \ParsedownCheckbox
         }
 
         return $link;
-    }
-
-    protected function inlineEmoji($excerpt)
-    {
-        $regex = Regex::match('/^\:(\w*?)\:/', $excerpt['text']);
-        if ($regex->hasMatch()) {
-            $emoji = DiscordEmoji::where('name', $regex->group(1))->first();
-
-            if (!$emoji) {
-                return null;
-            }
-
-            return [
-                'extent'  => strlen($regex->group(0)),
-                'element' => [
-                    'name'       => 'img',
-                    'attributes' => ['class' => 'emoji', 'src' => $emoji->link],
-                ],
-            ];
-        }
     }
 }

@@ -66,15 +66,17 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'id'             => ['required', 'integer'],
             'guild_id'       => ['required', 'integer', 'exists:discord_guilds,id'],
             'name'           => ['required', 'string', 'max:255'],
-            'animated'       => ['required', 'boolean'],
-            'deleted'        => ['required', 'boolean'],
+            'animated'       => ['boolean'],
+            'deleted'        => ['boolean'],
+            'require_colons' => ['boolean'],
         ]);
 
         $emoji = new DiscordEmoji([
             'id'                => request()->id,
             'name'              => request()->name,
-            'animated'          => request()->animated,
-            'deleted'           => request()->deleted,
+            'animated'          => request()->input('animated', false),
+            'deleted'           => request()->input('deleted', false),
+            'require_colons'    => request()->input('require_colons', false),
             'discord_guild_id'  => request()->guild_id,
         ]);
 
@@ -97,8 +99,9 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
         $emoji = DiscordEmoji::updateOrCreate(['id'=> request()->id], [
             'name'              => request()->name,
-            'animated'          => request()->animated,
-            'deleted'           => request()->deleted,
+            'animated'          => request()->input('animated', false),
+            'deleted'           => request()->input('deleted', false),
+            'require_colons'    => request()->input('require_colons', false),
             'discord_guild_id'  => request()->guild_id,
         ]);
 

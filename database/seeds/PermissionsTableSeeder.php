@@ -19,6 +19,7 @@ class PermissionsTableSeeder extends Seeder
         $moderator = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'moderator']);
         $supporter = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'supporter']);
         $user = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'user']);
+        $verified = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'verified']);
 
         Permission::firstOrCreate(['name' => 'create discussions']);
         Permission::firstOrCreate(['name' => 'bypass discussions guard']);
@@ -34,6 +35,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'delete users']);
         Permission::firstOrCreate(['name' => 'bypass throttle']);
         Permission::firstOrCreate(['name' => 'upload animated avatars']);
+        Permission::firstOrCreate(['name' => 'sync discord emojis']);
 
         $admin->givePermissionTo('bypass users guard');
         $admin->givePermissionTo('use restricted categories');
@@ -49,6 +51,7 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('delete users');
         $admin->givePermissionTo('bypass throttle');
         $admin->givePermissionTo('upload animated avatars');
+        $admin->givePermissionTo('sync discord emojis');
 
         $moderator->givePermissionTo('bypass users guard');
         $moderator->givePermissionTo('use restricted categories');
@@ -61,12 +64,16 @@ class PermissionsTableSeeder extends Seeder
         $moderator->givePermissionTo('ban users');
         $moderator->givePermissionTo('bypass throttle');
         $moderator->givePermissionTo('upload animated avatars');
+        $moderator->givePermissionTo('sync discord emojis');
 
         $supporter->givePermissionTo('update shown_role');
         $supporter->givePermissionTo('create discussions');
         $supporter->givePermissionTo('read deleted posts');
         $supporter->givePermissionTo('upload animated avatars');
+        $supporter->givePermissionTo('sync discord emojis');
 
         $user->givePermissionTo('create discussions');
+
+        $verified->givePermissionTo('create discussions');
     }
 }

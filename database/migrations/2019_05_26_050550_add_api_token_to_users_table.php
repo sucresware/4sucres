@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AddApiTokenToUsersTable extends Migration
 {
@@ -13,6 +14,11 @@ class AddApiTokenToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('api_token', 80)->after('password')->unique()->nullable()->default(null);
+        });
+
+        User::where('api_token', null)->each(function ($user) {
+            $user->api_token = str_random(60);
+            $user->save();
         });
     }
 

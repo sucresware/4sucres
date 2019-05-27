@@ -422,19 +422,19 @@ footer {
     background-repeat: no-repeat;
     background-size: contain;
     margin: 2px 0 2px 4px;
-    vertical-align: baseline;
+    vertical-align: middle;
 
     &.emoji-sm {
-        width: 1.45em;
-        height: 1.45em;
+        width: 1.45em !important;
+        height: 1.45em !important;
         margin-left: .05em;
         margin-right: .1em;
         vertical-align: -.4em;
     }
 
     &.emoji-lg {
-        width: 2rem;
-        height: 2rem;
+        width: 2rem !important;
+        height: 2rem !important;
         margin-bottom: 0;
         margin-top: .2em;
         vertical-align: -.3em;

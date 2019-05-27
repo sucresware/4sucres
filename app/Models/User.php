@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
@@ -181,5 +182,60 @@ class User extends Authenticatable implements ReactsInterface
     public function discord_guilds()
     {
         return $this->belongsToMany(DiscordGuild::class);
+    }
+
+    public function getEmojisAttribute()
+    {
+        $discord_emojis = DiscordEmoji::whereHas('guild.users', function ($q) {
+            return $q->where('user_id', user()->id);
+        })->get()
+        ->transform(function ($emoji) {
+            if ($emoji->require_colons) {
+                $emoji->shortname = ':' . $emoji->name . ':';
+            } else {
+                $emoji->shortname = $emoji->name;
+            }
+
+            $emoji->type = 'discord';
+
+            return $emoji;
+        });
+
+        $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
+            $smiley->type = 'smiley';
+            $smiley->link = url('/img/smileys/' . $smiley->image);
+
+            return $smiley;
+        });
+
+        $emojis = Cache::get('emojis')->transform(function ($smiley) {
+            $smiley->type = 'emoji';
+
+            return $smiley;
+        });
+
+        $all = collect(array_merge(
+            $discord_emojis->toArray(),
+            $jvc_smileys->toArray(),
+            $emojis->toArray()
+        ))->transform(function($emoji){
+            if (is_array($emoji)) {
+                return [
+                    'type' => $emoji['type'],
+                    'shortname' => $emoji['shortname'],
+                    'link' => $emoji['link'] ?? '',
+                    'html' => $emoji['html'] ?? '',
+                ];
+            } else {
+                return [
+                    'type' => $emoji->type,
+                    'shortname' => $emoji->shortname,
+                    'link' => $emoji->link ?? '',
+                    'html' => $emoji->html ?? '',
+                ];
+            }
+        });
+
+        return $all;
     }
 }
