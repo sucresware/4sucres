@@ -7,7 +7,9 @@ use App\Models\Achievement;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
+use Imagine\Imagick\Imagine;
 use Spatie\Permission\Models\Role;
 
 class UserSettingsController extends Controller
@@ -91,9 +93,18 @@ class UserSettingsController extends Controller
         if (request()->hasFile('avatar')) {
             $avatar_name = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
 
-            $img = Image::make(request()->avatar)
-                ->fit(300)
-                ->save(storage_path('app/public/avatars/' . $avatar_name));
+            $imagine = (new Imagine())
+                ->open(request()->avatar)
+                ->thumbnail(new Box(300, 300), ImageInterface::THUMBNAIL_OUTBOUND);
+
+            if (request()->avatar->getClientOriginalExtension() == 'gif' && user()->can('upload animated avatars')) {
+                $imagine->save(storage_path('app/public/avatars/' . $avatar_name), [
+                    'animated' => true,
+                ]);
+            } else {
+                $imagine->save(storage_path('app/public/avatars/' . $avatar_name));
+            }
+
             $user->avatar = $avatar_name;
 
             activity()

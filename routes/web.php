@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/settings/layout', 'UserSettingsController@updateLayout');
     Route::get('/settings/notifications', 'UserSettingsController@notifications')->name('user.settings.notifications');
     Route::put('/settings/notifications', 'UserSettingsController@updateNotifications');
+    Route::get('/settings/connections', 'Settings\ConnectionsController@index')->name('user.settings.connections.index');
+    Route::get('/settings/connections/regen-token', 'Settings\ConnectionsController@regenToken')->name('user.settings.connections.regen-token');
 
     Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
     Route::get('/notifications/clear', 'NotificationController@clear')->name('notifications.clear');
@@ -93,6 +97,13 @@ Route::group(['prefix' => '/api/v0'], function () {
 
             return response()->json(['success' => true]);
         });
+
+        Route::get('/users/{id}/emojis', function ($id) {
+            $user = User::findOrFail($id);
+            $emojis = $user->emojis;
+
+            return response()->json($emojis);
+        })->name('api.users.emojis');
     });
 
     Route::get('/users', 'Api\UsersController@index')->name('api.users');

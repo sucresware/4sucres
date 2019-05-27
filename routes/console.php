@@ -49,6 +49,25 @@ Artisan::command('convert_all_posts_from_bbcode_to_markdown', function () {
     $bar->finish();
 });
 
-Artisan::command('clear_posts_renders', function () {
-    Cache::tags('posts')->flush();
+Artisan::command('cache:rebuild {tag}', function ($tag) {
+    if ($tag == 'emojis') {
+        Cache::forget('jvc_smileys');
+        Cache::rememberForever('jvc_smileys', function () {
+            $content = File::get(base_path('resources/datasources/jvcsmileys.json'));
+            $smileys = collect(json_decode($content)->smileys);
+
+            return $smileys;
+        });
+
+        Cache::forget('emojis');
+        Cache::rememberForever('emojis', function () {
+            $content = File::get(base_path('resources/datasources/emojis.json'));
+            $emojis = collect(json_decode($content)->emojis);
+            $emojis = $emojis->reject(function ($emoji) {
+                return $emoji->shortname == '';
+            });
+
+            return $emojis;
+        });
+    }
 });

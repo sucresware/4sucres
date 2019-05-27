@@ -42,6 +42,7 @@ class SucresParser
 
         $this
             ->renderMD()
+            ->renderEmojis()
             ->renderMentions();
 
         if ($quotes) {
@@ -68,6 +69,44 @@ class SucresParser
             $this->content = str_replace(
                 $mention['excerpt'],
                 '<a href="' . $mention['user']->link . '" class="badge badge-primary align-middle">@' . $mention['user']->name . '</a>' . ' ',
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderEmojis()
+    {
+        $matchs = Regex::matchAll('/\:[^\s<]+(\:|)/m', $this->content);
+        $poster_emojis = $this->post->user->emojis;
+
+        foreach ($matchs->results() as $match) {
+            $excerpt = $match->group(0);
+            $emoji = $poster_emojis->where('shortname', $excerpt)->first();
+            if (!$emoji) {
+                continue;
+            }
+
+            switch ($emoji['type']) {
+                case 'discord':
+                    $markup = '<div class="emoji" style="background-image: url(' . $emoji['link'] . '"></div>';
+
+                    break;
+                case 'smiley':
+                    $markup = '<img src="' . $emoji['link'] . '">';
+
+                    break;
+                case 'emoji':
+                    $markup = $emoji['html'];
+
+                    break;
+                default:
+            }
+
+            $this->content = str_replace(
+                $excerpt,
+                $markup,
                 $this->content
             );
         }

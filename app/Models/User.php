@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
@@ -32,7 +33,7 @@ class User extends Authenticatable implements ReactsInterface
         'password', 'remember_token',
         'email', 'gender', 'dob',
         'email_verified_at', 'settings',
-        'avatar',
+        'avatar', 'api_token',
     ];
 
     protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'settings'];
@@ -177,11 +178,89 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getDisplayNameAttribute()
     {
-        return $this->deleted_at ? 'Utilisateur supprimé' : $this->attributes['display_name'];
+        return $this->deleted_at ? 'Inconnu' : $this->attributes['display_name'];
     }
 
     public function getNameAttribute()
     {
-        return $this->deleted_at ? 'UtilisateurSupprimé' : $this->attributes['name'];
+        return $this->deleted_at ? 'Inconnu' : $this->attributes['name'];
+    }
+
+    public function discord_guilds()
+    {
+        return $this->belongsToMany(DiscordGuild::class);
+    }
+
+    public function getEmojisAttribute()
+    {
+        $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
+            $smiley->type = 'smiley';
+            $smiley->link = url('/img/smileys/' . $smiley->image);
+
+            return $smiley;
+        });
+
+        $emojis = Cache::get('emojis')->transform(function ($smiley) {
+            $smiley->type = 'emoji';
+
+            return $smiley;
+        });
+
+        $discord_emojis = DiscordEmoji::whereHas('guild.users', function ($q) {
+            return $q->where('user_id', user()->id);
+        })->get()
+        ->transform(function ($emoji) {
+            if ($emoji->require_colons) {
+                $emoji->shortname = ':' . $emoji->name . ':';
+            } else {
+                $emoji->shortname = $emoji->name;
+            }
+
+            $emoji->type = 'discord';
+
+            return $emoji;
+        });
+
+        $duplicates = [];
+
+        $all = collect(array_merge(
+            $jvc_smileys->toArray(),
+            $emojis->toArray(),
+            $discord_emojis->toArray()
+        ))->transform(function ($emoji) use (&$duplicates) {
+            if (is_array($emoji)) {
+                $e = [
+                    'type'      => $emoji['type'],
+                    'shortname' => $emoji['shortname'],
+                    'link'      => $emoji['link'] ?? '',
+                    'html'      => $emoji['html'] ?? '',
+                ];
+            } else {
+                $e = [
+                    'type'      => $emoji->type,
+                    'shortname' => $emoji->shortname,
+                    'link'      => $emoji->link ?? '',
+                    'html'      => $emoji->html ?? '',
+                ];
+            }
+
+            if (in_array($e['shortname'], $duplicates)) {
+                $name = $e['shortname'];
+                $counts = array_count_values($duplicates);
+                if (substr($name, -1, 1) == ':') {
+                    $e['shortname'] = substr($name, 0, -1) . '~' . $counts[$name] . ':';
+                } else {
+                    $e['shortname'] = $name . '~' . $counts[$name];
+                }
+
+                $duplicates[] = $name;
+            } else {
+                $duplicates[] = $e['shortname'];
+            }
+
+            return $e;
+        });
+
+        return $all;
     }
 }

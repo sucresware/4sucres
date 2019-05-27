@@ -23,8 +23,6 @@ export default {
   },
   methods: {},
   mounted: function() {
-    console.log(this.initialPaginator);
-
     if (this.initialPaginator) {
       this.posts = this.initialPaginator.data;
       this.page = this.initialPaginator.currentPage;

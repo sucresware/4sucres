@@ -126,7 +126,6 @@ class NotificationHandler {
 
         Echo.echo.private(`App.Models.User.${user.id}`)
             .notification((notification) => {
-                console.log('notified')
                 this.notifyUser(notification);
                 this.updateHtml(notification);
                 this.playNotificationSound();

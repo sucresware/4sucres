@@ -5,5 +5,6 @@
         <a href="{{ route('user.settings.account.password') }}" class="nav-link {{ active([route('user.settings.account.password')]) }}"><i class="fas fa-fw fa-key"></i> Mot de passe</a>
         <a href="{{ route('user.settings.layout') }}" class="nav-link {{ active([route('user.settings.layout')]) }}"><i class="fas fa-fw fa-paint-brush"></i> Affichage</a>
         <a href="{{ route('user.settings.notifications') }}" class="nav-link {{ active([route('user.settings.notifications')]) }}"><i class="fas fa-fw fa-star-of-life"></i> Notifications</a>
+        <a href="{{ route('user.settings.connections.index') }}" class="nav-link {{ active([route('user.settings.connections.index')]) }}"><i class="fas fa-fw fa-exchange-alt"></i> Connexions</a>
     @endif
 </div>
