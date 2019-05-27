@@ -37,6 +37,7 @@ class DiscussionController extends Controller
         ]);
 
         $post = new Post();
+        $post->user = user();
         $post->body = request()->body;
 
         return response([
