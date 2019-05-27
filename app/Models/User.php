@@ -241,9 +241,7 @@ class User extends Authenticatable implements ReactsInterface
                 $name = $e['shortname'];
                 $counts = array_count_values($duplicates);
                 if (substr($name, -1, 1) == ':') {
-                    dump($e['shortname']);
                     $e['shortname'] = substr($name, 0, -1) . '~' . $counts[$name] . ':';
-                    dump($e['shortname']);
                 } else {
                     $e['shortname'] = $name . '~' . $counts[$name];
                 }
