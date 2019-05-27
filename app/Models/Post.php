@@ -25,7 +25,7 @@ class Post extends Model implements ReactableInterface
     ];
 
     protected $casts = [
-        'deleted_at' => 'timestamp',
+        'deleted_at' => 'datetime',
     ];
 
     protected static $logAttributes = ['body', 'deleted_at'];
