@@ -1,0 +1,11 @@
+// -------------------------------------------------------------------------- 
+//  [ index.scss ]
+//  › 
+// 
+// @author Enzo Innocenzi <enzo.inno@gmail.com> @Suderiane
+// @created 24/05/2019, 13:07:02
+// @edited 24/05/2019, 13:07:02
+// -------------------------------------------------------------------------- 
+
+// There is no dynamic import in sass, so...
+.theme-light    { @import 'light'; }
