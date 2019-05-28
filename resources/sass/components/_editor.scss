@@ -1,0 +1,36 @@
+.editor-buttons {
+    margin-top: -17px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px;
+}
+
+.editor-toolbar {
+    border-color: #ddd;
+}
+
+.CodeMirror {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+    font-size: initial;
+    line-height: initial;
+}
+
+.cm-header {
+    font-weight: initial;
+}
+
+.editor-buttons .btn {
+    cursor: pointer;
+}

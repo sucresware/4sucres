@@ -1,0 +1,17 @@
+@import 'integration';
+@import 'post';
+@import 'emoji';
+@import 'alert';
+@import 'sticker';
+@import 'account-block';
+@import 'editor';
+@import 'spoiler';
+
+.sidetag {
+    position: absolute;
+    border-radius: 50%;
+    background-color: $light;
+    padding: 4px;
+    left: -14px;
+    border: 1px solid $border-color;
+}

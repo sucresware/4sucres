@@ -19,7 +19,7 @@
     </title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="{{ mix('css/4sucres.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32-admin.png') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16-admin.png') }}" sizes="16x16">

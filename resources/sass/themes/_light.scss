@@ -1,0 +1,47 @@
+// --------------------------------------------------------------------------
+//  [ light.scss ]
+//  › Light theme.
+//
+// @author Enzo Innocenzi <enzo.inno@gmail.com> @Suderiane
+// @created 24/05/2019, 13:07:09
+// @edited 24/05/2019, 13:07:09
+// --------------------------------------------------------------------------
+
+$body-bg: #F2F4F8;
+$body-color: #4C5669;
+
+$tooltip-max-width: 200px !default;
+$tooltip-color: $body-color !default;
+$tooltip-bg: $body-bg !default;
+$tooltip-opacity: .9 !default;
+
+$font-family-sans-serif: 'Inter',
+sans-serif;
+$headings-font-family: 'Rubik',
+sans-serif;
+
+$line-height-base: 1.4;
+$font-size-base: 0.9rem;
+$primary: #5E81AC;
+$light: #ffffff;
+$card-border-width: 1px;
+$card-default-border: rgba(0, 0, 0, 0);
+$card-cap-bg: $body-bg;
+$border-color: #dcddde;
+$blue: #81A1C1;
+$red: #BF616A;
+$indigo: #6574cd;
+$purple: #B48EAD;
+$pink: #f66D9b;
+$orange: #D08770;
+$yellow: #EBCB8B;
+$green: #A3BE8C;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$gray: #fbfbfc;
+$dark: #3B4252;
+$darker: #2E3440;
+
+$container-max-widths: (md: 720px,
+    lg: 960px,
+    xl: 1340px) !default;

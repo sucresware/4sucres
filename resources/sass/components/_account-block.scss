@@ -1,0 +1,32 @@
+.account-block {
+    color: $white;
+
+    .account-details {
+        padding: 10px 15px;
+        height: 100%;
+    }
+
+    .account-username {
+        font-weight: bold;
+
+        a {
+            color: $white;
+        }
+    }
+
+    .account-image {
+        padding-left: 10px;
+    }
+
+    .account-image>img {
+        max-height: 60px;
+    }
+
+    a {
+        color: lighten($dark, 50%);
+    }
+
+    a:hover {
+        color: lighten($dark, 60%);
+    }
+}
