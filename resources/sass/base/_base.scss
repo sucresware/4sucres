@@ -1,19 +1,19 @@
-// -------------------------------------------------------------------------- 
+// --------------------------------------------------------------------------
 //  [ _base.scss ]
 //  › Contains most basic styles.
-// 
+//
 // @author Enzo Innocenzi <enzo.inno@gmail.com> @Suderiane
 // @created 24/05/2019, 14:11:25
 // @edited 24/05/2019, 14:11:25
-// -------------------------------------------------------------------------- 
+// --------------------------------------------------------------------------
 
 // Basic link styles
 a {
-    color: $brand-color;
+    color: $primary;
     text-decoration: none;
-  
+
     @include on-event {
-      color: $text-color;
-      text-decoration: underline;
+        color: $body-color;
+        text-decoration: underline;
     }
-  }
+}
