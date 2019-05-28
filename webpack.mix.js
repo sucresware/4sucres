@@ -16,6 +16,7 @@ mix
     .js('resources/js/admin.js', 'public/js')
     .js('resources/js/service-worker.js', 'public/js')
     .sass('resources/sass/main.scss', 'public/css')
+    .sass('resources/sass/main-dark.scss', 'public/css')
     // .sass('resources/sass/material.scss', 'public/css')
     // .sass('resources/sass/nord.scss', 'public/css');
 

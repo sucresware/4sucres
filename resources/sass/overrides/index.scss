@@ -21,7 +21,7 @@ a,
 }
 
 hr {
-    border-color: darken($light, 5%);
+    border-color: $border-color;
 }
 
 .nav-pills .nav-link {
@@ -29,13 +29,13 @@ hr {
 }
 
 .nav-pills .nav-link:hover {
-    background-color: $white;
+    background-color: $active-color;
     color: $body-color;
 }
 
 .nav-pills .nav-link.active,
 .nav-link.active:hover {
-    background-color: $white;
+    background-color: $active-color;
     color: $body-color;
 }
 
@@ -44,6 +44,8 @@ hr {
 }
 
 .card {
+    border-color: $border-color;
+
     .card-header {
         text-transform: uppercase;
         background-color: auto;
@@ -78,15 +80,11 @@ hr {
 }
 
 .blue {
-    background: lighten(#f2f4f8, 2%);
+    background: $even;
 }
 
 .white {
-    background: #FFFFFF;
-}
-
-.post {
-    border-bottom: 1px solid #f2f2f2;
+    background: $odd;
 }
 
 .alert-minimalist {
@@ -208,6 +206,7 @@ blockquote,
 }
 
 .card {
+    background-color: $card-bg;
     border-radius: 0;
 }
 
@@ -227,11 +226,10 @@ blockquote,
 
 blockquote {
     padding: 0.5rem;
-    background-color: #f2f4f8;
-    border: 1px solid #dee2e6;
     border-radius: 5px;
+    border-color: $border-color;
+    background-color: $body-bg;
 }
-
 
 @include media-breakpoint-up(lg) {
     .col-lg-fixed {
@@ -265,4 +263,17 @@ blockquote {
             width: 120px;
         }
     }
+}
+
+.hover-accent:hover {
+    background-color: $active-color;
+}
+
+h1,
+h2,
+.h1,
+.h2,
+h5,
+.h5 {
+    color: $headings-color;
 }

@@ -1,14 +1,14 @@
 // --------------------------------------------------------------------------
-//  [ light.scss ]
-//  › Light theme.
+//  [ dark.scss ]
+//  › Dark theme.
 //
 // @author Enzo Innocenzi <enzo.inno@gmail.com> @Suderiane
 // @created 24/05/2019, 13:07:09
 // @edited 24/05/2019, 13:07:09
 // --------------------------------------------------------------------------
 
-$body-bg: #F2F4F8;
-$body-color: #4C5669;
+$body-bg: #232832;
+$body-color: #eceff4;
 
 $tooltip-max-width: 200px !default;
 $tooltip-color: $body-color !default;
@@ -23,12 +23,12 @@ sans-serif;
 $line-height-base: 1.4;
 $font-size-base: 0.9rem;
 $primary: #5E81AC;
-$light: #ffffff;
+$light: #2e3440;
 $card-border-width: 1px;
-$card-default-border: rgba(0, 0, 0, 0);
 $card-cap-bg: $body-bg;
-$card-bg: #fff;
-$border-color: #dcddde;
+$card-bg: lighten($body-bg, 1%);
+$border-color: #3e4656;
+$card-default-border: $border-color;
 $active-color: darken($body-bg, 3%);
 $blue: #81A1C1;
 $red: #BF616A;
@@ -40,13 +40,13 @@ $yellow: #EBCB8B;
 $green: #A3BE8C;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
-$gray: #fbfbfc;
+$gray: #8eb9cf;
 $dark: #3B4252;
 $darker: #2E3440;
-$headings-color: #4f545c;
+$headings-color: #fff;
 
-$even: #f2f4f8;
-$odd: lighten($even, 3%);
+$even: #2e3440;
+$odd: darken($even, 3%);
 
 $container-max-widths: (md: 720px,
     lg: 960px,
