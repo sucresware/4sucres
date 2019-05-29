@@ -57,7 +57,7 @@ class Setup {
         $(".owl-carousel").owlCarousel({
             autoplay: true,
             autoplaySpeed: 500,
-            autoplayTimeout: 20000,
+            autoplayTimeout: 10000,
             loop: true,
             items: 1
         });
