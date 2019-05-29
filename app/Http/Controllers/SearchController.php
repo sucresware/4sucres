@@ -30,7 +30,7 @@ class SearchController extends Controller
                 $discussions
                     ->getCollection()
                     ->transform(function ($discussion) use ($query) {
-                        $discussion->title = Regex::replace('/(' . $query . ')/mi', '<u>$1</u>', $discussion->title)->result();
+                        $discussion->title = Regex::replace('/(' . $query . ')/miu', '<u>$1</u>', $discussion->title)->result();
 
                         return $discussion;
                     });
@@ -76,8 +76,8 @@ class SearchController extends Controller
                 $users
                     ->getCollection()
                     ->transform(function ($user) use ($query) {
-                        $user->name_for_search = Regex::replace('/(' . $query . ')/mi', '<u>$1</u>', $user->name)->result();
-                        $user->display_name_for_search = Regex::replace('/(' . $query . ')/mi', '<u>$1</u>', $user->display_name)->result();
+                        $user->name_for_search = Regex::replace('/(' . $query . ')/miu', '<u>$1</u>', $user->name)->result();
+                        $user->display_name_for_search = Regex::replace('/(' . $query . ')/miu', '<u>$1</u>', $user->display_name)->result();
 
                         return $user;
                     });
