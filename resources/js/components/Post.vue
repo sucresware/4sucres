@@ -52,6 +52,15 @@
             <strong>{{ post.user.display_name }}</strong>
         </a>
         <small>@{{ post.user.name }}</small>
+
+        <span v-if="post.user.id === post.discussion.user_id" 
+            class="badge badge-full-height badge-op align-middle" 
+            :title="post.user.display_name + ' est l\'auteur de ce topic.'">OP</span>
+
+        <span v-if="post.user.is_birthday" 
+            class="badge badge-full-height badge-danger align-middle" 
+            :title="'C\'est l\'anniversaire de ' + post.user.display_name + ', aujourd\'hui.'"><i class="fas fa-birthday-cake"></i></span>
+
         <br>
 
         <small>
