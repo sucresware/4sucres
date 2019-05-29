@@ -32,6 +32,7 @@ class User extends Authenticatable implements ReactsInterface
     protected $appends = [
         'link',
         'avatar_link',
+        'is_birthday',
     ];
 
     protected $hidden = [
@@ -201,6 +202,11 @@ class User extends Authenticatable implements ReactsInterface
         return $this->deleted_at ? 'Inconnu' : $this->attributes['name'];
     }
 
+    public function getIsBirthdayAttribute()
+    {
+        return $this->dob ? (new Carbon($this->dob))->isCurrentDay() : false;
+    }
+
     public function discord_guilds()
     {
         return $this->belongsToMany(DiscordGuild::class);
@@ -213,6 +219,8 @@ class User extends Authenticatable implements ReactsInterface
         } else {
             $cache = ['emojis', 'global'];
         }
+
+        return null;
 
         return Cache::tags($cache[0])->rememberForever($cache[1], function () {
             $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {

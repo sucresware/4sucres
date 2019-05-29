@@ -1,0 +1,11 @@
+.badge {
+
+    &.badge-full-height {
+        line-height: normal;
+    }
+
+    &.badge-op {
+        color: darken($warning, 35%);
+        background-color: $warning;
+    }
+}
