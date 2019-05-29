@@ -2,6 +2,7 @@
 
 use App\Models\DiscordEmoji;
 use App\Models\DiscordGuild;
+use Illuminate\Support\Facades\Cache;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
         DiscordGuild::findOrFail(request()->id)->users()->syncWithoutDetaching(user('api')); // <= Necessary beacuse `$guild->id` is set to 0 on creation (?!).
 
+        Cache::tags('emojis')->forget('user:' . user('api')->id);
+
         return ['success' => true];
     });
 
@@ -108,6 +111,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'require_colons'    => request()->input('require_colons', true),
             'discord_guild_id'  => request()->guild_id,
         ]);
+
+        Cache::tags('emojis')->forget('user:' . user('api')->id);
 
         return [
             'success' => true,

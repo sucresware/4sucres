@@ -208,75 +208,83 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getEmojisAttribute()
     {
-        $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
-            $smiley->type = 'smiley';
-            $smiley->link = url('/img/smileys/' . $smiley->image);
+        if ($this->can('sync discord emojis')) {
+            $cache = ['emojis', 'user:' . $this->id];
+        } else {
+            $cache = ['emojis', 'global'];
+        }
 
-            return $smiley;
-        });
+        return Cache::tags($cache[0])->rememberForever($cache[1], function () {
+            $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
+                $smiley->type = 'smiley';
+                $smiley->link = url('/img/smileys/' . $smiley->image);
 
-        $emojis = Cache::get('emojis')->transform(function ($smiley) {
-            $smiley->type = 'emoji';
+                return $smiley;
+            });
 
-            return $smiley;
-        });
+            $emojis = Cache::get('emojis')->transform(function ($smiley) {
+                $smiley->type = 'emoji';
 
-        $discord_emojis = DiscordEmoji::whereHas('guild.users', function ($q) {
-            return $q->where('user_id', $this->id);
-        })->get()
-        ->transform(function ($emoji) {
-            if ($emoji->require_colons) {
-                $emoji->shortname = ':' . $emoji->name . ':';
-            } else {
-                $emoji->shortname = $emoji->name;
-            }
+                return $smiley;
+            });
 
-            $emoji->type = 'discord';
-
-            return $emoji;
-        });
-
-        $duplicates = [];
-
-        $all = collect(array_merge(
-            $jvc_smileys->toArray(),
-            $emojis->toArray(),
-            $discord_emojis->toArray()
-        ))->transform(function ($emoji) use (&$duplicates) {
-            if (is_array($emoji)) {
-                $e = [
-                    'type'      => $emoji['type'],
-                    'shortname' => $emoji['shortname'],
-                    'link'      => $emoji['link'] ?? '',
-                    'html'      => $emoji['html'] ?? '',
-                ];
-            } else {
-                $e = [
-                    'type'      => $emoji->type,
-                    'shortname' => $emoji->shortname,
-                    'link'      => $emoji->link ?? '',
-                    'html'      => $emoji->html ?? '',
-                ];
-            }
-
-            if (in_array($e['shortname'], $duplicates)) {
-                $name = $e['shortname'];
-                $counts = array_count_values($duplicates);
-                if (substr($name, -1, 1) == ':') {
-                    $e['shortname'] = substr($name, 0, -1) . '~' . $counts[$name] . ':';
+            $discord_emojis = DiscordEmoji::whereHas('guild.users', function ($q) {
+                return $q->where('user_id', $this->id);
+            })->get()
+            ->transform(function ($emoji) {
+                if ($emoji->require_colons) {
+                    $emoji->shortname = ':' . $emoji->name . ':';
                 } else {
-                    $e['shortname'] = $name . '~' . $counts[$name];
+                    $emoji->shortname = $emoji->name;
                 }
 
-                $duplicates[] = $name;
-            } else {
-                $duplicates[] = $e['shortname'];
-            }
+                $emoji->type = 'discord';
 
-            return $e;
+                return $emoji;
+            });
+
+            $duplicates = [];
+
+            $all = collect(array_merge(
+                $jvc_smileys->toArray(),
+                $emojis->toArray(),
+                $discord_emojis->toArray()
+            ))->transform(function ($emoji) use (&$duplicates) {
+                if (is_array($emoji)) {
+                    $e = [
+                        'type'      => $emoji['type'],
+                        'shortname' => $emoji['shortname'],
+                        'link'      => $emoji['link'] ?? '',
+                        'html'      => $emoji['html'] ?? '',
+                    ];
+                } else {
+                    $e = [
+                        'type'      => $emoji->type,
+                        'shortname' => $emoji->shortname,
+                        'link'      => $emoji->link ?? '',
+                        'html'      => $emoji->html ?? '',
+                    ];
+                }
+
+                if (in_array($e['shortname'], $duplicates)) {
+                    $name = $e['shortname'];
+                    $counts = array_count_values($duplicates);
+                    if (substr($name, -1, 1) == ':') {
+                        $e['shortname'] = substr($name, 0, -1) . '~' . $counts[$name] . ':';
+                    } else {
+                        $e['shortname'] = $name . '~' . $counts[$name];
+                    }
+
+                    $duplicates[] = $name;
+                } else {
+                    $duplicates[] = $e['shortname'];
+                }
+
+                return $e;
+            });
+
+            return $all;
         });
-
-        return $all;
     }
 
     public function getRepliesCountAttribute()

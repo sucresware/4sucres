@@ -147,5 +147,7 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
 
             return $emojis;
         });
+
+        Cache::tags('emojis')->flush();
     }
 });
