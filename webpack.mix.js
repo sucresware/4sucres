@@ -32,5 +32,4 @@ mix
         processCssUrls: false
     })
     .version()
-
 ;

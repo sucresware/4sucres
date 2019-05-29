@@ -4,12 +4,6 @@
     Bienvenue sur le forum 4sucres.org
 @endsection
 
-@section('main')
-    <div class="mb-4">
-        <img src="{{ url('/img/banners/wip.jpg') }}" class="img-fluid shadow-sm">
-    </div>
-@endsection
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -28,7 +22,7 @@
             <div class="d-none d-lg-block">
                 <hr class="ml-2">
                 <div class="nav flex-column nav-pills">
-                    <a href="{{ route('discussions.index') }}" class="nav-link {{ active(['discussions.index']) . active(['home']) }}">Tout voir</a>
+                    <a href="{{ route('discussions.index') }}" class="nav-link {{ $all = active(['discussions.index']) . active(['home']) }}">Tout voir</a>
                     @auth
                         <a href="{{ route('discussions.subscriptions') }}" class="nav-link {{ active(['discussions.subscriptions']) }}">Mes abonnements</a>
                     @endauth
@@ -44,6 +38,15 @@
         </div>
 
         <div class="col-12 col-lg-9 col-xl-10">
+            @if ($all)
+                <div class="owl-carousel d-none d-md-block">
+                    <div><img src="{{ url('/img/banners/welcome.jpg') }}" class="img-fluid shadow"></div>
+                    <div><img src="{{ url('/img/banners/natives.jpg') }}" class="img-fluid shadow"></div>
+                    <div><img src="{{ url('/img/banners/beta.jpg') }}" class="img-fluid shadow"></div>
+                    <div><img src="{{ url('/img/banners/alpha.jpg') }}" class="img-fluid shadow"></div>
+                </div>
+            @endif
+
             @if (isset($sticky_discussions) && count($sticky_discussions))
                 <div class="card shadow-sm mb-3">
                     @foreach ($sticky_discussions as $discussion)

@@ -2,6 +2,9 @@ import $ from 'jquery';
 import CustomFileInput from 'bs-custom-file-input'
 import HighlightJS from 'highlightjs';
 
+global.jQuery = require('jquery');
+require('owl.carousel');
+
 /**
  * Gère le chargement de diverses fonctionnalités.
  */
@@ -17,6 +20,7 @@ class Setup {
         this.initializeTooltips();
         this.initializeAjax();
         this.initializeHighlightJS();
+        this.initializeOwl();
     }
 
     initializeSelect2() {
@@ -46,6 +50,16 @@ class Setup {
     initializeForms() {
         $('[data-disable-on-submit]').submit(function (e) {
             $(this).find('button').attr('disabled', true);
+        });
+    }
+
+    initializeOwl() {
+        $(".owl-carousel").owlCarousel({
+            autoplay: true,
+            autoplaySpeed: 500,
+            autoplayTimeout: 10000,
+            loop: true,
+            items: 1
         });
     }
 }
