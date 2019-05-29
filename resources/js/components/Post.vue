@@ -55,7 +55,7 @@
 
         <span v-if="post.user.id === post.discussion.user_id" 
             class="badge badge-full-height badge-op align-middle" 
-            :title="post.user.display_name + ' est l\'auteur de ce topic.'">OP</span>
+            :title="post.user.display_name + ' est l\'auteur de ce topic.'"><i class="fas fa-crown"></i></span>
 
         <span v-if="post.user.is_birthday" 
             class="badge badge-full-height badge-danger align-middle" 
