@@ -48,7 +48,7 @@ const DefaultOptions = {
     },
     emojiAutocomplete: {
         regex: /(:)([\w\d-]+)$/,
-        fetchUrl: route('api.users.emojis', [user.id]).url(),
+        fetchUrl: user ? route('api.users.emojis', [user.id]).url() : null,
     },
 }
 
@@ -113,6 +113,10 @@ class EditorWrapper {
 
     loadEmojis() {
         return new Promise((resolve, reject) => {
+            if (!user) {
+                reject();
+            }
+            
             $.get(this.options.emojiAutocomplete.fetchUrl)
                 .then(result => {
                     this.autocompleteEmojis = result;
