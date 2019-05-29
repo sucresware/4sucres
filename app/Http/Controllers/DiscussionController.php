@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Discussion;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Notification as NotificationModel;
 
 class DiscussionController extends Controller
 {
@@ -130,6 +131,32 @@ class DiscussionController extends Controller
         $discussion = Discussion::query()
             ->findOrFail($id);
 
+        if ($discussion->deleted_at) {
+            return abort(410);
+        }
+
+        if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', user()->id)->count() == 0)) {
+            return abort(403);
+        }
+
+        // Invalidation des notifications qui font référence à cette discussion pour l'utilisateur connecté
+        if (auth()->check()) {
+            $classes = [
+                \App\Notifications\NewPrivateDiscussion::class,
+                \App\Notifications\RepliesInDiscussion::class,
+                \App\Notifications\ReplyInDiscussion::class,
+            ];
+
+            NotificationModel::query()
+                ->where('read_at', null)
+                ->where('notifiable_id', user()->id)
+                ->whereIn('type', $classes)
+                ->where('data->discussion_id', $discussion->id)
+                ->update([
+                    'read_at' => now(),
+                ]);
+        }
+
         if (request()->page == 'last') {
             $post = $discussion
                 ->hasMany(Post::class)
@@ -139,19 +166,28 @@ class DiscussionController extends Controller
             return redirect(Discussion::link_to_post($post));
         }
 
-        if ($discussion->deleted_at) {
-            return abort(410);
-        }
-
-        if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', user()->id)->count() == 0)) {
-            return abort(403);
-        }
-
         $posts = $discussion
             ->posts()
             ->with('user')
             ->with('discussion')
             ->paginate(10);
+
+        // Invalidation des notifications qui font référence à ces posts pour l'utilisateur connecté
+        if (auth()->check()) {
+            $classes = [
+                \App\Notifications\MentionnedInPost::class,
+                \App\Notifications\QuotedInPost::class,
+            ];
+
+            NotificationModel::query()
+                ->where('read_at', null)
+                ->where('notifiable_id', user()->id)
+                ->whereIn('type', $classes)
+                ->whereIn('data->post_id', $posts->pluck('id'))
+                ->update([
+                    'read_at' => now(),
+                ]);
+        }
 
         $discussion->has_read()->attach(user());
 
