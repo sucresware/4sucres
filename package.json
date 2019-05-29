@@ -42,6 +42,7 @@
         "izitoast": "^1.4.0",
         "laravel-echo": "^1.5.3",
         "nord": "^0.2.1",
+        "owl.carousel": "^2.3.4",
         "pusher-js": "^4.4.0",
         "scriptjs": "^2.5.9",
         "select2": "^4.0.7-rc.0",

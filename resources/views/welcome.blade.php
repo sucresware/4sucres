@@ -44,6 +44,10 @@
         </div>
 
         <div class="col-12 col-lg-9 col-xl-10">
+        <div class="owl-carousel">
+            <div><img src="{{ url('/img/banners/special.jpg') }}" class="img-fluid shadow-sm"></div>
+            <div><img src="{{ url('/img/banners/wip.jpg') }}" class="img-fluid shadow-sm"></div>
+        </div>
             @if (isset($sticky_discussions) && count($sticky_discussions))
                 <div class="card shadow-sm mb-3">
                     @foreach ($sticky_discussions as $discussion)
