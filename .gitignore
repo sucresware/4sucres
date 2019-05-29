@@ -11,3 +11,4 @@ yarn-error.log
 !/public/.htaccess
 !/public/index.php
 .php_cs.cache
+*.sql
