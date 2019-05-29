@@ -31,12 +31,16 @@
         {{ $posts->onEachSide(1)->links() }}
     </div>
 
-    @if ($discussion->locked)
+    @if (!auth()->check())
+        <div class="alert alert-secondary text-center">
+            <i class="fas fa-lock"></i> Vous devez être connecté pour participer.
+            <a href="{{ route('login') }}" class="btn btn-sm btn-secondary ml-1 text-uppercase">se connecter</a>
+        </div>
+    @elseif ($discussion->locked)
         <div class="alert alert-secondary text-center">
             <i class="fas fa-lock"></i> Cette discussion est désormais verrouillée.
         </div>
-    @endif
-    @if (!$discussion->locked || (auth()->check() && $discussion->locked && user()->can('bypass discussions guard')))
+    @elseif (!$discussion->locked || (auth()->check() && $discussion->locked && user()->can('bypass discussions guard')))
         <div class="card" id="reply">
             <div class="card-body bg-light" >
                 <h2 class="h6">Répondre</h2>
