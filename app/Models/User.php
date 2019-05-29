@@ -32,7 +32,7 @@ class User extends Authenticatable implements ReactsInterface
     protected $appends = [
         'link',
         'avatar_link',
-        'is_birthday'
+        'is_birthday',
     ];
 
     protected $hidden = [
@@ -221,6 +221,7 @@ class User extends Authenticatable implements ReactsInterface
         }
 
         return null;
+
         return Cache::tags($cache[0])->rememberForever($cache[1], function () {
             $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
                 $smiley->type = 'smiley';
