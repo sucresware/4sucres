@@ -220,8 +220,6 @@ class User extends Authenticatable implements ReactsInterface
             $cache = ['emojis', 'global'];
         }
 
-        return null;
-
         return Cache::tags($cache[0])->rememberForever($cache[1], function () {
             $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
                 $smiley->type = 'smiley';
