@@ -19,7 +19,7 @@ class MentionnedInPost extends DefaultNotification
     public function toArray($notifiable)
     {
         return array_merge($this->attributes(), [
-            'post_id' => $this->post->id,
+            'post_id'       => $this->post->id,
             'discussion_id' => $this->post->discussion->id,
         ]);
     }
