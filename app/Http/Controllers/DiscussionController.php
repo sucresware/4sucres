@@ -37,6 +37,8 @@ class DiscussionController extends Controller
             'body' => 'required|min:3|max:3000',
         ]);
 
+        SucresHelper::throttleOrFail(__METHOD__, 15, 1);
+
         $post = new Post();
         $post->user = user();
         $post->body = request()->body;
