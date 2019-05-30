@@ -32,6 +32,10 @@
           <div v-html="notification.data.html"></div>
           <small class="text-muted">{{ notification.presented_created_at }}</small>
         </div>
+
+        <div class="text-center mt-3">
+          <a class="btn btn-primary btn-sm" href="/notifications">Voir tout</a>
+        </div>
       </div>
     </div>
   </b-dropdown>
