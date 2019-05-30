@@ -199,6 +199,7 @@ class UserSettingsController extends Controller
         $user->setMultipleSettings([
             'layout.sidebar'  => request()->input('sidebar', 'left'),
             'layout.stickers' => request()->input('stickers', 'default'),
+            'layout.theme'    => request()->input('theme', 'light'),
         ]);
 
         return redirect(route('user.settings.layout'))->with('success', 'Modifications enregistrées !');
