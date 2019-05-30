@@ -14,6 +14,7 @@
         "barryvdh/laravel-cors": "^0.11.3",
         "barryvdh/laravel-debugbar": "^3.2",
         "benjaminhoegh/parsedown-extreme": "^0.1.6",
+        "bepsvpt/secure-headers": "^5.3",
         "calebporzio/awesome-helpers": "^2.4",
         "chriskonnertz/bbcode": "^1.1",
         "delight-im/str": "^2.4",

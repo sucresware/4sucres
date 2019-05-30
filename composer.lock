@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e30c7c3e032da4186c2f1a07af3a5712",
+    "content-hash": "2c753de9488e3364c9ac60aa5a3d08ab",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -458,6 +458,70 @@
                 "parser"
             ],
             "time": "2018-06-15T10:48:27+00:00"
+        },
+        {
+            "name": "bepsvpt/secure-headers",
+            "version": "5.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BePsvPT/secure-headers.git",
+                "reference": "f45d2c216b85a89c41312449542c47e94a35bff8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/f45d2c216b85a89c41312449542c47e94a35bff8",
+                "reference": "f45d2c216b85a89c41312449542c47e94a35bff8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "ext-xdebug": "*",
+                "orchestra/testbench": "~3.1",
+                "phpstan/phpstan": "~0.7",
+                "phpunit/phpunit": "~5.7|~6.5|~7.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bepsvpt\\SecureHeaders\\SecureHeadersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bepsvpt\\SecureHeaders\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BePsvPT",
+                    "email": "bepsvpt@protonmail.com"
+                }
+            ],
+            "description": "Add security related headers to HTTP response. The package includes Service Providers for easy Laravel integration.",
+            "homepage": "https://github.com/BePsvPT/secure-headers",
+            "keywords": [
+                "clear-site-data",
+                "content-security-policy",
+                "csp",
+                "except-ct",
+                "feature-policy",
+                "header",
+                "hpkp",
+                "hsts",
+                "https",
+                "laravel",
+                "referrer-policy"
+            ],
+            "time": "2019-02-28T03:15:34+00:00"
         },
         {
             "name": "calebporzio/awesome-helpers",
