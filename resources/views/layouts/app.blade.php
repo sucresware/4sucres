@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @auth
-        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
+        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email', 'api_token']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
         <meta name="user-notification-count" content="{{ json_encode($notifications_count) }}" />
     @endauth
 
@@ -66,17 +66,7 @@
                     </a>
 
                     @auth
-                        <a class="ml-auto text-center mr-1 order-lg-7" href="{{ route('notifications.index') }}">
-                            <span class="fa-stack" id="notifications_indicator">
-                                <i class="fas fa-circle fa-stack-2x text-darker"></i>
-                                @if ($notifications_count)
-                                    <i class="fas fa-bell fa-stack-1x fa-inverse"></i>
-                                    <span class="badge badge-danger badge-pill">{{ $notifications_count }}</span>
-                                @else
-                                    <i class="fas fa-bell fa-stack-1x"></i>
-                                @endif
-                            </span>
-                        </a>
+                        <notifications :count="{{ $notifications_count }}"></notifications>
 
                         <a class="text-center mr-1 order-lg-8" href="{{ route('private_discussions.index') }}">
                             <span class="fa-stack" id="private_discussions_indicator">
