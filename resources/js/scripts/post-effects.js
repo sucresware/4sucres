@@ -5,7 +5,7 @@ const DefaultOptions = {
     scrollDuration: 300,
     highlight: {
         flashCount: 4,
-        class: 'op-8',
+        class: 'highlight',
         flashDuration: 175
     }
 }

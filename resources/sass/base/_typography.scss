@@ -17,11 +17,25 @@ h5,
     text-transform: uppercase;
     font-weight: bold;
     font-size: 16px;
-    color: #4f545c;
+    // color: #4f545c;
+
+    color: $tertiary-color;
 }
 
 h5,
 .h5 {
     text-transform: uppercase;
     font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+    transition: all 250ms ease;
+
+    color: $tertiary-color;
+
+    @include on-event {
+        text-decoration: none !important;
+        color: $info;
+    }
 }

@@ -10,9 +10,9 @@
 
     <div class="card">
         @forelse ($private_discussions as $discussion)
-            <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
+            <section class="dicussion-preview">
                 @include('discussion._preview')
-            </div>
+            </section>
         @empty
             <div class="card-body">
                 <div class="text-center text-muted">

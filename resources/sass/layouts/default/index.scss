@@ -13,8 +13,8 @@
 @import 'footer';
 
 .btn,
-.a,
-.hover-accent {
+.a
+/*, .hover-accent */{
     transition: all 0.2s ease;
 
     :hover {
@@ -22,8 +22,11 @@
     }
 }
 
-.hover-accent:hover {
-    background-color: darken(#FBFBFC, 3%);
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-    cursor: pointer;
-}
+// .hover-accent:hover {
+//     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+//     cursor: pointer;
+
+//     @include themify() {
+//         background-color: darken(#FBFBFC, 3%);
+//     }
+// }

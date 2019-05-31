@@ -41,12 +41,12 @@
             <i class="fas fa-lock"></i> Cette discussion est désormais verrouillée.
         </div>
     @elseif (!$discussion->locked || (auth()->check() && $discussion->locked && user()->can('bypass discussions guard')))
-        <div class="card" id="reply">
-            <div class="card-body bg-light" >
+        <section class="card discussion-response" id="reply">
+            <div class="card-body" >
                 <h2 class="h6">Répondre</h2>
                 @include('discussion._reply')
             </div>
-        </div>
+        </section>
     @endif
 </div>
 

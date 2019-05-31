@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-body dimmed-border-bottom">
                     <div class="text-center font-weight-bold text-uppercase mb-3">Intégration Discord</div>
-                        <div class="alert blue border">
+                        <div class="alert">
                             <div class="row align-items-center">
                                 <div class="col col-md-8">
                                     <p>

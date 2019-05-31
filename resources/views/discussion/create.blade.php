@@ -22,7 +22,7 @@
                 </div>
                 @include('includes/_editor', ['name' => 'body', 'value' => old('body')])
             </div>
-            <div class="card-footer bg-light">
+            <div class="card-footer">
                 <div class="text-right">
                     <button class="btn btn-secondary" data-action="open-preview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>
                     <button type="submit" class="btn btn-primary">Ouvrir le débat</button>

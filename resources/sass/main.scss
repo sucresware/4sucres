@@ -7,14 +7,26 @@
 // @edited 24/05/2019, 13:09:58
 // --------------------------------------------------------------------------
 
-// Utilities
+// Abstracts
 @import 'abstract/functions';
 @import 'abstract/mixins';
 @import 'abstract/variables';
+@import 'abstract/animations';
 
-// Themes & Layouts
+// Vendors
+@import 'vendors/vendors';
+@import 'vendors/overrides';
+
+// Layouts
 @import 'layouts/default';
-@import 'themes/light';
+ 
+// Components & Overrides  
+@import 'components';
+
+// Utilities
+// @import 'utility/text';
+// @import 'utility/background';
+@import 'utility';
 
 // Base
 @import 'base/base';
@@ -22,12 +34,8 @@
 @import 'base/fonts';
 @import 'base/typography';
 
-// Vendors
-@import 'vendors';
-
 // Pages
 @import 'pages/503';
 
-// Components & Overrides
-@import 'components';
-@import 'overrides';
+// @TODO
+@import 'utility/index.scss';

@@ -2,8 +2,12 @@
   <div>
     <div
       :class="{
-        'text-white bg-danger': activity.properties && (activity.properties.level == 'critical' || activity.properties.level == 'alert' || activity.properties.level == 'emergency'),
-        'text-white bg-warning': activity.properties && activity.properties.level == 'warning'
+        'bg-danger': activity.properties 
+            && (activity.properties.level == 'critical' 
+                || activity.properties.level == 'alert' 
+                || activity.properties.level == 'emergency'),
+        'bg-warning': activity.properties 
+            && activity.properties.level == 'warning'
       }"
     >
       <div class="row align-items-center no-gutters text-monospace">

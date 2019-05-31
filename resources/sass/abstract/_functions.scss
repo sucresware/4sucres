@@ -7,3 +7,10 @@
 // @edited 24/05/2019, 13:05:45
 // -------------------------------------------------------------------------- 
 
+@function ends-with($string, $find) {
+    @return str-slice($string, (str-length($string) - str-length($find) + 1)) == $find;
+}
+
+@function trim-end($string, $text) {
+    @return str-slice($string, 0, (str-length($string) - str-length($text)))
+}

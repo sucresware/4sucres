@@ -1,6 +1,5 @@
 @import 'integration';
 @import 'carousel';
-@import 'post';
 @import 'emoji';
 @import 'alert';
 @import 'sticker';
@@ -8,6 +7,14 @@
 @import 'editor';
 @import 'spoiler';
 @import 'badge';
+@import 'autocomplete';
+@import 'discussion';
+@import 'card';
+@import 'navbar';
+@import 'button';
+@import 'notification';
+@import 'input';
+@import 'select';
 
 .sidetag {
     position: absolute;
@@ -17,3 +24,4 @@
     left: -14px;
     border: 1px solid $border-color;
 }
+ 

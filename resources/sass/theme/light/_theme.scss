@@ -1,0 +1,85 @@
+// -------------------------------------------------------------------------- 
+//  [ _theme.scss ]
+//  › Defines theme variables.
+// 
+// @author Enzo Innocenzi <enzo.inno@gmail.com>
+// @created 31/05/2019, 10:58:30
+// @edited 31/05/2019, 10:58:30
+// -------------------------------------------------------------------------- 
+
+// ---- [ Palette ] ---------------------------------------------------------
+
+@import '~nord/src/sass/nord.scss';
+
+$primary-background:    $nord6;
+$secondary-background:  $nord5;
+$tertiary-background:   $nord4;
+$quaternary-background: lighten($nord4, 5%); 
+
+$primary-color:         $nord2;
+$secondary-color:       $nord1;
+$tertiary-color:        $nord0;
+$quaternary-color:      $nord3;
+
+$danger-color:          $nord12;
+$warning-color:         $nord13;
+$success-color:         $nord14;
+$info-color:            $nord9;
+
+
+// ---- [ Menu ] -----------------------------------------------------------
+
+$menu-primary-background:    $nord0;
+$menu-secondary-background:  $nord1;
+$menu-tertiary-background:   $nord2;
+$menu-quaternary-background: $nord3;
+
+$menu-primary-color:         $nord6;
+$menu-secondary-color:       $nord5;
+$menu-tertiary-color:        $nord4;
+
+
+// ---- [ Header ] ---------------------------------------------------------
+
+$header-primary-background:    $nord0;
+$header-secondary-background:  $nord1;
+$header-tertiary-background:   $nord2;
+$header-quaternary-background: $nord3;
+
+$header-primary-color:         $nord6;
+$header-secondary-color:       $nord5;
+$header-tertiary-color:        $nord4;
+
+
+// ---- [ Bootstrap ] ------------------------------------------------------
+
+$blue:  #81A1C1;
+$red:   #BF616A;
+$indigo:#6574cd;
+$purple: #B48EAD;
+$pink: #f66D9b;
+$orange: rgb(129, 82, 67);
+$yellow: #EBCB8B;
+$green: #A3BE8C;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$gray: #fbfbfc;
+
+$body-bg:       $primary-background;
+$body-color:    $primary-color;
+
+$primary:       $blue;
+$secondary:     $secondary-background;
+
+$danger:        $nord12;    
+$warning:       $nord13;
+$success:       $nord14;
+$info:          $nord9;
+
+
+// TODO
+$tooltip-color: $body-color;
+$tooltip-bg:    $body-bg;
+$card-cap-bg:   $body-bg ;
+$border-color:  $secondary-color;
+$card-bg:       $primary-background;

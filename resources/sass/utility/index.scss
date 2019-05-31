@@ -1,55 +1,3 @@
-@import 'colors';
-
-.card-header {
-    border: 0;
-    font-weight: bold;
-}
-
-.container-sidebar {
-    margin-left: auto;
-    width: 180px;
-}
-
-.nav-link,
-a,
-.btn-link {
-    color: $body-color;
-}
-
-.btn {
-    font-size: .9em;
-}
-
-hr {
-    border-color: darken($light, 5%);
-}
-
-.nav-pills .nav-link {
-    padding: 0.5rem;
-}
-
-.nav-pills .nav-link:hover {
-    background-color: $white;
-    color: $body-color;
-}
-
-.nav-pills .nav-link.active,
-.nav-link.active:hover {
-    background-color: $white;
-    color: $body-color;
-}
-
-.navbar {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.card {
-    .card-header {
-        text-transform: uppercase;
-        background-color: auto;
-    }
-}
-
 @media (min-width: 1200px) {
 
     .fw-user,
@@ -77,18 +25,6 @@ hr {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
-.blue {
-    background: lighten(#f2f4f8, 2%);
-}
-
-.white {
-    background: #FFFFFF;
-}
-
-.post {
-    border-bottom: 1px solid #f2f2f2;
-}
-
 .alert-minimalist {
     background-color: #f2f4f8;
     border-color: $border-color;
@@ -99,23 +35,23 @@ hr {
     color: $body-color;
 }
 
-.btn-darker {
-    color: #fff;
-    background-color: $darker;
-    border-color: $darker;
-}
+// .btn-darker {
+//     color: #fff;
+//     background-color: $darker;
+//     border-color: $darker;
+// }
 
-.input-darker {
-    color: #fff;
-    background-color: $darker;
-    border-color: $darker;
+// .input-darker {
+//     color: #fff;
+//     background-color: $darker;
+//     border-color: $darker;
 
-    &:focus {
-        color: #fff;
-        background-color: $darker;
-        border-color: lighten($darker, 10%);
-    }
-}
+//     &:focus {
+//         color: #fff;
+//         background-color: $darker;
+//         border-color: lighten($darker, 10%);
+//     }
+// }
 
 p {
     margin-bottom: 15px;
@@ -133,32 +69,6 @@ blockquote,
     }
 }
 
-.bg-discord {
-    background-color: #7289DA;
-}
-
-@keyframes fa-blink {
-    0% {
-        opacity: 1;
-    }
-
-    25% {
-        opacity: 0.25;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
-
-    75% {
-        opacity: 0.75;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
 
 
 .fa-stack>.badge {
@@ -173,22 +83,6 @@ blockquote,
 }
 
 
-.textcomplete-dropdown {
-    padding: 0;
-
-    .textcomplete-item {
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-
-        &.active {
-            background-color: rgba($body-color, .1);
-        }
-
-        &:hover {
-            background-color: rgba($body-color, .15);
-        }
-    }
-}
 
 .tooltip-inner {
     max-width: 100%;

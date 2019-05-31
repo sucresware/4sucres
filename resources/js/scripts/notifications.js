@@ -12,7 +12,7 @@ import {
 const DefaultOptions = {
     privateMessageNotificationSelector: '#private_discussions_indicator',
     genericNotificationSelector: '#notifications_indicator',
-    notificationMarkup: `<i class="fas fa-circle fa-stack-2x text-darker"></i>` +
+    notificationMarkup: `<i class="fas fa-circle fa-stack-2x text-primary"></i>` +
         `<i class="fas %icon% fa-stack-1x fa-inverse"></i>` +
         `<span class="badge badge-danger badge-pill badge-notification">%count%</span>`,
     notificationSound: ['/audio/intuition.mp3'],

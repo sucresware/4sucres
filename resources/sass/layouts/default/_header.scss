@@ -7,3 +7,15 @@
 // @edited 24/05/2019, 13:06:14
 // -------------------------------------------------------------------------- 
 
+.navbar {
+    background-color: $header-secondary-background;
+
+    button {
+        background-color: $header-primary-background;
+        color: $header-primary-color;
+
+        @include on-event() {
+            color: $header-tertiary-color;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+
+.textcomplete-dropdown {
+    padding: 0;
+
+    .textcomplete-item {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+
+        &.active {
+            background-color: rgba($primary-color, .1);
+        }
+
+        &:hover {
+            background-color: rgba($primary-color, .15);
+        }
+    }
+}

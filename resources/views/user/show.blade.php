@@ -54,6 +54,7 @@
                         <strong>Nombre de réponses :</strong> {{ $user->replies_count }}<br>
                     </div>
 
+                    <!-- @TODO - Hide if no participation -->
                     <hr>
 
                     <h3 class="h5">Dernières participations</h5>
@@ -63,6 +64,7 @@
                         @endforeach
                     </div>
 
+                    @if ($user->achievements && $user->achievements->count() > 0)
                     <hr>
 
                     <h3 class="h5">Succès</h5>
@@ -81,8 +83,11 @@
                         @endforeach
                         </div>
                     </div>
+                    @endif
+
+
                 </div>
-                <div class="card-footer bg-light">
+                <div class="card-footer">
                     <div class="text-right">
                         @auth
                             @if ($user->id == user()->id)
