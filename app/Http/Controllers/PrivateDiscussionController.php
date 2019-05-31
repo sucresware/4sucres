@@ -60,8 +60,7 @@ class PrivateDiscussionController extends Controller
         $discussion->members()->attach([$from->id, $to->id]);
         $discussion->subscribed()->attach([$from->id, $to->id]);
 
-        if ($user->getIsNotifMPAttribute())
-        {
+        if ($user->getIsNotifMPAttribute()) {
             $to->notify(new NewPrivateDiscussion($discussion));
         }
 
