@@ -40,6 +40,8 @@ class DiscussionPostController extends Controller
             'user_id' => user()->id,
         ]);
 
+        $discussion->subscribed()->attach(user()->id);
+
         return redirect($post->link);
     }
 
