@@ -194,8 +194,7 @@ class SucresParser
         $users = [];
 
         foreach ($this->getQuotes(self::QUOTES_RETURN_POSTS) as $quote) {
-            if ($quote->user->getIsNotifMentionAttribute())
-            {
+            if ($quote->user->getIsNotifMentionAttribute()) {
                 $users[] = $quote->user;
             }
         }
