@@ -209,6 +209,9 @@ class UserSettingsController extends Controller
         $user = user();
 
         $user->setMultipleSettings([
+            'notifnewdiscussion.enabled'   => (bool) request()->input('optin_notifnewdiscussion', 0),
+            'notifmp.enabled'   => (bool) request()->input('optin_notifmp', 0),
+            'notifmention.enabled'   => (bool) request()->input('optin_notifmention', 0),
             'webpush.enabled'   => (bool) request()->input('optin_webpush', 0),
             'webpush.idle_wait' => request()->input('idle_wait', 1),
         ]);

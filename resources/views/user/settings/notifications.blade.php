@@ -20,35 +20,35 @@
                         Gestion des notifications
                     </div>
                     <div class="card-body">
-                        {{--  <div class="row">
+                        <div class="row">
                             <div class="col-md-3">Je souhaite être notifié..</div>
                             <div class="col-md-9">
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
+                                        <input type="checkbox" class="custom-control-input" id="optin_notifnewdiscussion" name="optin_notifnewdiscussion" {{ old('optin_notifnewdiscussion', $user->getSetting('notifnewdiscussion.enabled', 0)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="optin_notifnewdiscussion">
                                             De toutes les nouvelles discussions
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
+                                        <input type="checkbox" class="custom-control-input" id="optin_notifmp" name="optin_notifmp" {{ old('optin_notifmp', $user->getSetting('notifmp.enabled', 1)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="optin_notifmp">
                                             Quand je reçois un message privé
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
+                                        <input type="checkbox" class="custom-control-input" id="optin_notifmention" name="optin_notifmention" {{ old('optin_notifmention', $user->getSetting('notifmention.enabled', 1)) ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="optin_notifmention">
                                             Quand je suis cité/mentionné
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                        </div>  --}}
+                        </div>
                         <div class="form-group">
                             <div class="alert alert-primary">
                                 <div class="row align-items-center">

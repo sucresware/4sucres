@@ -124,7 +124,7 @@ class Discussion extends Model
     public function notify_subscibers(Post $post)
     {
         foreach ($this->subscribed as $user) {
-            if ($user->id != $post->user->id) {
+            if ($user->id != $post->user->id && $user->getIsNotifMPAttribute()) {
                 // Check if the user has not already received an unread ReplyInDiscussion about this discussion :
                 $notifications = $user->notifications()
                     ->where('data->discussion_id', $post->discussion->id)
