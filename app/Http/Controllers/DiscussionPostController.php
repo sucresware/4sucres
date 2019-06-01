@@ -34,7 +34,7 @@ class DiscussionPostController extends Controller
         }
 
         request()->validate([
-            'body' => ['required', 'min:3', 'max:3000'],
+            'body' => ['required', 'min:3', 'max:10000'],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 7, 1);
