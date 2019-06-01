@@ -131,18 +131,18 @@ class Discussion extends Model
                     ->where('data->discussion_id', $post->discussion->id)
                     ->where('read_at', null)
                     ->whereIn('type', [ReplyInDiscussion::class, RepliesInDiscussion::class]);
-                }
 
-                if ($notifications->count()) {
-                    $notifications->update(['read_at' => now()]);
-                    if (!$post->discussion->private) {
-                        $user->notify(new RepliesInDiscussion($post->discussion));
-                        $user->notify(new ReplyInDiscussion($post, false));
+                    if ($notifications->count()) {
+                        $notifications->update(['read_at' => now()]);
+                        if (!$post->discussion->private) {
+                            $user->notify(new RepliesInDiscussion($post->discussion));
+                            $user->notify(new ReplyInDiscussion($post, false));
+                        } else {
+                            $user->notify(new ReplyInDiscussion($post));
+                        }
                     } else {
                         $user->notify(new ReplyInDiscussion($post));
                     }
-                } else {
-                    $user->notify(new ReplyInDiscussion($post));
                 }
             }
         }

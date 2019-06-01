@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Discussion;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 
 class NewPrivateDiscussion extends DefaultNotification
