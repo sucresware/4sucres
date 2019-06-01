@@ -124,12 +124,14 @@ class Discussion extends Model
     public function notify_subscibers(Post $post)
     {
         foreach ($this->subscribed as $user) {
-            if ($user->id != $post->user->id && $user->getSetting('notifications.on_subscribed_discussions', true)) {
-                // Check if the user has not already received an unread ReplyInDiscussion about this discussion :
-                $notifications = $user->notifications()
+            if ($user->id != $post->user->id) {
+                if ((!$post->discussion->private && $user->getSetting('notifications.on_subscribed_discussions', true)) || ($post->discussion->private && $user->getSetting('notifications.on_new_private_message', true))) {
+                    // Check if the user has not already received an unread ReplyInDiscussion about this discussion :
+                    $notifications = $user->notifications()
                     ->where('data->discussion_id', $post->discussion->id)
                     ->where('read_at', null)
                     ->whereIn('type', [ReplyInDiscussion::class, RepliesInDiscussion::class]);
+                }
 
                 if ($notifications->count()) {
                     $notifications->update(['read_at' => now()]);
