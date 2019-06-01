@@ -20,7 +20,7 @@
                         Gestion des notifications
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-md-3">Je souhaite être notifié..</div>
                             <div class="col-md-9">
                                 <div class="form-group mb-1">
