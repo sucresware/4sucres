@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
+use App\Models\Category;
 use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Category;
 use Illuminate\Support\Str;
 use Spatie\Regex\Regex;
 
@@ -50,7 +50,7 @@ class SearchController extends Controller
                     ->where('body', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->with('discussion')
-                    ->whereHas('discussion', function($q) use ($categories) {
+                    ->whereHas('discussion', function ($q) use ($categories) {
                         return $q->where('category_id', $categories->pluck('id'));
                     })
                     ->paginate(10);
