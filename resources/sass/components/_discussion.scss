@@ -4,22 +4,22 @@ section.discussion {
 
         // Even and odd posts
         &:nth-child(odd) {
-            background-color: $primary-background;
-            color: $secondary-color;
+            background-color: $discussion-primary-background;
+            color: $discussion-secondary-color;
 
             .post {
                 &:target {
-                    background-color: $secondary-background;
+                    background-color: $discussion-secondary-background;
                     border: 1px solid $tertiary-background;
                 }
 
                 &.highlight {
-                    background-color: $secondary-background;
+                    background-color: $discussion-secondary-background;
                     border: 1px solid $tertiary-background;
                 }
 
-                hr {
-                    border-color: $tertiary-background;
+                :not(blockquote) > hr {
+                    border-color: $discussion-tertiary-background;
                 }
 
                 border-bottom: 1px solid $tertiary-background;
@@ -27,22 +27,22 @@ section.discussion {
         }
 
         &:nth-child(even) {
-            background-color: $secondary-background;
-            color: $secondary-color;
+            background-color: $discussion-secondary-background;
+            color: $discussion-secondary-color;
 
             .post {
                 &:target {
-                    background-color: $secondary-background;
+                    background-color: $discussion-secondary-background;
                     border: 1px solid $tertiary-background;
                 }
 
                 &.highlight {
-                    background-color: $secondary-background;
+                    background-color: $discussion-secondary-background;
                     border: 1px solid $tertiary-background;
                 }
 
-                hr {
-                    border-color: $secondary-background;
+                :not(blockquote) > hr {
+                    border-color: $discussion-secondary-background;
                 }
 
                 border-bottom: 1px solid darken($secondary-background, 2.5%);
@@ -70,7 +70,7 @@ section.discussion {
                 }
             
                 a {
-                    color: $primary-color;
+                    color: $discussion-primary-color;
                 }
             }
         
@@ -81,7 +81,7 @@ section.discussion {
 
             .action-buttons {
                 a {
-                    color: $tertiary-color;
+                    color: $discussion-tertiary-color;
 
                     @include on-event() {
                         color: darken($tertiary-color, 20%); 
@@ -95,8 +95,8 @@ section.discussion {
 }
 
 section.discussion-response {
-    background-color: $secondary-background;
-    border-color: $secondary-background;
+    background-color: $discussion-secondary-background;
+    border-color: $discussion-border-color;
 }
 
 section.discussion-previews {
@@ -105,20 +105,20 @@ section.discussion-previews {
         transition: all 250ms ease;
 
         &:nth-child(odd) {
-            background-color: $primary-background;
-            color: $secondary-color;
+            background-color: $discussion-primary-background;
+            color: $discussion-secondary-color;
 
             @include on-event() {
-                background-color: $secondary-background;
+                background-color: $discussion-tertiary-background;
             }
         }
 
         &:nth-child(even) {
-            background-color: $secondary-background;
-            color: $secondary-color;
+            background-color: $discussion-secondary-background;
+            color: $discussion-secondary-color;
 
             @include on-event() {
-                background-color: $secondary-background;
+                background-color: $discussion-tertiary-background;
             }
         }
     }

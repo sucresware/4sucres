@@ -6,28 +6,28 @@
         margin-right: 5px;
         cursor: pointer;
 
-        color: $primary-color;
-        background-color: $tertiary-background;
-        border: 1px solid $tertiary-background;
+        color: $editor-primary-color;
+        background-color: $editor-tertiary-background;
+        border: 1px solid $editor-tertiary-border;
 
         &:hover {
-            background-color: $secondary-background;
+            background-color: $editor-secondary-background;
         }
     }
 
     i.separator {
         margin-left: 1px !important;
-        border-color: $tertiary-background !important;
+        border-color: $editor-tertiary-border !important;
     }
 
-    background-color: shade($secondary-background, 1.5%) !important;
-    border: 1px solid $primary-background;
+    background-color: shade($editor-secondary-background, 1.5%) !important;
+    border: 1px solid $editor-primary-border;
 }
 
 // Primary toolbar
 .editor-toolbar {
-    color: $primary-color !important; // Important because of buttons
-    background-color: $secondary-background;
+    color: $editor-primary-color !important; // Important because of buttons
+    background-color: $editor-secondary-background;
 }
 
 // Bottom toolbar
@@ -38,16 +38,17 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     padding: 10px;
-    background-color: $secondary-background;
+    background-color: $editor-secondary-background;
 }
 
 .CodeMirror {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    color: $primary-color !important;
-    caret-color: $primary-color !important;
-    background-color: $primary-background;
-    border-color: $primary-background;
+    color: $editor-primary-color !important;
+    caret-color: $editor-primary-color !important;
+    background-color: $editor-primary-background;
+    border-color: $editor-primary-border;
+    border-top: none;
 }
 
 .CodeMirror .CodeMirror-code .cm-header-1,

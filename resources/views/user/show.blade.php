@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card" style="margin-top: 50px">
+            <div class="card rounded" style="margin-top: 50px">
                 <div class="text-center">
                     <img src="{{ $user->avatar ? url('storage/avatars/' . $user->avatar) : url('/img/guest.png') }}" class="img-fluid rounded mb-3" width="100" style="margin-top: -45px;">
                     <div>
@@ -70,7 +70,7 @@
                     <h3 class="h5">Succès</h5>
                     <div class="p-3 pb-3">
                         @foreach ($user->achievements as $achievement)
-                            <div class="row align-items-center border rounded no-gutters mb-1 p-2">
+                            <div class="row align-items-center border rounded no-gutters mb-1 p-2 bg-theme-tertiary">
                                 <div class="col-auto mr-3">
                                     <img src="{{ url('/img/achievements/' . $achievement->image) }}" class="img-fluid" width="60px">
                                 </div>
@@ -87,7 +87,7 @@
 
 
                 </div>
-                <div class="card-footer">
+                <div class="card-footer border-top-0">
                     <div class="text-right">
                         @auth
                             @if ($user->id == user()->id)

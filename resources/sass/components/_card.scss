@@ -1,15 +1,16 @@
 .card {
+    background-color: $secondary-background;
+    color: $primary-color;
 
     .card-header {
         text-transform: uppercase;
-        background-color: auto;
         border: 0;
         font-weight: bold;
-        background: $secondary-background;
+        background-color: $secondary-background;
         color: $primary-color;
     }
 
     hr {
-        border-color: $tertiary-background;
+        border-color: $border-color;
     }
 }

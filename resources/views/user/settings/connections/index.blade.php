@@ -18,7 +18,8 @@
                 <div class="card-body dimmed-border-bottom">
                     <p>
                         Token personnel 4sucres :
-                        <span class="text-monospace">{{ $user->api_token }}</span>
+                        <span class="text-monospace text-danger">{{ $user->api_token }}</span>
+                        <!-- TODO: copy helper -->
                     </p>
 
                     <a href="{{ route('user.settings.connections.regen-token') }}" class="btn btn-danger">Régénérer</a>

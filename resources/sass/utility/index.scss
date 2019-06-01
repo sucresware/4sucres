@@ -61,14 +61,6 @@ p {
     }
 }
 
-blockquote,
-.blockquote,
-.quote {
-    &>& {
-        margin-bottom: 0;
-    }
-}
-
 
 
 .fa-stack>.badge {
@@ -117,13 +109,6 @@ blockquote,
     justify-content: center;
     margin-bottom: 1rem !important;
     margin-top: 1rem !important;
-}
-
-blockquote {
-    padding: 0.5rem;
-    background-color: #f2f4f8;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
 }
 
 

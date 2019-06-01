@@ -16,23 +16,26 @@
             </ul>
 
             @isset ($posts)
-                <div class="card shadow-sm mb-3">
+                <div class="card rounded shadow-sm mb-3">
                     <div class="card-header">
                         {{ $count = $posts->total() }} {{ str_plural('post', $count) }} {{ str_plural('correspondant', $count) }}
                     </div>
                     @forelse($posts as $post)
-                        <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
-                            <div class="p-3">
-                                <p>
-                                    <a href="{{ $post->link }}">{{ $post->discussion->title }}</a><br>
-                                    <small>{!! $post->trimmed_body !!}</small>
-                                </p>
-
+                        <blockquote class="discussions-search-results bg-theme-primary mx-3 mb-2">
+                            <div>
+                                <a href="{{ $post->link }}">
+                                    <i class="fas fa-angle-double-left text-muted"></i>
+                                    {{ $post->discussion->title }}
+                                    <i class="fas fa-angle-double-right text-muted"></i>
+                                </a>
+                                <br>
+                                <small class="text-theme-tertiary">{!! $post->trimmed_body !!}</small>
+                                <hr class="my-2">
                                 <a href="{{ $post->user->link }}"><img src="{{ $post->user->avatar_link }}" class="rounded" height="14px"></a>
                                 <a href="{{ $post->user->link }}"><strong>{{ $post->user->display_name }}</strong></a>
                                 {{ $post->presented_date }}
                             </div>
-                        </div>
+                        </blockquote>
                     @empty
                         <div class="card-body">
                             <span class="text-danger">
@@ -40,26 +43,31 @@
                             </span>
                         </div>
                     @endforelse
-                    {!! $posts->appends(request()->input())->onEachSide(1)->links() !!}
                 </div>
+                {!! $posts->appends(request()->input())->onEachSide(1)->links() !!}
             @endisset
             @isset ($discussions)
-                <div class="card shadow-sm mb-3">
+                <div class="card rounded shadow-sm mb-3">
                     <div class="card-header">
                         {{ $count = $discussions->total() }} {{ str_plural('discussion', $count) }} {{ str_plural('correspondante', $count) }}
                     </div>
                     @forelse($discussions as $discussion)
-                        <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
-                            <div class="p-3">
-                                <p>
-                                    <a href="{{ $discussion->link }}">{!! $discussion->title !!}</a><br>
-                                </p>
-
-                                <a href="{{ $discussion->user->link }}"><img src="{{ $discussion->user->avatar_link }}" class="rounded" height="14px"></a>
-                                <a href="{{ $discussion->user->link }}"><strong>{{ $discussion->user->display_name }}</strong></a>
-                                le {{ $discussion->created_at->format('d/m/Y à H:i:s') }}
+                        <blockquote class="discussions-search-results bg-theme-primary mx-3 mb-2">
+                            <div>
+                                <a href="{{ $discussion->link }}">
+                                    <i class="fas fa-angle-double-left text-muted"></i>
+                                        {!! $discussion->title !!}
+                                    <i class="fas fa-angle-double-right text-muted"></i>
+                                </a>
+                                <br>
+                                <hr class="my-2">
+                                <div class="text-muted">
+                                    <a href="{{ $discussion->user->link }}"><img src="{{ $discussion->user->avatar_link }}" class="rounded" height="14px"></a>
+                                    <a href="{{ $discussion->user->link }}"><strong>{{ $discussion->user->display_name }}</strong></a>
+                                    le {{ $discussion->created_at->format('d/m/Y à H:i:s') }}
+                                </div>
                             </div>
-                        </div>
+                        </blockquote>
                     @empty
                         <div class="card-body">
                             <span class="text-danger">
@@ -67,28 +75,30 @@
                             </span>
                         </div>
                     @endforelse
-                    {!! $discussions->appends(request()->input())->onEachSide(1)->links() !!}
                 </div>
+                {!! $discussions->appends(request()->input())->onEachSide(1)->links() !!}
             @endisset
             @isset ($users)
-                <div class="card shadow-sm mb-3">
+                <div class="card rounded shadow-sm mb-3">
                     <div class="card-header">
                         {{ $count = $users->total() }} {{ str_plural('utilisateur', $count) }} {{ str_plural('correspondant', $count) }}
                     </div>
                     @forelse($users as $user)
-                        <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
-                            <div class="p-3">
+                        <blockquote class="user-search-results bg-theme-primary mx-3 mb-2">
+                            <div>
                                 <div class="row align-items-center">
                                     <div class="col-auto pr-0">
                                         <a href="{{ $user->link }}"><img src="{{ $user->avatar_link }}" class="rounded" height="32px"></a>
                                     </div>
                                     <div class="col">
-                                        <a href="{!! $user->link !!}"><strong>{!! $user->display_name_for_search !!}</strong></a><br>
-                                        <a href="{!! $user->link !!}"><small>{!! '@' . $user->name_for_search !!}</small></a>
+                                        <div class="d-flex flex-column">
+                                            <a href="{!! $user->link !!}"><strong>{!! $user->display_name_for_search !!}</strong></a>
+                                            <a href="{!! $user->link !!}"><small>{!! '@' . $user->name_for_search !!}</small></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </blockquote>
                     @empty
                         <div class="card-body">
                             <span class="text-danger">
@@ -96,8 +106,8 @@
                             </span>
                         </div>
                     @endforelse
-                    {!! $users->appends(request()->input())->onEachSide(1)->links() !!}
                 </div>
+                {!! $users->appends(request()->input())->onEachSide(1)->links() !!}
             @endisset
         </div>
     </div>

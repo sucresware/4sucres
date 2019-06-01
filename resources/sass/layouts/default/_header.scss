@@ -13,9 +13,16 @@
     button {
         background-color: $header-primary-background;
         color: $header-primary-color;
+        border-color: $header-primary-background;
 
         @include on-event() {
             color: $header-tertiary-color;
         }
+    }
+
+    input {
+        background-color: $header-primary-background;
+        color: $header-primary-color;
+        border-color: $header-primary-background;
     }
 }
