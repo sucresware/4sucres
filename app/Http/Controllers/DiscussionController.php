@@ -9,6 +9,7 @@ use App\Models\Discussion;
 use App\Models\Notification as NotificationModel;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DiscussionController extends Controller
 {
@@ -22,7 +23,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $categories = Category::ordered()->filtered()->pluck('name', 'id');
+        $categories = Category::postables()->pluck('name', 'id');
 
         return view('discussion.create', compact('categories'));
     }
@@ -58,10 +59,12 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
+        $categories = Category::postables()->pluck('id');
+
         request()->validate([
             'title'    => ['required', 'min:3', 'max:255'],
             'body'     => ['required', 'min:3', 'max:3000'],
-            'category' => ['required', 'exists:categories,id'],
+            'category' => ['required', 'exists:categories,id', Rule::in($categories)],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 10);
@@ -86,15 +89,25 @@ class DiscussionController extends Controller
 
     public function index(Category $category = null, $slug = null)
     {
-        $categories = Category::ordered()->get();
+        $categories = Category::viewables();
+
+        if ($category && !in_array($category->id, $categories->pluck('id')->toArray())) {
+            return abort(403);
+        }
+
         $discussions = Discussion::query()
+            ->whereIn('category_id', $categories->pluck('id'))
             ->with('category')
             ->with('posts')
             ->with('posts.user')
             ->with('user');
 
         if ($category) {
-            $discussions = $discussions->where('category_id', $category->id);
+            $discussions = $discussions
+                ->where('category_id', $category->id);
+        } else {
+            $discussions = $discussions
+                ->where('category_id', '!=', Category::SHITPOST_CATEGORY_ID);
         }
 
         if (request()->input('page', 1) == 1) {
@@ -111,12 +124,13 @@ class DiscussionController extends Controller
 
     public function subscriptions()
     {
-        $categories = Category::ordered()->get();
+        $categories = Category::viewables();
 
-        $discussions = Discussion::query();
-        $discussions = $discussions->whereHas('subscribed', function ($q) {
-            return $q->where('user_id', user()->id);
-        });
+        $discussions = Discussion::query()
+            ->whereIn('category_id', $categories->pluck('id'))
+            ->whereHas('subscribed', function ($q) {
+                return $q->where('user_id', user()->id);
+            });
 
         if (request()->input('page', 1) == 1) {
             $sticky_discussions = clone $discussions;
@@ -134,6 +148,10 @@ class DiscussionController extends Controller
     {
         $discussion = Discussion::query()
             ->findOrFail($id);
+
+        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+            return abort(403);
+        }
 
         if ($discussion->deleted_at) {
             return abort(410);
@@ -204,9 +222,15 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
+        $categories = Category::postables();
+
+        if (!in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
+            return abort(403);
+        }
+
         request()->validate([
             'title'    => 'required|min:4|max:255',
-            'category' => 'required|exists:categories,id',
+            'category' => ['required', 'exists:categories,id', Rule::in($categories->pluck('id'))],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 3, 5);
@@ -242,6 +266,10 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
+        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+            return abort(403);
+        }
+
         $discussion->subscribed()->attach(user()->id);
 
         return redirect(route('discussions.show', [
@@ -253,6 +281,10 @@ class DiscussionController extends Controller
     public function unsubscribe(Discussion $discussion, $slug)
     {
         if ($discussion->private) {
+            return abort(403);
+        }
+
+        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 

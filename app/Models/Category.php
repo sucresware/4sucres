@@ -37,15 +37,64 @@ class Category extends Model
 
     public function scopeOrdered($query)
     {
-        return $query->orderBy('order');
+        return $query
+            ->orderBy('order')
+            ->orderBy('name');
     }
 
-    public function scopeFiltered($query)
+    public static function viewables()
     {
-        if (!user()->can('use restricted categories')) {
-            return $query->where('restricted', false);
+        return self::ordered()->get()->reject(function ($category) {
+            return !$category->canView(user());
+        });
+    }
+
+    public static function postables()
+    {
+        return self::ordered()->get()->reject(function ($category) {
+            return !$category->canPost(user());
+        });
+    }
+
+    public function canView($user)
+    {
+        $auth = true;
+
+        if (auth()->check()) {
+            if ($this->can_view != null) {
+                $auth = in_array($user->roles[0]->name, $this->can_view);
+            }
+
+            $min_date = now()->subYears(18);
+
+            if ($this->nsfw && (user()->dob && user()->dob->isAfter($min_date))) {
+                $auth = false;
+            }
         } else {
-            return $query;
+            $auth = ($this->can_view == null && !$this->nsfw);
         }
+
+        return $auth;
+    }
+
+    public function canPost($user)
+    {
+        $auth = true;
+
+        if (auth()->check()) {
+            if ($this->can_post != null) {
+                $auth = in_array($user->roles[0]->name, $this->can_post);
+            }
+
+            $min_date = now()->subYears(18);
+
+            if ($this->nsfw && (user()->dob && user()->dob->isAfter($min_date))) {
+                $auth = false;
+            }
+        } else {
+            $auth = ($this->can_post == null && !$this->nsfw);
+        }
+
+        return $auth;
     }
 }
