@@ -61,7 +61,7 @@ class Category extends Model
         $auth = true;
 
         if (auth()->check()) {
-            if ($this->can_view != null) {
+            if ($this->can_view) {
                 $auth = in_array($user->roles[0]->name, $this->can_view);
             }
 
@@ -82,7 +82,7 @@ class Category extends Model
         $auth = true;
 
         if (auth()->check()) {
-            if ($this->can_post != null) {
+            if ($this->can_post) {
                 $auth = in_array($user->roles[0]->name, $this->can_post);
             }
 
