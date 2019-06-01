@@ -45,7 +45,7 @@ class DiscussionPostController extends Controller
         ]);
 
         if (user()->getSetting('notifications.subscribe_on_reply', false)) {
-            $discussion->subscribed()->attach(user()->id);
+            $discussion->subscribed()->syncWithoutDetaching(user()->id);
         }
 
         return redirect($post->link);
