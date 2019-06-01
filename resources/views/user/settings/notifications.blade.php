@@ -25,25 +25,25 @@
                             <div class="col-md-9">
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="optin_notifnewdiscussion" name="optin_notifnewdiscussion" {{ old('optin_notifnewdiscussion', $user->getSetting('notifnewdiscussion.enabled', 0)) ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="optin_notifnewdiscussion">
-                                            De toutes les nouvelles discussions
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-1">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="optin_notifmp" name="optin_notifmp" {{ old('optin_notifmp', $user->getSetting('notifmp.enabled', 1)) ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="optin_notifmp">
+                                        <input type="checkbox" class="custom-control-input" id="notification_on_new_private_message" name="notification_on_new_private_message" {{ old('notification_on_new_private_message', $user->getSetting('notifications.on_new_private_message', 1)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="notification_on_new_private_message">
                                             Quand je reçois un message privé
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="optin_notifmention" name="optin_notifmention" {{ old('optin_notifmention', $user->getSetting('notifmention.enabled', 1)) ? 'checked' : '' }}>
-                                        <label class="custom-control-label" for="optin_notifmention">
+                                        <input type="checkbox" class="custom-control-input" id="notification_when_mentionned_or_quoted" name="notification_when_mentionned_or_quoted" {{ old('notification_when_mentionned_or_quoted', $user->getSetting('notifications.when_mentionned_or_quoted', 1)) ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="notification_when_mentionned_or_quoted">
                                             Quand je suis cité/mentionné
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="notification_on_subscribed_discussions" name="notification_on_subscribed_discussions" {{ old('notification_on_subscribed_discussions', $user->getSetting('notifications.on_subscribed_discussions', 0)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="notification_on_subscribed_discussions">
+                                            Quand un membre réponds dans une discussion à laquelle je me suis abonné
                                         </label>
                                     </div>
                                 </div>

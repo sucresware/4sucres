@@ -186,17 +186,17 @@ class User extends Authenticatable implements ReactsInterface
 
     public function getIsNotifNewDiscussionAttribute()
     {
-        return $this->getSetting('notifnewdiscussion.enabled', false);
+        return $this->getSetting('notifications.on_subscribed_discussions', false);
     }
 
     public function getIsNotifMPAttribute()
     {
-        return $this->getSetting('notifmp.enabled', true);
+        return $this->getSetting('notifications.on_new_private_message', true);
     }
 
     public function getIsNotifMentionAttribute()
     {
-        return $this->getSetting('notifmention.enabled', true);
+        return $this->getSetting('notifications.when_mentionned_or_quoted', true);
     }
 
     public function getIsEligibleForWebpushAttribute()

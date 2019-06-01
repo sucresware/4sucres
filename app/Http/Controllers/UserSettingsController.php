@@ -209,11 +209,11 @@ class UserSettingsController extends Controller
         $user = user();
 
         $user->setMultipleSettings([
-            'notifnewdiscussion.enabled'   => (bool) request()->input('optin_notifnewdiscussion', 0),
-            'notifmp.enabled'              => (bool) request()->input('optin_notifmp', 0),
-            'notifmention.enabled'         => (bool) request()->input('optin_notifmention', 0),
-            'webpush.enabled'              => (bool) request()->input('optin_webpush', 0),
-            'webpush.idle_wait'            => request()->input('idle_wait', 1),
+            'notifications.on_subscribed_discussions'           => (bool) request()->input('notification_on_subscribed_discussions', 0),
+            'notifications.on_new_private_message'              => (bool) request()->input('notification_on_new_private_message', 0),
+            'notifications.when_mentionned_or_quoted'           => (bool) request()->input('notification_when_mentionned_or_quoted', 0),
+            'webpush.enabled'                                   => (bool) request()->input('optin_webpush', 0),
+            'webpush.idle_wait'                                 => request()->input('idle_wait', 1),
         ]);
 
         return redirect(route('user.settings.notifications'))->with('success', 'Modifications enregistrées !');
