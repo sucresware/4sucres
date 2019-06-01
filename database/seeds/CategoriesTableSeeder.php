@@ -16,7 +16,7 @@ class CategoriesTableSeeder extends Seeder
         Category::updateOrCreate(['id' => Category::ANNOUNCES_CATEGORY_ID], [
             'name'     => '#annonces',
             'order'    => 1,
-            'can_post' => ['admin', 'moderators'],
+            'can_post' => ['admin', 'moderator'],
         ]);
 
         Category::updateOrCreate(['id' => 2], [
@@ -42,8 +42,8 @@ class CategoriesTableSeeder extends Seeder
         // Category::updateOrCreate(['id' => 6], [
         //     'name'     => '#unleashed',
         //     'order'    => 1,
-        //     'can_post' => ['admin', 'moderators', 'supporter'],
-        //     'can_view' => ['admin', 'moderators', 'supporter'],
+        //     'can_post' => ['admin', 'moderator', 'supporter'],
+        //     'can_view' => ['admin', 'moderator', 'supporter'],
         // ]);
 
         Category::updateOrCreate(['id' => 7], [
