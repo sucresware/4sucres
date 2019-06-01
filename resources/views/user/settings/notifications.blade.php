@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <div class="alert alert-primary">
                                 <div class="row align-items-center">
                                     <div class="col col-md-8">
