@@ -2,26 +2,34 @@ import $ from 'jquery';
 
 const DefaultOptions = {
     api: {
-        load: 'https://api.risibank.fr/api/v0/load',
-        search: 'https://api.risibank.fr/api/v0/search?search=%query%'
+        baseURL: 'https://cors-anywhere.herokuapp.com/https://api.onche.party/',
+        top: 'top',
+        recent: 'recent',
+        trending: 'trending',
+        random: 'random',
+        search: 'search?q=%query%'
     },
-    modalSelector: '#risibank',
-    searchFieldSelector: '#risibank-searchfield',
+    modalSelector: '#risidex',
+    searchFieldSelector: '#risidex-searchfield',
     tabs: {
-        popular: '#risibank-popular',
-        latest:  '#risibank-latest',
-        random:  '#risibank-random',
-        search:  '#risibank-search'
+        top: '#risidex-top',
+        recent: '#risidex-recent',
+        trending: '#risidex-trending',
+        random: '#risidex-random',
+        search: '#risidex-search'
     },
     loadTemplate: '<div class="my-5"><i class="fas fa-sync fa-spin fa-1x"></i></div>',
     errorTemplate: '<div class="my-5"><i class="fas fa-exclamation-circle text-danger fa-1x"></i></div>',
     noresultTemplate: '<div class="my-5"><i class="fas fa-exclamation-circle text-warning fa-1x"></i></div>',
 };
 
-class RisibankWrapper {
+class RisidexWrapper {
 
     constructor(options) {
-        this.options = { ...DefaultOptions, ...options };
+        this.options = {
+            ...DefaultOptions,
+            ...options
+        };
 
         $(document).ready(() => this.initialize());
     }
@@ -34,22 +42,30 @@ class RisibankWrapper {
         });
     }
 
-    load() {
-        this.setLoading(this.options.tabs.popular);
-        this.setLoading(this.options.tabs.latest);
-        this.setLoading(this.options.tabs.random);
+    async load() {
+        this.setLoading(this.options.tabs.top)
+        this.setLoading(this.options.tabs.recent)
+        this.setLoading(this.options.tabs.trending)
+        this.setLoading(this.options.tabs.random)
 
-        $.getJSON('https://cors-anywhere.herokuapp.com/' + this.options.api.load)
-            .done((resp) => {
-                this.setStickers(this.options.tabs.popular, resp.stickers.views)
-                this.setStickers(this.options.tabs.latest, resp.stickers.tms)
-                this.setStickers(this.options.tabs.random, resp.stickers.random)
-            })
-            .fail(() => {
-                this.setError(this.options.tabs.popular)
-                this.setError(this.options.tabs.latest)
-                this.setError(this.options.tabs.random)
-            });
+        try {
+            let top = await $.getJSON(this.options.api.baseURL + this.options.api.top);
+            this.setStickers(this.options.tabs.top, top)
+
+            let recent = await $.getJSON(this.options.api.baseURL + this.options.api.recent);
+            this.setStickers(this.options.tabs.recent, recent)
+
+            let trending = await $.getJSON(this.options.api.baseURL + this.options.api.trending);
+            this.setStickers(this.options.tabs.trending, trending)
+
+            let random = await $.getJSON(this.options.api.baseURL + this.options.api.random);
+            this.setStickers(this.options.tabs.random, random)
+        } catch (error) {
+            this.setError(this.options.tabs.top)
+            this.setError(this.options.tabs.recent)
+            this.setError(this.options.tabs.trending)
+            this.setError(this.options.tabs.random)
+        }
 
         this.loaded = true;
     }
@@ -63,7 +79,7 @@ class RisibankWrapper {
 
     setError(selector, noResult) {
         $(selector).empty();
-        $(selector).html(noResult === true ? this.options.noresultTemplate: this.options.errorTemplate);
+        $(selector).html(noResult === true ? this.options.noresultTemplate : this.options.errorTemplate);
 
         return this;
     }
@@ -77,7 +93,7 @@ class RisibankWrapper {
         }
 
         $.each(stickers, (i, sticker) => {
-            $(selector).append(this.getStickerTemplate(sticker.risibank_link));
+            $(selector).append(this.getStickerTemplate(sticker.image));
         });
 
         return this;
@@ -126,9 +142,9 @@ class RisibankWrapper {
 
         $.ajax({
             type: 'POST',
-            url: 'https://cors-anywhere.herokuapp.com/' + _url,
+            url: this.options.api.baseURL + _url,
             success: (resp) => {
-                this.setStickers(this.options.tabs.search, resp.stickers);
+                this.setStickers(this.options.tabs.search, resp);
             },
             error: () => {
                 this.setError(this.options.tabs.search);
@@ -139,6 +155,8 @@ class RisibankWrapper {
     }
 }
 
-const Risibank = new RisibankWrapper(DefaultOptions);
-export default Risibank;
-export { Risibank };
+const Risidex = new RisidexWrapper(DefaultOptions);
+export default Risidex;
+export {
+    Risidex
+};

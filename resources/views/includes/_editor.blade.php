@@ -1,4 +1,4 @@
-<div class="modal fade" id="risibank" tabindex="-1" role="dialog">
+<div class="modal fade" id="risidex" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,38 +9,44 @@
                 </button>
             </div>
             <div class="modal-body">
-                <ul class="nav nav-tabs" id="risibank" role="tablist">
+                <ul class="nav nav-tabs" id="risidex" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="risibank-popular-tab" data-toggle="tab" href="#popular_tab" role="tab">Populaires</a>
+                        <a class="nav-link active" id="risidex-top-tab" data-toggle="tab" href="#top_tab" role="tab">Top</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="risibank-latest-tab" data-toggle="tab" href="#latest_tab" role="tab">Nouveaux</a>
+                        <a class="nav-link" id="risidex-recent-tab" data-toggle="tab" href="#recent_tab" role="tab">Récents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="risibank-random-tab" data-toggle="tab" href="#random_tab" role="tab">Random</a>
+                        <a class="nav-link" id="risidex-trending-tab" data-toggle="tab" href="#trending_tab" role="tab">Tendances</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="risibank-search-tab" data-toggle="tab" href="#search_tab" role="tab">Recherche</a>
+                        <a class="nav-link" id="risidex-random-tab" data-toggle="tab" href="#random_tab" role="tab">Aléatoires</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="risidex-search-tab" data-toggle="tab" href="#search_tab" role="tab">Recherche</a>
                     </li>
                 </ul>
-                <div class="tab-content py-3" id="risibank-content">
-                    <div class="tab-pane fade show active" id="popular_tab" role="tabpanel">
-                        <div id="risibank-popular" class="text-center"></div>
+                <div class="tab-content py-3" id="risidex-content">
+                    <div class="tab-pane fade show active" id="top_tab" role="tabpanel">
+                        <div id="risidex-top" class="text-center"></div>
                     </div>
-                    <div class="tab-pane fade" id="latest_tab" role="tabpanel">
-                        <div id="risibank-latest" class="text-center"></div>
+                    <div class="tab-pane fade" id="recent_tab" role="tabpanel">
+                        <div id="risidex-recent" class="text-center"></div>
+                    </div>
+                    <div class="tab-pane fade" id="trending_tab" role="tabpanel">
+                        <div id="risidex-trending" class="text-center"></div>
                     </div>
                     <div class="tab-pane fade" id="random_tab" role="tabpanel">
-                        <div id="risibank-random" class="text-center"></div>
+                        <div id="risidex-random" class="text-center"></div>
                     </div>
                     <div class="tab-pane fade" id="search_tab" role="tabpanel">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="risibank-searchfield">
+                            <input type="text" class="form-control" id="risidex-searchfield">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" data-action="risibank-search"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-primary" data-action="risidex-search"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
-                        <div id="risibank-search" class="text-center"></div>
+                        <div id="risidex-search" class="text-center"></div>
                     </div>
                 </div>
             </div>
@@ -129,7 +135,7 @@
         <button type="button" class="btn btn-sm btn-light" data-mdcode="~">ｖａｐｏｒ</button>
     </div>
     <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#risibank">
+        <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#risidex">
             <img src="/img/editor/risidex_logo.png" style="height: 20px;">
         </button>
         {{--  <button type="button" class="btn btn-sm btn-light" data-action="openNoelshack" data-toggle="modal" data-target="#noelshack"><img src="/img/noelshack_logo.png" style="height: 20px;"></button>  --}}

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import v from 'voca';
 import Editor from './editor.js';
-import Risibank from './risibank.js';
+import Risidex from './risidex.js';
 import Imgur from './imgur.js';
 
 const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
@@ -46,12 +46,12 @@ class ActionHandler {
         Editor.insert(output);
 
         // TODO - Maybe remove?
-        Risibank.close();
+        Risidex.close();
     }
 
-    onRisibankSearch(element, event) {
+    onRisidexSearch(element, event) {
         event.preventDefault();
-        Risibank.search();
+        Risidex.search();
     }
 
     onOpenPreview(element, event) {
