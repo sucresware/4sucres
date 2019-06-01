@@ -27,7 +27,7 @@
                 <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
             @else
                 <strong>
-                    <i class="fas fa-asterisk text-orange"></i>
+                    <i class="fas fa-asterisk text-danger"></i>
                     <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
                 </strong>
             @endif

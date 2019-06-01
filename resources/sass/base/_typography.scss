@@ -19,7 +19,7 @@ h5,
     font-size: 16px;
     // color: #4f545c;
 
-    color: $tertiary-color;
+    color: $secondary-color;
 }
 
 h5,
@@ -32,7 +32,7 @@ a {
     text-decoration: none;
     transition: all 250ms ease;
 
-    color: $tertiary-color;
+    color: $secondary-color;
 
     @include on-event {
         text-decoration: none !important;

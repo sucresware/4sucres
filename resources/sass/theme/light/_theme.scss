@@ -18,8 +18,8 @@ $quaternary-background: lighten($nord4, 5%);
 
 $primary-color:         $nord2;
 $secondary-color:       $nord1;
-$tertiary-color:        $nord0;
-$quaternary-color:      $nord3;
+$tertiary-color:        #929db3;
+$quaternary-color:      $nord0;
 
 $danger-color:          $nord12;
 $warning-color:         $nord13;
@@ -40,6 +40,8 @@ $green: #A3BE8C;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $gray: #fbfbfc;
+
+$text-muted: $tertiary-color;
 
 $primary:       #5f82aa;
 $secondary:     $secondary-background;

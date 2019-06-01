@@ -20,7 +20,7 @@
                         </strong>
                     </div>
 
-                    <div class="badge badge-light">
+                    <div class="badge">
                         <i class="fas fa-circle {{ $user->online_circle_color }} mr-1"></i>
                         {{ $user->presented_last_activity }}
                     </div>
