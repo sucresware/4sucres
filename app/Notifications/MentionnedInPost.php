@@ -24,6 +24,15 @@ class MentionnedInPost extends DefaultNotification
         ]);
     }
 
+    public function via($notifiable)
+    {
+        if (User::find($notifiable->id)->getSetting('notifications.when_mentionned_or_quoted', true)) {
+            return parent::via($notifiable);
+        } else {
+            return [];
+        }
+    }
+
     protected function attributes()
     {
         $attributes = [

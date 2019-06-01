@@ -139,7 +139,7 @@ class SucresParser
             $target = SucresHelper::unicodeTrim(str_replace(['@', '#u:'], '', $excerpt));
             $user = User::where('name', $target)->first();
 
-            if ($user && $ret_type != self::MENTIONS_RETURN_COMPLETE && $user->getIsNotifMentionAttribute()) {
+            if ($user && $ret_type != self::MENTIONS_RETURN_COMPLETE) {
                 $mentions[] = self::MENTIONS_RETURN_USERS ? $user : $user->id;
             } elseif ($ret_type == self::MENTIONS_RETURN_COMPLETE) {
                 $mentions[] = [
@@ -194,9 +194,7 @@ class SucresParser
         $users = [];
 
         foreach ($this->getQuotes(self::QUOTES_RETURN_POSTS) as $quote) {
-            if ($quote->user->getIsNotifMentionAttribute()) {
-                $users[] = $quote->user;
-            }
+            $users[] = $quote->user;
         }
 
         return collect($users);

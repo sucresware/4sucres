@@ -23,6 +23,15 @@ class NewPrivateDiscussion extends DefaultNotification
         ]);
     }
 
+    public function via($notifiable)
+    {
+        if (User::find($notifiable->id)->getSetting('notifications.on_new_private_message', true)) {
+            return parent::via($notifiable);
+        } else {
+            return [];
+        }
+    }
+
     protected function attributes()
     {
         $attributes = [
