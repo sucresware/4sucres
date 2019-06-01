@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import v from 'voca';
 import Editor from './editor.js';
+import Risibank from './risibank.js';
 import Imgur from './imgur.js';
 
 const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
@@ -37,6 +38,20 @@ class ActionHandler {
 
     onImgurUpload() {
         Imgur.upload();
+    }
+
+    onInsertSticker(element) {
+        let output = ` ${element.data('src')} `;
+
+        Editor.insert(output);
+
+        // TODO - Maybe remove?
+        Risibank.close();
+    }
+
+    onRisibankSearch(element, event) {
+        event.preventDefault();
+        Risibank.search();
     }
 
     onOpenPreview(element, event) {
