@@ -40,6 +40,10 @@ class DiscussionPostController extends Controller
             'user_id' => user()->id,
         ]);
 
+        if (user()->getSetting('notifications.subscribe_on_reply', false)) {
+            $discussion->subscribed()->attach(user()->id);
+        }
+
         return redirect($post->link);
     }
 

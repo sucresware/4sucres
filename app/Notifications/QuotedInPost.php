@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 
 class QuotedInPost extends DefaultNotification
@@ -22,6 +23,15 @@ class QuotedInPost extends DefaultNotification
             'post_id'       => $this->post->id,
             'discussion_id' => $this->post->discussion->id,
         ]);
+    }
+
+    public function via($notifiable)
+    {
+        if (User::find($notifiable->id)->getSetting('notifications.when_mentionned_or_quoted', true)) {
+            return parent::via($notifiable);
+        } else {
+            return [];
+        }
     }
 
     protected function attributes()
