@@ -4,41 +4,41 @@ section.discussion {
 
         // Even and odd posts
         &:nth-child(odd) {
+            background-color: $primary-background;
+            color: $secondary-color;
+
+            .post {
+                &:target {
+                    background-color: $secondary-background;
+                    border: 1px solid $tertiary-background;
+                }
+
+                &.highlight {
+                    background-color: $secondary-background;
+                    border: 1px solid $tertiary-background;
+                }
+
+                hr {
+                    border-color: $tertiary-background;
+                }
+
+                border-bottom: 1px solid $tertiary-background;
+            }
+        }
+
+        &:nth-child(even) {
             background-color: $secondary-background;
             color: $secondary-color;
 
             .post {
                 &:target {
                     background-color: $secondary-background;
-                    border: 1px solid darken($secondary-background, 2.5%);
+                    border: 1px solid $tertiary-background;
                 }
 
                 &.highlight {
-                    background-color: darken($secondary-background, 2.5%);
-                    border: 1px solid darken($secondary-background, 5%);
-                }
-
-                hr {
-                    border-color: darken($secondary-background, 2.5%);
-                }
-
-                border-bottom: 1px solid darken($secondary-background, 2.5%);
-            }
-        }
-
-        &:nth-child(even) {
-            background-color: $tertiary-background;
-            color: $secondary-color;
-
-            .post {
-                &:target {
-                    background-color: $tertiary-background;
-                    border: 1px solid darken($tertiary-background, 2.5%);
-                }
-
-                &.highlight {
-                    background-color: darken($tertiary-background, 2.5%);
-                    border: 1px solid darken($tertiary-background, 5%);
+                    background-color: $secondary-background;
+                    border: 1px solid $tertiary-background;
                 }
 
                 hr {
@@ -105,20 +105,20 @@ section.discussion-previews {
         transition: all 250ms ease;
 
         &:nth-child(odd) {
-            background-color: $secondary-background;
+            background-color: $primary-background;
             color: $secondary-color;
 
             @include on-event() {
-                background-color: darken($secondary-background, 2%);
+                background-color: $secondary-background;
             }
         }
 
         &:nth-child(even) {
-            background-color: $tertiary-background;
+            background-color: $secondary-background;
             color: $secondary-color;
 
             @include on-event() {
-                background-color: darken($tertiary-background, 2%);
+                background-color: $secondary-background;
             }
         }
     }
