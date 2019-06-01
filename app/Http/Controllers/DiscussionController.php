@@ -6,9 +6,9 @@ use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
 use App\Models\Category;
 use App\Models\Discussion;
+use App\Models\Notification as NotificationModel;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Models\Notification as NotificationModel;
 
 class DiscussionController extends Controller
 {
