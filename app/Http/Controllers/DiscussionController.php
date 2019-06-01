@@ -149,7 +149,7 @@ class DiscussionController extends Controller
         $discussion = Discussion::query()
             ->findOrFail($id);
 
-        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+        if (null !== $discussion->category && !in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 
