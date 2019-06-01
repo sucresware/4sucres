@@ -20,6 +20,27 @@
                         Gestion des notifications
                     </div>
                     <div class="card-body">
+                    <div class="row mb-3">
+                            <div class="col-md-3">M'abonner automatiquement..</div>
+                            <div class="col-md-9">
+                                <div class="form-group mb-1">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_create" name="subscribe_on_create" {{ old('subscribe_on_create', $user->getSetting('notifications.subscribe_on_create', true)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="subscribe_on_create">
+                                            Quand je crée une discussion
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_reply" name="subscribe_on_reply" {{ old('subscribe_on_reply', $user->getSetting('notifications.subscribe_on_reply', false)) ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="subscribe_on_reply">
+                                            Quand je réponds à une discussion
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-md-3">Je souhaite être notifié..</div>
                             <div class="col-md-9">
