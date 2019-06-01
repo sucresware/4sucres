@@ -57,6 +57,7 @@ class User extends Authenticatable implements ReactsInterface
         'last_activity'     => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
+        'dob'               => 'datetime',
         'settings'          => 'array',
     ];
 
