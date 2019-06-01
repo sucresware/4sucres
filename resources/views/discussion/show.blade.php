@@ -12,6 +12,9 @@
         </div>
         <div class="col-auto">
             @if (!$discussion->private)
+                <span class="mr-2 text-muted">
+                    {{ $discussion->category->name }}
+                </span>
                 @if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', user()->id)->count())
                     <a href="{{ route('discussions.unsubscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">Se désabonner</a>
                 @else
