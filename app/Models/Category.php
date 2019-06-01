@@ -11,6 +11,14 @@ class Category extends Model
     use SoftDeletes;
     protected $guarded = [];
 
+    const ANNOUNCES_CATEGORY_ID = 1;
+    const SHITPOST_CATEGORY_ID = 5;
+
+    protected $casts = [
+        'can_post' => 'array',
+        'can_view' => 'array',
+    ];
+
     public static function boot()
     {
         parent::boot();
