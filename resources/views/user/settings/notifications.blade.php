@@ -25,7 +25,7 @@
                             <div class="col-md-9">
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="notification_on_new_private_message" name="notification_on_new_private_message" {{ old('notification_on_new_private_message', $user->getSetting('notifications.on_new_private_message', 1)) ? 'checked' : '' }} >
+                                        <input type="checkbox" class="custom-control-input" id="notification_on_new_private_message" name="notification_on_new_private_message" {{ old('notification_on_new_private_message', $user->getSetting('notifications.on_new_private_message', true)) ? 'checked' : '' }} >
                                         <label class="custom-control-label" for="notification_on_new_private_message">
                                             Quand je reçois un message privé
                                         </label>
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="notification_when_mentionned_or_quoted" name="notification_when_mentionned_or_quoted" {{ old('notification_when_mentionned_or_quoted', $user->getSetting('notifications.when_mentionned_or_quoted', 1)) ? 'checked' : '' }}>
+                                        <input type="checkbox" class="custom-control-input" id="notification_when_mentionned_or_quoted" name="notification_when_mentionned_or_quoted" {{ old('notification_when_mentionned_or_quoted', $user->getSetting('notifications.when_mentionned_or_quoted', true)) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="notification_when_mentionned_or_quoted">
                                             Quand je suis cité/mentionné
                                         </label>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="notification_on_subscribed_discussions" name="notification_on_subscribed_discussions" {{ old('notification_on_subscribed_discussions', $user->getSetting('notifications.on_subscribed_discussions', 0)) ? 'checked' : '' }} >
+                                        <input type="checkbox" class="custom-control-input" id="notification_on_subscribed_discussions" name="notification_on_subscribed_discussions" {{ old('notification_on_subscribed_discussions', $user->getSetting('notifications.on_subscribed_discussions', true)) ? 'checked' : '' }} >
                                         <label class="custom-control-label" for="notification_on_subscribed_discussions">
                                             Quand un membre réponds dans une discussion à laquelle je me suis abonné
                                         </label>
