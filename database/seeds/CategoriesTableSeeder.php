@@ -68,7 +68,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         Category::updateOrCreate(['id' => 11], [
-            'name'  => '#partage-video',
+            'name'  => '#vidéothèque',
             'order' => 10,
         ]);
     }
