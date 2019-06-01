@@ -16,7 +16,7 @@ class DiscussionPostController extends Controller
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de continuer à répondre !');
         }
 
-        if (!in_array($discussion->category->id, Category::postables()->pluck('id')->toArray())) {
+        if (null !== $discussion->category && !in_array($discussion->category->id, Category::postables()->pluck('id')->toArray())) {
             return abort(403);
         }
 
