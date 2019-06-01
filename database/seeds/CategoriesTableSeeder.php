@@ -39,12 +39,12 @@ class CategoriesTableSeeder extends Seeder
             'order' => 999,
         ]);
 
-        Category::updateOrCreate(['id' => 6], [
-            'name'     => '#unleashed',
-            'order'    => 1,
-            'can_post' => ['admin', 'moderators', 'supporter'],
-            'can_view' => ['admin', 'moderators', 'supporter'],
-        ]);
+        // Category::updateOrCreate(['id' => 6], [
+        //     'name'     => '#unleashed',
+        //     'order'    => 1,
+        //     'can_post' => ['admin', 'moderators', 'supporter'],
+        //     'can_view' => ['admin', 'moderators', 'supporter'],
+        // ]);
 
         Category::updateOrCreate(['id' => 7], [
             'name'  => '#nsfw',
