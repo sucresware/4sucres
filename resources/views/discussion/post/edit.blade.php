@@ -12,7 +12,6 @@
                 <div class="card-body">
                     @csrf
                     @method('put')
-
                     <div class="row">
                         <div class="col-md-8">
                             {!! BootForm::text('title', 'Sujet', old('title', $discussion->title)) !!}
