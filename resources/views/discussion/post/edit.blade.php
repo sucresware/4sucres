@@ -16,11 +16,12 @@
                         <div class="col-md-8">
                             {!! BootForm::text('title', 'Sujet', old('title', $discussion->title)) !!}
                         </div>
-                        @if ($discussion->category_id != 5 || user()->can('bypass discussions guard')) 
-                            <div class="col-md-4">
-                                {!! BootForm::select('category', 'Catégorie', $categories, old('categories', $discussion->category_id)) !!}
-                            </div>
-                        @endif
+                        <div class="col-md-4">
+                            @php
+                                $disabled = ($discussion->category_id !== \App\Models\Category::SHITPOST_CATEGORY_ID || user()->can('bypass discussions guard')) ? '' : 'disabled';
+                            @endphp
+                            {!! BootForm::select('category', 'Catégorie', $categories, old('categories', $discussion->category_id), [$disabled]) !!}
+                        </div>
                     </div>
 
                     @can('bypass discussions guard')

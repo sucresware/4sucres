@@ -236,7 +236,11 @@ class DiscussionController extends Controller
         SucresHelper::throttleOrFail(__METHOD__, 3, 5);
 
         $discussion->title = request()->title;
-        $discussion->category_id = request()->category;
+
+        // Do not update category if the post is in #shitpost
+        if ($discussion->category_id !== \App\Models\Category::SHITPOST_CATEGORY_ID || user()->can('bypass discussions guard')) {
+            $discussion->category_id = request()->category;
+        }
 
         if (user()->can('bypass discussions guard')) {
             $discussion->sticky = request()->sticky ?? false;
