@@ -12,13 +12,16 @@
                 <div class="card-body">
                     @csrf
                     @method('put')
+
                     <div class="row">
                         <div class="col-md-8">
                             {!! BootForm::text('title', 'Sujet', old('title', $discussion->title)) !!}
                         </div>
-                        <div class="col-md-4">
-                            {!! BootForm::select('category', 'Catégorie', $categories, old('categories', $discussion->category_id)) !!}
-                        </div>
+                        @if ($discussion->category_id != 5 || user()->can('bypass discussions guard')) 
+                            <div class="col-md-4">
+                                {!! BootForm::select('category', 'Catégorie', $categories, old('categories', $discussion->category_id)) !!}
+                            </div>
+                        @endif
                     </div>
 
                     @can('bypass discussions guard')
