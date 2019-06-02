@@ -81,7 +81,7 @@ class DiscussionController extends Controller
         ]);
 
         if (user()->getSetting('notifications.subscribe_on_create', true)) {
-            $discussion->subscribed()->attach(user()->id);
+            $discussion->subscribed()->syncWithoutDetaching(user()->id);
         }
 
         return redirect($post->link);
@@ -270,7 +270,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $discussion->subscribed()->attach(user()->id);
+        $discussion->subscribed()->syncWithoutDetaching(user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,
