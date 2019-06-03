@@ -1,0 +1,12 @@
+.modal-content {
+    background-color: $secondary-background;
+    color: $primary-color;
+
+    .modal-header {
+        border-color: $primary-background;
+
+        .close {
+            color: $primary-color !important;
+        }
+    }
+}
