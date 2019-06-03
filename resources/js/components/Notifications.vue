@@ -3,10 +3,11 @@
     no-caret
     variant="link"
     id="notifications"
-    class="ml-auto mr-1 text-center order-lg-7"
+    class="ml-auto mr-1 text-center order-lg-7 notification-dropdown"
     right
   >
     <template slot="button-content">
+
       <span class="fa-stack notification" id="notifications_indicator">
         <i class="fas fa-circle fa-stack-2x notification-background"></i>
         <i
@@ -15,9 +16,11 @@
         <span class="badge badge-danger badge-pill notification-counter" v-if="count">{{ count }}</span>
       </span>
     </template>
+
     <div class="text-center text-muted py-5" v-if="loading">
       <i class="fas fa-sync fa-spin"></i>
     </div>
+
     <div v-else>
       <div class="text-center text-muted py-3" v-if="notifications.length == 0">
         <img src="https://4sucres.org/svg/sucre_sad.svg" width="50px" class="img-fluid">
@@ -40,6 +43,7 @@
         </div>
       </div>
     </div>
+
   </b-dropdown>
 </template>
 
@@ -82,3 +86,18 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+
+.notification-dropdown {
+    > .btn {
+        background: transparent;
+        border: 0;
+
+        > span {
+            font-size: 1.1em;
+        }
+    }
+}
+
+</style>
