@@ -205,6 +205,7 @@ class UserSettingsController extends Controller
             'layout.sidebar'  => request()->input('sidebar', 'left'),
             'layout.stickers' => request()->input('stickers', 'default'),
             'layout.theme'    => request()->input('theme', 'light-theme'),
+            'layout.compact'  => (bool) request()->input('layout_compact', false),
         ]);
 
         return redirect(route('user.settings.layout'))->with('success', 'Modifications enregistrées !');

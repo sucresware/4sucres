@@ -31,7 +31,7 @@
 
     @stack('css')
 </head>
-<body>
+<body class="{!! $body_classes !!}">
     <div id="app">
         <div class="sticky-top">
             <nav class="navbar navbar-expand-lg shadow">

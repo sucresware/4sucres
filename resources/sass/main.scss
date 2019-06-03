@@ -20,6 +20,10 @@
 // Layouts
 @import 'layouts/default';
 
+.layout-compact>* {
+    @import 'layouts/compact';
+}
+
 // Components & Overrides
 @import 'components';
 

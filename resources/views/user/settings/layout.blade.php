@@ -57,7 +57,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body border-bottom">
                         <div class="form-group px-4">
                             <div class="row justify-content-center mb-2">
                                 <label for="stickers" class="form-label font-weight-bold text-uppercase">Adaptation de la taille des stickers Risidex</label>
@@ -77,6 +77,16 @@
                                         Cette disposition permet d'agrandir la taille des stickers au survol de la souris.
                                     </small>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="layout_compact" name="layout_compact" {{ old('layout_compact', $user->getSetting('layout.compact', false)) ? 'checked' : '' }} >
+                                <label class="custom-control-label" for="layout_compact">
+                                    <span class="form-label font-weight-bold text-uppercase">Affichage compact de l'accueil sur grand écran</span>
+                                </label>
                             </div>
                         </div>
                     </div>
