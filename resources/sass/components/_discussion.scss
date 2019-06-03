@@ -8,6 +8,10 @@ section.discussion {
             color: $discussion-secondary-color;
 
             .post {
+                .quote, blockquote {
+                    background-color: $discussion-secondary-background;
+                }
+
                 &:target {
                     background-color: $discussion-secondary-background;
                     border: 1px solid $tertiary-background;
@@ -31,6 +35,10 @@ section.discussion {
             color: $discussion-secondary-color;
 
             .post {
+                .quote, blockquote {
+                    background-color: $discussion-primary-background;
+                }
+
                 &:target {
                     background-color: $discussion-secondary-background;
                     border: 1px solid $tertiary-background;
