@@ -7,10 +7,12 @@
     right
   >
     <template slot="button-content">
-      <span class="fa-stack" id="notifications_indicator">
-        <i class="fas fa-circle fa-stack-2x text-darker"></i>
-        <i :class="{ 'fas fa-bell fa-stack-1x': true, 'text-white': !hidden }"></i>
-        <span class="badge badge-danger badge-pill" v-if="count">{{ count }}</span>
+      <span class="fa-stack notification" id="notifications_indicator">
+        <i class="fas fa-circle fa-stack-2x notification-background"></i>
+        <i
+          :class="{ 'fas fa-bell fa-stack-1x fa-sm notification-icon': true, 'text-white': !hidden }"
+        ></i>
+        <span class="badge badge-danger badge-pill notification-counter" v-if="count">{{ count }}</span>
       </span>
     </template>
     <div class="text-center text-muted py-5" v-if="loading">
