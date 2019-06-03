@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     });
 
     Route::get('/light-toggler', function () {
+        user()->disableLogging();
+
         switch (user()->getSetting('layout.theme', 'light-theme')) {
             case 'light-theme':
                 user()->setSetting('layout.theme', 'dark-theme');
