@@ -19,7 +19,7 @@ section.discussion {
 
                 &.highlight {
                     background-color: $discussion-secondary-background;
-                    border: 1px solid $tertiary-background;
+                    border: 1px solid $border-color;
                 }
 
                 :not(blockquote) > hr {
@@ -46,7 +46,7 @@ section.discussion {
 
                 &.highlight {
                     background-color: $discussion-secondary-background;
-                    border: 1px solid $tertiary-background;
+                    border: 1px solid $border-color;
                 }
 
                 :not(blockquote) > hr {
