@@ -11,7 +11,6 @@ require('owl.carousel');
 class Setup {
 
     constructor() {
-        this.applyDarkMode();
         $(document).ready(() => this.initialize());
     }
 
@@ -22,16 +21,6 @@ class Setup {
         this.initializeAjax();
         this.initializeHighlightJS();
         this.initializeOwl();
-    }
-
-    applyDarkMode() {
-        var darkMode = localStorage.getItem('darkMode');
-
-        if (darkMode === "on") {
-            document.getElementById('darkTheme').disabled = false;
-        } else {
-            document.getElementById('darkTheme').disabled = true;
-        }
     }
 
     initializeSelect2() {

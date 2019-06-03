@@ -21,6 +21,21 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
         return user('api');
     });
 
+    Route::get('/light-toggler', function () {
+        switch (user()->getSetting('layout.theme', 'light-theme')) {
+            case 'light-theme':
+                user()->setSetting('layout.theme', 'dark-theme');
+
+            break;
+            case 'dark-theme':
+                user()->setSetting('layout.theme', 'light-theme');
+
+            break;
+        }
+
+        return ['success' => true];
+    });
+
     Route::get('/notifications', function () {
         return Notification::query()
             ->where('notifiable_id', user()->id)

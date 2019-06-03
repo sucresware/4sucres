@@ -7,7 +7,6 @@
     right
   >
     <template slot="button-content">
-
       <span class="fa-stack notification" id="notifications_indicator">
         <i class="fas fa-circle fa-stack-2x notification-background"></i>
         <i
@@ -43,7 +42,6 @@
         </div>
       </div>
     </div>
-
   </b-dropdown>
 </template>
 
@@ -88,16 +86,14 @@ export default {
 </script>
 
 <style lang="scss">
-
 .notification-dropdown {
-    > .btn {
-        background: transparent;
-        border: 0;
+  > .btn {
+    background: transparent;
+    border: 0;
 
-        > span {
-            font-size: 1.1em;
-        }
+    > span {
+      font-size: 1.1em;
     }
+  }
 }
-
 </style>

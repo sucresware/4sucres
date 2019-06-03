@@ -29,13 +29,30 @@ class AppServiceProvider extends ServiceProvider
             //     }));
 
             if (auth()->check()) {
+                $body_classes = '';
+
+                // switch (user()->getSetting('layout.theme', 'light')) {
+                //     case 'dark':
+                //         $body_classes .= ' theme-dark';
+
+                //         break;
+                //     case 'lebunker':
+                //         $body_classes .= ' theme-lebunker';
+
+                //         break;
+                // }
+
                 $view
                     ->with('notifications_count', Cache::remember('notifications_count_' . user()->id, 1, function () {
                         return user()->unreadNotifications->count();
                     }))
                     ->with('private_unread_count', Cache::remember('private_unread_count_' . user()->id, 1, function () {
                         return \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count();
-                    }));
+                    }))
+                    ->with('body_classes', trim($body_classes));
+            } else {
+                $view
+                    ->with('body_classes', '');
             }
 
             return $view;
