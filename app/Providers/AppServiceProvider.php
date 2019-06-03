@@ -31,16 +31,16 @@ class AppServiceProvider extends ServiceProvider
             if (auth()->check()) {
                 $body_classes = '';
 
-                switch (user()->getSetting('layout.theme', 'light')) {
-                    case 'dark':
-                        $body_classes .= ' theme-dark';
+                // switch (user()->getSetting('layout.theme', 'light')) {
+                //     case 'dark':
+                //         $body_classes .= ' theme-dark';
 
-                        break;
-                    case 'lebunker':
-                        $body_classes .= ' theme-lebunker';
+                //         break;
+                //     case 'lebunker':
+                //         $body_classes .= ' theme-lebunker';
 
-                        break;
-                }
+                //         break;
+                // }
 
                 $view
                     ->with('notifications_count', Cache::remember('notifications_count_' . user()->id, 1, function () {

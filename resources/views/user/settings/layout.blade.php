@@ -26,17 +26,17 @@
                             </div>
                             <div class="row">
                                 <div class="custom-control custom-radio flex-center col mb-3 mb-md-0">
-                                    <input name="theme" id="theme_light" type="radio" value="light" {{ old('theme', $user->getSetting('layout.theme', 'light')) == "light" ? 'checked' : '' }} class="custom-control-input">
-                                    <label for="theme_light" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.light.png') }}" class="img-fluid rounded shadow"></label>
+                                    <input name="theme" id="theme_light-theme" type="radio" value="light-theme" {{ old('theme', $user->getSetting('layout.theme', 'light-theme')) == "light-theme" ? 'checked' : '' }} class="custom-control-input">
+                                    <label for="theme_light-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.light.png') }}" class="img-fluid rounded shadow"></label>
                                 </div>
                                 <div class="custom-control custom-radio flex-center col">
-                                    <input name="theme" id="theme_dark" type="radio" value="dark" {{ old('theme', $user->getSetting('layout.theme', 'light')) == "dark" ? 'checked' : '' }} class="custom-control-input">
-                                    <label for="theme_dark" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.dark.png') }}" class="img-fluid rounded shadow"></label>
+                                    <input name="theme" id="theme_dark-theme" type="radio" value="dark-theme" {{ old('theme', $user->getSetting('layout.theme', 'light-theme')) == "dark-theme" ? 'checked' : '' }} class="custom-control-input">
+                                    <label for="theme_dark-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.dark.png') }}" class="img-fluid rounded shadow"></label>
                                 </div>
-                                <div class="custom-control custom-radio flex-center col pr-0">
+                                {{--  <div class="custom-control custom-radio flex-center col pr-0">
                                     <input name="theme" id="theme_lebunker" type="radio" value="lebunker" {{ old('theme', $user->getSetting('layout.theme', 'light')) == "lebunker" ? 'checked' : '' }} class="custom-control-input">
                                     <label for="theme_lebunker" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.lebunker.png') }}" class="img-fluid rounded shadow"></label>
-                                </div>
+                                </div>  --}}
                             </div>
                         </div>
                     </div>

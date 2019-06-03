@@ -5,6 +5,7 @@ import Risidex from './risidex.js';
 import Risibank from './risibank.js';
 import Imgur from './imgur.js';
 import Howl from './howl';
+import AuthedAxios from "../scripts/axios";
 
 const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
 const PREVIEW_ROUTE = 'discussions.preview';
@@ -37,18 +38,11 @@ class ActionHandler {
         });
     }
 
-    onLightToggle() {
-        // https://i.imgur.com/cc9CEZY.png
-        var darkMode = localStorage.getItem('darkMode');
+    async onLightToggle() {
+        var lightMode = document.getElementById('darkTheme').disabled;
 
-        if (darkMode === "off") {
-            document.getElementById('darkTheme').disabled = false;
-            localStorage.setItem('darkMode', "on");
-        } else {
-            document.getElementById('darkTheme').disabled = true;
-            localStorage.setItem('darkMode', "off");
-        }
-
+        document.getElementById('darkTheme').disabled = !lightMode;
+        AuthedAxios.get("light-toggler");
         Howl.lightTogglerPlayer.play();
     }
 

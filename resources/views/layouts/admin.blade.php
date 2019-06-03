@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/theme-light.css') }}" rel="stylesheet" id="lightTheme">
-    <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" disabled>
+    <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if (auth()->check() && user()->getSetting('layout.theme', 'light-theme') != 'dark-theme') disabled @endif>
 
     <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32-admin.png') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16-admin.png') }}" sizes="16x16">
@@ -41,25 +41,8 @@
                         <img src="{{ url('/img/4sucres_white.png') }}" height="30px" class="d-none d-sm-inline-block">
                     </a>
 
-                    <a class="text-center mr-1" href="javascript:void(0)" data-action="light-toggle">
-                        <span class="fa-stack notification">
-                            <i class="fas fa-circle fa-stack-2x notification-background"></i>
-                            <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
-                        </span>
-                    </a>
-
                     @auth
-                        <a class="ml-auto text-center mr-1 order-lg-7" href="{{ route('notifications.index') }}">
-                            <span class="fa-stack notification" id="notifications_indicator">
-                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
-                                @if ($notifications_count)
-                                    <i class="fas fa-bell fa-stack-1x fa-inverse fa-sm notification-icon"></i>
-                                    <span class="badge badge-danger badge-pill notification-counter">{{ $notifications_count }}</span>
-                                @else
-                                    <i class="fas fa-bell fa-stack-1x fa-sm notification-icon"></i>
-                                @endif
-                            </span>
-                        </a>
+                        <notifications :count="{{ $notifications_count }}"></notifications>
 
                         <a class="text-center mr-1 order-lg-8" href="{{ route('private_discussions.index') }}">
                             <span class="fa-stack notification" id="private_discussions_indicator">
@@ -70,6 +53,13 @@
                                 @else
                                     <i class="fas fa-envelope fa-stack-1x fa-sm notification-icon"></i>
                                 @endif
+                            </span>
+                        </a>
+
+                        <a class="text-center mr-1 order-lg-8" href="javascript:void(0)" data-action="light-toggle">
+                            <span class="fa-stack notification">
+                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                                <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
                             </span>
                         </a>
 

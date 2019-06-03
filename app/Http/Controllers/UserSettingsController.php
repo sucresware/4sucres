@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\UnlockedAchievement;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Imagine;
@@ -196,10 +197,14 @@ class UserSettingsController extends Controller
     {
         $user = user();
 
+        request()->validate([
+            'theme' => [Rule::in(['light-theme', 'dark-theme'])],
+        ]);
+
         $user->setMultipleSettings([
             'layout.sidebar'  => request()->input('sidebar', 'left'),
             'layout.stickers' => request()->input('stickers', 'default'),
-            'layout.theme'    => request()->input('theme', 'light'),
+            'layout.theme'    => request()->input('theme', 'light-theme'),
         ]);
 
         return redirect(route('user.settings.layout'))->with('success', 'Modifications enregistrées !');
