@@ -8,9 +8,9 @@
 <div class="container">
     <h1>Messagerie privée</h1>
 
-    <div class="card">
+    <section class="card discussion-previews">
         @forelse ($private_discussions as $discussion)
-            <section class="dicussion-preview">
+            <section class="discussion-preview">
                 @include('discussion._preview')
             </section>
         @empty
@@ -21,6 +21,6 @@
                 </div>
             </div>
         @endforelse
-    </div>
+</section>
 </div>
 @endsection
