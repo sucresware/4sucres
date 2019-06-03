@@ -1,28 +1,26 @@
-
-$u-backgrounds: (
-    'primary': $primary-background,
+$u-backgrounds: ('primary': $primary-background,
     'secondary': $secondary-background,
     'tertiary': $tertiary-background,
-    'quaternary': $quaternary-background
-);
+    'quaternary': $quaternary-background);
 
-$u-colors: (
-    'primary': $primary-color,
+$u-colors: ('primary': $primary-color,
     'secondary': $secondary-color,
     'tertiary': $tertiary-color,
-    'quaternary': $quaternary-color
-);
+    'quaternary': $quaternary-color);
 
 
 // ---- [ Backgrounds ] -----------------------------------------------
 
-@each $name, $color in $u-backgrounds {
+@each $name,
+$color in $u-backgrounds {
     .bg-theme-#{$name} {
         background-color: $color !important;
     }
+
     .text-theme-#{$name}-bg {
         color: $color !important;
     }
+
     .border-theme-#{$name}-bg {
         border-color: $color !important;
     }
@@ -30,13 +28,16 @@ $u-colors: (
 
 // ---- [ Colors ] ----------------------------------------------------
 
-@each $name, $color in $u-colors {
+@each $name,
+$color in $u-colors {
     .bg-theme-#{$name}-text {
         background-color: $color !important;
     }
+
     .text-theme-#{$name} {
         color: $color !important;
     }
+
     .border-theme-#{$name}-text {
         border-color: $color !important;
     }

@@ -76,12 +76,12 @@ section.discussion {
                     max-height: 200px;
                     vertical-align: baseline;
                 }
-            
+
                 a {
                     color: $discussion-primary-color;
                 }
             }
-        
+
             .post-image {
                 height: 50px;
                 width: 50px;
@@ -92,14 +92,14 @@ section.discussion {
                     color: $discussion-tertiary-color;
 
                     @include on-event() {
-                        color: darken($tertiary-color, 20%); 
+                        color: darken($tertiary-color, 20%);
                     }
                 }
             }
         }
-        
+
     }
-    
+
 }
 
 section.discussion-response {

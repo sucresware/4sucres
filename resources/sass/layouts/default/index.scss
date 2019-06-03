@@ -14,7 +14,9 @@
 
 .btn,
 .a
-/*, .hover-accent */{
+
+/*, .hover-accent */
+    {
     transition: all 0.2s ease;
 
     :hover {

@@ -2,21 +2,21 @@
     border-radius: 3px;
     padding: 10px;
 
-    > [data-notify="icon"] {
+    >[data-notify="icon"] {
         height: 50px;
         margin-right: 12px;
     }
 
-    > [data-notify="title"] {
+    >[data-notify="title"] {
         display: block;
         font-weight: bold;
         margin-bottom: 5px;
     }
 
-    > [data-notify="message"] {
+    >[data-notify="message"] {
         font-size: 80%;
     }
-    
+
 }
 
 .alert {

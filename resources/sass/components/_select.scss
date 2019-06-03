@@ -1,7 +1,3 @@
-
-
-
-
 .select2-dropdown {
     background: $secondary-background;
     color: $primary-color;
@@ -36,7 +32,7 @@
 }
 
 .select2-selection--single {
-    
+
     .select2-selection__arrow {
         b {
             border-color: $primary-color transparent transparent transparent !important;
@@ -57,7 +53,7 @@
             border-color: lighten($input-border-color, 2.5%) !important;
         }
     }
-    
+
     .select2-selection {
         background-color: $input-bg;
         color: $input-color;
@@ -65,7 +61,7 @@
 
         .select2-selection__rendered {
             border-color: $input-border-color;
-        
+
             .select2-selection__choice {
                 color: $primary-color !important;
                 border-color: $primary-background !important;
@@ -73,7 +69,7 @@
             }
 
             .select2-search {
-        
+
                 .select2-search__field {
                     background-color: $tertiary-background;
                     color: $primary-color;
