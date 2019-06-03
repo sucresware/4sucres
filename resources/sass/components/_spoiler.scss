@@ -1,8 +1,9 @@
 .spoiler {
+    transition: all 200ms ease;
     border-radius: 4px;
     display: inline-block;
-    color: darken($light, 10%);
-    background-color: darken($light, 10%);
+    color: $secondary-background !important;
+    background-color: $secondary-background !important;
     cursor: pointer;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -13,8 +14,10 @@
 }
 
 .spoiler.show {
+    transition: all 200ms ease;
     cursor: auto;
-    color: $body-color;
+    color: $primary-color !important;
+    background-color: transparent !important;
     -webkit-touch-callout: auto;
     -webkit-user-select: auto;
     -khtml-user-select: auto;
