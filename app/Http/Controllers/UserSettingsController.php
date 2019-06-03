@@ -198,7 +198,9 @@ class UserSettingsController extends Controller
         $user = user();
 
         request()->validate([
-            'theme' => [Rule::in(['light-theme', 'dark-theme'])],
+            'sidebar'  => [Rule::in(['left', 'right'])],
+            'stickers' => [Rule::in(['default', 'inline'])],
+            'theme'    => [Rule::in(['light-theme', 'dark-theme'])],
         ]);
 
         $user->setMultipleSettings([
