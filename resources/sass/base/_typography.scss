@@ -29,13 +29,15 @@ h5,
 }
 
 a {
-    text-decoration: none;
     transition: all 250ms ease;
-
+    text-decoration: none;
+    text-decoration-color: transparent;
     color: $secondary-color;
 
     @include on-event {
-        text-decoration: none !important;
+        transition: all 250ms ease;
+        text-decoration: underline;
+        text-decoration-color: $tertiary-color;
         color: $info;
     }
 }
