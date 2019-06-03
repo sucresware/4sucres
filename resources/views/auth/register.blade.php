@@ -101,7 +101,7 @@
                             </span>
                         @endif
                     </div>
-                    <div class="card-footer bg-light">
+                    <div class="card-footer">
                         <div class="text-center mb-3">
                             <small>En t'inscrivant et en utilisant nos services, tu déclares avoir lu et accepter sans réserve les <a href="{{ route('terms') }}">Conditions générales d'utilisation</a>.</small>
                         </div>

@@ -1,6 +1,5 @@
 @import 'integration';
 @import 'carousel';
-@import 'post';
 @import 'emoji';
 @import 'alert';
 @import 'sticker';
@@ -8,12 +7,14 @@
 @import 'editor';
 @import 'spoiler';
 @import 'badge';
-
-.sidetag {
-    position: absolute;
-    border-radius: 50%;
-    background-color: $light;
-    padding: 4px;
-    left: -14px;
-    border: 1px solid $border-color;
-}
+@import 'autocomplete';
+@import 'discussion';
+@import 'card';
+@import 'navbar';
+@import 'button';
+@import 'notification';
+@import 'input';
+@import 'select';
+@import 'sidetag';
+@import 'quote';
+@import 'modal';

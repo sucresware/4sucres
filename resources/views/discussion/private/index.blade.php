@@ -8,11 +8,11 @@
 <div class="container">
     <h1>Messagerie privée</h1>
 
-    <div class="card">
+    <section class="card discussion-previews">
         @forelse ($private_discussions as $discussion)
-            <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
+            <section class="discussion-preview">
                 @include('discussion._preview')
-            </div>
+            </section>
         @empty
             <div class="card-body">
                 <div class="text-center text-muted">
@@ -21,6 +21,6 @@
                 </div>
             </div>
         @endforelse
-    </div>
+</section>
 </div>
 @endsection

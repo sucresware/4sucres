@@ -31,7 +31,7 @@
                         </div>
                     @endcan
                 </div>
-                <div class="card-footer bg-light">
+                <div class="card-footer">
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">Valider</button>
                     </div>
@@ -47,7 +47,7 @@
                 @method('put')
                 @include('includes/_editor', ['name' => 'body', 'value' => old('body', $post->body)])
             </div>
-            <div class="card-footer bg-light">
+            <div class="card-footer">
                 <div class="text-right">
                     <a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-secondary">Annuler</a>
                     <button class="btn btn-secondary" data-action="open-preview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>

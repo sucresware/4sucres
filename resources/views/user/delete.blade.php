@@ -20,7 +20,7 @@
 
                     </div>
 
-                    <div class="card-footer bg-light">
+                    <div class="card-footer">
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary">Valider</button>
                         </div>

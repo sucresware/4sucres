@@ -18,14 +18,15 @@
                 <div class="card-body dimmed-border-bottom">
                     <p>
                         Token personnel 4sucres :
-                        <span class="text-monospace">{{ $user->api_token }}</span>
+                        <span class="text-monospace text-danger">{{ $user->api_token }}</span>
+                        <!-- TODO: copy helper -->
                     </p>
 
                     <a href="{{ route('user.settings.connections.regen-token') }}" class="btn btn-danger">Régénérer</a>
                 </div>
                 <div class="card-body dimmed-border-bottom">
                     <div class="text-center font-weight-bold text-uppercase mb-3">Intégration Discord</div>
-                        <div class="alert blue border">
+                        <div class="alert">
                             <div class="row align-items-center">
                                 <div class="col col-md-8">
                                     <p>

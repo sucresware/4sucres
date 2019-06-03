@@ -7,13 +7,6 @@
 // @edited 24/05/2019, 14:11:25
 // --------------------------------------------------------------------------
 
-// Basic link styles
-a {
-    color: $primary;
-    text-decoration: none;
-
-    @include on-event {
-        color: $body-color;
-        text-decoration: underline;
-    }
+hr {
+    border-color: $border-color;
 }

@@ -22,7 +22,7 @@
                             </span>
                         @endif
                     </div>
-                    <div class="card-footer bg-light">
+                    <div class="card-footer">
                         <div class="text-right">
                             {!! NoCaptcha::displaySubmit('request_reset', 'Aide-moi à récupérer mon compte !', ['class' => 'btn btn-primary']) !!}
                         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3">
+  <div class="discussion card mb-3">
     <template v-if="defaultPage > 1">
       <infinite-loading @infinite="infiniteHandlerTop" spinner="waveDots" direction="top">
         <div slot="no-more"></div>

@@ -1,13 +1,13 @@
 <template>
-  <div class="card mb-3">
+  <section class="discussion card mb-3">
     <div
       v-for="(post, $index) in posts"
+      class="post-container"
       :key="$index"
-      :class="{'white': $index % 2 === 0, 'blue': $index % 2 !== 0 }"
     >
       <post :post="post"></post>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

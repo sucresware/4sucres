@@ -5,8 +5,8 @@
     }
 @endphp
 
-<blockquote class="p-2 shadow-sm">
-    <div class="quote-header mb-2 d-flex justify-content-between">
+<blockquote class="shadow-sm">
+    <div class="quote-header d-flex justify-content-between">
         <div>
             <a href="{{ $post->user->link }}" class="align-middle"><img src="{{ $post->user->avatar_link }}" class="rounded" height="14px"></a>
             <a href="{{ $post->user->link }}"><strong>{{ $post->user->display_name }}</strong></a>
@@ -24,6 +24,7 @@
             </a>
         </div>
     </div>
+    <hr class="mt-2 mb-3">
     <div class="quote-content post-content">
         @if ($post->deleted_at)
             <div class="text-danger mb-3"><i class="fas fa-times"></i> Message supprimé</div>
