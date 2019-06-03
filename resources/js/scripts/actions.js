@@ -4,6 +4,7 @@ import Editor from './editor.js';
 import Risidex from './risidex.js';
 import Risibank from './risibank.js';
 import Imgur from './imgur.js';
+import Howl from './howl';
 
 const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
 const PREVIEW_ROUTE = 'discussions.preview';
@@ -22,7 +23,6 @@ class ActionHandler {
 
     initialize() {
         let that = this;
-
         $(document).on('click', '[data-action]', function (event) {
             let element = $(this),
                 actionData = element.data('action'),
@@ -35,6 +35,21 @@ class ActionHandler {
 
             that[actionName](element, event);
         });
+    }
+
+    onLightToggle() {
+        // https://i.imgur.com/cc9CEZY.png
+        var darkMode = localStorage.getItem('darkMode');
+
+        if (darkMode === "off") {
+            document.getElementById('darkTheme').disabled = false;
+            localStorage.setItem('darkMode', "on");
+        } else {
+            document.getElementById('darkTheme').disabled = true;
+            localStorage.setItem('darkMode', "off");
+        }
+
+        Howl.lightTogglerPlayer.play();
     }
 
     onImgurUpload() {
