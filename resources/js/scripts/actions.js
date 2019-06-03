@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import v from 'voca';
 import Editor from './editor.js';
+import Risidex from './risidex.js';
+import Risibank from './risibank.js';
 import Imgur from './imgur.js';
 
 const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
@@ -37,6 +39,26 @@ class ActionHandler {
 
     onImgurUpload() {
         Imgur.upload();
+    }
+
+    onInsertSticker(element) {
+        let output = ` ${element.data('src')} `;
+
+        Editor.insert(output);
+
+        // TODO - Maybe remove?
+        Risidex.close();
+        Risibank.close();
+    }
+
+    onRisidexSearch(element, event) {
+        event.preventDefault();
+        Risidex.search();
+    }
+
+    onRisibankSearch(element, event) {
+        event.preventDefault();
+        Risibank.search();
     }
 
     onOpenPreview(element, event) {

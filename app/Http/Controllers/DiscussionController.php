@@ -9,6 +9,7 @@ use App\Models\Discussion;
 use App\Models\Notification as NotificationModel;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DiscussionController extends Controller
 {
@@ -22,7 +23,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $categories = Category::ordered()->filtered()->pluck('name', 'id');
+        $categories = Category::postables()->pluck('name', 'id');
 
         return view('discussion.create', compact('categories'));
     }
@@ -34,8 +35,10 @@ class DiscussionController extends Controller
         }
 
         request()->validate([
-            'body' => 'required|min:3|max:3000',
+            'body' => 'required|min:3|max:10000',
         ]);
+
+        SucresHelper::throttleOrFail(__METHOD__, 15, 1);
 
         $post = new Post();
         $post->user = user();
@@ -56,10 +59,12 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
+        $categories = Category::postables()->pluck('id');
+
         request()->validate([
             'title'    => ['required', 'min:3', 'max:255'],
             'body'     => ['required', 'min:3', 'max:3000'],
-            'category' => ['required', 'exists:categories,id'],
+            'category' => ['required', 'exists:categories,id', Rule::in($categories)],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 10);
@@ -75,22 +80,34 @@ class DiscussionController extends Controller
             'user_id' => user()->id,
         ]);
 
-        $discussion->subscribed()->attach(user()->id);
+        if (user()->getSetting('notifications.subscribe_on_create', true)) {
+            $discussion->subscribed()->syncWithoutDetaching(user()->id);
+        }
 
         return redirect($post->link);
     }
 
     public function index(Category $category = null, $slug = null)
     {
-        $categories = Category::ordered()->get();
+        $categories = Category::viewables();
+
+        if ($category && !in_array($category->id, $categories->pluck('id')->toArray())) {
+            return abort(403);
+        }
+
         $discussions = Discussion::query()
+            ->whereIn('category_id', $categories->pluck('id'))
             ->with('category')
             ->with('posts')
             ->with('posts.user')
             ->with('user');
 
         if ($category) {
-            $discussions = $discussions->where('category_id', $category->id);
+            $discussions = $discussions
+                ->where('category_id', $category->id);
+        } else {
+            $discussions = $discussions
+                ->where('category_id', '!=', Category::SHITPOST_CATEGORY_ID);
         }
 
         if (request()->input('page', 1) == 1) {
@@ -107,12 +124,13 @@ class DiscussionController extends Controller
 
     public function subscriptions()
     {
-        $categories = Category::ordered()->get();
+        $categories = Category::viewables();
 
-        $discussions = Discussion::query();
-        $discussions = $discussions->whereHas('subscribed', function ($q) {
-            return $q->where('user_id', user()->id);
-        });
+        $discussions = Discussion::query()
+            ->whereIn('category_id', $categories->pluck('id'))
+            ->whereHas('subscribed', function ($q) {
+                return $q->where('user_id', user()->id);
+            });
 
         if (request()->input('page', 1) == 1) {
             $sticky_discussions = clone $discussions;
@@ -130,6 +148,10 @@ class DiscussionController extends Controller
     {
         $discussion = Discussion::query()
             ->findOrFail($id);
+
+        if (null !== $discussion->category && !in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+            return abort(403);
+        }
 
         if ($discussion->deleted_at) {
             return abort(410);
@@ -200,15 +222,25 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
+        $categories = Category::postables();
+
+        if (!in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
+            return abort(403);
+        }
+
         request()->validate([
             'title'    => 'required|min:4|max:255',
-            'category' => 'required|exists:categories,id',
+            'category' => ['required', 'exists:categories,id', Rule::in($categories->pluck('id'))],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 3, 5);
 
         $discussion->title = request()->title;
-        $discussion->category_id = request()->category;
+
+        // Do not update category if the post is in #shitpost
+        if ($discussion->category_id !== \App\Models\Category::SHITPOST_CATEGORY_ID || user()->can('bypass discussions guard')) {
+            $discussion->category_id = request()->category;
+        }
 
         if (user()->can('bypass discussions guard')) {
             $discussion->sticky = request()->sticky ?? false;
@@ -238,7 +270,11 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $discussion->subscribed()->attach(user()->id);
+        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+            return abort(403);
+        }
+
+        $discussion->subscribed()->syncWithoutDetaching(user()->id);
 
         return redirect(route('discussions.show', [
             $discussion->id,
@@ -249,6 +285,10 @@ class DiscussionController extends Controller
     public function unsubscribe(Discussion $discussion, $slug)
     {
         if ($discussion->private) {
+            return abort(403);
+        }
+
+        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 

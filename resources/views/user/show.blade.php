@@ -60,7 +60,7 @@
                     <h3 class="h5">Dernières participations</h5>
                     <div class="p-1 pb-3">
                         @foreach (\App\Models\Post::where('user_id', $user->id)->whereHas('discussion', function($q){$q->public();})->orderBy('updated_at', 'DESC')->limit(10)->get() as $post)
-                            <a href="{{ $post->getLinkAttribute() }}">{{ $post->discussion->title }}</a><br>
+                            <a href="{{ $post->link }}">{{ $post->discussion->title }}</a><br>
                         @endforeach
                     </div>
 

@@ -58,7 +58,7 @@ class PrivateDiscussionController extends Controller
         ]);
 
         $discussion->members()->attach([$from->id, $to->id]);
-        $discussion->subscribed()->attach([$from->id, $to->id]);
+        $discussion->subscribed()->syncWithoutDetaching([$from->id, $to->id]);
 
         $to->notify(new NewPrivateDiscussion($discussion));
 

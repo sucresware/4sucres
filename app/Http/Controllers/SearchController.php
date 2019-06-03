@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
+use App\Models\Category;
 use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
@@ -17,12 +18,15 @@ class SearchController extends Controller
         $scope = request()->input('scope', 'posts');
         $return = view('search.results', compact('query', 'scope'));
 
+        $categories = Category::viewables();
+
         SucresHelper::throttleOrFail(__METHOD__, 10, 1);
 
         switch ($scope) {
             case 'discussions':
                 $discussions = Discussion::query()
                     ->public()
+                    ->whereIn('category_id', $categories->pluck('id'))
                     ->where('title', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->paginate(15);
@@ -46,6 +50,9 @@ class SearchController extends Controller
                     ->where('body', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->with('discussion')
+                    ->whereHas('discussion', function ($q) use ($categories) {
+                        return $q->where('category_id', $categories->pluck('id'));
+                    })
                     ->paginate(10);
 
                 $posts

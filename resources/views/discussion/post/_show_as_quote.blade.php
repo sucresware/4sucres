@@ -19,7 +19,7 @@
                 </a>
             @endif
 
-            <a href="{{ $post->getLinkAttribute() }}" title="Voir le contexte" class="text-small">
+            <a href="{{ $post->link }}" title="Voir le contexte" class="text-small">
                 <i class="fas fa-link"></i>
             </a>
         </div>

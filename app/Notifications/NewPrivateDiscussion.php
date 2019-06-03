@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Discussion;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 
 class NewPrivateDiscussion extends DefaultNotification
@@ -21,6 +22,15 @@ class NewPrivateDiscussion extends DefaultNotification
         return array_merge($this->attributes(), [
             'discussion_id' => $this->discussion->id,
         ]);
+    }
+
+    public function via($notifiable)
+    {
+        if (User::find($notifiable->id)->getSetting('notifications.on_new_private_message', true)) {
+            return parent::via($notifiable);
+        } else {
+            return [];
+        }
     }
 
     protected function attributes()

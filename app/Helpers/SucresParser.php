@@ -90,11 +90,11 @@ class SucresParser
 
             switch ($emoji['type']) {
                 case 'discord':
-                    $markup = '<div class="emoji" style="background-image: url(' . $emoji['link'] . '"></div>';
+                    $markup = '<span class="emoji" style="background-image: url(' . $emoji['link'] . '"></span>';
 
                     break;
                 case 'smiley':
-                    $markup = '<img src="' . $emoji['link'] . '">';
+                    $markup = '<img src="' . $emoji['link'] . '" style="vertical-align: middle;">';
 
                     break;
                 case 'emoji':

@@ -49,3 +49,17 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.dropdown-toggle-no-caret:after {
+    display: none !important;
+}
+
+#notifications>button {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#notifications>ul {
+    min-width: 300px;
+    max-width: 100%;
+}
