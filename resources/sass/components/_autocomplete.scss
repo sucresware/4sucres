@@ -1,17 +1,19 @@
 
 .textcomplete-dropdown {
     padding: 0;
+    background-color: $secondary-background;
 
     .textcomplete-item {
+        background-color: $secondary-background;
         padding: 0.5rem 1rem;
         cursor: pointer;
 
         &.active {
-            background-color: rgba($primary-color, .1);
+            background-color: $tertiary-background;
         }
 
         &:hover {
-            background-color: rgba($primary-color, .15);
+            background-color: $quaternary-background;
         }
     }
 }
