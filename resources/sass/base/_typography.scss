@@ -31,13 +31,13 @@ h5,
 a {
     transition: all 250ms ease;
     text-decoration: none;
-    text-decoration-color: transparent;
+    border-bottom: 1px solid transparent;
     color: $secondary-color;
 
     @include on-event {
         transition: all 250ms ease;
-        text-decoration: underline;
-        text-decoration-color: $tertiary-color;
+        text-decoration: none;
+        border-bottom: 1px solid $secondary-color;
         color: $info;
     }
 }
