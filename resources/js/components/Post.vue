@@ -7,44 +7,44 @@
         </div>
         <div class="col">
         <template v-if="!post.discussion.private">
-            <div class="float-right">
-            <a
-                class="mr-1"
-                href="javascript:void(0)"
-                v-clipboard:copy="post.link"
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
-            >
-                <i class="fas fa-fw fa-link"></i>
-            </a>
-            <template v-if="auth_user">
-                <!-- <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_post.id" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a> -->
-                <template v-if="!post.deleted_at">
-                <a class="mr-1" href="#reply" data-action="quote-post" :data-id="post.id">
-                    <i class="fas fa-fw fa-quote-right"></i>
-                </a>
-                </template>
-                <template
-                v-if="(auth_user && post.user.id == auth_user.id && !post.deleted_at) || auth_user_can('bypass discussions guard')"
-                >
+            <div class="float-right action-buttons">
                 <a
                     class="mr-1"
-                    :href="route('discussions.posts.edit', [post.discussion.id, post.discussion.slug, post.id])"
+                    href="javascript:void(0)"
+                    v-clipboard:copy="post.link"
+                    v-clipboard:success="onCopy"
+                    v-clipboard:error="onError"
                 >
-                    <i class="fas fa-fw fa-edit"></i>
+                    <i class="fas fa-fw fa-link"></i>
                 </a>
+                <template v-if="auth_user">
+                    <!-- <a class="mr-1" href="javascript:void(0)" data-placement="left" data-popover-content="#react_to_post.id" data-toggle="popover" data-trigger="focus"><i class="far fa-fw fa-smile"></i></a> -->
+                    <template v-if="!post.deleted_at">
+                    <a class="mr-1" href="#reply" data-action="quote-post" :data-id="post.id">
+                        <i class="fas fa-fw fa-quote-right"></i>
+                    </a>
+                    </template>
+                    <template
+                    v-if="(auth_user && post.user.id == auth_user.id && !post.deleted_at) || auth_user_can('bypass discussions guard')"
+                    >
+                    <a
+                        class="mr-1"
+                        :href="route('discussions.posts.edit', [post.discussion.id, post.discussion.slug, post.id])"
+                    >
+                        <i class="fas fa-fw fa-edit"></i>
+                    </a>
+                    </template>
+                    <template
+                    v-if="(auth_user && post.user.id == auth_user.id && !post.deleted_at) || auth_user_can('bypass discussions guard') && !post.deleted_at"
+                    >
+                    <a
+                        class="mr-1 text-danger"
+                        :href="route('discussions.posts.delete', [post.discussion.id, post.discussion.slug, post.id])"
+                    >
+                        <i class="fas fa-fw fa-trash"></i>
+                    </a>
+                    </template>
                 </template>
-                <template
-                v-if="(auth_user && post.user.id == auth_user.id && !post.deleted_at) || auth_user_can('bypass discussions guard') && !post.deleted_at"
-                >
-                <a
-                    class="mr-1 text-danger"
-                    :href="route('discussions.posts.delete', [post.discussion.id, post.discussion.slug, post.id])"
-                >
-                    <i class="fas fa-fw fa-trash"></i>
-                </a>
-                </template>
-            </template>
             </div>
         </template>
 

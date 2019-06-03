@@ -17,7 +17,10 @@
                             {!! BootForm::text('title', 'Sujet', old('title', $discussion->title)) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! BootForm::select('category', 'Catégorie', $categories, old('categories', $discussion->category_id)) !!}
+                            @php
+                                $disabled = ($discussion->category_id !== \App\Models\Category::SHITPOST_CATEGORY_ID || user()->can('bypass discussions guard')) ? '' : 'disabled';
+                            @endphp
+                            {!! BootForm::select('category', 'Catégorie', $categories, old('categories', $discussion->category_id), [$disabled]) !!}
                         </div>
                     </div>
 
@@ -28,7 +31,7 @@
                         </div>
                     @endcan
                 </div>
-                <div class="card-footer bg-light">
+                <div class="card-footer">
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">Valider</button>
                     </div>
@@ -44,7 +47,7 @@
                 @method('put')
                 @include('includes/_editor', ['name' => 'body', 'value' => old('body', $post->body)])
             </div>
-            <div class="card-footer bg-light">
+            <div class="card-footer">
                 <div class="text-right">
                     <a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-secondary">Annuler</a>
                     <button class="btn btn-secondary" data-action="open-preview" data-toggle="modal" data-target="#preview">Vérifier ma connerie</button>

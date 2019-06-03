@@ -141,6 +141,7 @@ class SucresParsedown extends \ParsedownCheckbox
     protected function inlineLink($excerpt)
     {
         $link = parent::inlineLink($excerpt);
+
         if (!isset($link)) {
             return null;
         }
@@ -149,7 +150,8 @@ class SucresParsedown extends \ParsedownCheckbox
             $link['element']['text'] = $link['element']['attributes']['href'];
         }
 
-        $url = $link['element']['attributes']['href'];
+        $url = e($link['element']['attributes']['href']);
+        $text = e($link['element']['text']);
 
         if ($link['element']['text'] != $url) {
             $preview = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i> ' . '<a href="#">' . $url . '</a>';
@@ -157,7 +159,7 @@ class SucresParsedown extends \ParsedownCheckbox
             $preview = '<i class="fas fa-check-circle text-success mr-1"></i> ' . '<a href="#">' . $url . '</a>';
         }
 
-        $link['markup'] = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $link['element']['text'] . '</a>';
+        $link['markup'] = "<a target='_blank' href='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>" . $text . '</a>';
 
         return $link;
     }
@@ -170,12 +172,12 @@ class SucresParsedown extends \ParsedownCheckbox
             return null;
         }
 
-        $url = $image['element']['attributes']['src'];
-        $url = str_replace('http://', 'https://', $url);
-
+        $url = e($image['element']['attributes']['src']);
         $regex = Regex::match('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $url);
 
         if ($regex->hasMatch()) {
+            $url = str_replace('http://', 'https://', $url);
+
             if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
                 $preview = '<img class="sticker" src="' . $url . '">';
                 $image['markup'] = "<img class='sticker-inline tooltip-inverse' src='$url' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
@@ -191,6 +193,8 @@ class SucresParsedown extends \ParsedownCheckbox
 
     public function renderEmbed($link)
     {
+        $link = e($link);
+
         $link = $this->renderYoutube($link);
         $link = $this->renderVocaroo($link);
         $link = $this->renderTwitchClips($link);

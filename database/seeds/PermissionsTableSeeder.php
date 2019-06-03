@@ -24,7 +24,6 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'create discussions']);
         Permission::firstOrCreate(['name' => 'bypass discussions guard']);
         Permission::firstOrCreate(['name' => 'bypass users guard']);
-        Permission::firstOrCreate(['name' => 'use restricted categories']);
         Permission::firstOrCreate(['name' => 'update shown_role']);
         Permission::firstOrCreate(['name' => 'read deleted posts']);
         Permission::firstOrCreate(['name' => 'restore posts']);
@@ -38,7 +37,6 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'sync discord emojis']);
 
         $admin->givePermissionTo('bypass users guard');
-        $admin->givePermissionTo('use restricted categories');
         $admin->givePermissionTo('update shown_role');
         $admin->givePermissionTo('bypass discussions guard');
         $admin->givePermissionTo('create discussions');
@@ -54,7 +52,6 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('sync discord emojis');
 
         $moderator->givePermissionTo('bypass users guard');
-        $moderator->givePermissionTo('use restricted categories');
         $moderator->givePermissionTo('update shown_role');
         $moderator->givePermissionTo('bypass discussions guard');
         $moderator->givePermissionTo('create discussions');

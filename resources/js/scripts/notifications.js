@@ -1,22 +1,14 @@
 import $ from 'jquery';
 import Echo from './echo';
-
-import {
-    Toast
-} from './toasts.js';
-import {
-    Howl,
-    Howler
-} from 'howler';
+import Howl from './howl';
+import Toast from './toasts.js';
 
 const DefaultOptions = {
     privateMessageNotificationSelector: '#private_discussions_indicator',
     genericNotificationSelector: '#notifications_indicator',
-    notificationMarkup: `<i class="fas fa-circle fa-stack-2x text-darker"></i>` +
+    notificationMarkup: `<i class="fas fa-circle fa-stack-2x text-primary"></i>` +
         `<i class="fas %icon% fa-stack-1x fa-inverse"></i>` +
         `<span class="badge badge-danger badge-pill badge-notification">%count%</span>`,
-    notificationSound: ['/audio/intuition.mp3'],
-    notificationVolume: .4, // TODO - User option?
     normalFavicon: '/img/icons/favicon.ico',
     notificationFavicon: '/img/icons/favicon-alt.ico',
 };
@@ -48,15 +40,7 @@ class NotificationHandler {
             this.notificationCount = JSON.parse(notificationMeta.attr('content'));
         }
 
-        this.notificationPlayer = new Howl({
-            src: this.options.notificationSound,
-            volume: this.options.notificationVolume,
-            html5: true,
-            onloaderror: () => {
-                console.warn('Could not load notification sound.')
-            }
-        });
-
+        this.notificationPlayer = Howl.notificationPlayer;
         this.initialized = true;
     }
 

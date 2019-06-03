@@ -2,6 +2,7 @@
 
 use App\Models\DiscordEmoji;
 use App\Models\DiscordGuild;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Cache;
 
 /*
@@ -18,6 +19,20 @@ use Illuminate\Support\Facades\Cache;
 Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('/@me', function () {
         return user('api');
+    });
+
+    Route::get('/notifications', function () {
+        return Notification::query()
+            ->where('notifiable_id', user()->id)
+            ->where('read_at', null)
+            ->orderBy('created_at', 'DESC')
+            ->limit(10)
+            ->get()
+            ->transform(function ($notification) {
+                $notification->presented_created_at = $notification->created_at->diffForHumans();
+
+                return $notification;
+            });
     });
 
     Route::post('/discord-guilds', function () {

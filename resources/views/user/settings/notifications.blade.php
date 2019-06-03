@@ -20,36 +20,57 @@
                         Gestion des notifications
                     </div>
                     <div class="card-body">
-                        {{--  <div class="row">
-                            <div class="col-md-3">Je souhaite être notifié..</div>
+                    <div class="row mb-3">
+                            <div class="col-md-3">M'abonner automatiquement..</div>
                             <div class="col-md-9">
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
-                                            De toutes les nouvelles discussions
+                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_create" name="subscribe_on_create" {{ old('subscribe_on_create', $user->getSetting('notifications.subscribe_on_create', true)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="subscribe_on_create">
+                                            Quand je crée une discussion
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
+                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_reply" name="subscribe_on_reply" {{ old('subscribe_on_reply', $user->getSetting('notifications.subscribe_on_reply', false)) ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="subscribe_on_reply">
+                                            Quand je réponds à une discussion
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">Je souhaite être notifié..</div>
+                            <div class="col-md-9">
+                                <div class="form-group mb-1">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="notification_on_new_private_message" name="notification_on_new_private_message" {{ old('notification_on_new_private_message', $user->getSetting('notifications.on_new_private_message', true)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="notification_on_new_private_message">
                                             Quand je reçois un message privé
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-1">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="webpush" {{ old('webpush') ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="webpush">
+                                        <input type="checkbox" class="custom-control-input" id="notification_when_mentionned_or_quoted" name="notification_when_mentionned_or_quoted" {{ old('notification_when_mentionned_or_quoted', $user->getSetting('notifications.when_mentionned_or_quoted', true)) ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="notification_when_mentionned_or_quoted">
                                             Quand je suis cité/mentionné
                                         </label>
                                     </div>
                                 </div>
+                                <div class="form-group mb-1">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="notification_on_subscribed_discussions" name="notification_on_subscribed_discussions" {{ old('notification_on_subscribed_discussions', $user->getSetting('notifications.on_subscribed_discussions', true)) ? 'checked' : '' }} >
+                                        <label class="custom-control-label" for="notification_on_subscribed_discussions">
+                                            Quand un membre réponds dans une discussion à laquelle je me suis abonné
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>  --}}
-                        <div class="form-group">
+                        </div>
+                        <div class="form-group" style="display: none;">
                             <div class="alert alert-primary">
                                 <div class="row align-items-center">
                                     <div class="col col-md-8">

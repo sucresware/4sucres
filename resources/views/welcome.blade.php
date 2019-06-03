@@ -20,7 +20,7 @@
             </div>
 
             <div class="d-none d-lg-block">
-                <hr class="ml-2">
+                <hr>
                 <div class="nav flex-column nav-pills">
                     <a href="{{ route('discussions.index') }}" class="nav-link {{ $all = active(['discussions.index']) . active(['home']) }}">Tout voir</a>
                     @auth
@@ -48,37 +48,37 @@
             @endif
 
             @if (isset($sticky_discussions) && count($sticky_discussions))
-                <div class="card shadow-sm mb-3">
+                <section class="card shadow-sm mb-3 discussion-previews discussion-sticky-previews">
                     @foreach ($sticky_discussions as $discussion)
-                        <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
+                        <div class="discussion-preview">
                             <div class="p-3">
                                 @include('discussion._small_preview')
                             </div>
                         </div>
                     @endforeach
-                </div>
+                </section>
             @endif
 
             @if (isset($discussions) && count($discussions))
-                <div class="card shadow-sm mb-3">
+                <section class="card shadow-sm mb-3 discussion-previews">
                     @forelse ($discussions as $discussion)
-                        <div class="{{ $loop->index%2 ? 'white' : 'blue' }}">
+                        <div class="discussion-preview">
                             @include('discussion._preview')
                         </div>
                     @empty
                     @endforelse
-                </div>
+                </section>
             @endif
 
             @if (count($sticky_discussions) + count($discussions) == 0)
-                <div class="card shadow-sm mb-3">
+                <section class="card shadow-sm mb-3 discussion-previews discussion-empty-previews">
                     <div class="card-body">
                         <div class="text-center text-muted">
                             <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid" width="60px"><br><br>
                             Aucune discussion dans cette catégorie !
                         </div>
                     </div>
-                </div>
+                </section>
             @endif
 
             {{ $discussions->onEachSide(1)->links() }}

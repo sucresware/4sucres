@@ -15,9 +15,9 @@ mix
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
     .js('resources/js/service-worker.js', 'public/js')
-    .sass('resources/sass/main.scss', 'public/css')
-    // .sass('resources/sass/material.scss', 'public/css')
-    // .sass('resources/sass/nord.scss', 'public/css');
+    .sass('resources/sass/theme/dark/index.scss', 'public/css/theme-dark.css')
+    .sass('resources/sass/theme/light/index.scss', 'public/css/theme-light.css')
+    // .sass('resources/sass/theme/bunker/index.scss', 'public/css/theme-bunker.css')
 
     // Copies reused resources
     .copyDirectory('resources/img', 'public/img')

@@ -5,7 +5,7 @@
         <i class="fas fa-expand"></i> Élargir
       </a>
       <div v-if="page == 1" class="float-right">
-        <span class="btn btn-success btn-sm text-white">
+        <span class="btn btn-success btn-sm">
           <i class="fas fa-sync fa-spin"></i> Synced
         </span>
       </div>

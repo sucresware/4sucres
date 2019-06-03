@@ -1,16 +1,17 @@
 .account-block {
-    color: $white;
+    color: $header-primary-color;
 
     .account-details {
         padding: 10px 15px;
         height: 100%;
+        background-color: $header-primary-background;
     }
 
     .account-username {
         font-weight: bold;
 
         a {
-            color: $white;
+            color: $header-primary-color;
         }
     }
 
@@ -23,10 +24,10 @@
     }
 
     a {
-        color: lighten($dark, 50%);
-    }
+        color: $header-secondary-color;
 
-    a:hover {
-        color: lighten($dark, 60%);
+        &:hover {
+            color: $header-tertiary-color;
+        }
     }
 }

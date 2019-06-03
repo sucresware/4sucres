@@ -8,9 +8,9 @@
 // --------------------------------------------------------------------------
 
 .op-8 {
-    // opacity: 0.8;
-    background-color: lighten(#f2f4f8, 2%) !important;
     transition: all ease 200ms;
+
+    background-color: lighten($primary-color, 2%) !important;
 }
 
 .text-small {
@@ -48,4 +48,18 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.dropdown-toggle-no-caret:after {
+    display: none !important;
+}
+
+#notifications>button {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#notifications>ul {
+    min-width: 300px;
+    max-width: 100%;
 }

@@ -1,4 +1,8 @@
-<div class="row mx-0 gutters-sm align-items-center p-3 hover-accent" data-action="open-discussion" data-id="{{ $discussion->id }}" data-slug="{{ $discussion->slug }}">
+<div class="row mx-0 gutters-sm align-items-center p-3 d-flex" 
+    data-action="open-discussion" 
+    data-id="{{ $discussion->id }}" 
+    data-slug="{{ $discussion->slug }}">
+
     @if ($discussion->sticky)
         <div class="sidetag">
             <i class="fas fa-fw fa-map-pin text-success"></i>
@@ -23,7 +27,7 @@
                 <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
             @else
                 <strong>
-                    <i class="fas fa-asterisk text-orange"></i>
+                    <i class="fas fa-asterisk text-danger"></i>
                     <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
                 </strong>
             @endif
@@ -71,7 +75,8 @@
 
     @if (!$discussion->private)
         <div class="d-none d-lg-block col-lg-fixed category pr-0">
-            <a href="#" class="btn btn-outline-primary btn-block">{{ $discussion->category->name }}</a>
+            <a href="{{ route('discussions.categories.index', [$discussion->category->id, $discussion->category->slug]) }}" 
+                class="btn btn-outline-primary btn-block">{{ $discussion->category->name }}</a>
         </div>
     @endif
 </div>

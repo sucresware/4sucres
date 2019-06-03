@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @auth
-        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
+        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email', 'api_token']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
         <meta name="user-notification-count" content="{{ json_encode($notifications_count) }}" />
     @endauth
 
@@ -20,7 +20,8 @@
     <meta name="description" content="Et vous, combien de sucres vous prenez dans votre café ?">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/theme-light.css') }}" rel="stylesheet" id="lightTheme">
+    <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" disabled>
 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/img/icons/apple-touch-icon-152x152.png') }}">
@@ -44,13 +45,13 @@
             gtag('config', 'UA-139755516-1');
         </script>
 
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        {{--  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({
                 google_ad_client: "ca-pub-1896835277768477",
                 enable_page_level_ads: true
             });
-        </script>
+        </script>  --}}
     @endif
 
     @stack('css')
@@ -58,43 +59,40 @@
 <body class="{!! $body_classes !!}">
     <div id="app">
         <div class="sticky-top">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+            <nav class="navbar navbar-expand-lg shadow">
                 <div class="container justify-content-between">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ url('/svg/4sucres.svg') }}" height="35px" class="d-sm-none">
                         <img src="{{ url('/img/4sucres_white.png') }}" height="30px" class="d-none d-sm-inline-block">
                     </a>
 
+                    <a class="text-center mr-1" href="javascript:void(0)" data-action="light-toggle">
+                        <span class="fa-stack notification">
+                            <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                            <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
+                        </span>
+                    </a>
+
                     @auth
-                        <a class="ml-auto text-center mr-1 order-lg-7" href="{{ route('notifications.index') }}">
-                            <span class="fa-stack" id="notifications_indicator">
-                                <i class="fas fa-circle fa-stack-2x text-darker"></i>
-                                @if ($notifications_count)
-                                    <i class="fas fa-bell fa-stack-1x fa-inverse"></i>
-                                    <span class="badge badge-danger badge-pill">{{ $notifications_count }}</span>
-                                @else
-                                    <i class="fas fa-bell fa-stack-1x"></i>
-                                @endif
-                            </span>
-                        </a>
+                        <notifications :count="{{ $notifications_count }}"></notifications>
 
                         <a class="text-center mr-1 order-lg-8" href="{{ route('private_discussions.index') }}">
-                            <span class="fa-stack" id="private_discussions_indicator">
-                                <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                            <span class="fa-stack notification" id="private_discussions_indicator">
+                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
                                 @if ($private_unread_count)
-                                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                                    <span class="badge badge-danger badge-pill">{{ $private_unread_count }}</span>
+                                    <i class="fas fa-envelope fa-stack-1x fa-inverse fa-sm notification-icon"></i>
+                                    <span class="badge badge-danger badge-pill notification-counter">{{ $private_unread_count }}</span>
                                 @else
-                                    <i class="fas fa-envelope fa-stack-1x"></i>
+                                    <i class="fas fa-envelope fa-stack-1x fa-sm notification-icon"></i>
                                 @endif
                             </span>
                         </a>
 
                         @if (user()->hasRole('admin') || user()->hasRole('moderator'))
                             <a class="text-center mr-1 order-lg-9" href="{{ route('admin.index') }}">
-                                <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x text-darker"></i>
-                                    <i class="fas fa-lock fa-stack-1x {{ (active('admin.*')) ? 'fa-inverse' : '' }}"></i>
+                                <span class="fa-stack notification">
+                                    <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                                    <i class="fas fa-lock fa-stack-1x {{ (active('admin.*')) ? 'fa-inverse' : '' }} fa-sm notification-icon"></i>
                                 </span>
                             </a>
                         @endif
@@ -102,7 +100,7 @@
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">
                         <span class="fa-stack">
-                            <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fas fa-bars fa-stack-1x fa-inverse"></i>
                         </span>
                     </a>
@@ -112,7 +110,7 @@
                             <li class="nav-item">
                                 <form id="search" action="{{ route('search.query') }}">
                                     <div class="input-group mb-0">
-                                        <input type="text" name="query" class="form-control input-darker" value="{{ $query ?? null }}">
+                                        <input type="text" name="query" class="form-control input-header" value="{{ $query ?? null }}">
                                         <input type="hidden" name="scope" value="{{ $scope ?? 'posts' }}">
                                         <div class="input-group-append">
                                             <button type="submit" class="d-inline btn btn-darker"><i class="fas fa-search"></i></button>
@@ -132,14 +130,14 @@
                     <div class="collapse navbar-collapse flex-grow-0 order-lg-10 pl-lg-2" id="navbarSupportedContent">
                         @guest
                             <div class="row no-gutters account-block mb-3 mb-lg-0">
-                                <div class="col account-details bg-darker rounded text-lg-right text-center text-lg-left">
+                                <div class="col account-details rounded text-lg-right text-center text-lg-left">
                                     <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus mr-2"></i>Inscription</a>
                                     <a href="{{ route('login') }}"><i class="fas fa-power-off mr-2"></i>Connexion</a>
                                 </div>
                             </div>
                         @else
                             <div class="row no-gutters account-block mb-3 mb-lg-0">
-                                <div class="col account-details bg-darker rounded text-lg-right">
+                                <div class="col account-details rounded text-lg-right">
                                     <span class="account-username">
                                         <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
                                     </span>
@@ -157,7 +155,7 @@
             </nav>
         </div>
 
-        {{--  <div class="bg-darker shadow">
+        {{--  <div class="shadow">
             <div class="container text-white py-2">
                 <div class="row justify-content-between font-small">
                     <div class="col-auto">
@@ -170,7 +168,7 @@
         </div>  --}}
 
         @if (auth()->check() && user()->restricted)
-            <div class="bg-primary shadow">
+            <div class="shadow">
                 <div class="container text-white py-2">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>

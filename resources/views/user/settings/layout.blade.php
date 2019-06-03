@@ -60,7 +60,7 @@
                     <div class="card-body">
                         <div class="form-group px-4">
                             <div class="row justify-content-center mb-2">
-                                <label for="stickers" class="form-label font-weight-bold text-uppercase">Adaptation de la taille des stickers Risibank</label>
+                                <label for="stickers" class="form-label font-weight-bold text-uppercase">Adaptation de la taille des stickers Risidex</label>
                             </div>
                             <div class="row">
                                 <div class="custom-control custom-radio flex-center col mb-3 mb-md-0">

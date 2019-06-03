@@ -24,7 +24,7 @@
                             </span>
                         @endif
                     </div>
-                    <div class="card-footer bg-light">
+                    <div class="card-footer">
                         <div class="text-right">
                             {!! NoCaptcha::displaySubmit('reset', 'C\'est bon, je vais m\'en souvenir', ['class' => 'btn btn-primary']) !!}
                         </div>

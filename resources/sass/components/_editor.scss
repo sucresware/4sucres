@@ -1,20 +1,54 @@
+// Toolbar buttons
+.editor-toolbar,
+.editor-buttons {
+
+    button {
+        margin-right: 5px;
+        cursor: pointer;
+
+        color: $editor-primary-color;
+        background-color: $editor-tertiary-background;
+        border: 1px solid $editor-tertiary-border;
+
+        &:hover {
+            background-color: $editor-secondary-background;
+        }
+    }
+
+    i.separator {
+        margin-left: 1px !important;
+        border-color: $editor-tertiary-border !important;
+    }
+
+    background-color: shade($editor-secondary-background, 1.5%) !important;
+    border: 1px solid $editor-primary-border;
+}
+
+// Primary toolbar
+.editor-toolbar {
+    color: $editor-primary-color !important; // Important because of buttons
+    background-color: $editor-secondary-background;
+}
+
+// Bottom toolbar
 .editor-buttons {
     margin-top: -17px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
     border-radius: 4px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     padding: 10px;
-}
-
-.editor-toolbar {
-    border-color: #ddd;
+    background-color: $editor-secondary-background;
 }
 
 .CodeMirror {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    color: $editor-primary-color !important;
+    caret-color: $editor-primary-color !important;
+    background-color: $editor-primary-background;
+    border-color: $editor-primary-border;
+    border-top: none;
 }
 
 .CodeMirror .CodeMirror-code .cm-header-1,
@@ -29,8 +63,4 @@
 
 .cm-header {
     font-weight: initial;
-}
-
-.editor-buttons .btn {
-    cursor: pointer;
 }

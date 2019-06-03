@@ -1,0 +1,21 @@
+.notification {
+
+    .notification-background {
+        color: $header-primary-background;
+    }
+
+    .notification-counter {
+        color: $header-primary-color;
+    }
+
+    .notification-icon {
+        transition: all 200ms ease;
+        color: $header-primary-color;
+    }
+
+    &:hover {
+        .notification-icon {
+            color: $header-tertiary-color;
+        }
+    }
+}
