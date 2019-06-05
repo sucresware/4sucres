@@ -30,14 +30,14 @@
         <div
           v-for="notification in notifications"
           :key="notification.id"
-          class="hover-accent px-2 py-1"
+          class="notification-item hover-accent px-2 py-1"
           @click="goTo('/notifications/' + notification.id)"
         >
-          <div v-html="notification.data.html"></div>
+          <div class="notification-content" v-html="notification.data.html"></div>
           <small class="text-muted">{{ notification.presented_created_at }}</small>
         </div>
 
-        <div class="text-center mt-3">
+        <div class="text-center my-2">
           <a class="btn btn-primary btn-sm" href="/notifications">Voir tout</a>
         </div>
       </div>
