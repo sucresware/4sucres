@@ -74,7 +74,7 @@
                                 <i class="fas fa-circle fa-stack-2x notification-background"></i>
                                 @if ($private_unread_count)
                                     <i class="fas fa-envelope fa-stack-1x fa-inverse fa-sm notification-icon"></i>
-                                    <span class="badge badge-danger badge-pill notification-counter">{{ $private_unread_count }}</span>
+                                    <span class="badge badge-info badge-pill notification-counter">{{ $private_unread_count }}</span>
                                 @else
                                     <i class="fas fa-envelope fa-stack-1x fa-sm notification-icon"></i>
                                 @endif
