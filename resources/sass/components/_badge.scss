@@ -9,3 +9,10 @@
         background-color: $warning;
     }
 }
+
+
+.fa-stack>.badge {
+    position: relative;
+    right: -13px;
+    // bottom: -4px;
+}
