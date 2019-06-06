@@ -4,7 +4,7 @@ import Baffle from 'baffle';
 const DefaultOptions = {
     characters: ["█", "▓", "▒", "░", "█", "▓", "▒", "░", "█", "▓", "▒", "░", "<", ">", "/"],
     selector: '.baffle',
-    revealDuration: 1000
+    revealDuration: 3000
 };
 
 /**
