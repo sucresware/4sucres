@@ -156,7 +156,7 @@
         </div>
 
         {{--  <div class="shadow">
-            <div class="container text-white py-2">
+            <div class="container py-2">
                 <div class="row justify-content-between font-small">
                     <div class="col-auto">
                     </div>
@@ -169,7 +169,7 @@
 
         @if (auth()->check() && user()->restricted)
             <div class="shadow">
-                <div class="container text-white py-2">
+                <div class="container py-2">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
                         <div class="col">
