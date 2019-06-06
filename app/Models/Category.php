@@ -15,8 +15,9 @@ class Category extends Model
     const SHITPOST_CATEGORY_ID = 5;
 
     protected $casts = [
-        'can_post' => 'array',
-        'can_view' => 'array',
+        'can_post'  => 'array',
+        'can_view'  => 'array',
+        'can_reply' => 'array',
     ];
 
     public static function boot()
@@ -53,6 +54,13 @@ class Category extends Model
     {
         return self::ordered()->get()->reject(function ($category) {
             return !$category->canPost(user());
+        });
+    }
+
+    public static function replyable()
+    {
+        return self::ordered()->get()->reject(function ($category) {
+            return !$category->canReply(user());
         });
     }
 
@@ -93,6 +101,27 @@ class Category extends Model
             }
         } else {
             $auth = ($this->can_post == null && !$this->nsfw);
+        }
+
+        return $auth;
+    }
+
+    public function canReply($user)
+    {
+        $auth = true;
+
+        if (auth()->check()) {
+            if ($this->can_reply) {
+                $auth = in_array($user->roles[0]->name, $this->can_reply);
+            }
+
+            $min_date = now()->subYears(18);
+
+            if ($this->nsfw && (user()->dob && user()->dob->isAfter($min_date))) {
+                $auth = false;
+            }
+        } else {
+            $auth = ($this->can_reply == null && !$this->nsfw);
         }
 
         return $auth;

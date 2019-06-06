@@ -16,7 +16,7 @@ class DiscussionPostController extends Controller
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de continuer à répondre !');
         }
 
-        if (null !== $discussion->category && !in_array($discussion->category->id, Category::postables()->pluck('id')->toArray())) {
+        if (null !== $discussion->category && !in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -57,12 +57,12 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::postables()->pluck('id')->toArray())) {
+        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
         $more_options = ($discussion->posts()->first() == $post);
-        $categories = Category::postables()->pluck('name', 'id');
+        $categories = Category::replyable()->pluck('name', 'id');
 
         return view('discussion.post.edit', compact('categories', 'discussion', 'post', 'more_options'));
     }
@@ -82,7 +82,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::postables()->pluck('id')->toArray())) {
+        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -104,7 +104,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::postables()->pluck('id')->toArray())) {
+        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -126,7 +126,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::postables()->pluck('id')->toArray())) {
+        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
