@@ -1,10 +1,11 @@
 import $ from 'jquery';
 import Baffle from 'baffle';
+import WOW from 'wowjs';
 
 const DefaultOptions = {
     characters: ["█", "▓", "▒", "░", "█", "▓", "▒", "░", "█", "▓", "▒", "░", "<", ">", "/"],
-    selector: '.baffle',
-    revealDuration: 3000
+    selector: 'baffle',
+    revealDuration: 1000
 };
 
 /**
@@ -25,7 +26,14 @@ class BaffleWrapper {
     }
 
     baffle() {
-        Baffle(this.options.selector, this.baffleOptions).reveal(this.options.revealDuration);
+        let that = this;
+
+        new WOW.WOW({
+            animateClass: this.options.selector,
+            callback: function (box) {
+                Baffle(box, that.baffleOptions).reveal(that.options.revealDuration);
+            },
+        }).init();
     }
 }
 
