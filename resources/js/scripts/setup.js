@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import CustomFileInput from 'bs-custom-file-input'
 import HighlightJS from 'highlightjs';
+import * as Ladda from 'ladda';
 
 global.jQuery = require('jquery');
 require('owl.carousel');
@@ -21,6 +22,7 @@ class Setup {
         this.initializeAjax();
         this.initializeHighlightJS();
         this.initializeOwl();
+        this.initializeLadda();
     }
 
     initializeSelect2() {
@@ -51,6 +53,10 @@ class Setup {
         $('[data-disable-on-submit]').submit(function (e) {
             $(this).find('button').attr('disabled', true);
         });
+    }
+
+    initializeLadda() {
+        Ladda.bind('button[type=submit]');
     }
 
     initializeOwl() {
