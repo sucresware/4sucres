@@ -25,9 +25,11 @@
                     </div>
 
                     @can('bypass discussions guard')
-                        <div class="bg-light border rounded px-3 pt-3 pb-0">
-                            {!! BootForm::checkbox('sticky', 'Épingler cette discussion', 1, $discussion->sticky) !!}
-                            {!! BootForm::checkbox('locked', 'Verrouiller cette discussion', 1, $discussion->locked) !!}
+                        <div class="card">
+                            <div class="card-body pb-0">
+                                {!! BootForm::checkbox('sticky', 'Épingler cette discussion', 1, $discussion->sticky) !!}
+                                {!! BootForm::checkbox('locked', 'Verrouiller cette discussion', 1, $discussion->locked) !!}
+                            </div>
                         </div>
                     @endcan
                 </div>
