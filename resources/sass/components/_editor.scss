@@ -13,6 +13,10 @@
         &:hover {
             background-color: $editor-secondary-background;
         }
+
+        &.active {
+            background-color: $editor-primary-background !important;
+        }
     }
 
     i.separator {
@@ -63,4 +67,12 @@
 
 .cm-header {
     font-weight: initial;
+}
+
+.CodeMirror-selected {
+    background: $editor-selected-background !important;
+}
+
+.CodeMirror-cursor {
+    border-color: $editor-primary-color !important;
 }
