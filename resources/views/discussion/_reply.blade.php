@@ -1,4 +1,4 @@
-<form action="{{ route('discussions.posts.store', [$discussion->id, $discussion->slug]) }}" method="post" data-disable-on-submit>
+<form data-js-submit data-url="discussions/{{ $discussion->id }}/posts" method="post">
     @csrf
     @include('includes/_editor', ['name' => 'body'])
 

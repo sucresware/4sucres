@@ -1,5 +1,4 @@
 .notification {
-
     .notification-background {
         color: $header-primary-background;
     }
@@ -21,33 +20,46 @@
 }
 
 #notifications {
-    > button {
+    >button {
         margin: 0 !important;
         padding: 0 !important;
     }
 
-    > ul {
+    >ul {
         padding: 0;
         min-width: 300px;
         max-width: 100%;
-        background-color: $header-primary-background;
-        color: $header-primary-background;
+        background-color: $discussion-primary-background;
+        color: $body-color;
 
         .notification-item {
             cursor: pointer;
-
-            .notification-content {
-                color: $header-primary-color;
-                padding: .5em;
-            }
+            transition: all 250ms ease;
 
             small {
                 padding: 0 .75em;
             }
 
-            &:hover {
-                transition: all 200ms ease;
-                background-color: $header-secondary-background;
+            .notification-content {
+                padding: .5em;
+            }
+
+            &:nth-child(odd) {
+                background-color: $discussion-primary-background;
+                color: $discussion-secondary-color;
+
+                @include on-event() {
+                    background-color: $discussion-tertiary-background;
+                }
+            }
+
+            &:nth-child(even) {
+                background-color: $discussion-secondary-background;
+                color: $discussion-secondary-color;
+
+                @include on-event() {
+                    background-color: $discussion-tertiary-background;
+                }
             }
         }
     }

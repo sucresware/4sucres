@@ -8,7 +8,9 @@ section.discussion {
             color: $discussion-secondary-color;
 
             .post {
-                .quote, blockquote {
+
+                .quote,
+                blockquote {
                     background-color: $discussion-secondary-background;
                 }
 
@@ -22,7 +24,7 @@ section.discussion {
                     border: 1px solid $border-color;
                 }
 
-                :not(blockquote) > hr {
+                :not(blockquote)>hr {
                     border-color: $discussion-tertiary-background;
                 }
 
@@ -35,7 +37,9 @@ section.discussion {
             color: $discussion-secondary-color;
 
             .post {
-                .quote, blockquote {
+
+                .quote,
+                blockquote {
                     background-color: $discussion-primary-background;
                 }
 
@@ -49,7 +53,7 @@ section.discussion {
                     border: 1px solid $border-color;
                 }
 
-                :not(blockquote) > hr {
+                :not(blockquote)>hr {
                     border-color: $discussion-secondary-background;
                 }
 
@@ -78,7 +82,7 @@ section.discussion {
                 }
 
                 a {
-                    color: $discussion-primary-color;
+                    color: $discussion-link-color;
                 }
             }
 

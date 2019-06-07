@@ -25,9 +25,11 @@
                     </div>
 
                     @can('bypass discussions guard')
-                        <div class="bg-light border rounded px-3 pt-3 pb-0">
-                            {!! BootForm::checkbox('sticky', 'Épingler cette discussion', 1, $discussion->sticky) !!}
-                            {!! BootForm::checkbox('locked', 'Verrouiller cette discussion', 1, $discussion->locked) !!}
+                        <div class="card">
+                            <div class="card-body pb-0">
+                                {!! BootForm::checkbox('sticky', 'Épingler cette discussion', 1, $discussion->sticky) !!}
+                                {!! BootForm::checkbox('locked', 'Verrouiller cette discussion', 1, $discussion->locked) !!}
+                            </div>
                         </div>
                     @endcan
                 </div>
@@ -41,7 +43,7 @@
     @endif
 
     <div class="card">
-        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post" data-disable-on-submit>
+        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post">
             <div class="card-body">
                 @csrf
                 @method('put')

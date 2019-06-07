@@ -51,7 +51,7 @@ class SucresParsedown extends \ParsedownCheckbox
                 'element' => [
                     'name'       => 'span',
                     'text'       => $regex->group(1),
-                    'attributes' => ['class' => 'baffle'],
+                    'attributes' => ['class' => 'wow baffle'],
                 ],
             ];
         }

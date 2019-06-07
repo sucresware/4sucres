@@ -2,11 +2,11 @@
   <div>
     <div
       :class="{
-        'bg-danger': activity.properties 
-            && (activity.properties.level == 'critical' 
-                || activity.properties.level == 'alert' 
+        'bg-danger': activity.properties
+            && (activity.properties.level == 'critical'
+                || activity.properties.level == 'alert'
                 || activity.properties.level == 'emergency'),
-        'bg-warning': activity.properties 
+        'bg-warning': activity.properties
             && activity.properties.level == 'warning'
       }"
     >
@@ -41,13 +41,15 @@
           </template>
         </div>
         <b-collapse :id="'context-' + activity.id" class="col-12">
-          <div class="bg-light p-3 border-bottom border-top">
-            <a
-              :href="subject().link"
-              target="_blank"
-            >{{ activity.subject_type }} - {{ activity.subject_id }}</a>
-            <hr>
-            <pre>{{ activity.properties }}</pre>
+          <div class="card border-bottom border-top">
+            <div class="card-body">
+              <a
+                :href="subject().link"
+                target="_blank"
+              >{{ activity.subject_type }} - {{ activity.subject_id }}</a>
+              <hr>
+              <pre>{{ activity.properties }}</pre>
+            </div>
           </div>
         </b-collapse>
       </div>
