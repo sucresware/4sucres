@@ -4,6 +4,7 @@ import HighlightJS from 'highlightjs';
 import * as Ladda from 'ladda';
 import AuthedAxios from './axios';
 import Toast from './toasts';
+import WOW from 'wowjs';
 
 global.jQuery = require('jquery');
 require('owl.carousel');
@@ -26,6 +27,7 @@ class Setup {
         this.initializeOwl();
         this.initializeLadda();
         this.initializeForms();
+        this.initializeWow();
     }
 
     initializeSelect2() {
@@ -96,6 +98,10 @@ class Setup {
 
     initializeLadda() {
         Ladda.bind('button[type=submit]');
+    }
+
+    initializeWow() {
+        new WOW.WOW().init();
     }
 
     initializeOwl() {

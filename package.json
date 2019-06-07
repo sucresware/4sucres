@@ -52,6 +52,7 @@
         "voca": "^1.4.0",
         "vue-clipboard2": "^0.3.0",
         "vue-hljs": "^1.1.2",
-        "vue-infinite-loading": "^2.4.4"
+        "vue-infinite-loading": "^2.4.4",
+        "wowjs": "^1.1.3"
     }
 }
