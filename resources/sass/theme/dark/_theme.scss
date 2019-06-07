@@ -151,3 +151,7 @@ $editor-tertiary-color: $nord4;
 $editor-primary-border: $primary-background;
 $editor-secondary-border: $secondary-background;
 $editor-tertiary-border: $tertiary-background;
+
+// ---- [ Spoilers ] ---------------------------------------------------------
+
+$spoiler-background: darken($quaternary-background, 12.5%);
