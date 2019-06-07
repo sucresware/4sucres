@@ -41,7 +41,7 @@
     @endif
 
     <div class="card">
-        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post" data-disable-on-submit>
+        <form action="{{ route('discussions.posts.update', [$discussion->id, $discussion->slug, $post->id]) }}" method="post">
             <div class="card-body">
                 @csrf
                 @method('put')

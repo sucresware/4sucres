@@ -75,7 +75,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/d/preview', 'DiscussionController@preview')->name('discussions.preview');
     Route::post('d', 'DiscussionController@store')->name('discussions.store');
     Route::put('d/{discussion}-{slug}/update', 'DiscussionController@update')->name('discussions.update');
-    Route::post('d/{discussion}-{slug}/create', 'DiscussionPostController@store')->name('discussions.posts.store');
     Route::get('d/{discussion}-{slug}/p/{post}/edit', 'DiscussionPostController@edit')->name('discussions.posts.edit');
     Route::get('d/{discussion}-{slug}/p/{post}/delete', 'DiscussionPostController@delete')->name('discussions.posts.delete');
     Route::put('d/{discussion}-{slug}/p/{post}', 'DiscussionPostController@update')->name('discussions.posts.update');

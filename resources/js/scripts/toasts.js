@@ -53,7 +53,7 @@ class ToastWrapper {
         switch (type) {
             case 'danger':
             case 'error':
-                return 'danger';
+                return 'error';
 
             case 'success':
                 return 'success';

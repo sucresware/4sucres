@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <form action="{{ route('discussions.store') }}" method="post" data-disable-on-submit>
+        <form action="{{ route('discussions.store') }}" method="post">
             <div class="card-body">
                 <h1 class="h6">Nouvelle discussion</h1>
                 @csrf

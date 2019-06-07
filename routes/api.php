@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Cache;
 |
 */
 
-Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
+Route::group(['middleware' => 'auth:api', 'prefix' => 'v1',  'namespace' => 'Api'], function () {
     Route::get('/@me', function () {
         return user('api');
     });
@@ -150,4 +150,6 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
             'success' => true,
         ];
     });
+
+    Route::post('/discussions/{discussion}/posts', 'DiscussionPostController@store');
 });
