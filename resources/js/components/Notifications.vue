@@ -8,7 +8,9 @@
   >
     <template slot="button-content">
       <span class="fa-stack notification" id="notifications_indicator">
-        <i class="fas fa-circle fa-stack-2x notification-background"></i>
+        <i
+          :class="{ 'fas fa-circle fa-stack-2x notification-background': true, 'text-primary': !hidden }"
+        ></i>
         <i
           :class="{ 'fas fa-bell fa-stack-1x fa-sm notification-icon': true, 'text-white': !hidden }"
         ></i>
