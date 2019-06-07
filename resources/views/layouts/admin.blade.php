@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @auth
-        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
+        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email', 'api_token']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
         <meta name="user-notification-count" content="{{ json_encode($notifications_count) }}" />
     @endauth
 
