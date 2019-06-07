@@ -32,7 +32,7 @@ a {
     transition: all 250ms ease;
     text-decoration: none;
     text-decoration-color: rgba($tertiary-color, 0);
-    color: $secondary-color;
+    color: $link-color;
 
     @include on-event {
         transition: all 250ms ease;

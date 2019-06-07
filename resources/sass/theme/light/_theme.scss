@@ -26,7 +26,6 @@ $warning-color: $nord13;
 $success-color: $nord14;
 $info-color: $nord9;
 
-
 // ---- [ Bootstrap colors ] -----------------------------------------------
 
 $blue: #81a1c1;
@@ -114,6 +113,8 @@ $discussion-quaternary-color: lighten($tertiary-color, 5%);
 
 $discussion-border-color: $border-color;
 
+$discussion-link-color: $tertiary-color;
+
 // ---- [ Tooltips ] -------------------------------------------------------
 
 $tooltip-color: $body-color;
@@ -123,7 +124,6 @@ $tooltip-bg: $body-bg;
 
 $card-cap-bg: $body-bg;
 $card-bg: $primary-background;
-
 
 // ---- [ Header ] ---------------------------------------------------------
 
@@ -135,7 +135,6 @@ $header-quaternary-background: $nord3;
 $header-primary-color: $nord6;
 $header-secondary-color: $nord5;
 $header-tertiary-color: $nord4;
-
 
 // ---- [ Editor ] ---------------------------------------------------------
 
@@ -155,3 +154,7 @@ $editor-tertiary-border: $border-color;
 // ---- [ Spoilers ] ---------------------------------------------------------
 
 $spoiler-background: darken($quaternary-background, 2.5%);
+
+// ---- [ Links ] ---------------------------------------------------------
+
+$link-color: $secondary-color;
