@@ -66,8 +66,8 @@
                         @if (user()->hasRole('admin') || user()->hasRole('moderator'))
                             <a class="text-center mr-1 order-lg-9" href="{{ route('admin.index') }}">
                                 <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x notification-background"></i>
-                                    <i class="fas fa-lock fa-stack-1x {{ (active('admin.*')) ? 'fa-inverse' : '' }} fa-sm"></i>
+                                    <i class="fas fa-circle fa-stack-2x {{ (active('admin.*')) ? 'text-primary' : 'notification-background' }}"></i>
+                                    <i class="fas fa-lock fa-stack-1x fa-inverse fa-sm"></i>
                                 </span>
                             </a>
                         @endif
@@ -75,7 +75,7 @@
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">
                         <span class="fa-stack">
-                            <i class="fas fa-circle fa-stack-2x text-darker"></i>
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fas fa-bars fa-stack-1x fa-inverse"></i>
                         </span>
                     </a>
