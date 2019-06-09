@@ -49,6 +49,7 @@ class RegisterController extends Controller
             'password'     => Hash::make(request()->password),
             'gender'       => request()->gender,
             'dob'          => request()->dob,
+            'api_token'    => str_random(60),
         ]);
         $user->assignRole('user');
 
