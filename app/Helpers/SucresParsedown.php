@@ -261,24 +261,6 @@ class SucresParsedown extends \ParsedownCheckbox
         return $link;
     }
 
-    public function renderVocaBank($link)
-    {
-        $matchs = Regex::matchAll('/http(?:s|):\/\/vocabank.4sucres.(?:org|localhost)\/samples\/((?:\d|-)*)/m', $link);
-
-        foreach ($matchs->results() as $match) {
-            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 600px">';
-            $markup .= '<div style="max-width: 600px" class="border-bottom">';
-            $markup .= '<iframe width="100%" height="120" scrolling="no" frameborder="no" src="' . $match->group(0) . '/iframe"></iframe>';
-            $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-primary"></i> <a target="_blank" href="' . $match->group(0) . '">Écouter sur VocaBank</a></div>';
-            $markup .= '</div>';
-
-            return $markup;
-        }
-
-        return $link;
-    }
-
     public function renderNoelshack($link)
     {
         $matchs = Regex::matchAll('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $link);
