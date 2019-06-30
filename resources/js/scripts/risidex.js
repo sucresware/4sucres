@@ -19,8 +19,8 @@ const DefaultOptions = {
         search: '#risidex-search'
     },
     loadTemplate: '<div class="my-5"><i class="fas fa-sync fa-spin fa-1x"></i></div>',
-    errorTemplate: '<div class="my-5"><i class="fas fa-exclamation-circle text-danger fa-1x"></i></div>',
-    noresultTemplate: '<div class="my-5"><i class="fas fa-exclamation-circle text-warning fa-1x"></i></div>',
+    errorTemplate: '<div class="my-5"><div style="width:100%;height:0px;position:relative;padding-bottom:206.897%;"><iframe src="https://streamable.com/s/pnndp/vjbzjn" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div></div>',
+    noresultTemplate: '<div class="my-5"><div style="width:100%;height:0px;position:relative;padding-bottom:206.897%;"><iframe src="https://streamable.com/s/pnndp/vjbzjn" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div></div>',
 };
 
 class RisidexWrapper {
