@@ -198,7 +198,6 @@ class SucresParsedown extends \ParsedownCheckbox
         $link = $this->renderYoutube($link);
         $link = $this->renderVocaroo($link);
         $link = $this->renderTwitchClips($link);
-        $link = $this->renderVocaBank($link);
         $link = $this->renderNoelshack($link);
         $link = $this->renderStrawpoll($link);
 
