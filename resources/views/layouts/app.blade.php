@@ -34,26 +34,6 @@
     <meta name="msapplication-TileImage" content="{{ url('/img/icons/mstile-144x144.png') }}">
     {!! NoCaptcha::renderJs('fr') !!}
 
-    @if (config('app.env') === 'production')
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139755516-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'UA-139755516-1');
-        </script>
-
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        {{--  <script>
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-1896835277768477",
-                enable_page_level_ads: true
-            });
-        </script>  --}}
-    @endif
-
     @stack('css')
 </head>
 <body class="{!! $body_classes !!}">
@@ -232,19 +212,6 @@
 
         <footer>
             <hr>
-
-            <!-- Footer -->
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-1896835277768477"
-                data-ad-slot="4891883467"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-            <br><br>
-
             <img src="{{ url('/img/4sucres_alt_glitched.png') }}" width="70px">
             &copy; 2019<br>
             <br>
