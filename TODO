@@ -1,0 +1,13 @@
+
+Front:
+  ☐ Implémenter `textcomplete`
+  ☐ Gérer la reprise d'une valeur initiale
+  ☐ Affichage des erreurs de validation
+  ☐ Vérifier que tout fonctionne correctement
+
+Back:
+  ☐ Gestion automatique des URL "type image"
+  ☐ Intégration des liens imgur
+  ☐ Prévisualisation des liens
+  ☐ Commande de conversion `markdown` > `bbcode`
+  ☐ Vérifier que tout fonctionne correctement
