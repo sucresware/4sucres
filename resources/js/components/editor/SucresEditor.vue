@@ -54,7 +54,7 @@ export default {
     },
     insertLink() {
       let url = prompt("Lien URL");
-      if (url) return this.$refs.editor.bbWrapWith("url", url);
+      if (url) return this.$refs.editor.insert(url);
     },
     insertText(text) {
       return this.$refs.editor.insert(text);
