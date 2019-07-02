@@ -12,4 +12,8 @@
     </div>
 </div>
 
-<sucres-editor></sucres-editor>
+<sucres-editor value="{{ $value ?? '' }}"></sucres-editor>
+
+@if ($errors->has('body'))
+    <small class="text-danger">{{ $errors->first('body') }}</small>
+@endif

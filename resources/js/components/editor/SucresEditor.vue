@@ -42,7 +42,7 @@ import EditableTextarea from "./EditableTextarea.js";
 
 export default {
   components: { EditableTextarea },
-  props: [],
+  props: ["value"],
   data() {
     return {
       body: ""
@@ -60,6 +60,8 @@ export default {
       return this.$refs.editor.insert(text);
     }
   },
-  mounted: function() {}
+  mounted: function() {
+    this.body = this.value;
+  }
 };
 </script>
