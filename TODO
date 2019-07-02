@@ -10,5 +10,5 @@ Back:
   ☐ Gestion automatique des URL "type image"
   ☐ Intégration des liens imgur
   ☐ Prévisualisation des liens
-  ☐ Commande de conversion `markdown` > `bbcode`
+  ✔ Commande de conversion `markdown` > `bbcode` @done(19-07-02 16:25)
   ☐ Vérifier que tout fonctionne correctement
