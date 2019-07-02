@@ -2,7 +2,7 @@
 Front:
   ✔ Implémenter `textcomplete` @done(19-07-02 14:58)
   ☐ Gérer la reprise d'une valeur initiale
-  ☐ Implémentation des quotes
+  ✔ Implémentation des quotes @done(19-07-02 15:06)
   ☐ Affichage des erreurs de validation
   ☐ Vérifier que tout fonctionne correctement
 

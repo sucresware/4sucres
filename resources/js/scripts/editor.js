@@ -146,6 +146,18 @@ class EditorWrapper {
             return emoji.shortname.toLowerCase().includes(term.toLowerCase());
         });
     }
+
+    insert(value) {
+        let $el = $(this.options.editor.selector),
+            el = $el[0];
+        if (!$el) return;
+
+        var caretPos = el.selectionStart;
+        var textAreaTxt = el.value;
+        el.value = textAreaTxt.substring(0, caretPos) + value + textAreaTxt.substring(caretPos);
+
+        $el.focus();
+    }
 }
 
 var Editor = new EditorWrapper(DefaultOptions);

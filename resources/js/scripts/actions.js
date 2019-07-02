@@ -3,6 +3,7 @@ import v from 'voca';
 import Imgur from './imgur.js';
 import Howl from './howl';
 import AuthedAxios from "../scripts/axios";
+import Editor from './editor';
 
 const EDITOR = "textarea#body";
 const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
@@ -66,13 +67,9 @@ class ActionHandler {
 
     onQuotePost(element) {
         let postId = $(element).data('id'),
-            quote = `#p:${postId}\r\n\r\n`,
-            codeMirror = Editor.getCodeMirror(),
-            selectionEnd = codeMirror.getCursor('end');
+            quote = `#p:${postId}\r\n\r\n`;
 
-        codeMirror.setSelection(selectionEnd, selectionEnd);
-        codeMirror.replaceSelection(quote);
-        codeMirror.focus();
+        Editor.insert(quote);
     }
 
     onOpenDiscussion(element) {
