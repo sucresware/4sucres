@@ -24,23 +24,43 @@ class SucresParser
     public function __construct(Post $post)
     {
         $this->post = $post;
-        $this->content = $post->body;
-        $this->parser = new SucresParsedown();
+        $this->content = e($post->body);
+        $this->parser = new \ChrisKonnertz\BBCode\BBCode();
+
+        $this->parser->ignoreTag('code');
+        $this->parser->ignoreTag('url');
+        $this->parser->ignoreTag('email');
+        $this->parser->ignoreTag('quote');
+        $this->parser->ignoreTag('img');
+        $this->parser->ignoreTag('youtube');
+        $this->parser->ignoreTag('font');
+        $this->parser->ignoreTag('size');
+        $this->parser->ignoreTag('color');
+
+        $this->parser->addTag('mock', function ($tag) {
+            return $tag->opening ? '[mock]' : '[/mock]';
+        });
+        $this->parser->addTag('glitch', function ($tag) {
+            return $tag->opening ? '[glitch]' : '[/glitch]';
+        });
+        $this->parser->addTag('vapor', function ($tag) {
+            return $tag->opening ? '[vapor]' : '[/vapor]';
+        });
     }
 
     public function render($quotes = true, $allow_html = false)
     {
-        $this->parser->setSafeMode(!$allow_html);
-        $this->parser->setIgnoreRegex([
-            '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m',
-            '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m',
-            '/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m',
-            '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/m',
-            '/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m',
-        ]);
+        // $this->parser->setIgnoreRegex([
+        //     '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m',
+        //     '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m',
+        //     '/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m',
+        //     '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/m',
+        //     '/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m',
+        // ]);
 
         $this
-            ->renderMD()
+            ->parse()
+            ->renderCustomTags()
             ->renderEmojis()
             ->renderMentions();
 
@@ -51,9 +71,201 @@ class SucresParser
         return Encoding::toUTF8($this->content);
     }
 
-    public function renderMD()
+    public function parse()
     {
-        $this->content = $this->parser->text($this->content);
+        $this->content = $this->parser->render($this->content);
+
+        return $this;
+    }
+
+    public function renderCustomTags()
+    {
+        $this
+            ->renderMock()
+            ->renderGlitch()
+            ->renderAesthetic()
+            ->renderYouTube()
+            ->renderVocaroo()
+            ->renderTwitchClips()
+            ->renderNoelshack()
+            ->renderStrawpoll();
+
+        $this->content = linkify($this->content);
+
+        return $this;
+    }
+
+    public function renderMock()
+    {
+        $regex = Regex::match('/(?:\[mock\])(.*?)(?:\[\/mock\])/', $this->content);
+        if ($regex->hasMatch()) {
+            $str = str_split(strtolower($regex->group(1)));
+            foreach ($str as &$char) {
+                if (rand(0, 1)) {
+                    $char = strtoupper($char);
+                }
+            }
+
+            $this->content = str_replace(
+                $regex->group(0),
+                implode('', $str),
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderGlitch()
+    {
+        $regex = Regex::match('/(?:\[glitch\])(.*?)(?:\[\/glitch\])/', $this->content);
+        if ($regex->hasMatch()) {
+            $this->content = str_replace(
+                $regex->group(0),
+                '<span class="wow baffle">' . $regex->group(1) . '</span>',
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderAesthetic()
+    {
+        $regex = Regex::match('/(?:\[vapor\])(.*?)(?:\[\/vapor\])/', $this->content);
+        if ($regex->hasMatch()) {
+            $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $regex->group(1));
+            $output = '';
+            for ($i = 0; $i < strlen($input); ++$i) {
+                $char = $input[$i];
+                list(, $code) = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
+                if ($code >= 33 && $code <= 270) {
+                    $output .= mb_convert_encoding('&#' . intval($code + 65248) . ';', 'UTF-8', 'HTML-ENTITIES');
+                } elseif ($code == 32) {
+                    $output .= chr($code);
+                }
+            }
+
+            $this->content = str_replace(
+                $regex->group(0),
+                trim($output),
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderYouTube()
+    {
+        $matchs = Regex::matchAll('/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m', $this->content);
+
+        foreach ($matchs->results() as $match) {
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
+            $markup .= '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' . $match->group(1) . '?rel=0" allowfullscreen></iframe>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fab fa-youtube text-danger"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir dans YouTube</a></div>';
+            $markup .= '</div>';
+
+            $this->content = str_replace(
+                $match->group(0),
+                $markup,
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderVocaroo()
+    {
+        $matchs = Regex::matchAll('/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m', $this->content);
+        foreach ($matchs->results() as $match) {
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup .= '<div style="max-width: 500px" class="border-bottom">';
+            $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
+            $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $match->group(1) . '&command=download_mp3" type="audio/mpeg">';
+            $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $match->group(1) . '&command=download_webm" type="audio/webm"></audio>';
+            $markup .= '</audio>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="' . $match->group(0) . '">Écouter sur Vocaroo</a></div>';
+            $markup .= '</div>';
+
+            $this->content = str_replace(
+                $match->group(0),
+                $markup,
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderTwitchClips()
+    {
+        $matchs = Regex::matchAll('/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m', $this->content);
+
+        foreach ($matchs->results() as $match) {
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
+            $markup .= '<iframe class="embed-responsive-item" src="https://clips.twitch.tv/embed?autoplay=false&clip=' . $match->group(1) . '" allowfullscreen></iframe>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fab fa-twitch" style="color: #4b367c"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir dans Twitch</a></div>';
+            $markup .= '</div>';
+
+            $this->content = str_replace(
+                $match->group(0),
+                $markup,
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderNoelshack()
+    {
+        $matchs = Regex::matchAll('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $this->content);
+        foreach ($matchs->results() as $match) {
+            if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
+                $preview = '<img class="sticker" src="' . $match->group(0) . '">';
+                $markup = "<img class='sticker-inline tooltip-inverse' src='" . $match->group(0) . "' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
+            } else {
+                $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
+            }
+
+            $this->content = str_replace(
+                $match->group(0),
+                $markup,
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderStrawpoll()
+    {
+        $matchs = Regex::matchAll('/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m', $this->content);
+
+        foreach ($matchs->results() as $match) {
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 680px">';
+            $markup .= '<div style="max-width: 680px" class="border-bottom d-none d-lg-block">';
+            $markup .= '<iframe style="width:680px; height:457px; border:0;" scrolling="no" frameborder="no" src="https://www.strawpoll.me/embed_1/' . $match->group(1) . '/r"></iframe>';
+            $markup .= '</div>';
+            $markup .= '<div class="border-bottom d-lg-none p-2 text-center" style="background-color: #ffd756">';
+            $markup .= '<a color="#000" target="_blank" href="' . $match->group(0) . '">' . $match->group(0) . '</a>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="' . $match->group(0) . '">Voter sur StrawPoll</a></div>';
+            $markup .= '</div>';
+
+            $this->content = str_replace(
+                $match->group(0),
+                $markup,
+                $this->content
+            );
+        }
 
         return $this;
     }
