@@ -1,12 +1,10 @@
 import $ from 'jquery';
 import v from 'voca';
-import Editor from './editor.js';
-import Risidex from './risidex.js';
-import Risibank from './risibank.js';
 import Imgur from './imgur.js';
 import Howl from './howl';
 import AuthedAxios from "../scripts/axios";
 
+const EDITOR = "textarea#body";
 const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
 const PREVIEW_ROUTE = 'discussions.preview';
 
@@ -46,30 +44,6 @@ class ActionHandler {
         Howl.lightTogglerPlayer.play();
     }
 
-    onImgurUpload() {
-        Imgur.upload();
-    }
-
-    onInsertSticker(element) {
-        let output = ` ${element.data('src')} `;
-
-        Editor.insert(output);
-
-        // TODO - Maybe remove?
-        Risidex.close();
-        Risibank.close();
-    }
-
-    onRisidexSearch(element, event) {
-        event.preventDefault();
-        Risidex.search();
-    }
-
-    onRisibankSearch(element, event) {
-        event.preventDefault();
-        Risibank.search();
-    }
-
     onOpenPreview(element, event) {
         event.preventDefault();
         $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-sync fa-spin fa-1x"></i></div>')
@@ -79,7 +53,7 @@ class ActionHandler {
             url: route(PREVIEW_ROUTE).url(),
             data: {
                 '_token': $('meta[name=csrf-token]').attr('content'),
-                'body': Editor.editor.value(),
+                'body': $(EDITOR).val(),
             },
             success: function (resp) {
                 $("#preview-dom").html('<div class="post-content">' + resp.render + '</div>')
