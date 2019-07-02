@@ -346,8 +346,8 @@ class SucresParser
         $matchs = Regex::matchAll('/(?:@|#u:)(?:(\w|-)*)/m', $this->content);
 
         foreach ($matchs->results() as $match) {
-            $excerpt = SucresHelper::unicodeTrim($match->group(0));
-            $target = SucresHelper::unicodeTrim(str_replace(['@', '#u:'], '', $excerpt));
+            $excerpt = trim($match->group(0));
+            $target = trim(str_replace(['@', '#u:'], '', $excerpt));
             $user = User::where('name', $target)->first();
 
             if ($user && $ret_type != self::MENTIONS_RETURN_COMPLETE) {
@@ -374,8 +374,8 @@ class SucresParser
         $matchs = Regex::matchAll('/(?:#p:)(?:(\w|-)*)/m', $this->content);
 
         foreach ($matchs->results() as $match) {
-            $excerpt = SucresHelper::unicodeTrim($match->group(0));
-            $target = SucresHelper::unicodeTrim(str_replace(['#p:'], '', $excerpt));
+            $excerpt = trim($match->group(0));
+            $target = trim(str_replace(['#p:'], '', $excerpt));
             $post = Post::find($target);
 
             if ($post && $post->discussion->private) {
