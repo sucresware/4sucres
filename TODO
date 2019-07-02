@@ -1,6 +1,6 @@
 
 Front:
-  ☐ Implémenter `textcomplete`
+  ✔ Implémenter `textcomplete` @done(19-07-02 14:58)
   ☐ Gérer la reprise d'une valeur initiale
   ☐ Implémentation des quotes
   ☐ Affichage des erreurs de validation
