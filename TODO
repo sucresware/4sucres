@@ -7,7 +7,7 @@ Front:
   ☐ Vérifier que tout fonctionne correctement
 
 Back:
-  ☐ Gestion automatique des URL "type image"
+  ✔ Gestion automatique des URL "type image" @done(19-07-02 17:46)
   ☐ Intégration des liens imgur
   ☐ Prévisualisation des liens
   ✔ Commande de conversion `markdown` > `bbcode` @done(19-07-02 16:25)
