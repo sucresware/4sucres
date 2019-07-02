@@ -77,7 +77,7 @@
             "database/factories"
         ],
         "files": [
-            "app/Helpers/linkify.php"
+            "app/Helpers/helpers.php"
         ]
     },
     "autoload-dev": {

@@ -50,17 +50,11 @@ class SucresParser
 
     public function render($quotes = true, $allow_html = false)
     {
-        // $this->parser->setIgnoreRegex([
-        //     '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m',
-        //     '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m',
-        //     '/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m',
-        //     '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/m',
-        //     '/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m',
-        // ]);
-
         $this
             ->parse()
             ->renderCustomTags()
+            ->renderEmbeds()
+            ->linkify()
             ->renderEmojis()
             ->renderMentions();
 
@@ -80,16 +74,24 @@ class SucresParser
 
     public function renderCustomTags()
     {
-        $this
+        return $this
             ->renderMock()
             ->renderGlitch()
-            ->renderAesthetic()
+            ->renderAesthetic();
+    }
+
+    public function renderEmbeds()
+    {
+        return $this
             ->renderYouTube()
             ->renderVocaroo()
             ->renderTwitchClips()
             ->renderNoelshack()
             ->renderStrawpoll();
+    }
 
+    public function linkify()
+    {
         $this->content = linkify($this->content);
 
         return $this;

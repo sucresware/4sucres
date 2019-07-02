@@ -1,4 +1,19 @@
 <?php
+    function isImage($url)
+    {
+        $pos = strrpos($url, '.');
+        if ($pos === false) {
+            return false;
+        }
+        $ext = strtolower(trim(substr($url, $pos)));
+        $imgExts = array('.bmp', '.gif', '.jpg', '.jpeg', '.png', '.tiff', '.tif'); // this is far from complete but that's always going to be the case...
+        if (in_array($ext, $imgExts)) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Turn all URLs in clickable links.
      *
@@ -32,7 +47,13 @@
                         }
                         $link = $match[2] ?: $match[3];
 
-                        return '<' . array_push($links, "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
+                        if (isImage($match[0])) {
+                            $markup = "<a href='$protocol://$link' data-toggle='lightbox' data-type='image' class='my-2'><img src='$protocol://$link' class='img-fluid'></a>";
+
+                            return '<' . array_push($links, $markup) . '>';
+                        } else {
+                            return '<' . array_push($links, "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
+                        }
                     }, $value);
 
                     break;
