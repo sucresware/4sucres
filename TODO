@@ -2,6 +2,7 @@
 Front:
   ☐ Implémenter `textcomplete`
   ☐ Gérer la reprise d'une valeur initiale
+  ☐ Implémentation des quotes
   ☐ Affichage des erreurs de validation
   ☐ Vérifier que tout fonctionne correctement
 
