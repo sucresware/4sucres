@@ -51,6 +51,30 @@ Artisan::command('convert_all_posts_from_bbcode_to_markdown', function () {
     $bar->finish();
 });
 
+// Oneshot command to convert all legacy markdown posts to bbcode
+Artisan::command('convert_all_posts_from_markdown_to_bbcode', function () {
+    $posts = Post::all();
+    $bar = $this->output->createProgressBar(count($posts));
+
+    foreach ($posts as $post) {
+        $post->body = Regex::replace('/\*\*(.*?)\*\*/', '[b]$1[/b]', $post->body)->result();
+        $post->body = Regex::replace('/\*(.*?)\*/', '[i]$1[/i]', $post->body)->result();
+        $post->body = Regex::replace('/\~\~(.*?)\~\~/', '[s]$1[/s]', $post->body)->result();
+        $post->body = Regex::replace('/\!\[(.*?)\]\((.*?)\)/', '$2', $post->body)->result();
+        $post->body = Regex::replace('/\[(.*?)\]\((.*?)\)/', '$2', $post->body)->result();
+        $post->body = Regex::replace('/\|\|(.*?)\|\|/', '[spoiler]$1[/spoiler]', $post->body)->result();
+        $post->body = Regex::replace('/\%(.*?)\%/', '[mock]$1[/mock]', $post->body)->result();
+        $post->body = Regex::replace('/\+(.*?)\+/', '[glitch]$1[/glitch]', $post->body)->result();
+        $post->body = Regex::replace('/\~(.*?)\~/', '[vapor]$1[/vapor]', $post->body)->result();
+
+        $post->disableLogging();
+        $post->save(['timestamps' => false]);
+        $bar->advance();
+    }
+
+    $bar->finish();
+});
+
 // Oneshot command to convert all legacy achievements to their new className
 Artisan::command('achievements:convert', function () {
     $users = User::all();

@@ -13,13 +13,11 @@
         "appstract/laravel-options": "^2.2.0",
         "barryvdh/laravel-cors": "^0.11.3",
         "barryvdh/laravel-debugbar": "^3.2",
-        "benjaminhoegh/parsedown-extreme": "^0.1.6",
         "bepsvpt/secure-headers": "^5.3",
         "calebporzio/awesome-helpers": "^2.4",
         "chriskonnertz/bbcode": "^1.1",
         "delight-im/str": "^2.4",
         "erusev/parsedown": "^1.7",
-        "erusev/parsedown-extra": "^0.7.1",
         "fideloper/proxy": "^4.0",
         "graham-campbell/throttle": "^7.2",
         "guzzlehttp/guzzle": "^6.3",
@@ -29,7 +27,6 @@
         "laravel/slack-notification-channel": "^2.0",
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",
-        "leblanc-simon/parsedown-checkbox": "^0.0.4",
         "mattketmo/email-checker": "^1.5",
         "molayli/laravel-cloudflare-real-ip": "^0.1.0",
         "more-cores/laravel-restcord": "2.*",
@@ -78,6 +75,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/Helpers/helpers.php"
         ]
     },
     "autoload-dev": {

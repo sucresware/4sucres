@@ -1,44 +1,19 @@
 import $ from 'jquery';
-import EasyMDE from 'easymde'
-import AutoComplete from 'textcomplete/lib/textcomplete';
-import CodeMirrorEditor from 'textcomplete.codemirror';
+let {
+    Textcomplete,
+    Textarea
+} = require('textcomplete');
 
 let userMeta = $('meta[name=user-data]');
 let user;
 
 if (userMeta.length) {
-     user = JSON.parse(userMeta.attr('content'));
+    user = JSON.parse(userMeta.attr('content'));
 }
 
 const DefaultOptions = {
     editor: {
-        selector: 'textarea.sucresMD-editor',
-        insertTexts: {
-            horizontalRule: [
-                "",
-                "\n\n---\n\n"
-            ],
-            table: [
-                "",
-                "\n| Colonne 1 | Colonne 2 | Colonne 3 |\n| -------- | -------- | -------- |\n| Texte    | Texte     | Texte    |\n"
-            ],
-        },
-        toolbar: [
-            'bold',
-            'italic',
-            'strikethrough',
-            '|',
-            'code',
-            'unordered-list',
-            'ordered-list',
-            '|',
-            'link',
-            'image',
-            'table',
-            'horizontal-rule',
-            '|',
-            'guide',
-        ],
+        selector: 'textarea#body',
     },
     userAutocomplete: {
         regex: /(@|#u:)([\w\d-]+)$/,
@@ -56,7 +31,6 @@ const DefaultOptions = {
  * Gère les effets visuels et la qualité de vie relatifs aux posts.
  */
 class EditorWrapper {
-
     constructor(options) {
         this.options = {
             ...DefaultOptions,
@@ -66,32 +40,10 @@ class EditorWrapper {
     }
 
     initialize() {
-        let element = $(this.options.editor.selector)[0];
+        let $el = $(this.options.editor.selector);
+        if (!$el) return;
 
-        if (!element) {
-            return;
-        }
-
-        this.editor = new EasyMDE({
-            element: element,
-            forceSync: true,
-            promptURLs: true,
-            spellChecker: false,
-            autoDownloadFontAwesome: false,
-            status: false,
-            tabSize: 4,
-            insertTexts: this.options.editor.insertTexts,
-            renderingConfig: {
-                codeSyntaxHighlighting: true,
-            },
-            toolbar: this.options.editor.toolbar
-        });
-
-        this.registerCustomCodes();
-
-        this.getCodeMirror().on('focus', () => {
-            this.initializeAutocomplete();
-        });
+        $el.on('focus', () => this.initializeAutocomplete());
     }
 
     initializeAutocomplete() {
@@ -116,7 +68,7 @@ class EditorWrapper {
             if (!user) {
                 reject();
             }
-            
+
             $.get(this.options.emojiAutocomplete.fetchUrl)
                 .then(result => {
                     this.autocompleteEmojis = result;
@@ -130,7 +82,9 @@ class EditorWrapper {
 
     registerAutocomplete() {
         let that = this;
-        this.autoComplete = new AutoComplete(new CodeMirrorEditor(this.getCodeMirror()));
+        let _editor = new Textarea($(this.options.editor.selector)[0]);
+
+        this.autoComplete = new Textcomplete(_editor);
         this.autoComplete.register([{
             // Matches @<username> or #u:<id>
             match: this.options.userAutocomplete.regex,
@@ -162,7 +116,7 @@ class EditorWrapper {
 
             // The way it's rendered in the dropdown
             template: function (emoji) {
-                switch(emoji.type) {
+                switch (emoji.type) {
                     case 'discord':
                         return '<div class="emoji emoji-sm" style="background-image: url(' + emoji.link + '"></div> ' + emoji.shortname;
                     case 'smiley':
@@ -193,41 +147,17 @@ class EditorWrapper {
         });
     }
 
-    getCodeMirror() {
-        if (undefined !== this.editor && undefined !== this.editor.codemirror) {
-            return this.editor.codemirror;
-        }
+    insert(value) {
+        let $el = $(this.options.editor.selector),
+            el = $el[0];
+        if (!$el) return;
 
-        return null;
+        var caretPos = el.selectionStart;
+        var textAreaTxt = el.value;
+        el.value = textAreaTxt.substring(0, caretPos) + value + textAreaTxt.substring(caretPos);
+
+        $el.focus();
     }
-
-    insert(value, end = false) {
-        let codeMirror = this.getCodeMirror(),
-            position = end ? codeMirror.getCursor('to') : codeMirror.getCursor() || codeMirror.getCursor('to');
-
-        codeMirror.replaceRange(value, position)
-    }
-
-    registerCustomCodes() {
-        let that = this;
-
-        $(document).on('click', "[data-mdcode]", function () {
-            let codeMirror = that.getCodeMirror(),
-                originalPoint = codeMirror.getCursor('start'),
-                character = $(this).data('mdcode'),
-                replacement = `${character}${codeMirror.getSelection()}${character}`;
-
-            codeMirror.replaceSelection(replacement);
-
-            originalPoint = {
-                ...originalPoint,
-                ...originalPoint.ch += replacement.length - character.length
-            };
-            codeMirror.setSelection(originalPoint, originalPoint);
-            codeMirror.focus();
-        });
-    }
-
 }
 
 var Editor = new EditorWrapper(DefaultOptions);
