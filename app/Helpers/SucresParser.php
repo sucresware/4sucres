@@ -229,7 +229,13 @@ class SucresParser
     public function renderNoelshack()
     {
         $matchs = Regex::matchAll('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $this->content);
+        $parsed = [];
+
         foreach ($matchs->results() as $match) {
+            if (in_array($match->group(0), $parsed)) {
+                continue;
+            }
+
             if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
                 $preview = '<img class="sticker" src="' . $match->group(0) . '">';
                 $markup = "<img class='sticker-inline tooltip-inverse' src='" . $match->group(0) . "' data-toggle='tooltip' data-placement='top' data-html='true' title='$preview'>";
@@ -242,6 +248,7 @@ class SucresParser
                 $markup,
                 $this->content
             );
+            $parsed[] = $match->group(0);
         }
 
         return $this;
