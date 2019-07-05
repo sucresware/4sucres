@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Post;
 use App\Models\User;
 use ForceUTF8\Encoding;
+use Illuminate\Support\Str;
 use Spatie\Regex\Regex;
 
 class SucresParser
@@ -19,7 +20,7 @@ class SucresParser
     public $content;
     protected $post;
     protected $parser;
-    protected $protections;
+    protected $replacements;
 
     public function __construct(Post $post)
     {
@@ -46,6 +47,8 @@ class SucresParser
         $this->parser->addTag('vapor', function ($tag) {
             return $tag->opening ? '[vapor]' : '[/vapor]';
         });
+
+        $this->replacements = [];
     }
 
     public function render($quotes = true, $allow_html = false)
@@ -62,12 +65,26 @@ class SucresParser
             $this->renderQuotes();
         }
 
+        $this
+            ->performReplacements();
+
         return Encoding::toUTF8($this->content);
     }
 
     public function parse()
     {
         $this->content = $this->parser->render($this->content);
+
+        return $this;
+    }
+
+    public function performReplacements()
+    {
+        $this->content = str_replace(
+            array_keys($this->replacements),
+            $this->replacements,
+            $this->content
+        );
 
         return $this;
     }
@@ -99,18 +116,22 @@ class SucresParser
 
     public function renderMock()
     {
-        $regex = Regex::match('/(?:\[mock\])(.*?)(?:\[\/mock\])/', $this->content);
-        if ($regex->hasMatch()) {
-            $str = str_split(strtolower($regex->group(1)));
+        $pattern = '/(?:\[mock\])(.*?)(?:\[\/mock\])/';
+
+        $matchs = Regex::matchAll($pattern, $this->content);
+        foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
+            $str = str_split(strtolower($match->group(1)));
             foreach ($str as &$char) {
-                if (rand(0, 1)) {
-                    $char = strtoupper($char);
-                }
+                $char = rand(0, 1) ? strtoupper($char) : $char;
             }
 
-            $this->content = str_replace(
-                $regex->group(0),
-                implode('', $str),
+            $this->replacements[$uuid] = implode('', $str);
+
+            $this->content = str_replace_first(
+                $match->group(0),
+                $uuid,
                 $this->content
             );
         }
@@ -120,11 +141,17 @@ class SucresParser
 
     public function renderGlitch()
     {
-        $regex = Regex::match('/(?:\[glitch\])(.*?)(?:\[\/glitch\])/', $this->content);
-        if ($regex->hasMatch()) {
-            $this->content = str_replace(
-                $regex->group(0),
-                '<span class="wow baffle">' . $regex->group(1) . '</span>',
+        $pattern = '/(?:\[glitch\])(.*?)(?:\[\/glitch\])/';
+
+        $matchs = Regex::matchAll($pattern, $this->content);
+        foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
+            $this->replacements[$uuid] = '<span class="wow baffle">' . $match->group(1) . '</span>';
+
+            $this->content = str_replace_first(
+                $match->group(0),
+                $uuid,
                 $this->content
             );
         }
@@ -134,9 +161,13 @@ class SucresParser
 
     public function renderAesthetic()
     {
-        $regex = Regex::match('/(?:\[vapor\])(.*?)(?:\[\/vapor\])/', $this->content);
-        if ($regex->hasMatch()) {
-            $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $regex->group(1));
+        $pattern = '/(?:\[vapor\])(.*?)(?:\[\/vapor\])/';
+
+        $matchs = Regex::matchAll($pattern, $this->content);
+        foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
+            $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $match->group(1));
             $output = '';
             for ($i = 0; $i < strlen($input); ++$i) {
                 $char = $input[$i];
@@ -148,9 +179,11 @@ class SucresParser
                 }
             }
 
-            $this->content = str_replace(
-                $regex->group(0),
-                trim($output),
+            $this->replacements[$uuid] = trim($output);
+
+            $this->content = str_replace_first(
+                $match->group(0),
+                $uuid,
                 $this->content
             );
         }
@@ -160,9 +193,12 @@ class SucresParser
 
     public function renderYouTube()
     {
-        $matchs = Regex::matchAll('/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m', $this->content);
+        $pattern = '/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m';
 
+        $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' . $match->group(1) . '?rel=0" allowfullscreen></iframe>';
@@ -170,9 +206,11 @@ class SucresParser
             $markup .= '<div class="integration-text"><i class="fab fa-youtube text-danger"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir dans YouTube</a></div>';
             $markup .= '</div>';
 
-            $this->content = str_replace(
+            $this->replacements[$uuid] = $markup;
+
+            $this->content = str_replace_first(
                 $match->group(0),
-                $markup,
+                $uuid,
                 $this->content
             );
         }
@@ -182,8 +220,12 @@ class SucresParser
 
     public function renderVocaroo()
     {
-        $matchs = Regex::matchAll('/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m', $this->content);
+        $pattern = '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m';
+
+        $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
             $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
@@ -194,9 +236,11 @@ class SucresParser
             $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="' . $match->group(0) . '">Écouter sur Vocaroo</a></div>';
             $markup .= '</div>';
 
-            $this->content = str_replace(
+            $this->replacements[$uuid] = $markup;
+
+            $this->content = str_replace_first(
                 $match->group(0),
-                $markup,
+                $uuid,
                 $this->content
             );
         }
@@ -206,9 +250,12 @@ class SucresParser
 
     public function renderTwitchClips()
     {
-        $matchs = Regex::matchAll('/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m', $this->content);
+        $pattern = '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m';
 
+        $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://clips.twitch.tv/embed?autoplay=false&clip=' . $match->group(1) . '" allowfullscreen></iframe>';
@@ -216,9 +263,11 @@ class SucresParser
             $markup .= '<div class="integration-text"><i class="fab fa-twitch" style="color: #4b367c"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir dans Twitch</a></div>';
             $markup .= '</div>';
 
-            $this->content = str_replace(
+            $this->replacements[$uuid] = $markup;
+
+            $this->content = str_replace_first(
                 $match->group(0),
-                $markup,
+                $uuid,
                 $this->content
             );
         }
@@ -228,13 +277,11 @@ class SucresParser
 
     public function renderNoelshack()
     {
-        $matchs = Regex::matchAll('/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s', $this->content);
-        $parsed = [];
+        $pattern = '/(?:http(?:s|):\/\/image\.noelshack\.com\/fichiers\/)(\d{4})\/(\d{2})\/(?:(\d*)\/|)((?:\w|-)*.\w*)/s';
 
+        $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
-            if (in_array($match->group(0), $parsed)) {
-                continue;
-            }
+            $uuid = (string) Str::uuid();
 
             if (auth()->check() && user()->getSetting('layout.stickers', 'default') == 'inline') {
                 $preview = '<img class="sticker" src="' . $match->group(0) . '">';
@@ -243,12 +290,13 @@ class SucresParser
                 $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
             }
 
-            $this->content = str_replace(
+            $this->replacements[$uuid] = $markup;
+
+            $this->content = str_replace_first(
                 $match->group(0),
-                $markup,
+                $uuid,
                 $this->content
             );
-            $parsed[] = $match->group(0);
         }
 
         return $this;
@@ -256,9 +304,12 @@ class SucresParser
 
     public function renderStrawpoll()
     {
-        $matchs = Regex::matchAll('/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m', $this->content);
+        $pattern = '/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m';
 
+        $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 680px">';
             $markup .= '<div style="max-width: 680px" class="border-bottom d-none d-lg-block">';
             $markup .= '<iframe style="width:680px; height:457px; border:0;" scrolling="no" frameborder="no" src="https://www.strawpoll.me/embed_1/' . $match->group(1) . '/r"></iframe>';
@@ -269,9 +320,11 @@ class SucresParser
             $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="' . $match->group(0) . '">Voter sur StrawPoll</a></div>';
             $markup .= '</div>';
 
-            $this->content = str_replace(
+            $this->replacements[$uuid] = $markup;
+
+            $this->content = str_replace_first(
                 $match->group(0),
-                $markup,
+                $uuid,
                 $this->content
             );
         }
@@ -286,9 +339,13 @@ class SucresParser
                 continue;
             }
 
-            $this->content = str_replace(
+            $uuid = (string) Str::uuid();
+
+            $this->replacements[$uuid] = '<a href="' . $mention['user']->link . '" class="badge badge-primary align-middle">@' . $mention['user']->name . '</a>' . ' ';
+
+            $this->content = str_replace_first(
                 $mention['excerpt'],
-                '<a href="' . $mention['user']->link . '" class="badge badge-primary align-middle">@' . $mention['user']->name . '</a>' . ' ',
+                $uuid,
                 $this->content
             );
         }
@@ -324,7 +381,7 @@ class SucresParser
                 default:
             }
 
-            $this->content = str_replace(
+            $this->content = str_replace_first(
                 $excerpt,
                 $markup,
                 $this->content
@@ -341,9 +398,13 @@ class SucresParser
                 continue;
             }
 
-            $this->content = str_replace(
+            $uuid = (string) Str::uuid();
+
+            $this->replacements[$uuid] = view('discussion.post._show_as_quote', array_merge(['post' => $quote['post']], ['current' => $quote['post']]))->render();
+
+            $this->content = str_replace_first(
                 $quote['excerpt'],
-                view('discussion.post._show_as_quote', array_merge(['post' => $quote['post']], ['current' => $quote['post']]))->render(),
+                $uuid,
                 $this->content
             );
         }
