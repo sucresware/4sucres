@@ -35,6 +35,8 @@ export default {
       let vm = this;
       command = command ? command : this.command;
 
+      if (!command) return;
+
       this.lines.push('<span class="text-muted">›</span> ' + command);
       this.loading = true;
 
