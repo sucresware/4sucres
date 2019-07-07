@@ -23,8 +23,35 @@ class ConsoleController extends Controller
                 $output .= 'Welcome ' . user()->name . '<br>';
                 $output .= '<br>';
                 $output .= 'Available commands:' . '<br>';
-                $output .= '› ban <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
-                $output .= '› unban <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
+                $output .= '- userinfo <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
+                $output .= '- ban <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
+                $output .= '- unban <span class="text-muted">{<i>User:</i> $id|$name}</span>';
+
+                break;
+            case 'userinfo':
+                list($command, $user_id_or_name) = $args;
+                $user = User::find($user_id_or_name);
+                if (!$user) {
+                    $user = User::where('name', $user_id_or_name)->first();
+                }
+                if (!$user) {
+                    $output .= 'User "' . $user_id_or_name . '" not found 🙁';
+
+                    break;
+                }
+
+                $output .= '<span class="text-muted">id: </span> ' . $user->id . '<br>';
+                $output .= '<span class="text-muted">name: </span> ' . $user->name . '<br>';
+                $output .= '<span class="text-muted">display_name: </span> ' . $user->display_name . '<br>';
+                $output .= '<span class="text-muted">shown_role: </span> ' . $user->shown_role . '<br>';
+                $output .= '<span class="text-muted">email: </span> ' . $user->email . '<br>';
+                $output .= '<span class="text-muted">gender: </span> ' . $user->gender . '<br>';
+                $output .= '<span class="text-muted">dob: </span> ' . $user->dob . '<br>';
+                $output .= '<span class="text-muted">email_verified_at: </span> ' . $user->email_verified_at . '<br>';
+                $output .= '<span class="text-muted">last_activity: </span> ' . $user->last_activity . '<br>';
+                $output .= '<span class="text-muted">created_at: </span> ' . $user->created_at . '<br>';
+                $output .= '<span class="text-muted">updated_at: </span> ' . $user->updated_at . '<br>';
+                $output .= '<span class="text-muted">deleted_at: </span> ' . $user->deleted_at . '<br>';
 
                 break;
             case 'ban':
@@ -34,7 +61,7 @@ class ConsoleController extends Controller
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
                 }
                 if (!$user) {
-                    $output .= 'User "' . $user_id_or_name . '" not found 🙁.';
+                    $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
                 }
@@ -42,7 +69,7 @@ class ConsoleController extends Controller
                 $user->deleted_at = now();
                 $user->save();
 
-                $output .= 'User "' . $user_id_or_name . '" banned ✅.';
+                $output .= 'User "' . $user_id_or_name . '" banned ✅';
 
                 break;
             case 'unban':
@@ -52,7 +79,7 @@ class ConsoleController extends Controller
                     $user = User::where('name', $user_id_or_name)->first();
                 }
                 if (!$user) {
-                    $output .= 'User "' . $user_id_or_name . '" not found 🙁.';
+                    $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
                 }
@@ -60,7 +87,7 @@ class ConsoleController extends Controller
                 $user->deleted_at = null;
                 $user->save();
 
-                $output .= 'User "' . $user_id_or_name . '" unbanned ✅.';
+                $output .= 'User "' . $user_id_or_name . '" unbanned ✅';
 
                 break;
             default:
