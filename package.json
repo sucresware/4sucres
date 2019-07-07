@@ -49,6 +49,7 @@
         "select2": "^4.0.7-rc.0",
         "textcomplete": "^0.17.1",
         "textcomplete.codemirror": "^0.2.1",
+        "v-hotkey": "^0.6.0",
         "voca": "^1.4.0",
         "vue-clipboard2": "^0.3.0",
         "vue-hljs": "^1.1.2",
