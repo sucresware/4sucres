@@ -69,6 +69,16 @@ class ConsoleController extends Controller
                 $user->deleted_at = now();
                 $user->save();
 
+                activity()
+                    ->performedOn($user)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'    => 'error',
+                        'method'   => __METHOD__,
+                        'elevated' => true,
+                    ])
+                    ->log('UserSoftDeleted');
+
                 $output .= 'User "' . $user_id_or_name . '" banned ✅';
 
                 break;
@@ -86,6 +96,16 @@ class ConsoleController extends Controller
 
                 $user->deleted_at = null;
                 $user->save();
+
+                activity()
+                    ->performedOn($user)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'    => 'error',
+                        'method'   => __METHOD__,
+                        'elevated' => true,
+                    ])
+                    ->log('UnsoftDelted');
 
                 $output .= 'User "' . $user_id_or_name . '" unbanned ✅';
 
