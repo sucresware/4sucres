@@ -477,16 +477,16 @@
         },
         {
             "name": "calebporzio/awesome-helpers",
-            "version": "v2.4",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/calebporzio/awesome-helpers.git",
-                "reference": "771ca5da52fbaede81551387b986865d0d96cd8a"
+                "reference": "a936fe69195678178e6065ff20efe229c74c373a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calebporzio/awesome-helpers/zipball/771ca5da52fbaede81551387b986865d0d96cd8a",
-                "reference": "771ca5da52fbaede81551387b986865d0d96cd8a",
+                "url": "https://api.github.com/repos/calebporzio/awesome-helpers/zipball/a936fe69195678178e6065ff20efe229c74c373a",
+                "reference": "a936fe69195678178e6065ff20efe229c74c373a",
                 "shasum": ""
             },
             "require": {
@@ -527,7 +527,7 @@
                 "awesome-helpers",
                 "calebporzio"
             ],
-            "time": "2019-04-30T15:46:48+00:00"
+            "time": "2019-07-07T18:12:55+00:00"
         },
         {
             "name": "chriskonnertz/bbcode",
@@ -1898,16 +1898,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.26",
+            "version": "v5.8.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1d8ec9afdedc79314c18715056b8143d7e1fac31"
+                "reference": "f1dccffb96f614895393e27e4667105a05407af5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1d8ec9afdedc79314c18715056b8143d7e1fac31",
-                "reference": "1d8ec9afdedc79314c18715056b8143d7e1fac31",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f1dccffb96f614895393e27e4667105a05407af5",
+                "reference": "f1dccffb96f614895393e27e4667105a05407af5",
                 "shasum": ""
             },
             "require": {
@@ -2041,7 +2041,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-06-25T16:20:51+00:00"
+            "time": "2019-07-02T13:43:47+00:00"
         },
         {
             "name": "laravel/slack-notification-channel",
@@ -2976,16 +2976,16 @@
         },
         {
             "name": "netresearch/jsonmapper",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "3868fe1128ce1169228acdb623359dca74db5ef3"
+                "reference": "da74a078d23b84134bed666df1e484d39e4f410d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/3868fe1128ce1169228acdb623359dca74db5ef3",
-                "reference": "3868fe1128ce1169228acdb623359dca74db5ef3",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/da74a078d23b84134bed666df1e484d39e4f410d",
+                "reference": "da74a078d23b84134bed666df1e484d39e4f410d",
                 "shasum": ""
             },
             "require": {
@@ -3014,7 +3014,7 @@
                 }
             ],
             "description": "Map nested JSON structures onto PHP classes",
-            "time": "2017-11-28T21:30:01+00:00"
+            "time": "2019-07-07T12:31:55+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -5313,16 +5313,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "6.2.1",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "e136adb7d87da68ec66c10474a65e8213e82b7fc"
+                "reference": "529d97c9d13a02d483b06840940a460e61519d37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/e136adb7d87da68ec66c10474a65e8213e82b7fc",
-                "reference": "e136adb7d87da68ec66c10474a65e8213e82b7fc",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/529d97c9d13a02d483b06840940a460e61519d37",
+                "reference": "529d97c9d13a02d483b06840940a460e61519d37",
                 "shasum": ""
             },
             "require": {
@@ -5383,7 +5383,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2019-07-01T21:38:43+00:00"
+            "time": "2019-07-08T06:28:03+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -7796,16 +7796,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "1a1a1044ad00e285bd2825fac4c3a0443d90ad33"
+                "reference": "6fb502c23885701a991b0bba974b1a8eb6673577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/1a1a1044ad00e285bd2825fac4c3a0443d90ad33",
-                "reference": "1a1a1044ad00e285bd2825fac4c3a0443d90ad33",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/6fb502c23885701a991b0bba974b1a8eb6673577",
+                "reference": "6fb502c23885701a991b0bba974b1a8eb6673577",
                 "shasum": ""
             },
             "require": {
@@ -7853,7 +7853,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2019-06-23T09:00:00+00:00"
+            "time": "2019-07-04T09:00:00+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -8652,16 +8652,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18"
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c99e3be9d3e85f60646f152f9002d46ed7770d18",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
                 "shasum": ""
             },
             "require": {
@@ -8697,7 +8697,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2018-10-30T05:52:18+00:00"
+            "time": "2019-07-08T05:24:54+00:00"
         },
         {
             "name": "phpunit/phpunit",
