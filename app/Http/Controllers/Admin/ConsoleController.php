@@ -26,6 +26,7 @@ class ConsoleController extends Controller
                 $output .= '- userinfo <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- ban <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- unban <span class="text-muted">{<i>User:</i> $id|$name}</span>';
+                $output .= '- export <span class="text-muted">{<i>User:</i> $id|$name}</span>';
 
                 break;
             case 'userinfo':
