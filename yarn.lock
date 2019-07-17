@@ -5823,6 +5823,10 @@ uuid@^3.0.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
+v-hotkey@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/v-hotkey/-/v-hotkey-0.6.0.tgz#265c309e937e27411d1e8e97b96fbbda1be7d1d3"
+
 v8-compile-cache@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.0.3.tgz#00f7494d2ae2b688cfe2899df6ed2c54bef91dbe"

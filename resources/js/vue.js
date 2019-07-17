@@ -4,6 +4,7 @@ import VueJS from 'vue';
 import BootstrapVue from 'bootstrap-vue'
 import vueHljs from "vue-hljs";
 import "vue-hljs/dist/vue-hljs.min.css";
+import VueHotkey from 'v-hotkey'
 
 class VueWrapper {
 
@@ -40,6 +41,7 @@ class VueWrapper {
         this.vue.use(VueClipboard);
         this.vue.use(BootstrapVue);
         this.vue.use(vueHljs);
+        this.vue.use(VueHotkey)
 
         this.app = new VueJS({
             el: this.appSelector,
