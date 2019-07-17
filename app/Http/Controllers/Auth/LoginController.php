@@ -40,6 +40,8 @@ class LoginController extends Controller
                 ->withProperties([
                     'level'  => 'info',
                     'method' => __METHOD__,
+                    'ip'     => request()->ip(),
+                    'ua'     => request()->userAgent(),
                 ])
                 ->log('LoginSuccessful');
 
