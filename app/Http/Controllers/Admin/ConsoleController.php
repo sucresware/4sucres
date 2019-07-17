@@ -155,11 +155,11 @@ class ConsoleController extends Controller
                 $output .= 'User "' . $user_id_or_name . '" exported ✅';
 
                 break;
-            case 'ban':
+            case 'unban':
                 list($command, $user_id_or_name) = $args;
-                $user = User::notTrashed()->find($user_id_or_name);
+                $user = User::find($user_id_or_name);
                 if (!$user) {
-                    $user = User::notTrashed()->where('name', $user_id_or_name)->first();
+                    $user = User::where('name', $user_id_or_name)->first();
                 }
                 if (!$user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
@@ -167,7 +167,7 @@ class ConsoleController extends Controller
                     break;
                 }
 
-                $user->deleted_at = now();
+                $user->deleted_at = null;
                 $user->save();
 
                 activity()
@@ -178,9 +178,9 @@ class ConsoleController extends Controller
                         'method'   => __METHOD__,
                         'elevated' => true,
                     ])
-                    ->log('UserSoftDeleted');
+                    ->log('UnsoftDelted');
 
-                $output .= 'User "' . $user_id_or_name . '" banned ✅';
+                $output .= 'User "' . $user_id_or_name . '" unbanned ✅';
 
                 break;
             default:
