@@ -71,5 +71,10 @@ class CategoriesTableSeeder extends Seeder
             'name'  => '#vidéothèque',
             'order' => 10,
         ]);
+        
+        Category::updateOrCreate(['id' => 12], [
+            'name'  => '#olinux',
+            'order' => 10,
+        ]);
     }
 }
