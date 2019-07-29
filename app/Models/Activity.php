@@ -10,8 +10,17 @@ class Activity extends \Spatie\Activitylog\Models\Activity
     {
         parent::boot();
 
-        self::created(function ($created_activity) {
-            broadcast(new ActivityLogged($created_activity));
+        self::saving(function (Activity $activity) {
+            $activity->properties = $activity->properties->merge([
+                'ip'     => request()->ip(),
+                'ua'     => request()->userAgent(),
+            ]);
+
+            return $activity;
+        });
+
+        self::created(function ($activity) {
+            broadcast(new ActivityLogged($activity));
 
             return true;
         });
