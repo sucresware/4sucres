@@ -39,9 +39,7 @@ class LoginController extends Controller
                 ->causedBy(user())
                 ->withProperties([
                     'level'  => 'info',
-                    'method' => __METHOD__,
-                    'ip'     => request()->ip(),
-                    'ua'     => request()->userAgent(),
+                    'method' => __METHOD__
                 ])
                 ->log('LoginSuccessful');
 
