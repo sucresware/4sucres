@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,11 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return $view;
+        });
+        
+        Activity::saving(function (Activity $activity) {
+            $activity->properties = $activity->properties->put('ip', request()->ip());
+            $activity->properties = $activity->properties->put('ua', request()->userAgent());
         });
     }
 
