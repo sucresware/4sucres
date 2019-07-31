@@ -6,7 +6,7 @@
             return false;
         }
         $ext = strtolower(trim(substr($url, $pos)));
-        $imgExts = array('.bmp', '.gif', '.jpg', '.jpeg', '.png', '.tiff', '.tif'); // this is far from complete but that's always going to be the case...
+        $imgExts = ['.bmp', '.gif', '.jpg', '.jpeg', '.png', '.tiff', '.tif']; // this is far from complete but that's always going to be the case...
         if (in_array($ext, $imgExts)) {
             return true;
         }
@@ -23,7 +23,7 @@
      *
      * @return string
      */
-    function linkify($value, $protocols = array('http', 'mail'), array $attributes = array())
+    function linkify($value, $protocols = ['http', 'mail'], array $attributes = [])
     {
         // Link attributes
         $attr = '';
@@ -31,10 +31,12 @@
             $attr .= ' ' . $key . '="' . htmlentities($val) . '"';
         }
 
-        $links = array();
+        $links = [];
 
         // Extract existing links and tags
-        $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i', function ($match) use (&$links) { return '<' . array_push($links, $match[1]) . '>'; }, $value);
+        $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i', function ($match) use (&$links) {
+            return '<' . array_push($links, $match[1]) . '>';
+        }, $value);
 
         // Extract text links for each protocol
         foreach ((array) $protocols as $protocol) {
@@ -58,16 +60,22 @@
 
                     break;
                 case 'mail':
-                    $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~', function ($match) use (&$links, $attr) { return '<' . array_push($links, "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>'; }, $value);
+                    $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~', function ($match) use (&$links, $attr) {
+                        return '<' . array_push($links, "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
+                    }, $value);
 
                     break;
                 default:
-                    $value = preg_replace_callback('~' . preg_quote($protocol, '~') . '://([^\s<]+?)(?<![\.,:])~i', function ($match) use ($protocol, &$links, $attr) { return '<' . array_push($links, "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>'; }, $value);
+                    $value = preg_replace_callback('~' . preg_quote($protocol, '~') . '://([^\s<]+?)(?<![\.,:])~i', function ($match) use ($protocol, &$links, $attr) {
+                        return '<' . array_push($links, "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
+                    }, $value);
 
                     break;
             }
         }
 
         // Insert all link
-        return preg_replace_callback('/<(\d+)>/', function ($match) use (&$links) { return $links[$match[1] - 1]; }, $value);
+        return preg_replace_callback('/<(\d+)>/', function ($match) use (&$links) {
+            return $links[$match[1] - 1];
+        }, $value);
     }

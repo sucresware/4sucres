@@ -14,7 +14,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Post extends Model implements ReactableInterface
 {
-    use Reactable, LogsActivity;
+    use Reactable;
+    use LogsActivity;
 
     protected $guarded = [];
 

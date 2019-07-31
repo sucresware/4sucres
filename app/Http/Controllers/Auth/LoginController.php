@@ -39,7 +39,7 @@ class LoginController extends Controller
                 ->causedBy(user())
                 ->withProperties([
                     'level'  => 'info',
-                    'method' => __METHOD__
+                    'method' => __METHOD__,
                 ])
                 ->log('LoginSuccessful');
 

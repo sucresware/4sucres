@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Cache;
 
 class ForgetCacheJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public $tags;
     public $key;
