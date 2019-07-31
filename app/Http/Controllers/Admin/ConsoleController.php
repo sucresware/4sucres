@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Activity;
 use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use League\Csv\Writer;
+use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
+use Spatie\Activitylog\Models\Activity;
 
 class ConsoleController extends Controller
 {
@@ -31,7 +33,9 @@ class ConsoleController extends Controller
                 $output .= 'Available commands:' . '<br>';
                 $output .= '- userinfo <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- ban <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
+                $output .= '- banip <span class="text-muted">{$ip_address}</span>' . '<br>';
                 $output .= '- unban <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
+                $output .= '- unbanip <span class="text-muted">{$ip_address}</span><br>';
                 $output .= '- export <span class="text-muted">{<i>User:</i> $id|$name}</span>';
 
                 break;
@@ -59,6 +63,29 @@ class ConsoleController extends Controller
                 $output .= '<span class="text-muted">created_at: </span> ' . $user->created_at . '<br>';
                 $output .= '<span class="text-muted">updated_at: </span> ' . $user->updated_at . '<br>';
                 $output .= '<span class="text-muted">deleted_at: </span> ' . $user->deleted_at . '<br>';
+                $output .= '<span class="text-muted">ip(s): </span><br>';
+                Activity::query()
+                    ->select(DB::raw('count(*) as count'), 'properties->ip as ip')
+                    ->causedBy($user)
+                    ->groupBy('ip')
+                    ->orderBy('count', 'DESC')
+                    ->each(function ($row) use (&$output) {
+                        if ($row->ip) {
+                            $output .= '&nbsp;&nbsp;' . $row->ip . ' <span class="text-muted">(' . $row->count . ')</span><br>';
+                        }
+                    });
+                $output .= '<span class="text-muted">ua(s): </span><br>';
+
+                Activity::query()
+                    ->select(DB::raw('count(*) as count'), 'properties->ua as ua')
+                    ->causedBy($user)
+                    ->groupBy('ua')
+                    ->orderBy('count', 'DESC')
+                    ->each(function ($row) use (&$output) {
+                        if ($row->ua) {
+                            $output .= '&nbsp;&nbsp;' . $row->ua . ' <span class="text-muted">(' . $row->count . ')</span><br>';
+                        }
+                    });
 
                 break;
             case 'ban':
@@ -183,7 +210,28 @@ class ConsoleController extends Controller
                 $output .= 'User "' . $user_id_or_name . '" unbanned ✅';
 
                 break;
-            default:
+                case 'banip':
+            case 'unbanip':
+            list($command, $ip_address) = $args;
+
+            ($command == 'banip') ? Firewall::blacklist($ip_address, true) : Firewall::remove($ip_address);
+
+            activity()
+                ->causedBy(user())
+                ->withProperties([
+                    'level'      => 'error',
+                    'method'     => __METHOD__,
+                    'elevated'   => true,
+                    'attributes' => [
+                        'ip' => $ip_address,
+                    ],
+                ])
+                ->log($command);
+
+            $output .= 'Address "' . $ip_address . '" ' . ($command == 'banip' ? 'blacklisted' : 'removed from the blacklist') . ' ✅';
+
+            break;
+                default:
                 $output .= 'Command "' . $args[0] . '" not found 🤔';
 
                 break;

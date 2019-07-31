@@ -47,6 +47,11 @@ class Kernel extends HttpKernel
             'bindings',
             \Barryvdh\Cors\HandleCors::class,
         ],
+
+        'firewall' => [
+            \PragmaRX\Firewall\Middleware\FirewallBlacklist::class,
+            \PragmaRX\Firewall\Middleware\BlockAttacks::class,
+        ],
     ];
 
     /**
