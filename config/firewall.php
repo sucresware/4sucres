@@ -101,7 +101,7 @@ return [
      *
      */
 
-    'enable_range_search' => true,
+    'enable_range_search' => false,
 
     /*
      * Search by country range allow you to store country ids in your
