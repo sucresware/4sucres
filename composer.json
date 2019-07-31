@@ -34,6 +34,7 @@
         "more-cores/laravel-restcord": "2.*",
         "neitanod/forceutf8": "^2.0",
         "orchestra/imagine": "^3.5",
+        "pragmarx/firewall": "^2.2",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "~3.0",
         "qirolab/laravel-reactions": "^2.2",
