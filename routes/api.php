@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Cache;
 
 Route::group(['middleware' => 'auth:api', 'prefix' => 'v1',  'namespace' => 'Api'], function () {
     Route::get('/@me', function () {
-        return user('api');
+        return request()->user();
     });
 
     Route::get('/light-toggler', function () {

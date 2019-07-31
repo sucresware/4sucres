@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Laravel\Passport\HasApiTokens;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
@@ -24,6 +25,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
     use LogsActivity;
     use CausesActivity;
     use Bannable;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +44,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         'password', 'remember_token',
         'email', 'gender', 'dob',
         'email_verified_at', 'settings',
-        'avatar', 'api_token',
+        'avatar',
     ];
 
     protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'settings'];
@@ -316,5 +318,10 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
             ->discussions()
             ->public()
             ->count();
+    }
+
+    public function getApiTokenAttribute()
+    {
+        return $this->tokens->where('name', 'personal')->first()->accesToken ?? $this->createToken('personal')->accessToken;
     }
 }
