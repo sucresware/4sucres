@@ -28,6 +28,7 @@ class AchievementManager
         \App\Achievements\Achievements\OpenTheDoorAchievement::class,
         \App\Achievements\Achievements\RaiderAchievement::class,
         \App\Achievements\Achievements\VeryGoodIdeaAchievement::class,
+        \App\Achievements\Achievements\VocaBankAchievement::class,
         \App\Achievements\Achievements\TheLuckAchievement::class,
     ];
 
