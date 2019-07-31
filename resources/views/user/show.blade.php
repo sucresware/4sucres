@@ -54,6 +54,29 @@
                         <strong>Nombre de réponses :</strong> {{ $user->replies_count }}<br>
                     </div>
 
+                    @if (count($user->bans))
+
+                    <hr>
+
+                    <h3 class="h5">Sanctions</h5>
+                    <div class="p-3 pb-3">
+                        @foreach($user->bans as $ban)
+                            <div class="border rounded mb-1 p-2 bg-theme-tertiary">
+                                <strong class="text-danger">Bannissement {{ $ban->isPermanent() ? 'définitif' : 'temporaire' }}</strong><br>
+                                @if ($ban->comment)
+                                {{ $ban->comment }}<br>
+                                @endif
+                                <small>le {{ $ban->created_at->format('d/m/Y') }}
+                                    @if (!$ban->isPermanent())
+                                    / {{ $diffInDays = $ban->created_at->diffInWeekDays($ban->expired_at) }} {{ str_plural('jour', $diffInDays) }}
+                                    @endif
+                                </small>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    @endif
+
                     <!-- @TODO - Hide if no participation -->
                     <hr>
 

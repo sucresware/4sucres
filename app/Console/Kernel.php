@@ -36,6 +36,10 @@ class Kernel extends ConsoleKernel
             ->command('achievements:distribute')
             ->twiceDaily(11, 23)
             ->withoutOverlapping();
+
+        $schedule
+            ->command('ban:delete-expired')
+            ->everyMinute();
     }
 
     /**

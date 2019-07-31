@@ -17,6 +17,7 @@
         "calebporzio/awesome-helpers": "^2.4",
         "chriskonnertz/bbcode": "^1.1",
         "chumper/zipper": "^1.0",
+        "cybercog/laravel-ban": "^4.0",
         "delight-im/str": "^2.4",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
