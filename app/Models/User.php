@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -13,7 +15,7 @@ use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements ReactsInterface
+class User extends Authenticatable implements ReactsInterface, BannableContract
 {
     use Notifiable;
     use HasRoles;
@@ -21,6 +23,7 @@ class User extends Authenticatable implements ReactsInterface
     use HasPushSubscriptions;
     use LogsActivity;
     use CausesActivity;
+    use Bannable;
 
     /**
      * The attributes that are mass assignable.

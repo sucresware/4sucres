@@ -32,7 +32,7 @@ class ConsoleController extends Controller
                 $output .= '<br>';
                 $output .= 'Available commands:' . '<br>';
                 $output .= '- userinfo <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
-                $output .= '- ban <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
+                $output .= '- ban <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
                 $output .= '- banip <span class="text-muted">{$ip_address}</span>' . '<br>';
                 $output .= '- unban <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
                 $output .= '- unbanip <span class="text-muted">{$ip_address}</span><br>';
@@ -89,7 +89,7 @@ class ConsoleController extends Controller
 
                 break;
             case 'ban':
-                list($command, $user_id_or_name) = $args;
+                list($command, $user_id_or_name, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
@@ -100,8 +100,9 @@ class ConsoleController extends Controller
                     break;
                 }
 
-                $user->deleted_at = now();
-                $user->save();
+                $user->ban([
+                    'comment' => $comment,
+                ]);
 
                 activity()
                     ->performedOn($user)
@@ -111,7 +112,7 @@ class ConsoleController extends Controller
                         'method'   => __METHOD__,
                         'elevated' => true,
                     ])
-                    ->log('UserSoftDeleted');
+                    ->log('UserBanned');
 
                 $output .= 'User "' . $user_id_or_name . '" banned ✅';
 
@@ -194,8 +195,7 @@ class ConsoleController extends Controller
                     break;
                 }
 
-                $user->deleted_at = null;
-                $user->save();
+                $user->unban();
 
                 activity()
                     ->performedOn($user)
@@ -205,7 +205,7 @@ class ConsoleController extends Controller
                         'method'   => __METHOD__,
                         'elevated' => true,
                     ])
-                    ->log('UnsoftDelted');
+                    ->log('User Unban');
 
                 $output .= 'User "' . $user_id_or_name . '" unbanned ✅';
 

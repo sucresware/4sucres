@@ -28,12 +28,22 @@ class LoginController extends Controller
         if (auth()->attempt([
             'email' => request()->email,
             'password' => request()->password,
-        ], $remember)) {
-            if (user()->deleted_at) {
+        ], $remember) && !user()->deleted_at) {
+            if (user()->isBanned()) {
+                $error = 'Le compte est banni ';
+                $latest_ban = user()->bans->first();
+
+                ($latest_ban->isPermanent()) ? $error .= 'définitivement' : 'jusqu\'au ' . $latest_ban->expired_at->format('d/m/Y à H:i');
+                ($latest_ban->comment) ? $error .= ' (' . $latest_ban->comment . ').' : '.';
+
+                $validator->errors()->add('password', $error);
+
                 auth()->logout();
 
-                return redirect()->route('home')->with('error', 'Désolé mec, c\'est terminé.');
+                return redirect(route('login'))->withErrors($validator)->withInput($request->input());
             }
+
+            $validator->errors()->add('password', $error);
 
             activity()
                 ->causedBy(user())
@@ -45,6 +55,8 @@ class LoginController extends Controller
 
             return redirect()->route('home');
         } else {
+            auth()->logout();
+
             $validator->errors()->add('password', 'Le mot de passe est incorrect');
 
             activity()
