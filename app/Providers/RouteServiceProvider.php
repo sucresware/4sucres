@@ -41,10 +41,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('firewall')
-             ->middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+        Route::middleware(['firewall', 'web'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -55,10 +54,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('firewall')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware(['firewall', 'api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 
     /**
@@ -67,9 +65,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRoutes()
     {
         Route::prefix('admin')
-             ->middleware(['web', 'auth', 'role:admin|moderator'])
-             ->namespace($this->namespace . '\Admin')
-             ->as('admin.')
-             ->group(base_path('routes/admin.php'));
+            ->middleware(['web', 'auth', 'role:admin|moderator'])
+            ->namespace($this->namespace . '\Admin')
+            ->as('admin.')
+            ->group(base_path('routes/admin.php'));
     }
 }
