@@ -43,8 +43,6 @@ class LoginController extends Controller
                 return redirect(route('login'))->withErrors($validator)->withInput($request->input());
             }
 
-            $validator->errors()->add('password', $error);
-
             activity()
                 ->causedBy(user())
                 ->withProperties([
