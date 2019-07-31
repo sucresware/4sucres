@@ -119,7 +119,7 @@ class ConsoleController extends Controller
 
                 break;
             case 'tempban':
-                list($command, $user_id_or_name, $comment, $days) = $args;
+                list($command, $user_id_or_name, $days, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
