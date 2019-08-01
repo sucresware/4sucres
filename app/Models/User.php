@@ -322,6 +322,11 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function getApiTokenAttribute()
     {
-        return $this->tokens->where('name', 'personal')->first()->accesToken ?? $this->createToken('personal')->accessToken;
+        if (!isset($this->attributes['api_token'])) {
+            $this->attributes['api_token'] = $this->createToken('personal')->accessToken;
+            $this->save();
+        }
+
+        return $this->attributes['api_token'];
     }
 }
