@@ -51,7 +51,7 @@ class LoginController extends Controller
                 ])
                 ->log('LoginSuccessful');
 
-            return redirect()->route('home');
+            return redirect()->intended();
         } else {
             auth()->logout();
 
