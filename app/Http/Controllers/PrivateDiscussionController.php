@@ -7,6 +7,7 @@ use App\Models\Discussion;
 use App\Models\User;
 use App\Notifications\NewPrivateDiscussion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PrivateDiscussionController extends Controller
 {
@@ -17,7 +18,7 @@ class PrivateDiscussionController extends Controller
         $user_has_read = DB::table('has_read_discussions_users')
             ->select('discussion_id')
             ->where('user_id', user()->id)
-            ->whereIn('discussion_id', $discussions->pluck('id'))
+            ->whereIn('discussion_id', $private_discussions->pluck('id'))
             ->pluck('discussion_id')
             ->toArray();
 
