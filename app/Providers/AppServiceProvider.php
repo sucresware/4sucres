@@ -22,24 +22,17 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale(config('app.locale'));
         setlocale(LC_TIME, config('app.locale'));
 
-        View::composer('*', function ($view) {
+        View::composer(['layouts/app', 'layouts/admin'], function ($view) {
             // $view
             //     ->with('presence_counter', Cache::remember('presence_counter', 3, function () {
             //         return User::active()->count();
             //     }));
 
             if (auth()->check()) {
-                $body_classes = '';
-                $body_classes .= (user()->getSetting('layout.compact', false)) ? ' layout-compact' : '';
-
                 $view
-                    ->with('notifications_count', Cache::remember('notifications_count_' . user()->id, 1, function () {
-                        return user()->unreadNotifications->count();
-                    }))
-                    ->with('private_unread_count', Cache::remember('private_unread_count_' . user()->id, 1, function () {
-                        return \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count();
-                    }))
-                    ->with('body_classes', trim($body_classes));
+                    ->with('notifications_count', user()->unreadNotifications->count())
+                    ->with('private_unread_count', \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count())
+                    ->with('body_classes', (user()->getSetting('layout.compact', false)) ? ' layout-compact' : '');
             } else {
                 $view
                     ->with('body_classes', '');
