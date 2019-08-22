@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,35 +88,14 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['prefix' => '/api/v0'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::post('/imgur-gateway/upload', 'Api\ImgurGatewayController@upload');
-
-        Route::post('/webpush/subscribe', function (\Illuminate\Http\Request $request) {
-            user()->updatePushSubscription($request->input('endpoint'), $request->input('keys.p256dh'), $request->input('keys.auth'));
-
-            return response()->json(['success' => true]);
-        });
-
-        Route::get('/users/{id}/emojis', function ($id) {
-            $user = User::findOrFail($id);
-            $emojis = $user->emojis;
-
-            return response()->json($emojis);
-        })->name('api.users.emojis');
+        Route::post('/webpush/subscribe', 'Api\WebpushController@subscribe');
+        Route::get('/users/{id}/emojis', 'Api\EmojiController@listForUser')->name('api.users.emojis');
     });
 
     Route::get('/users', 'Api\UsersController@index')->name('api.users');
     Route::get('/users/all', 'Api\UsersController@all')->name('api.users.all');
     Route::get('/discussions/{discussion}', 'Api\DiscussionController@show');
 });
-
-if (config('app.env') == 'local') {
-    Route::get('/storage/avatars/{file}', function ($file) {
-        if (!File::exists(base_path($file))) {
-            $file = 'public/img/guest.png';
-        }
-
-        return response()->file(base_path($file));
-    });
-}
 
 Route::view('/errors/403', 'errors/403');
 Route::view('/errors/404', 'errors/404');
