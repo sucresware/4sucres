@@ -102,6 +102,7 @@ class SucresParser
         return $this
             ->renderYouTube()
             ->renderVocaroo()
+            ->renderVocaBank()
             ->renderTwitchClips()
             ->renderNoelshack()
             ->renderStrawpoll();
@@ -234,6 +235,33 @@ class SucresParser
             $markup .= '</audio>';
             $markup .= '</div>';
             $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="' . $match->group(0) . '">Écouter sur Vocaroo</a></div>';
+            $markup .= '</div>';
+
+            $this->replacements[$uuid] = $markup;
+
+            $this->content = str_replace_first(
+                $match->group(0),
+                $uuid,
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderVocaBank()
+    {
+        $pattern = '/http(?:s|):\/\/vocabank.org\/samples\/((?:\w|-)*)/m';
+
+        $matchs = Regex::matchAll($pattern, $this->content);
+        foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup .= '<div style="max-width: 500px" class="border-bottom">';
+            $markup .= '<iframe style="width: 100%; height:200px; border:0;" scrolling="no" frameborder="no" src="' . $match->group(0) . '/iframe"></iframe>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-undo"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir sur VocaBank</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
