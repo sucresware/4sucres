@@ -14,7 +14,14 @@ class PrivateDiscussionController extends Controller
     {
         $private_discussions = Discussion::private(user())->get();
 
-        return view('discussion.private.index', compact('private_discussions'));
+        $user_has_read = DB::table('has_read_discussions_users')
+            ->select('discussion_id')
+            ->where('user_id', user()->id)
+            ->whereIn('discussion_id', $discussions->pluck('id'))
+            ->pluck('discussion_id')
+            ->toArray();
+
+        return view('discussion.private.index', compact('private_discussions', 'user_has_read'));
     }
 
     public function create(User $user)

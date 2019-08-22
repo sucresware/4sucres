@@ -49,6 +49,11 @@ class Discussion extends Model
         return $this->hasMany(Post::class)->orderBy('created_at', 'ASC');
     }
 
+    public function latestPost()
+    {
+        return $this->hasOne(Post::class)->latest();
+    }
+
     public function scopeSticky($query)
     {
         return $query

@@ -9,6 +9,7 @@ use App\Models\Discussion;
 use App\Models\Notification as NotificationModel;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class DiscussionController extends Controller
@@ -98,8 +99,8 @@ class DiscussionController extends Controller
         $discussions = Discussion::query()
             ->whereIn('category_id', $categories->pluck('id'))
             ->with('category')
-            ->with('posts')
-            ->with('posts.user')
+            ->with('latestPost')
+            ->with('latestPost.user')
             ->with('user');
 
         if ($category) {
@@ -119,7 +120,18 @@ class DiscussionController extends Controller
 
         $discussions = $discussions->ordered()->paginate(20);
 
-        return view('welcome', compact('categories', 'sticky_discussions', 'discussions'));
+        if (user()) {
+            $user_has_read = DB::table('has_read_discussions_users')
+                ->select('discussion_id')
+                ->where('user_id', user()->id)
+                ->whereIn('discussion_id', array_merge($sticky_discussions->pluck('id')->toArray(), $discussions->pluck('id')->toArray()))
+                ->pluck('discussion_id')
+                ->toArray();
+        } else {
+            $user_has_read = [];
+        }
+
+        return view('welcome', compact('categories', 'sticky_discussions', 'discussions', 'user_has_read'));
     }
 
     public function subscriptions()
@@ -128,6 +140,10 @@ class DiscussionController extends Controller
 
         $discussions = Discussion::query()
             ->whereIn('category_id', $categories->pluck('id'))
+            ->with('category')
+            ->with('latestPost')
+            ->with('latestPost.user')
+            ->with('user')
             ->whereHas('subscribed', function ($q) {
                 return $q->where('user_id', user()->id);
             });
@@ -141,7 +157,18 @@ class DiscussionController extends Controller
 
         $discussions = $discussions->ordered()->paginate(20);
 
-        return view('welcome', compact('categories', 'sticky_discussions', 'discussions'));
+        if (user()) {
+            $user_has_read = DB::table('has_read_discussions_users')
+                ->select('discussion_id')
+                ->where('user_id', user()->id)
+                ->whereIn('discussion_id', array_merge($sticky_discussions->pluck('id')->toArray(), $discussions->pluck('id')->toArray()))
+                ->pluck('discussion_id')
+                ->toArray();
+        } else {
+            $user_has_read = [];
+        }
+
+        return view('welcome', compact('categories', 'sticky_discussions', 'discussions', 'user_has_read'));
     }
 
     public function show($id, $slug) // Ne pas utiliser Discussion $discussion (pour laisser possible le 410)

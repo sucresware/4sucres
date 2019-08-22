@@ -16,7 +16,7 @@
     </div>
     <div class="col">
         <div class="discussion-title">
-            @if (auth()->check() && $discussion->has_read()->wherePivot('user_id', user()->id)->count())
+            @if (!user() || in_array($discussion->id, $user_has_read))
                 <a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a>
             @else
                 <strong><a href="{{ route('discussions.show', [$discussion->id, $discussion->slug]) }}">{{ $discussion->title }}</a></strong>

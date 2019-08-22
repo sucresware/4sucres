@@ -1,6 +1,6 @@
-<div class="row mx-0 gutters-sm align-items-center p-3 d-flex" 
-    data-action="open-discussion" 
-    data-id="{{ $discussion->id }}" 
+<div class="row mx-0 gutters-sm align-items-center p-3 d-flex"
+    data-action="open-discussion"
+    data-id="{{ $discussion->id }}"
     data-slug="{{ $discussion->slug }}">
 
     @if ($discussion->sticky)
@@ -23,13 +23,10 @@
 
     <div class="col overflow-ellipsis">
         <div class="discussion-title overflow-ellipsis mb-2 mb-lg-0">
-            @if (auth()->guest() || (auth()->check() && $discussion->has_read()->wherePivot('user_id', user()->id)->count()))
+            @if (!user() || in_array($discussion->id, $user_has_read))
                 <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
             @else
-                <strong>
-                    <i class="fas fa-asterisk text-danger"></i>
-                    <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
-                </strong>
+                <strong><a href="{{ $discussion->link }}">{{ $discussion->title }}</a></strong>
             @endif
         </div>
         <div class="text-small overflow-ellipsis">
@@ -49,15 +46,15 @@
     @endif
 
     <div class="col-12 overflow-ellipsis border-none col-lg-fixed last-activity text-small">
-        @if ($discussion->posts->count())
+        @if ($discussion->latestPost)
             <div class="row align-items-center no-gutters">
                 <div class="col-auto d-none d-lg-flex"><i class="far fa-clock fa-fw mr-1"></i></div>
                 <div class="col overflow-ellipsis">
-                    <div class="d-none d-lg-block mb-lg-1"><a href="{{ $discussion->posts->last()->link }}">{{ $discussion->presented_last_reply_at }}</a></div>
-                    <div class="d-inline d-lg-none"><a href="{{ $discussion->posts->last()->link }}">{{ $discussion->last_reply_at->diffForHumans() }}</a> par</div>
+                    <div class="d-none d-lg-block mb-lg-1"><a href="{{ $discussion->latestPost->link }}">{{ $discussion->presented_last_reply_at }}</a></div>
+                    <div class="d-inline d-lg-none"><a href="{{ $discussion->latestPost->link }}">{{ $discussion->last_reply_at->diffForHumans() }}</a> par</div>
                     <div class="d-inline d-lg-block">
-                        <a href="{{ $discussion->posts->last()->user->link }}"><img src="{{ $discussion->posts->last()->user->avatar_link }}" class="img-fluid rounded mr-1" width="16"></a>
-                        <a href="{{ $discussion->posts->last()->user->link }}">{{ $discussion->posts->last()->user->display_name }}</a>
+                        <a href="{{ $discussion->latestPost->user->link }}"><img src="{{ $discussion->latestPost->user->avatar_link }}" class="img-fluid rounded mr-1" width="16"></a>
+                        <a href="{{ $discussion->latestPost->user->link }}">{{ $discussion->latestPost->user->display_name }}</a>
                     </div>
                 </div>
             </div>
@@ -75,7 +72,7 @@
 
     @if (!$discussion->private)
         <div class="d-none d-lg-block col-lg-fixed category pr-0">
-            <a href="{{ route('discussions.categories.index', [$discussion->category->id, $discussion->category->slug]) }}" 
+            <a href="{{ route('discussions.categories.index', [$discussion->category->id, $discussion->category->slug]) }}"
                 class="btn btn-outline-primary btn-block">{{ $discussion->category->name }}</a>
         </div>
     @endif
