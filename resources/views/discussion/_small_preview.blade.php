@@ -26,7 +26,7 @@
 
     <div class="col-12 col-sm-auto text-muted">
         @if ($discussion->presented_replies)
-            {{ $discussion->presented_replies }} <i class="fas fa-comments"></i>
+            {{ $discussion->presented_replies }} <i class="fas fa-comments {{ $discussion->presented_replies > 10 ? 'text-danger' : '' }}"></i>
         @else
             0 <i class="fas fa-comment"></i>
         @endif

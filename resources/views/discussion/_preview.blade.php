@@ -63,7 +63,7 @@
 
     <div class="col-12 border-none col-lg-fixed replies-counter text-small">
         @if ($discussion->presented_replies)
-            <i class="far fa-comments fw-fw mr-1 d-none d-ld-none d-lg-inline"></i> {{ $discussion->presented_replies }}
+            <i class="far fa-comments fw-fw mr-1 d-none d-ld-none d-lg-inline {{ $discussion->presented_replies > 10 ? 'text-danger' : '' }}"></i> {{ $discussion->presented_replies }}
         @else
             <i class="far fa-comments fw-fw mr-1 d-none d-ld-none d-lg-inline"></i> 0
         @endif
