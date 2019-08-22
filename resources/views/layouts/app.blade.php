@@ -213,7 +213,7 @@
         <footer>
             <hr>
             <img src="{{ url('/img/4sucres_alt_glitched.png') }}" width="70px">
-            &copy; 2019<br>
+            @version('compact') &copy; 2019<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>

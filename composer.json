@@ -37,6 +37,7 @@
         "neitanod/forceutf8": "^2.0",
         "orchestra/imagine": "^3.5",
         "pragmarx/firewall": "^2.2",
+        "pragmarx/version": "^0.2.9",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "~3.0",
         "qirolab/laravel-reactions": "^2.2",
@@ -95,7 +96,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan version:refresh"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
