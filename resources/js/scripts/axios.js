@@ -9,7 +9,6 @@ if (userMeta.length) {
 
 const AuthedAxios = axios.create({
     baseURL: '/api/v1/',
-    timeout: 1000,
     headers: {
         'Authorization': 'Bearer ' + (user ? user.api_token : null),
         "Content-Type": "application/json",
