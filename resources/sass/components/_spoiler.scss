@@ -1,27 +1,14 @@
 .spoiler {
-    transition: all 200ms ease;
-    border-radius: 4px;
+    position: relative;
     display: inline-block;
-    color: $spoiler-background !important;
-    background-color: $spoiler-background !important;
-    cursor: pointer;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
-.spoiler.show {
-    transition: all 200ms ease;
-    cursor: auto;
-    color: $primary-color !important;
-    background-color: transparent !important;
-    -webkit-touch-callout: auto;
-    -webkit-user-select: auto;
-    -khtml-user-select: auto;
-    -moz-user-select: auto;
-    -ms-user-select: auto;
-    user-select: auto;
+.spoiler::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    border-radius: 4px;
+    background-color: $spoiler-background !important;
+    cursor: pointer;
+    user-select: none;
 }
