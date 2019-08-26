@@ -1,7 +1,8 @@
 import $ from 'jquery';
 
 const DefaultOptions = {
-    selector: 'spoiler',
+    selector: '.spoiler',
+    revealClass: 'show'
 };
 
 /**
@@ -18,8 +19,8 @@ class SpoilerLoader {
     }
 
     initialize() {
-        $('.' + this.options.selector).on('click', (e) => {
-            $(e.target).removeClass(this.options.selector);
+        $(this.options.selector).on('click', (e) => {
+            $(e.target).addClass(this.options.revealClass);
         });
     }
 }
