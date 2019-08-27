@@ -5,7 +5,7 @@
 
 .spoiler::after {
     position: absolute;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     content: '';
     border-radius: 4px;
     background-color: $spoiler-background !important;
