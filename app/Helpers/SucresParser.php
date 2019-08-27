@@ -318,7 +318,8 @@ class SucresParser
                 $markup = "<img class='sticker' src='" . $match->group(0) . "'>";
             }
 
-            $this->replacements[$uuid] = $markup;
+            $lightbox = "<a href='" . $match->group(0) . "' data-toggle='lightbox' data-type='image' class='my-2'>" . $markup . '</a>';
+            $this->replacements[$uuid] = $lightbox;
 
             $this->content = str_replace_first(
                 $match->group(0),
