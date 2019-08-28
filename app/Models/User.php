@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
-use Cog\Laravel\Ban\Traits\Bannable;
-use Illuminate\Support\Facades\Cache;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Activitylog\Traits\LogsActivity;
+use NotificationChannels\WebPush\HasPushSubscriptions;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
 use Spatie\Activitylog\Traits\CausesActivity;
-use Cog\Contracts\Ban\Bannable as BannableContract;
-use NotificationChannels\WebPush\HasPushSubscriptions;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements ReactsInterface, BannableContract
 {
@@ -335,7 +335,8 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         return $this->attributes['api_token'];
     }
 
-    public function getPrivateUnreadCountAttribute() {
+    public function getPrivateUnreadCountAttribute()
+    {
         // Original request (150-200ms):
         // return \App\Models\Discussion::private($this)->count() - \App\Models\Discussion::private($this)->read($this)->count();
 
