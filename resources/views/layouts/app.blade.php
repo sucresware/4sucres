@@ -126,7 +126,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                                 </div>
                                 <div class="col-auto account-image">
-                                    <img src="{{ user()->avatar ? url('storage/avatars/' . user()->avatar) : url('/img/guest.png') }}" class="img-fluid rounded">
+                                    <img src="{{ user()->avatar_link }}" class="img-fluid rounded">
                                 </div>
                             </div>
                         @endguest

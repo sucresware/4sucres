@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto pr-3 d-none d-md-flex">
-                                <img src="{{ $user->avatar ? url('storage/avatars/' . $user->avatar) : url('/img/guest.png') }}" class="img-fluid rounded" style="max-height: 60px;">
+                                <img src="{{ $user->avatar_link }}" class="img-fluid rounded" style="max-height: 60px;">
                             </div>
                             <div class="col">
                                 <div class="form-group mb-3 {{ $errors->has('avatar') ? 'is-invalid' : '' }}">

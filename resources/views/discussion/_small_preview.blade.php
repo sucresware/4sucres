@@ -12,7 +12,7 @@
     @endif
 
     <div class="d-none d-sm-block col-auto pr-0 pl-4">
-        <img src="{{ $discussion->user->avatar ? url('storage/avatars/' . $discussion->user->avatar) : url('/img/guest.png') }}" class="rounded" style="width: 28px;">
+        <img src="{{ $discussion->user->avatar_link }}" class="rounded" style="width: 28px;">
     </div>
     <div class="col">
         <div class="discussion-title">

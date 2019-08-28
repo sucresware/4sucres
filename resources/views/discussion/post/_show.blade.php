@@ -1,6 +1,6 @@
 <div class="post p-3 row no-gutters" id="p{{ $post->id }}">
     <div class="col-auto mr-3">
-        <a href="{{ $post->user->link }}"><img src="{{ $post->user->avatar ? url('storage/avatars/' . $post->user->avatar) : url('/img/guest.png') }}" class="post-image rounded"></a>
+        <a href="{{ $post->user->link }}"><img src="{{ $post->user->avatar_link }}" class="post-image rounded"></a>
     </div>
     <div class="col">
         @if (!$post->discussion->private)
