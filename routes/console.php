@@ -175,3 +175,11 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
         Cache::tags('emojis')->flush();
     }
 });
+
+
+Artisan::command('fix-inconsistensies', function () {
+    Discussion::get()->each(function ($discussion) {
+        $discussion->replies = $discussion->posts()->count();
+        $discussion->save();
+    });
+});
