@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             if (auth()->check()) {
                 $view
                     ->with('notifications_count', user()->unreadNotifications->count())
-                    ->with('private_unread_count', \App\Models\Discussion::private(user())->count() - \App\Models\Discussion::private(user())->read(user())->count())
+                    ->with('private_unread_count', user()->private_unread_count)
                     ->with('body_classes', (user()->getSetting('layout.compact', false)) ? ' layout-compact' : '');
             } else {
                 $view
