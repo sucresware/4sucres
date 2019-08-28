@@ -54,8 +54,15 @@ return [
         ],
 
         'backup' => [
-            'driver'     => 'local',
-            'root'       => storage_path('app/backup'),
+            'driver'     => 'ftp',
+            'host'       => env('BACKUP_FTP_HOST'),
+            'username'   => env('BACKUP_FTP_USERNAME'),
+            'password'   => env('BACKUP_FTP_PASSWORD'),
+            'port'       => env('BACKUP_FTP_PORT', 21),
+            'root'       => env('BACKUP_FTP_ROOT', ''),
+            'passive'    => true,
+            'ssl'        => true,
+            'timeout'    => 30,
         ],
 
         's3' => [
