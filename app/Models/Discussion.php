@@ -29,6 +29,9 @@ class Discussion extends Model
 
         self::creating(function ($discussion) {
             $discussion->slug = Str::slug($discussion->title);
+            if (!$discussion->slug) {
+                $discussion->slug = 'singe';
+            }
 
             return $discussion;
         });
