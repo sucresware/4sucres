@@ -194,9 +194,9 @@ class SucresParser
 
     public function renderYouTube()
     {
-        $pattern = '/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/m';
-
+        $pattern = '/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;|)[\w\=]*)?/m';
         $matchs = Regex::matchAll($pattern, $this->content);
+
         foreach ($matchs->results() as $match) {
             $uuid = (string) Str::uuid();
 
@@ -204,7 +204,7 @@ class SucresParser
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' . $match->group(1) . '?rel=0" allowfullscreen></iframe>';
             $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fab fa-youtube text-danger"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir dans YouTube</a></div>';
+            $markup .= '<div class="integration-text"><i class="fab fa-youtube text-danger"></i> <a target="_blank" href="https://www.youtube.com/watch?v=' . $match->group(1) . '">Ouvrir dans YouTube</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
@@ -221,7 +221,7 @@ class SucresParser
 
     public function renderVocaroo()
     {
-        $pattern = '/http(?:s|):\/\/vocaroo.com\/i\/((?:\w|-)*)/m';
+        $pattern = '/http(?:s|):\/\/vocaroo\.com\/i\/((?:\w|-)*)/m';
 
         $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
@@ -234,7 +234,7 @@ class SucresParser
             $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $match->group(1) . '&command=download_webm" type="audio/webm"></audio>';
             $markup .= '</audio>';
             $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="' . $match->group(0) . '">Écouter sur Vocaroo</a></div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="https://vocaroo.com/i/' . $match->group(1) . '">Écouter sur Vocaroo</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
@@ -251,7 +251,7 @@ class SucresParser
 
     public function renderVocaBank()
     {
-        $pattern = '/http(?:s|):\/\/vocabank.org\/samples\/((?:\w|-)*)/m';
+        $pattern = '/http(?:s|):\/\/vocabank\.org\/samples\/((?:\w|-)*)/m';
 
         $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
@@ -259,9 +259,9 @@ class SucresParser
 
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
-            $markup .= '<iframe style="width: 100%; height:200px; border:0;" scrolling="no" frameborder="no" src="' . $match->group(0) . '/iframe"></iframe>';
+            $markup .= '<iframe style="width: 100%; height:200px; border:0;" scrolling="no" frameborder="no" src="https://vocabank.org/samples/' . $match->group(1) . '/iframe"></iframe>';
             $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fas fa-undo"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir sur VocaBank</a></div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-undo"></i> <a target="_blank" href="https://vocabank.org/samples/' . $match->group(1) . '">Ouvrir sur VocaBank</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
@@ -278,7 +278,7 @@ class SucresParser
 
     public function renderTwitchClips()
     {
-        $pattern = '/http(?:s|):\/\/clips.twitch.tv\/((?:\w|-)*)/m';
+        $pattern = '/http(?:s|):\/\/clips\.twitch\.tv\/((?:\w|-)*)/m';
 
         $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
@@ -288,7 +288,7 @@ class SucresParser
             $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
             $markup .= '<iframe class="embed-responsive-item" src="https://clips.twitch.tv/embed?autoplay=false&clip=' . $match->group(1) . '" allowfullscreen></iframe>';
             $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fab fa-twitch" style="color: #4b367c"></i> <a target="_blank" href="' . $match->group(0) . '">Ouvrir dans Twitch</a></div>';
+            $markup .= '<div class="integration-text"><i class="fab fa-twitch" style="color: #4b367c"></i> <a target="_blank" href="https://clips.twitch.tv/' . $match->group(1) . '">Ouvrir dans Twitch</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
@@ -333,7 +333,7 @@ class SucresParser
 
     public function renderStrawpoll()
     {
-        $pattern = '/http(?:s|):\/\/(?:www\.|)strawpoll.me\/(\d+)(?:\/r|\/|)/m';
+        $pattern = '/http(?:s|):\/\/(?:www\.|)strawpoll\.me\/(\d+)(?:\/r|\/|)/m';
 
         $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
@@ -344,9 +344,9 @@ class SucresParser
             $markup .= '<iframe style="width:680px; height:457px; border:0;" scrolling="no" frameborder="no" src="https://www.strawpoll.me/embed_1/' . $match->group(1) . '/r"></iframe>';
             $markup .= '</div>';
             $markup .= '<div class="border-bottom d-lg-none p-2 text-center" style="background-color: #ffd756">';
-            $markup .= '<a color="#000" target="_blank" href="' . $match->group(0) . '">' . $match->group(0) . '</a>';
+            $markup .= '<a color="#000" target="_blank" href="https://www.strawpoll.me/' . $match->group(1) . '">https://www.strawpoll.me/' . $match->group(1) . '</a>';
             $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="' . $match->group(0) . '">Voter sur StrawPoll</a></div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="https://www.strawpoll.me/' . $match->group(1) . '">Voter sur StrawPoll</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
