@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\User;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,9 +23,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['layouts/app', 'layouts/admin'], function ($view) {
             $view
-                ->with('presence_counter', Cache::remember('presence_counter', now()->addMinute(), function () {
-                    return User::active()->count();
-                }));
+                ->with('presence', User::online()->pluck('name')->toArray());
 
             if (auth()->check()) {
                 $view

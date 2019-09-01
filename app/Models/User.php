@@ -127,8 +127,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function scopeOnline($query)
     {
-        // FIXME
-        return $query->where('last_activity', '>', Carbon::now()->subMinutes(5)->format('Y-m-d H:i:s'));
+        return $query->where('last_activity', '>', Carbon::now()->subMinutes(20)->format('Y-m-d H:i:s'));
     }
 
     public function scopeNotTrashed($query)
