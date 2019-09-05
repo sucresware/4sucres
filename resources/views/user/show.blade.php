@@ -54,20 +54,37 @@
                         <strong>Nombre de réponses :</strong> {{ $user->replies_count }}<br>
                     </div>
 
-                    @if (count($user->bans))
+                    @if (($bans = $user->bans()->withTrashed())->orderBy('created_at', 'DESC')->count())
 
                     <hr>
 
                     <h3 class="h5">Sanctions</h5>
                     <div class="p-3 pb-3">
-                        @foreach($user->bans as $ban)
+                        @foreach($bans->get() as $ban)
                             <div class="border rounded mb-1 p-2 bg-theme-tertiary">
-                                <strong class="text-danger">Bannissement {{ $ban->isPermanent() ? 'définitif' : 'temporaire' }}</strong><br>
+                                @if ($ban->created_at == $ban->expired_at)
+                                    <strong class="text-warning">
+                                        Avertissement
+                                    </strong>
+                                @else
+                                <strong class="text-danger">
+                                    Bannissement
+                                    @if ($ban->isPermanent())
+                                        définitif
+                                        @if ($ban->deleted_at)
+                                            (révoqué)
+                                        @endif
+                                    @else
+                                        temporaire
+                                    @endif
+                                </strong>
+                                @endif
+                                <br>
                                 @if ($ban->comment)
                                 {{ $ban->comment }}<br>
                                 @endif
                                 <small>le {{ $ban->created_at->format('d/m/Y') }}
-                                    @if (!$ban->isPermanent())
+                                    @if (!$ban->isPermanent() && ($ban->created_at != $ban->expired_at))
                                     / {{ $diffInDays = $ban->created_at->diffInWeekDays($ban->expired_at) }} {{ str_plural('jour', $diffInDays) }}
                                     @endif
                                 </small>

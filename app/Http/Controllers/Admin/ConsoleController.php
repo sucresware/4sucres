@@ -34,6 +34,7 @@ class ConsoleController extends Controller
                 $output .= '- userinfo <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- ban <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
                 $output .= '- tempban <span class="text-muted">{<i>User:</i> $id|$name} {$days} {$comment}</span>' . '<br>';
+                $output .= '- warn <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
                 $output .= '- banip <span class="text-muted">{$ip_address}</span>' . '<br>';
                 $output .= '- unban <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
                 $output .= '- unbanip <span class="text-muted">{$ip_address}</span><br>';
@@ -102,7 +103,7 @@ class ConsoleController extends Controller
                 }
 
                 $user->ban([
-                    'comment' => $comment,
+                    'comment' => str_replace('_', ' ', $comment),
                 ]);
 
                 activity()
@@ -132,7 +133,7 @@ class ConsoleController extends Controller
 
                 $user->ban([
                     'expired_at' => '+' . $days . ' days',
-                    'comment'    => $comment,
+                    'comment'    => str_replace('_', ' ', $comment),
                 ]);
 
                 activity()
@@ -143,9 +144,43 @@ class ConsoleController extends Controller
                         'method'   => __METHOD__,
                         'elevated' => true,
                     ])
-                    ->log('UserBanned');
+                    ->log('UserTempBanned');
 
-                $output .= 'User "' . $user_id_or_name . '" banned ✅';
+                $output .= 'User "' . $user_id_or_name . '" banned for ' . $days . ' day(s) ✅';
+
+                break;
+            case 'warn':
+                list($command, $user_id_or_name, $comment) = $args;
+                $user = User::notTrashed()->find($user_id_or_name);
+                if (!$user) {
+                    $user = User::notTrashed()->where('name', $user_id_or_name)->first();
+                }
+                if (!$user) {
+                    $output .= 'User "' . $user_id_or_name . '" not found 🙁';
+
+                    break;
+                }
+
+                $user->ban([
+                    'expired_at' => now(),
+                    'deleted_at' => now(),
+                    'comment'    => str_replace('_', ' ', $comment),
+                ]);
+
+                $user->banned_at = null;
+                $user->save();
+
+                activity()
+                    ->performedOn($user)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'    => 'error',
+                        'method'   => __METHOD__,
+                        'elevated' => true,
+                    ])
+                    ->log('UserWarned');
+
+                $output .= 'User "' . $user_id_or_name . '" warned ✅';
 
                 break;
 
