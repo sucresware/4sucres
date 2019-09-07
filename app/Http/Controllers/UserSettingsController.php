@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\SucresHelper;
 use App\Models\Achievement;
 use App\Models\User;
+use App\Notifications\TestNotification;
 use App\Notifications\UnlockedAchievement;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -228,6 +229,34 @@ class UserSettingsController extends Controller
         ]);
 
         return redirect(route('user.settings.notifications'))->with('success', 'Modifications enregistrées !');
+    }
+
+    public function updateNotificationsPushbullet()
+    {
+        $user = user();
+
+        $optin_pushbullet = (bool) request()->input('optin_pushbullet', false);
+        $email = request()->input('email', '');
+
+        if ($optin_pushbullet) {
+            request()->validate(['email' => 'required']);
+        }
+
+        $user->setMultipleSettings([
+            'services.pushbullet.enabled' => $optin_pushbullet,
+            'services.pushbullet.email'   => $email,
+        ]);
+
+        return redirect(route('user.settings.notifications'))->with('success', 'Modifications enregistrées !');
+    }
+
+    public function notificationsPushbulletTest()
+    {
+        $user = user();
+
+        $user->notify(new TestNotification());
+
+        return redirect(route('user.settings.notifications'))->with('success', 'Notification envoyée !');
     }
 
     public function updateAccountEmail()

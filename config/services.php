@@ -52,4 +52,8 @@ return [
         'client_secret' => env('DISCORD_SECRET'),
         'redirect'      => env('DISCORD_REDIRECT_URI'),
     ],
+
+    'pushbullet' => [
+        'access_token' => env('PUSHBULLET_ACCESS_TOKEN'),
+    ],
 ];

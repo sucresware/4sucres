@@ -202,6 +202,11 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
             ->addMinutes($this->getSetting('webpush.idle_wait', 1));
     }
 
+    public function getIsEligibleForPushbulletAttribute()
+    {
+        return $this->getSetting('services.pushbullet.enabled', false) && $this->getSetting('services.pushbullet.email', '');
+    }
+
     public function getDisplayNameAttribute()
     {
         return $this->deleted_at ? 'Inconnu' : $this->attributes['display_name'];
@@ -355,5 +360,10 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
             ->toArray();
 
         return count(array_diff($private_ids, $user_has_read));
+    }
+
+    public function routeNotificationForPushbullet()
+    {
+        return new \NotificationChannels\Pushbullet\Targets\Email($this->getSetting('services.pushbullet.email', ''));
     }
 }

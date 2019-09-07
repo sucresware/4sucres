@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/settings/layout', 'UserSettingsController@updateLayout');
     Route::get('/settings/notifications', 'UserSettingsController@notifications')->name('user.settings.notifications');
     Route::put('/settings/notifications', 'UserSettingsController@updateNotifications');
+    Route::put('/settings/notifications/pushbullet', 'UserSettingsController@updateNotificationsPushbullet')->name('user.settings.notifications.pushbullet');
+    Route::get('/settings/notifications/pushbullet/test', 'UserSettingsController@notificationsPushbulletTest')->name('user.settings.notifications.pushbullet.test');
     Route::get('/settings/connections', 'Settings\ConnectionsController@index')->name('user.settings.connections.index');
     Route::get('/settings/connections/regen-token', 'Settings\ConnectionsController@regenToken')->name('user.settings.connections.regen-token');
 

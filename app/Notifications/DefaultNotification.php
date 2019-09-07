@@ -7,6 +7,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Pushbullet\PushbulletChannel;
+use NotificationChannels\Pushbullet\PushbulletMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
 
@@ -28,6 +30,10 @@ class DefaultNotification extends Notification implements ShouldQueue
 
         if (User::find($notifiable->id)->is_eligible_for_webpush) {
             $via[] = WebPushChannel::class;
+        }
+
+        if (User::find($notifiable->id)->is_eligible_for_pushbullet) {
+            $via[] = PushbulletChannel::class;
         }
 
         return $via;
@@ -55,5 +61,15 @@ class DefaultNotification extends Notification implements ShouldQueue
             ->body($attributes['text'])
             ->icon(url('/img/webpush/icon.png'))
             ->badge(url('/img/webpush/badge.png'));
+    }
+
+    public function toPushbullet($notifiable)
+    {
+        $attributes = $this->attributes();
+
+        return PushbulletMessage::create($attributes['text'])
+            ->link()
+            ->title($attributes['title'])
+            ->url(route('notifications.show', $this->id));
     }
 }

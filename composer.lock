@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cde3cc737582a6e6987ab94142ad5df1",
+    "content-hash": "c9cfbffea7f2789c16254f870736d674",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -620,9 +620,9 @@
             "authors": [
                 {
                     "name": "Nils Plaschke",
+                    "role": "Developer",
                     "email": "github@nilsplaschke.de",
-                    "homepage": "http://nilsplaschke.de",
-                    "role": "Developer"
+                    "homepage": "http://nilsplaschke.de"
                 }
             ],
             "description": "This is a little neat helper for the ZipArchive methods with handy functions",
@@ -734,9 +734,9 @@
             "authors": [
                 {
                     "name": "Anton Komarev",
-                    "role": "Developer",
                     "email": "a.komarev@cybercog.su",
-                    "homepage": "http://ell.folio.su"
+                    "homepage": "http://ell.folio.su",
+                    "role": "Developer"
                 }
             ],
             "description": "Laravel Ban simplify blocking and banning Eloquent models.",
@@ -2087,6 +2087,59 @@
             "time": "2018-06-13T13:22:40+00:00"
         },
         {
+            "name": "laravel-notification-channels/pushbullet",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/pushbullet.git",
+                "reference": "a828f8c9101e5904657dc97da89aed5da6db7313"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/pushbullet/zipball/a828f8c9101e5904657dc97da89aed5da6db7313",
+                "reference": "a828f8c9101e5904657dc97da89aed5da6db7313",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "illuminate/notifications": "~5.3.0|~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+                "illuminate/support": "~5.1.0|~5.2.0|~5.3.0|~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\Pushbullet\\PushbulletServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\Pushbullet\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Plekhanov",
+                    "email": "alex@plekhanov.us",
+                    "homepage": "https://alex.plekhanov.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel 5.3+ Notifications Pushbullet Driver",
+            "homepage": "https://github.com/laravel-notification-channels/pushbullet",
+            "time": "2019-08-07T20:14:28+00:00"
+        },
+        {
             "name": "laravel-notification-channels/webpush",
             "version": "3.0.1",
             "source": {
@@ -2131,9 +2184,9 @@
             "authors": [
                 {
                     "name": "Cretu Eusebiu",
+                    "role": "Developer",
                     "email": "me@cretueusebiu.com",
-                    "homepage": "http://cretueusebiu.com",
-                    "role": "Developer"
+                    "homepage": "http://cretueusebiu.com"
                 }
             ],
             "description": "Web Push Notifications driver for Laravel.",
@@ -4828,8 +4881,8 @@
             "authors": [
                 {
                     "name": "Antonio Carlos Ribeiro",
-                    "role": "Creator",
-                    "email": "acr@antoniocarlosribeiro.com"
+                    "email": "acr@antoniocarlosribeiro.com",
+                    "role": "Creator"
                 }
             ],
             "description": "PragmaRX components support package",
@@ -6208,15 +6261,15 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
-                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian De Deyne",
-                    "role": "Developer",
                     "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "A very simple activity logger to monitor the users of your website or application",
@@ -10440,9 +10493,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
-                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "Artisan Tinker in your browser",

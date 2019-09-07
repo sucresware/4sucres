@@ -11,7 +11,7 @@
             @include('user.settings._navigation')
         </div>
         <div class="col-lg-7 col-xl-8">
-            <form method="POST" action="{{ route('user.settings.notifications', []) }}" enctype='multipart/form-data' id="settings">
+            <form method="POST" action="{{ route('user.settings.notifications') }}" enctype='multipart/form-data' id="settings">
                 @method('put')
                 @csrf
 
@@ -86,7 +86,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="d-none d-md-flex col-md-4 pr-1">
+                                    <div class="d-none d-md-block col-md-4 pr-1">
                                         <a href='{{ url('/img/settings/notifications.webpush.gif') }}' data-toggle='lightbox' data-type='image'>
                                             <img src="{{ url('/img/settings/notifications.webpush.gif') }}" class="img-fluid rounded">
                                         </a>
@@ -123,7 +123,35 @@
                     </div>
                 </div>
 
-                <div class="text-right">
+                <div class="text-right mb-5">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                </div>
+            </form>
+
+            <form method="POST" action="{{ route('user.settings.notifications.pushbullet') }}" enctype='multipart/form-data' id="settings">
+                @method('put')
+                @csrf
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <img src="{{ url('/img/pushbullet_logo.png') }}" height="24px">
+                    </div>
+                    <div class="card-body">
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox" class="custom-control-input" id="optin_pushbullet" name="optin_pushbullet" {{ old('optin_pushbullet', $user->getSetting('services.pushbullet.enabled', 0)) ? 'checked' : '' }} value="1">
+                            <label class="custom-control-label" for="optin_pushbullet">
+                                Activer l'envoi des notifications sur Pushbullet
+                            </label>
+                        </div>
+
+                        {!! BootForm::email('email', 'Adresse e-mail du compte Pushbullet', old('email', $user->getSetting('services.pushbullet.email'))) !!}
+
+                        @if ($user->getSetting('services.pushbullet.enabled', 0))
+                            <a href="{{ route('user.settings.notifications.pushbullet.test') }}" class="btn btn-primary">Test de notification</a>
+                        @endif
+                    </div>
+                </div>
+                <div class="text-right mb-5">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
                 </div>
             </form>
