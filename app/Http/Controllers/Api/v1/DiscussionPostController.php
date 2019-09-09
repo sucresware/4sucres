@@ -38,13 +38,22 @@ class DiscussionPostController extends Controller
 
         SucresHelper::throttleOrFail(__METHOD__, 7, 1);
 
-        $post = $discussion->posts()->create([
-            'body'    => request()->input('body'),
-            'user_id' => user('api')->id,
-        ]);
+        $latest_post = $discussion->latestPost()->notTrashed()->first();
 
-        if (user('api')->getSetting('notifications.subscribe_on_reply', false)) {
-            $discussion->subscribed()->syncWithoutDetaching(user('api')->id);
+        if ($latest_post->user_id == user('api')->id && $latest_post->created_at->between(now()->subMinutes(2), now())) {
+            $latest_post->body .= "\r\n\r\n" . '[b]AutoEdit[/b] : ' . request()->input('body');
+            $latest_post->save();
+
+            $post = $latest_post;
+        } else {
+            $post = $discussion->posts()->create([
+                'body'    => request()->input('body'),
+                'user_id' => user('api')->id,
+            ]);
+
+            if (user('api')->getSetting('notifications.subscribe_on_reply', false)) {
+                $discussion->subscribed()->syncWithoutDetaching(user('api')->id);
+            }
         }
 
         return ['redirect' => $post->link];
