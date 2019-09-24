@@ -25,6 +25,10 @@ class Post extends Model implements ReactableInterface
         'presented_date',
     ];
 
+    protected $hidden = [
+        'body',
+    ];
+
     protected $casts = [
         'deleted_at' => 'datetime',
     ];
@@ -85,11 +89,19 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedBodyAttribute()
     {
+        if ($this->deleted_at && !(user() && user()->can('read deleted posts'))) {
+            return '';
+        }
+
         return (new SucresParser($this))->render();
     }
 
     public function getPresentedLightBodyAttribute()
     {
+        if ($this->deleted_at && !(user() && user()->can('read deleted posts'))) {
+            return '';
+        }
+
         return (new SucresParser($this))->render(false);
     }
 
