@@ -18,6 +18,7 @@ apt install \
 
 ```bash
 wget https://getcomposer.org/download/1.9.0/composer.phar
+chmod +x composer.phar
 mv composer.phar /usr/bin/composer
 composer self-update
 composer global require hirak/prestissimo
