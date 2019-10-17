@@ -31,17 +31,18 @@ class ConsoleController extends Controller
                 $output .= 'Welcome ' . user()->name . '<br>';
                 $output .= '<br>';
                 $output .= 'Available commands:' . '<br>';
-                $output .= '- userinfo <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
-                $output .= '- ban <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
-                $output .= '- tempban <span class="text-muted">{<i>User:</i> $id|$name} {$days} {$comment}</span>' . '<br>';
-                $output .= '- warn <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
-                $output .= '- banip <span class="text-muted">{$ip_address}</span>' . '<br>';
-                $output .= '- unban <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
-                $output .= '- unbanip <span class="text-muted">{$ip_address}</span><br>';
-                $output .= '- export <span class="text-muted">{<i>User:</i> $id|$name}</span>';
+                $output .= '- user:info <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
+                $output .= '- user:ban <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
+                $output .= '- user:tempban <span class="text-muted">{<i>User:</i> $id|$name} {$days} {$comment}</span>' . '<br>';
+                $output .= '- user:warn <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
+                $output .= '- user:banip <span class="text-muted">{$ip_address}</span>' . '<br>';
+                $output .= '- user:unban <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
+                $output .= '- user:unbanip <span class="text-muted">{$ip_address}</span><br>';
+                $output .= '- user:export <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
+                $output .= '- discussion:restore <span class="text-muted">{<i>Discussion:</i> $id}</span>';
 
                 break;
-            case 'userinfo':
+            case 'user:info':
                 list($command, $user_id_or_name) = $args;
                 $user = User::find($user_id_or_name);
                 if (!$user) {
@@ -90,7 +91,7 @@ class ConsoleController extends Controller
                     });
 
                 break;
-            case 'ban':
+            case 'user:ban':
                 list($command, $user_id_or_name, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
@@ -119,7 +120,7 @@ class ConsoleController extends Controller
                 $output .= 'User "' . $user_id_or_name . '" banned ✅';
 
                 break;
-            case 'tempban':
+            case 'user:tempban':
                 list($command, $user_id_or_name, $days, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
@@ -149,7 +150,7 @@ class ConsoleController extends Controller
                 $output .= 'User "' . $user_id_or_name . '" banned for ' . $days . ' day(s) ✅';
 
                 break;
-            case 'warn':
+            case 'user:warn':
                 list($command, $user_id_or_name, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
@@ -183,8 +184,7 @@ class ConsoleController extends Controller
                 $output .= 'User "' . $user_id_or_name . '" warned ✅';
 
                 break;
-
-            case 'export':
+            case 'user:export':
                 list($command, $user_id_or_name) = $args;
                 $user = User::find($user_id_or_name);
                 if (!$user) {
@@ -250,7 +250,7 @@ class ConsoleController extends Controller
                 $output .= 'User "' . $user_id_or_name . '" exported ✅';
 
                 break;
-            case 'unban':
+            case 'user:unban':
                 list($command, $user_id_or_name) = $args;
                 $user = User::find($user_id_or_name);
                 if (!$user) {
@@ -277,28 +277,59 @@ class ConsoleController extends Controller
                 $output .= 'User "' . $user_id_or_name . '" unbanned ✅';
 
                 break;
-                case 'banip':
-            case 'unbanip':
-            list($command, $ip_address) = $args;
+            case 'user:banip':
+            case 'user:unbanip':
+                list($command, $ip_address) = $args;
 
-            ($command == 'banip') ? Firewall::blacklist($ip_address, true) : Firewall::remove($ip_address);
+                ($command == 'banip') ? Firewall::blacklist($ip_address, true) : Firewall::remove($ip_address);
 
-            activity()
-                ->causedBy(user())
-                ->withProperties([
-                    'level'      => 'error',
-                    'method'     => __METHOD__,
-                    'elevated'   => true,
-                    'attributes' => [
-                        'ip' => $ip_address,
-                    ],
-                ])
-                ->log($command);
+                activity()
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'      => 'error',
+                        'method'     => __METHOD__,
+                        'elevated'   => true,
+                        'attributes' => [
+                            'ip' => $ip_address,
+                        ],
+                    ])
+                    ->log($command);
 
-            $output .= 'Address "' . $ip_address . '" ' . ($command == 'banip' ? 'blacklisted' : 'removed from the blacklist') . ' ✅';
+                $output .= 'Address "' . $ip_address . '" ' . ($command == 'banip' ? 'blacklisted' : 'removed from the blacklist') . ' ✅';
 
-            break;
-                default:
+                break;
+            case 'discussion:restore':
+                list($command, $discussion_id) = $args;
+
+                $discussion = Discussion::find($discussion_id);
+
+                if (!$discussion) {
+                    $output .= 'Discussion "' . $discussion_id . '" not found 🙁';
+
+                    break;
+                }
+
+                $discussion->posts()
+                    ->where('deleted_at', $discussion->deleted_at)
+                    ->update(['deleted_at' => null]);
+
+                $discussion->deleted_at = null;
+                $discussion->save();
+
+                activity()
+                    ->performedOn($discussion)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'  => 'error',
+                        'method' => __METHOD__,
+                        'elevated'   => true,
+                    ])
+                    ->log('DiscussionRestored');
+
+                $output .= 'Discussion "' . $discussion_id . '" restored ✅';
+
+                break;
+            default:
                 $output .= 'Command "' . $args[0] . '" not found 🤔';
 
                 break;

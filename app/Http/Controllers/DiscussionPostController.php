@@ -92,11 +92,13 @@ class DiscussionPostController extends Controller
         if ($post->id == $discussion->posts[0]->id) {
             SucresHelper::throttleOrFail(__METHOD__ . '_D', 1, 5);
 
+            $now = now();
+
             $discussion->posts()->update([
-                'deleted_at' => now(),
+                'deleted_at' => $now,
             ]);
 
-            $discussion->deleted_at = now();
+            $discussion->deleted_at = $now;
             $discussion->save();
 
             activity()
