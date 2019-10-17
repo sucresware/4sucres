@@ -35,6 +35,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'bypass throttle']);
         Permission::firstOrCreate(['name' => 'upload animated avatars']);
         Permission::firstOrCreate(['name' => 'sync discord emojis']);
+        Permission::firstOrCreate(['name' => 'read deleted discussions']);
 
         $admin->givePermissionTo('bypass users guard');
         $admin->givePermissionTo('update shown_role');
@@ -50,6 +51,7 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('bypass throttle');
         $admin->givePermissionTo('upload animated avatars');
         $admin->givePermissionTo('sync discord emojis');
+        $admin->givePermissionTo('read deleted discussions');
 
         $moderator->givePermissionTo('bypass users guard');
         $moderator->givePermissionTo('update shown_role');
@@ -62,6 +64,7 @@ class PermissionsTableSeeder extends Seeder
         $moderator->givePermissionTo('bypass throttle');
         $moderator->givePermissionTo('upload animated avatars');
         $moderator->givePermissionTo('sync discord emojis');
+        $moderator->givePermissionTo('read deleted discussions');
 
         $supporter->givePermissionTo('update shown_role');
         $supporter->givePermissionTo('create discussions');

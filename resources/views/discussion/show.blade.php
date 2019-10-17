@@ -5,6 +5,21 @@
 @endsection
 
 @section('content')
+
+@if ($discussion->deleted_at)
+<div class="shadow" style="margin-top: -25px; margin-bottom: 25px;">
+	<div class="container py-2">
+		<div class="row no-gutters align-items-center">
+			<div class="col-auto mr-2"><i class="fas fa-error-circle"></i></div>
+			<div class="col">
+				<strong>Erreur 410</strong><br>
+				Vous consultez une discussion supprimée.
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
 <div class="container">
 	<div class="row mb-3">
 		<div class="col">

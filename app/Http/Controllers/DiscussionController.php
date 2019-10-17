@@ -180,7 +180,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        if ($discussion->deleted_at) {
+        if ($discussion->deleted_at && !(user() && user()->can('read deleted discussions'))) {
             return abort(410);
         }
 
