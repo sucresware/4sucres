@@ -78,6 +78,8 @@ a2dissite 000-default
 apachectl restart
 ```
 
+⚠️ Si vous utilisez Cloudflare, vous pouvez installer et configurer `mod_remoteip` : [Installing mod_remoteip with Apache](https://support.cloudflare.com/hc/en-us/articles/360029696071)
+
 ## Installation de 4sucres
 
 ```bash
