@@ -17,6 +17,8 @@ Install dependencies:
 $ composer install
 ```
 
+Change necessary environment variables in `.env`, especially `DB_DATABASE`.
+
 Install application:
 
 ```console
