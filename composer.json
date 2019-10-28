@@ -1,111 +1,73 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
-    "license": "MIT",
-    "require": {
-        "php": "^7.1.3",
-        "anhskohbo/no-captcha": "^3.0",
-        "appstract/laravel-options": "^2.2.0",
-        "barryvdh/laravel-cors": "^0.11.3",
-        "barryvdh/laravel-debugbar": "^3.2",
-        "bepsvpt/secure-headers": "^5.3",
-        "calebporzio/awesome-helpers": "^2.4",
-        "chriskonnertz/bbcode": "^1.1",
-        "chumper/zipper": "^1.0",
-        "cybercog/laravel-ban": "^4.0",
-        "delight-im/str": "^2.4",
-        "erusev/parsedown": "^1.7",
-        "fideloper/proxy": "^4.0",
-        "graham-campbell/throttle": "^7.2",
-        "guzzlehttp/guzzle": "^6.3",
-        "intervention/image": "^2.4",
-        "laravel-notification-channels/pushbullet": "^1.0",
-        "laravel-notification-channels/webpush": "^3.0",
-        "laravel/framework": "5.8.*",
-        "laravel/passport": "^7.3",
-        "laravel/slack-notification-channel": "^2.0",
-        "laravel/socialite": "^4.1",
-        "laravel/tinker": "^1.0",
-        "league/csv": "^9.2",
-        "mattketmo/email-checker": "^1.5",
-        "molayli/laravel-cloudflare-real-ip": "^0.1.0",
-        "more-cores/laravel-restcord": "2.*",
-        "neitanod/forceutf8": "^2.0",
-        "orchestra/imagine": "^3.5",
-        "pragmarx/firewall": "^2.2",
-        "pragmarx/version": "^0.2.9",
-        "predis/predis": "^1.1",
-        "pusher/pusher-php-server": "~3.0",
-        "qirolab/laravel-reactions": "^2.2",
-        "realrashid/sweet-alert": "^1.1",
-        "realripley00/bootstrap-4-form": "^1.1",
-        "sentry/sentry-laravel": "1.0.2",
-        "socialiteproviders/discord": "^2.0",
-        "spatie/db-dumper": "^2.14",
-        "spatie/laravel-activitylog": "^3.5",
-        "spatie/laravel-backup": "^6.3",
-        "spatie/laravel-permission": "^2.37",
-        "spatie/regex": "^1.4",
-        "tightenco/ziggy": "^0.7.1",
-        "watson/active": "^3.1",
-        "yajra/laravel-datatables-oracle": "^9.3",
-        "yish/imgur": "^1.0"
-    },
-    "require-dev": {
-        "beyondcode/laravel-dump-server": "^1.0",
-        "filp/whoops": "^2.0",
-        "fzaninotto/faker": "^1.4",
-        "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^7.5",
-        "spatie/laravel-web-tinker": "^1.3",
-        "symfony/dom-crawler": "^4.2"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        },
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ],
-        "files": [
-            "app/Helpers/helpers.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan version:refresh"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ]
+  "name": "hawezo/laravel-boilerplate",
+  "version": "0.0.1",
+  "type": "application",
+  "description": "A Laravel application with Vue, Inertia and Tailwind.",
+  "keywords": ["vue", "inertia", "tailwind"],
+  "authors": [
+    {
+      "email": "enzo@innocenzi.dev",
+      "homepage": "https://innocenzi.dev",
+      "name": "Enzo Innocenzi",
+      "role": "Scaffolder"
     }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^7.2",
+    "fideloper/proxy": "^4.0",
+    "flugger/laravel-responder": "^3.0",
+    "friendsofphp/php-cs-fixer": "^2.15",
+    "inertiajs/inertia-laravel": "^0.1.3",
+    "laravel/framework": "^6.2",
+    "laravel/tinker": "^1.0",
+    "mad-web/laravel-initializer": "^2.0",
+    "spatie/laravel-medialibrary": "^7.14",
+    "spatie/laravel-permission": "^3.0",
+    "tightenco/ziggy": "^0.8.0"
+  },
+  "require-dev": {
+    "barryvdh/laravel-debugbar": "^3.2",
+    "beyondcode/laravel-dump-server": "^1.3",
+    "facade/ignition": "^1.4",
+    "fzaninotto/faker": "^1.4",
+    "mockery/mockery": "^1.0",
+    "nunomaduro/collision": "^3.0",
+    "phpunit/phpunit": "^8.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "classmap": ["database/seeds", "database/factories"]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "test": ".\\vendor\\bin\\phpunit.bat",
+    "fix": ".\\vendor\\bin\\php-cs-fixer.bat fix --config .php_cs.php .",
+    "check": ".\\vendor\\bin\\php-cs-fixer.bat fix --config .php_cs.php --dry-run .",
+    "update:routes": "php artisan ziggy:generate \"resources/js/Script/router/router.js\"",
+    "pre-install-cmd": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+    "post-create-project-cmd": "@php artisan key:generate --ansi",
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ]
+  }
 }

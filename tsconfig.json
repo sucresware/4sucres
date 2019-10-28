@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["resources/js/*"],
+      "~/*": ["./*"],
+      "ziggy": ["./vendor/tightenco/ziggy/dist/js/route.js"]
+    }
+  },
+  "include": ["resources/js/**/*", "./*.js"]
+}

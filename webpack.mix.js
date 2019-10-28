@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+const path = require('path');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -8,28 +10,71 @@ const mix = require('laravel-mix');
  | Mix provides a clean, fluent API for defining some Webpack build steps
  | for your Laravel application. By default, we are compiling the Sass
  | file for the application as well as bundling up all the JS files.
+ | This boilerplate adds aliases for easy importation, and uses
+ | TypeScript, PostCSS and PurgeCSS.
  |
  */
 
 mix
-    .js('resources/js/app.js', 'public/js')
-    .js('resources/js/admin.js', 'public/js')
-    .js('resources/js/service-worker.js', 'public/js')
-    .sass('resources/sass/theme/dark/index.scss', 'public/css/theme-dark.css')
-    .sass('resources/sass/theme/light/index.scss', 'public/css/theme-light.css')
-    // .sass('resources/sass/theme/bunker/index.scss', 'public/css/theme-bunker.css')
 
-    // Copies reused resources
-    .copyDirectory('resources/img', 'public/img')
-    .copyDirectory('resources/audio', 'public/audio')
-    .copyDirectory('resources/video', 'public/video')
-    .copyDirectory('resources/svg', 'public/svg')
-    .copyDirectory('resources/vendor', 'public/vendor')
+  // Application entry file
+  .ts('resources/js/app.ts', 'public/js')
 
-    .copyDirectory('resources/public', 'public/')
+  // Registers CSS and PostCSS
+  .postCss('resources/css/app.css', 'public/css', [
+    require('postcss-import'),
+    require('postcss-calc'),
+    require('postcss-url'),
+    require('tailwindcss'),
+    require('postcss-nested'),
+    require('postcss-custom-properties'),
+  ])
 
-    .options({
-        processCssUrls: false
-    })
-    .version()
-;
+  // Copies images
+  .copyDirectory('resources/storage', 'public/storage')
+
+  // Adds webpack rules
+  .webpackConfig({
+    // Code splitting options
+    output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
+
+    // Adds aliases for cleaner import
+    resolve: {
+      alias: {
+        vue$: path.resolve('vue/dist/vue.runtime.esm.js'),
+        '@': path.resolve('./resources/js'),
+        '~': path.resolve('./'),
+        ziggy: path.resolve('./vendor/tightenco/ziggy/dist/js/route.js'),
+      },
+    },
+
+    // Translator loader
+    module: {
+      rules: [
+        {
+          test: /resources[\\\/]lang.+\.(php|json)$/,
+          loader: 'laravel-localization-loader',
+        },
+        {
+          test: /\.(postcss)$/,
+          use: [
+            'vue-style-loader',
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader'
+          ]
+        }
+      ],
+    },
+  })
+
+  // Adds babel plugins
+  .babelConfig({
+    plugins: ['@babel/plugin-syntax-dynamic-import'],
+  })
+
+  // Registers PurgeCSS
+  .purgeCss()
+
+  // Enables versioning
+  .version()
+  .sourceMaps();

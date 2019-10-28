@@ -14,10 +14,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = '';
 
     /**
      * Define your route model bindings, pattern filters, etc.
+     *
+     * @return void
      */
     public function boot()
     {
@@ -26,48 +28,58 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the application.
+     *
+     * @return void
      */
     public function map()
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
-        $this->mapAdminRoutes();
+        $this->mapWebApiRoutes();
     }
 
     /**
      * Define the "web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
      */
     protected function mapWebRoutes()
     {
-        Route::middleware(['firewall', 'web'])
+        Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * Define the "web-api" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebApiRoutes()
+    {
+        Route::middleware('web')
+            ->prefix('api')
+            ->as('api.')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web-api.php'));
     }
 
     /**
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
+     *
+     * @return void
      */
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-            ->middleware(['firewall', 'api'])
+            ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
-    }
-
-    /**
-     * Define the "admin" routes for the application.
-     */
-    protected function mapAdminRoutes()
-    {
-        Route::prefix('admin')
-            ->middleware(['web', 'auth', 'role:admin|moderator'])
-            ->namespace($this->namespace . '\Admin')
-            ->as('admin.')
-            ->group(base_path('routes/admin.php'));
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Permission;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,12 +24,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Passport::routes(function ($router) {
-            $router->forAuthorization();
-            $router->forAccessTokens();
-            // $router->forTransientTokens();
-            // $router->forClients();
-            // $router->forPersonalAccessTokens();
+        /*
+         * Register the bypass permission.
+         */
+        Gate::after(function ($user, $ability) {
+            return $user->hasPermissionTo(Permission::BYPASS_EVERYTHING);
         });
     }
 }

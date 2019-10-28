@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'public'),
+    'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ return [
     | may even configure multiple disks of the same driver. Defaults have
     | been setup for each driver as an example of the required options.
     |
-    | Supported Drivers: "local", "ftp", "sftp", "s3", "rackspace"
+    | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
     */
 
@@ -49,20 +49,15 @@ return [
         'public' => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
-            'url'        => env('APP_URL') . '/storage',
+            'url'        => '/storage',
             'visibility' => 'public',
         ],
 
-        'backup' => [
-            'driver'     => 'ftp',
-            'host'       => env('BACKUP_FTP_HOST'),
-            'username'   => env('BACKUP_FTP_USERNAME'),
-            'password'   => env('BACKUP_FTP_PASSWORD'),
-            'port'       => env('BACKUP_FTP_PORT', 21),
-            'root'       => env('BACKUP_FTP_ROOT', ''),
-            'passive'    => true,
-            'ssl'        => true,
-            'timeout'    => 30,
+        'profile_pictures' => [
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/assets/profile-pictures'),
+            'url'        => '/assets/profile-pictures',
+            'visibility' => 'public',
         ],
 
         's3' => [

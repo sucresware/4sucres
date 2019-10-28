@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Console\Commands\DistributeAchievementsCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        DistributeAchievementsCommand::class,
     ];
 
     /**
@@ -24,22 +22,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule
-            ->command('backup:clean')
-            ->daily();
-
-        $schedule
-            ->command('backup:run')
-            ->cron('0 */2 * * *');
-
-        $schedule
-            ->command('achievements:distribute')
-            ->twiceDaily(11, 23)
-            ->withoutOverlapping();
-
-        $schedule
-            ->command('ban:delete-expired')
-            ->everyMinute();
+        // $schedule->command('inspire')
+        //          ->hourly();
     }
 
     /**

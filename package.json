@@ -1,6 +1,23 @@
 {
     "private": true,
+    "lint-staged": {
+        "resources/**/*.{css,js,ts,vue}": [
+            ".\\node_modules\\.bin\\prettier.cmd --write",
+            "git add"
+        ],
+        "*.php": [
+            ".\\vendor\\bin\\php-cs-fixer.bat fix --config .php_cs.php",
+            "git add"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
     "scripts": {
+        "prettier:check": ".\\node_modules\\.bin\\prettier.cmd -c resources/**/*.{css,js,ts,vue}",
+        "prettier:fix": ".\\node_modules\\.bin\\prettier.cmd --write resources/**/*.{css,js,ts,vue}",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run development -- --watch",
@@ -10,50 +27,49 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-        "axios": "^0.18.0",
-        "babel-plugin-syntax-dynamic-import": "^6.18.0",
-        "bootstrap": "^4.3.1",
+        "@fullhuman/postcss-purgecss": "^1.3.0",
+        "@types/lodash": "^4.14.144",
+        "@types/webpack-env": "^1.14.0",
+        "axios": "^0.19",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
-        "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.11",
-        "popper.js": "^1.12",
+        "husky": "^3.0.9",
+        "laravel-localization-loader": "^1.0.5",
+        "laravel-mix": "^5.0.0",
+        "laravel-mix-purgecss": "^4.2.0",
+        "lint-staged": "^9.4.2",
+        "postcss": "7.0.20",
+        "postcss-calc": "^7.0.1",
+        "postcss-custom-properties": "^9.0.2",
+        "postcss-import": "^12.0.1",
+        "postcss-nested": "^4.1.2",
+        "postcss-url": "^8.0.0",
+        "prettier": "^1.18.2",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.15.2",
-        "sass-loader": "^7.1.0",
+        "tailwindcss": "^1.2.0-canary.1",
+        "tailwindcss-elevation": "^0.3.3",
+        "tailwindcss-theming": "^2.0.0",
+        "tailwindcss-transitions": "^2.1.0",
+        "ts-loader": "^6.2.0",
+        "typescript": "^3.6.4",
         "vue": "^2.6.10",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "vuex": "^3.1.1"
     },
     "dependencies": {
-        "@fancyapps/fancybox": "^3.5.7",
-        "@ttskch/select2-bootstrap4-theme": "^1.2.2",
-        "animate.css": "^3.7.0",
-        "baffle": "^0.3.6",
-        "bootstrap-vue": "^2.0.0-rc.20",
-        "bs-custom-file-input": "^1.3.2",
-        "datatables.net": "^1.10.19",
-        "datatables.net-bs4": "^1.10.19",
-        "datatables.net-dt": "^1.10.19",
-        "easymde": "^2.6.0",
-        "emojionearea": "^3.4.1",
-        "highlightjs": "^9.12.0",
-        "howler": "^2.1.2",
-        "izitoast": "^1.4.0",
-        "ladda": "^2.0.1",
-        "laravel-echo": "^1.5.3",
-        "nord": "^0.2.1",
-        "owl.carousel": "^2.3.4",
-        "pusher-js": "^4.4.0",
-        "scriptjs": "^2.5.9",
-        "select2": "^4.0.7-rc.0",
-        "textcomplete": "^0.17.1",
-        "textcomplete.codemirror": "^0.2.1",
-        "v-hotkey": "^0.6.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+        "@dicebear/avatars": "^3.1.4",
+        "@dicebear/avatars-initials-sprites": "^1.0.9",
+        "@fortawesome/fontawesome-svg-core": "^1.2.25",
+        "@fortawesome/free-solid-svg-icons": "^5.11.2",
+        "@fortawesome/vue-fontawesome": "^0.1.7",
+        "@inertiajs/inertia": "^0.1.6",
+        "@inertiajs/inertia-vue": "^0.1.2",
+        "lang.js": "^1.1.14",
+        "lodash": "^4.17.13",
+        "pretty-ms": "^5.0.0",
+        "v-tooltip": "^2.0.2",
         "voca": "^1.4.0",
-        "vue-clipboard2": "^0.3.0",
-        "vue-hljs": "^1.1.2",
-        "vue-infinite-loading": "^2.4.4",
-        "wowjs": "^1.1.3"
+        "vue-ripple-directive": "^2.0.1",
+        "vue2-transitions": "^0.3.0"
     }
 }

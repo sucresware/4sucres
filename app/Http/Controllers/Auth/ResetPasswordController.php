@@ -3,43 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\VerifyUser;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
-    public function showResetForm($token)
-    {
-        $verify_user = VerifyUser::where('token', $token)->firstOrFail();
+    /*
+    |--------------------------------------------------------------------------
+    | Password Reset Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller is responsible for handling password reset requests
+    | and uses a simple trait to include this behavior. You're free to
+    | explore this trait and override any methods you wish to tweak.
+    |
+    */
 
-        return view('auth.passwords.reset', compact('token'));
-    }
+    use ResetsPasswords;
 
-    public function reset($token)
-    {
-        $verify_user = VerifyUser::where('token', $token)->firstOrFail();
-        $user = $verify_user->user;
-
-        request()->validate([
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
-
-        $user->password = Hash::make(request()->password);
-        $user->save();
-
-        Auth::login($user);
-
-        activity()
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties([
-                'level'  => 'warning',
-                'method' => __METHOD__,
-            ])
-            ->log('PasswordChanged#Email');
-
-        return redirect()->route('home')
-            ->with('swal-success', 'Mot de passe modifié, bon retour !');
-    }
+    /**
+     * Where to redirect users after resetting their password.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
 }

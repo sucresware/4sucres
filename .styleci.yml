@@ -1,20 +1,16 @@
-preset: symfony
-risky: true
-enabled:
-  - ordered_imports
-  - short_array_syntax
-  - concat_with_spaces
-  - align_double_arrow
-disabled:
-  - unused_use
-  - concat_without_spaces
-  - yoda_style
-  - unalign_double_arrow
-  - property_separation
-  - const_separation
-finder:
-  name: "*.php"
-  not-name:
-    - "*.blade.php"
-    - index.php
-    - server.php
+php:
+  preset: laravel
+  enabled:
+    - alpha_ordered_imports
+  disabled:
+    - length_ordered_imports
+    - unused_use
+  finder:
+    not-name:
+      - index.php
+      - server.php
+js:
+  finder:
+    not-name:
+      - webpack.mix.js
+css: true

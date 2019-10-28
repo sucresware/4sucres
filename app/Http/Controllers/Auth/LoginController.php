@@ -3,76 +3,49 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Rules\Throttle;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class LoginController extends Controller
 {
-    public function login()
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
+    /**
+     * Sets what determines the username in the request body.
+     *
+     * @return string
+     */
+    public function username()
     {
-        return view('auth.login');
+        return 'username';
     }
 
-    public function submit(Request $request)
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
     {
-        $validator = Validator::make($request->input(), [
-            'email'                => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
-            'password'             => 'required',
-            'g-recaptcha-response' => ['required', 'captcha'],
-        ]);
-        $validator->validate();
-
-        $remember = $request->remember ?? false;
-
-        if (auth()->attempt([
-            'email' => request()->email,
-            'password' => request()->password,
-        ], $remember) && !user()->deleted_at) {
-            if (user()->isBanned()) {
-                $error = 'Le compte est banni ';
-                $latest_ban = user()->bans->first();
-
-                ($latest_ban->isPermanent()) ? $error .= 'définitivement' : 'jusqu\'au ' . $latest_ban->expired_at->format('d/m/Y à H:i');
-                ($latest_ban->comment) ? $error .= ' (' . $latest_ban->comment . ').' : '.';
-
-                $validator->errors()->add('password', $error);
-
-                auth()->logout();
-
-                return redirect(route('login'))->withErrors($validator)->withInput($request->input());
-            }
-
-            activity()
-                ->causedBy(user())
-                ->withProperties([
-                    'level'  => 'info',
-                    'method' => __METHOD__,
-                ])
-                ->log('LoginSuccessful');
-
-            return redirect()->intended();
-        } else {
-            auth()->logout();
-
-            $validator->errors()->add('password', 'Le mot de passe est incorrect');
-
-            activity()
-                ->withProperties([
-                    'level'    => 'warning',
-                    'method'   => __METHOD__,
-                    'email'    => request()->email,
-                ])
-                ->log('LoginFailed');
-
-            return redirect(route('login'))->withErrors($validator)->withInput($request->input());
-        }
-    }
-
-    public function logout()
-    {
-        auth()->logout();
-
-        return redirect()->route('home');
+        return Inertia::render('Security/Login');
     }
 }
