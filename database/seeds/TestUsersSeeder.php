@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
  *
  * @author Enzo Innocenzi <enzo@innocenzi.dev>
  */
-class UserSeeder extends Seeder
+class TestUsersSeeder extends Seeder
 {
     /**
      * Map of test users with test roles.
@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
     private $map = [
         'dev'   => Role::DEVELOPER,
         'admin' => Role::ADMINISTRATOR,
-        'guest' => Role::GUEST,
+        'mod'   => Role::MODERATOR,
+        'user'  => Role::USER,
     ];
 
     /**
@@ -27,13 +28,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
         foreach ($this->map as $username => $role) {
             User::firstOrCreate(['username' => $username], [
-                'first_name' => $faker->firstName(),
-                'last_name'  => $faker->lastName,
-                'email'      => "{$username}@localhost",
-                'password'   => bcrypt($username),
+                'display_name' => $username,
+                'email'        => "{$username}@localhost",
+                'password'     => bcrypt($username),
             ])->assignRole($role);
         }
     }

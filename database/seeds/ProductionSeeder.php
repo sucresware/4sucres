@@ -2,16 +2,15 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ProductionSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run()
     {
         $this->call([
             PermissionSeeder::class,
-            TestUsersSeeder::class,
         ]);
     }
 }

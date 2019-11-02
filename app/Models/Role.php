@@ -8,5 +8,6 @@ class Role extends Model
 {
     const DEVELOPER     = 'developer';
     const ADMINISTRATOR = 'administrator';
-    const GUEST         = 'guest';
+    const MODERATOR     = 'moderator';
+    const USER          = 'user';
 }

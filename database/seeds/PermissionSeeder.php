@@ -31,13 +31,17 @@ class PermissionSeeder extends Seeder
             // Administrators
             Role::ADMINISTRATOR => [
                 Permission::ACCESS_ADMIN_PANEL,
-                Permission::ACCESS_DASHBOARD,
+                Permission::UPDATE_SETTINGS,
+            ],
+
+            // Moderators
+            Role::MODERATOR => [
+                Permission::ACCESS_MOD_PANEL,
                 Permission::UPDATE_SETTINGS,
             ],
 
             // Guests
-            Role::GUEST => [
-                Permission::ACCESS_DASHBOARD,
+            Role::USER => [
                 Permission::UPDATE_SETTINGS,
             ],
         ]);
@@ -62,8 +66,8 @@ class PermissionSeeder extends Seeder
     protected function createPermissions()
     {
         Permission::updateOrCreate(['name' => Permission::BYPASS_EVERYTHING]);
-        Permission::updateOrCreate(['name' => Permission::ACCESS_DASHBOARD]);
         Permission::updateOrCreate(['name' => Permission::ACCESS_ADMIN_PANEL]);
+        Permission::updateOrCreate(['name' => Permission::ACCESS_MOD_PANEL]);
         Permission::updateOrCreate(['name' => Permission::UPDATE_SETTINGS]);
     }
 
