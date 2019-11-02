@@ -15,7 +15,7 @@
           :style="clearableStyleObject"
           @click="clear"
         >
-          <font-awesome-icon icon="times" />
+          <fa icon="times" />
         </span>
       </scale-transition>
 

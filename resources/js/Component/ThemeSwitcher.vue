@@ -3,9 +3,9 @@
     class="cursor-pointer transition-all"
     v-tooltip="$_(`label.theme.text`, { theme: $_(`label.theme.${current()}`) })"
   >
-    <font-awesome-icon icon="moon" v-if="is('dark')" @click="toggle" />
-    <font-awesome-icon icon="sun" v-if="is('light')" @click="toggle" />
-    <font-awesome-icon icon="adjust" v-if="is(undefined)" @click="toggle" />
+    <fa icon="moon" v-if="is('dark')" @click="toggle" />
+    <fa icon="sun" v-if="is('light')" @click="toggle" />
+    <fa icon="adjust" v-if="is(undefined)" @click="toggle" />
   </button>
 </template>
 

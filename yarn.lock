@@ -4251,6 +4251,15 @@ laravel-mix@^5.0.0:
     webpack-notifier "^1.5.1"
     yargs "^12.0.5"
 
+laravel-vue-lang@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/laravel-vue-lang/-/laravel-vue-lang-1.1.0.tgz#5594d9e7931991a2ed7b1c0ebc4519401a72c169"
+  integrity sha512-+famJnp7fq1E9QvE+bxFCP7TVO7BmyRxM880sMaEgILNvv5O/1ztcGXX4JbPM9wJ2h4HU4mvxAN+lHhvuEegUg==
+  dependencies:
+    lang.js "^1.1.14"
+    laravel-localization-loader "^1.0.5"
+    vue "^2.6.10"
+
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/last-call-webpack-plugin/-/last-call-webpack-plugin-3.0.0.tgz#9742df0e10e3cf46e5c0381c2de90d3a7a2d7555"

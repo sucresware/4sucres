@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const path = require('path');
 require('laravel-mix-purgecss');
+require('laravel-vue-lang/mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -74,6 +75,9 @@ mix
 
   // Registers PurgeCSS
   .purgeCss()
+
+  // Registers localization
+  .lang()
 
   // Enables versioning
   .version()

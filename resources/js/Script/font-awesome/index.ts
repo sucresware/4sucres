@@ -86,7 +86,7 @@ library.add(
 );
 
 export default function(Vue: VueConstructor) {
-  Vue.component('font-awesome-icon', FontAwesomeIcon);
+  Vue.component('fa', FontAwesomeIcon);
   Vue.component('font-awesome-layers', FontAwesomeLayers);
   Vue.component('font-awesome-layers-text', FontAwesomeLayersText);
 

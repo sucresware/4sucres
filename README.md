@@ -1,6 +1,4 @@
-# Laravel Boilerplate
-
-This boilerplate is a good starter for a Laravel application using **Vue**, **Inertia**, **TailwindCSS** and **TypeScript**. It has authentification and password confirmation, and examples of dashboard and admin dashboard.
+# 4sucres: next
 
 # Installation
 

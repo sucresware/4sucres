@@ -28,7 +28,7 @@
 
       <div class="flex justify-center">
         <ui-button :disabled="sending" type="submit" color="brand" :aria-label="$_('auth.login')">
-          <font-awesome-icon icon="lock" />
+          <fa icon="lock" />
         </ui-button>
       </div>
     </form>
