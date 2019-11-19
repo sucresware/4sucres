@@ -13,5 +13,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(AchievementsTableSeeder::class);
+
+        \Artisan::call('cache:rebuild', ['tag' => 'emojis']);
     }
 }
