@@ -19,6 +19,12 @@ class Discussion extends Model
         'link',
     ];
 
+    protected $casts = [
+        'sticky'  => 'bool',
+        'locked'  => 'bool',
+        'private' => 'bool',
+    ];
+
     protected static $logAttributes = ['title', 'sticky', 'locked', 'deleted_at'];
     protected static $logOnlyDirty = true;
     protected static $submitEmptyLogs = false;
