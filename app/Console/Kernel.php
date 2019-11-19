@@ -25,6 +25,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule
+            ->command('queue:work --tries=3 --stop-when-empty')
+            ->everyMinute()
+            ->withoutOverlapping();
+
+        $schedule
             ->command('backup:clean')
             ->daily();
 
