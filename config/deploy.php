@@ -51,7 +51,7 @@ return [
 
         // Code and composer vendors are ready but nothing is built.
         'build' => [
-            'yarn:install',
+            'yarn:install_no_copy',
             'yarn:production',
         ],
 
@@ -63,6 +63,7 @@ return [
             'artisan:config:cache',
             'artisan:migrate',
             'artisan:db:seed',
+            'artisan:cache:rebuild',
         ],
 
         // Deployment is done and live
@@ -146,6 +147,7 @@ return [
 
     'include' => [
         'recipe/slack.php',
+        'recipe/custom.php',
     ],
 
     /*

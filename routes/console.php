@@ -174,6 +174,8 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
         });
 
         Cache::tags('emojis')->flush();
+
+        $this->info('Done');
     }
 });
 
