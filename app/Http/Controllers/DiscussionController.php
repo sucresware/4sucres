@@ -201,9 +201,10 @@ class DiscussionController extends Controller
                 ->where('notifiable_id', user()->id)
                 ->whereIn('type', $classes)
                 ->where('data->discussion_id', $discussion->id)
-                ->update([
-                    'read_at' => now(),
-                ]);
+                ->each(function ($notification) {
+                    $notification->read_at = now();
+                    $notification->save();
+                });
         }
 
         if (request()->page == 'last') {
@@ -233,9 +234,10 @@ class DiscussionController extends Controller
                 ->where('notifiable_id', user()->id)
                 ->whereIn('type', $classes)
                 ->whereIn('data->post_id', $posts->pluck('id'))
-                ->update([
-                    'read_at' => now(),
-                ]);
+                ->each(function ($notification) {
+                    $notification->read_at = now();
+                    $notification->save();
+                });
         }
 
         $discussion->has_read()->attach(user());

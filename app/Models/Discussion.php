@@ -147,7 +147,11 @@ class Discussion extends Model
                         ->whereIn('type', [ReplyInDiscussion::class, RepliesInDiscussion::class]);
 
                     if ($notifications->count()) {
-                        $notifications->update(['read_at' => now()]);
+                        $notifications->each(function ($notification) {
+                            $notification->read_at = now();
+                            $notification->save();
+                        });
+
                         if (!$post->discussion->private) {
                             $user->notify(new RepliesInDiscussion($post->discussion));
                             $user->notify(new ReplyInDiscussion($post, false));
