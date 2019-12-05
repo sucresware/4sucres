@@ -58,7 +58,8 @@ class SearchController extends Controller
                 $posts
                     ->getCollection()
                     ->transform(function ($post) use ($query) {
-                        $post->body = e(implode(explode("\n", $post->body)));
+                        $body = (array) explode("\n", $post->body);
+                        $post->body = e(implode('', $body));
                         $before = Str::before(strtolower($post->body), strtolower($query));
                         $before = strrev((new \Delight\Str\Str(strrev($before)))->truncateSafely(20));
                         $after = Str::after(strtolower($post->body), strtolower($query));
