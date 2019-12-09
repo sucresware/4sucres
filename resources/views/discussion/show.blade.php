@@ -39,6 +39,12 @@
 		</div>
 	</div>
 
+	@if ($discussion->id == 2566)
+		<div class="embed-responsive embed-responsive-16by9 mb-5">
+			<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/bcL4EHUbPHc?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+	@endif
+
 	<div class="pb-0">
 		{{ $posts->onEachSide(1)->links() }}
 	</div>
