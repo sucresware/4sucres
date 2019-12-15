@@ -23,6 +23,7 @@
       <button type="button" class="btn btn-sm btn-light" @click="bbWrapWith('glitch')">░█</button>
       <button type="button" class="btn btn-sm btn-light" @click="bbWrapWith('vapor')">ｖａｐｏｒ</button>
       <risibank-picker ref="risibank-picker"></risibank-picker>
+      <aveshack-uploader ref="aveshack-uploader"></aveshack-uploader>
     </div>
 
     <editable-textarea ref="editor">
