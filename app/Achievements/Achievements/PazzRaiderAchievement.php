@@ -17,7 +17,7 @@ class PazzRaiderAchievement extends AbstractAchievement
 
     public function getDescription(): string
     {
-        return 'Était présent lors des Raids de la Pazz';
+        return 'Était présent lors des raids de la pazz';
     }
 
     public function getImage(): string
@@ -25,7 +25,7 @@ class PazzRaiderAchievement extends AbstractAchievement
         return 'raid.png';
     }
     
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return false;
     }

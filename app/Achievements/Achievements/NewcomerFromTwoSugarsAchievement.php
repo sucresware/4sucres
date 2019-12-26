@@ -25,7 +25,7 @@ class NewcomerFromTwoSugarsAchievement extends AbstractAchievement
         return '2sucres.png';
     }
     
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return false;
     }

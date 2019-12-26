@@ -25,7 +25,7 @@ class DonatorAchievement extends AbstractAchievement
         return 'A donné un café dans lequel mettre quatre sucres';
     }
     
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return true;
     }

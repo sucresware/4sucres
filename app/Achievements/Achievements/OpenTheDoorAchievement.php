@@ -25,7 +25,7 @@ class OpenTheDoorAchievement extends AbstractAchievement
         return 'openthedoor.png';
     }
     
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return true;
     }

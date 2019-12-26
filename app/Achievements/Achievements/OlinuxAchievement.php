@@ -25,7 +25,7 @@ class OlinuxAchievement extends AbstractAchievement
         return 'olinux.png';
     }
     
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return true;
     }

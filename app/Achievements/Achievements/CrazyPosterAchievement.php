@@ -32,7 +32,7 @@ class CrazyPosterAchievement extends AbstractAchievement
         return 'crazyposter.png';
     }
     
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return false;
     }

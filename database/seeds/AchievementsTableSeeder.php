@@ -24,7 +24,7 @@ class AchievementsTableSeeder extends Seeder
                 'name'        => $achievement->getName(),
                 'image'       => $achievement->getImage(),
                 'description' => $achievement->getDescription(),
-                'rare'        => $achievement->getRarity(),
+                'rare'        => $achievement->isRare(),
             ]);
         }
     }

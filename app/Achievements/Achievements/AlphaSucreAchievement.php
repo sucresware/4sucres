@@ -34,7 +34,7 @@ class AlphaSucreAchievement extends AbstractAchievement
         return 'beta.png';
     }
 
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return true;
     }

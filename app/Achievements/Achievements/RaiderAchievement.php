@@ -25,7 +25,7 @@ class RaiderAchievement extends AbstractAchievement
         return 'raid.png';
     }
     
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return false;
     }

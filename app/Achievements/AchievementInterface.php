@@ -37,7 +37,7 @@ interface AchievementInterface
     public function getClassName(): string;
 
     /**
-     * Gets the rarity of this achievement.
+     * Check if this achievement is rare.
      */
-    public function getRarity(): bool;
+    public function isRare(): bool;
 }

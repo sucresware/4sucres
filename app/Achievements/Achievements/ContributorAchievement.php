@@ -25,7 +25,7 @@ class ContributorAchievement extends AbstractAchievement
         return 'contributor.png';
     }
 
-    public function getRarity(): bool
+    public function isRare(): bool
     {
         return false;
     }
