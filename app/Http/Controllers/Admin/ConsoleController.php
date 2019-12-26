@@ -281,7 +281,7 @@ class ConsoleController extends Controller
             case 'user:unbanip':
                 list($command, $ip_address) = $args;
 
-                ($command == 'banip') ? Firewall::blacklist($ip_address, true) : Firewall::remove($ip_address);
+                ($command == 'user:banip') ? Firewall::blacklist($ip_address, true) : Firewall::remove($ip_address);
 
                 activity()
                     ->causedBy(user())
@@ -295,7 +295,7 @@ class ConsoleController extends Controller
                     ])
                     ->log($command);
 
-                $output .= 'Address "' . $ip_address . '" ' . ($command == 'banip' ? 'blacklisted' : 'removed from the blacklist') . ' ✅';
+                $output .= 'Address "' . $ip_address . '" ' . ($command == 'user:banip' ? 'blacklisted' : 'removed from the blacklist') . ' ✅';
 
                 break;
             case 'discussion:restore':
