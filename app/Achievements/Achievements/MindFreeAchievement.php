@@ -24,4 +24,9 @@ class MindFreeAchievement extends AbstractAchievement
     {
         return 'beta.png';
     }
+    
+    public function getRarity(): bool
+    {
+        return false;
+    }
 }

@@ -24,4 +24,9 @@ class NewcomerFromOncheAchievement extends AbstractAchievement
     {
         return 'onche.png';
     }
+    
+    public function getRarity(): bool
+    {
+        return false;
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Achievements\Achievements;
 
 use App\Achievements\AbstractAchievement;
 
-class NewcomerFromTwoSugarsAchievement extends AbstractAchievement
+class PazzRaiderAchievement extends AbstractAchievement
 {
     const ENABLED = true;
 
@@ -12,17 +12,17 @@ class NewcomerFromTwoSugarsAchievement extends AbstractAchievement
 
     public function getName(): string
     {
-        return 'Ça fait 6 sucres';
+        return 'Pazz Crusader';
     }
 
     public function getDescription(): string
     {
-        return 'Revendique son appartenance au forum alternatif 2sucres.org';
+        return 'Était présent lors des Raids de la Pazz';
     }
 
     public function getImage(): string
     {
-        return '2sucres.png';
+        return 'raid.png';
     }
     
     public function getRarity(): bool

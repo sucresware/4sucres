@@ -24,4 +24,9 @@ class DebuggerAchievement extends AbstractAchievement
     {
         return 'debugger.png';
     }
+    
+    public function getRarity(): bool
+    {
+        return false;
+    }
 }

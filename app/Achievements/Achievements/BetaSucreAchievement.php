@@ -38,4 +38,9 @@ class BetaSucreAchievement extends AbstractAchievement
     {
         return 'sucre.png';
     }
+
+    public function getRarity(): bool
+    {
+        return false;
+    }
 }

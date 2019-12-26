@@ -24,4 +24,9 @@ class DonatorAchievement extends AbstractAchievement
         // Because the amount of the support money can buy a coffee?
         return 'A donné un café dans lequel mettre quatre sucres';
     }
+    
+    public function getRarity(): bool
+    {
+        return true;
+    }
 }

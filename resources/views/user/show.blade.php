@@ -110,7 +110,7 @@
                     <h3 class="h5">Succès</h5>
                     <div class="p-3 pb-3">
                         @foreach ($user->achievements as $achievement)
-                            <div class="row align-items-center border rounded no-gutters mb-1 p-2 bg-theme-tertiary">
+                            <div class="row position-relative overflow-hidden align-items-center border rounded no-gutters mb-1 p-2 bg-theme-tertiary">
                                 <div class="col-auto mr-3">
                                     <img src="{{ url('/img/achievements/' . $achievement->image) }}" class="img-fluid" width="60px">
                                 </div>
@@ -119,6 +119,9 @@
                                     {{ $achievement->description }}<br>
                                     <small>Obtenu le {{ \Carbon\Carbon::parse($achievement->pivot->unlocked_at)->format('d/m/Y') }}</small>
                                 </div>
+                                @if ($achievement->rare == true)
+                                <div title="Ce succès est rare !" class="ribbon ribbon-achievement shadow-lg"></div>
+                                @endif
                             </div>
                         @endforeach
                         </div>

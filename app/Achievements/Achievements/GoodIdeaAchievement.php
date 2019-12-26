@@ -24,4 +24,9 @@ class GoodIdeaAchievement extends AbstractAchievement
     {
         return 'idea.png';
     }
+    
+    public function getRarity(): bool
+    {
+        return false;
+    }
 }

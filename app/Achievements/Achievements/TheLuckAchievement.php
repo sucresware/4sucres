@@ -24,4 +24,9 @@ class TheLuckAchievement extends AbstractAchievement
     {
         return '100cm.png';
     }
+    
+    public function getRarity(): bool
+    {
+        return true;
+    }
 }
