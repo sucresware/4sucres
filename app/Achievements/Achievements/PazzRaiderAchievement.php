@@ -12,7 +12,7 @@ class PazzRaiderAchievement extends AbstractAchievement
 
     public function getName(): string
     {
-        return 'Pazz Crusader';
+        return 'Fast Pazz';
     }
 
     public function getDescription(): string
