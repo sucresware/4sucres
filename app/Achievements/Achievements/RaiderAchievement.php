@@ -27,6 +27,6 @@ class RaiderAchievement extends AbstractAchievement
     
     public function isRare(): bool
     {
-        return false;
+        return true;
     }
 }
