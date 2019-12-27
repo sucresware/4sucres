@@ -22,7 +22,7 @@ class PazzRaiderAchievement extends AbstractAchievement
 
     public function getImage(): string
     {
-        return 'raid.png';
+        return 'pazz.png';
     }
     
     public function isRare(): bool
