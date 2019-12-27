@@ -42,9 +42,4 @@ class VocaBankAchievement extends AbstractAchievement
     {
         return 'vocabank.png';
     }
-    
-    public function isRare(): bool
-    {
-        return false;
-    }
 }

@@ -35,9 +35,4 @@ interface AchievementInterface
      * Gets the short class name of this achievement.
      */
     public function getClassName(): string;
-
-    /**
-     * Check if this achievement is rare.
-     */
-    public function isRare(): bool;
 }

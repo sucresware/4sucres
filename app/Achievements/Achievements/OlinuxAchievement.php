@@ -12,21 +12,16 @@ class OlinuxAchievement extends AbstractAchievement
 
     public function getName(): string
     {
-        return 'QUOI ?!';
+        return 'QUOI?!';
     }
 
     public function getDescription(): string
     {
-        return 'A été (est toujours ?) un proche d\'Olinux';
+        return 'A été (est toujours?) un proche d\'Olinux';
     }
 
     public function getImage(): string
     {
         return 'olinux.png';
-    }
-    
-    public function isRare(): bool
-    {
-        return true;
     }
 }

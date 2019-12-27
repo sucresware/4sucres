@@ -32,9 +32,4 @@ class ModeratorAchievement extends AbstractAchievement
     {
         return '410.png';
     }
-    
-    public function isRare(): bool
-    {
-        return true;
-    }
 }
