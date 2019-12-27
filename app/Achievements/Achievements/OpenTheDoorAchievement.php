@@ -24,9 +24,4 @@ class OpenTheDoorAchievement extends AbstractAchievement
     {
         return 'openthedoor.png';
     }
-    
-    public function isRare(): bool
-    {
-        return true;
-    }
 }

@@ -24,9 +24,4 @@ class NewcomerFromHelloChrismasAchievement extends AbstractAchievement
     {
         return 'ave.png';
     }
-    
-    public function isRare(): bool
-    {
-        return false;
-    }
 }
