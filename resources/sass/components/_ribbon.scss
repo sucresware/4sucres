@@ -1,0 +1,12 @@
+.ribbon {
+    height: 10px;
+    width: 80px;
+    transform: rotate(45deg);
+    right: -30px;
+    top: 20px;
+    position: absolute;
+
+    &.ribbon-achievement {
+       background-color: $warning-color;
+    }
+}
