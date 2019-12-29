@@ -5,6 +5,7 @@ import * as Ladda from 'ladda';
 import AuthedAxios from './axios';
 import Toast from './toasts';
 import WOW from 'wowjs';
+import moment from 'moment';
 
 global.jQuery = require('jquery');
 require('owl.carousel');
@@ -28,6 +29,7 @@ class Setup {
         this.initializeLadda();
         this.initializeForms();
         this.initializeWow();
+        this.initializeCountdown();
     }
 
     initializeSelect2() {
@@ -112,6 +114,23 @@ class Setup {
             loop: true,
             items: 1
         });
+    }
+
+    initializeCountdown() {
+        var $timer = $(".countdown>.row>.block>.timer");
+        var then = "01/01/2020 00:00:00";
+
+        if ($timer) {
+            setInterval(() => {
+                var html = "";
+                var ms = moment(then, "DD/MM/YYYY HH:mm:ss").diff(moment());
+                var d = moment.duration(ms);
+                var s = Math.floor(d.asHours()) + moment.utc(ms).format("mmss");
+
+                html = s.replace('0', '<span class="dimmed">0</span>');
+                $timer.html(html);
+            }, 1000);
+        }
     }
 }
 

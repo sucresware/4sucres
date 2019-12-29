@@ -39,12 +39,30 @@
 
         <div class="col-12 col-lg-9 col-xl-10">
             @if ($all)
-                <div class="owl-carousel d-none d-md-block">
-                    <div><img src="{{ url('/img/banners/welcome.jpg') }}" class="img-fluid shadow"></div>
-                    <div><img src="{{ url('/img/banners/natives.jpg') }}" class="img-fluid shadow"></div>
-                    <div><img src="{{ url('/img/banners/beta.jpg') }}" class="img-fluid shadow"></div>
-                    <div><img src="{{ url('/img/banners/alpha.jpg') }}" class="img-fluid shadow"></div>
-                </div>
+                @php $countTo = carbon('2020-01-01 00:00:00'); @endphp
+                @if (today()->lte($countTo))
+                    <div class="countdown w-100 mb-3">
+                        <div class="squares"></div>
+                        <div class="row justify-content-center">
+                            <div class="block d-none d-sm-inline-block py-3">
+                                <img src="/img/banners/countdown/logo.png" alt="4sucres" style="height: 100%;">
+                            </div>
+                            <div class="block">
+                                <span class="timer">
+                                    <span class="dimmed">000000</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="owl-carousel d-none d-md-block">
+                        <div><img src="{{ url('/img/banners/new_year.jpg') }}" class="img-fluid shadow"></div>
+                        <div><img src="{{ url('/img/banners/welcome.jpg') }}" class="img-fluid shadow"></div>
+                        <div><img src="{{ url('/img/banners/natives.jpg') }}" class="img-fluid shadow"></div>
+                        <div><img src="{{ url('/img/banners/beta.jpg') }}" class="img-fluid shadow"></div>
+                        <div><img src="{{ url('/img/banners/alpha.jpg') }}" class="img-fluid shadow"></div>
+                    </div>
+                @endif
             @endif
 
             @if (isset($sticky_discussions) && count($sticky_discussions))

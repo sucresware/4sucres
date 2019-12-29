@@ -3,3 +3,64 @@
         display: none;
     }
 }
+
+.countdown {
+    background-image: url('/img/banners/countdown/background.jpg');
+    background-size: cover;
+    padding: 2rem 0;
+    position: relative;
+
+    .squares {
+        position: absolute;
+        top: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        background-image: url('/img/banners/countdown/squares.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .block {
+        display: inline-block;
+        text-align: center;
+        padding: .3rem 1.5rem;
+        height: 100px;
+
+        background: rgba(0, 0, 0, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-right-width: 0;
+        box-sizing: border-box;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+
+        &:last-child {
+            border-right-width: 2px;
+        }
+    }
+
+    .timer {
+        font-family: 'Major Mono Display', monospace;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 4em;
+        letter-spacing: -0.03em;
+        text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+        color: #fff;
+
+        .dimmed {
+            color: rgba(255, 255, 255, 0.4);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .block {
+            height: 64px;
+        }
+
+        .timer {
+            font-size: 2.5em;
+        }
+    }
+}
