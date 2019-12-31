@@ -30,6 +30,7 @@ class AchievementManager
         \App\Achievements\Achievements\VeryGoodIdeaAchievement::class,
         \App\Achievements\Achievements\VocaBankAchievement::class,
         \App\Achievements\Achievements\TheLuckAchievement::class,
+        \App\Achievements\Achievements\NewYear2020Achievement::class,
     ];
 
     /**
@@ -45,7 +46,7 @@ class AchievementManager
         $achievements = $this->assertAchievements($achievements);
 
         return !\in_array(false, array_filter($achievements, function ($item) use ($user) {
-            [ $class ] = $item;
+            [$class] = $item;
 
             return (new $class())->canUnlock($user);
         }));
@@ -67,7 +68,7 @@ class AchievementManager
 
         $unlocks = [];
         foreach ($achievements as $item) {
-            [ $class, $notify ] = $item;
+            [$class, $notify] = $item;
             $achievement = new $class();
 
             if ($assertCanUnlock && !$achievement->canUnlock($user)) {
@@ -96,7 +97,7 @@ class AchievementManager
         $achievements = $this->assertAchievements($achievements ?? self::AVAILABLE_ACHIEVEMENTS);
 
         foreach ($achievements as $item) {
-            [ $class, $notify ] = $item;
+            [$class, $notify] = $item;
 
             if ($this->canUnlock($user, $class)) {
                 $this->unlock($user, $class, $notify);
@@ -125,11 +126,15 @@ class AchievementManager
 
             if (!\is_bool($achievement[1])) {
                 throw new \InvalidArgumentException(
-                    sprintf('The given array is not well-formatted. Index at position 2 should be a boolean, given %s.',
-                    $achievement[1]));
+                    sprintf(
+                        'The given array is not well-formatted. Index at position 2 should be a boolean, given %s.',
+                        $achievement[1]
+                    )
+                );
             } elseif (null === $this->getAchievement($achievement[0])) {
                 throw new \InvalidArgumentException(
-                    sprintf('Could not find achievement %s.', $achievement[0]));
+                    sprintf('Could not find achievement %s.', $achievement[0])
+                );
             }
 
             $result[] = $achievement;
@@ -155,10 +160,12 @@ class AchievementManager
 
         if (!\class_exists($achievement)) {
             throw new \InvalidArgumentException(
-                sprintf('The given achievement (%s) could not be found.', $achievement));
+                sprintf('The given achievement (%s) could not be found.', $achievement)
+            );
         } elseif (!\is_subclass_of($achievement, AchievementInterface::class)) {
             throw new \InvalidArgumentException(
-                sprintf('%s does not inherit %s.', $achievement, AchievementInterface::class));
+                sprintf('%s does not inherit %s.', $achievement, AchievementInterface::class)
+            );
         }
 
         return new $achievement();
