@@ -21,6 +21,23 @@ class PostEffects {
     }
 
     initialize() {
+
+        let mains = $('.mains');
+        if (mains) {
+            mains.hover(() => {
+                $('.olinux').addClass('visible');
+            }, () => {
+                $('.olinux').removeClass('visible');
+            } );
+
+            mains.click(() => {
+                $('.olinux').addClass('visible');
+            }, () => {
+                $('.olinux').removeClass('visible');
+            } );
+        }
+
+
         this.hash = location.hash;
 
         if (this.hash) {
