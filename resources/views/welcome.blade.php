@@ -40,7 +40,7 @@
         <div class="col-12 col-lg-9 col-xl-10">
             @if ($all)
                 @php $countTo = carbon('2020-01-01 00:00:00'); @endphp
-                @if (today()->lte($countTo))
+                @if (now()->lte($countTo))
                     <div class="countdown w-100 mb-3">
                         <div class="squares"></div>
                         <div class="row justify-content-center">
