@@ -2,6 +2,27 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+.olinux {
+    position: absolute;
+    z-index: -1;
+    bottom: -1.5rem;
+    right: 1.9rem;
+    transform: translate(0, 0);
+    transition-duration: 100ms;
+
+    &.visible {
+        transform: translate(0, 2.4rem);
+        transition-duration: 150ms;
+    }
+}
+
+.mains {
+    position: absolute;
+    bottom: -1rem;
+    right: 1.3rem;
+    transform: rotate(0.5turn);
+}
+
 .nav-pills {
 
     .nav-link {
