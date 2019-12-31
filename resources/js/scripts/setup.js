@@ -127,7 +127,7 @@ class Setup {
                 var d = moment.duration(ms);
                 var s = Math.floor(d.asHours()) + moment.utc(ms).format("mmss");
 
-                html = s.replace('0', '<span class="dimmed">0</span>');
+                html = s.padStart(6, '0').replace('0', '<span class="dimmed">0</span>');
                 $timer.html(html);
             }, 1000);
         }
