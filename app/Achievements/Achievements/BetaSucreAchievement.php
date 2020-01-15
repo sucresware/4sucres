@@ -36,6 +36,11 @@ class BetaSucreAchievement extends AbstractAchievement
 
     public function getImage(): string
     {
-        return 'sucre.png';
+        return 'pipboy.png';
+    }
+
+    public function isRare(): bool
+    {
+        return false;
     }
 }

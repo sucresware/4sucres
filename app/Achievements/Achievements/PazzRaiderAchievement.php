@@ -4,7 +4,7 @@ namespace App\Achievements\Achievements;
 
 use App\Achievements\AbstractAchievement;
 
-class NewcomerFromTheBunkerAchievement extends AbstractAchievement
+class PazzRaiderAchievement extends AbstractAchievement
 {
     const ENABLED = true;
 
@@ -12,21 +12,21 @@ class NewcomerFromTheBunkerAchievement extends AbstractAchievement
 
     public function getName(): string
     {
-        return 'Bunkered';
+        return 'Fast Pazz';
     }
 
     public function getDescription(): string
     {
-        return 'Revendique son appartenance au forum alternatif lebunker.net';
+        return 'Était présent lors des raids de la pazz';
     }
 
     public function getImage(): string
     {
-        return 'lebunker.png';
+        return 'pazz.png';
     }
     
     public function isRare(): bool
     {
-        return false;
+        return true;
     }
 }
