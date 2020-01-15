@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       api: {
-        upload: "https://api.aveshack.com/",
+        upload: "https://api.aveshack.com/v1/uploads",
       },
       status: 0,
       error: 0,
@@ -47,7 +47,7 @@ export default {
       this.progress = 0;
 
       let _data = new FormData();
-      _data.append('sampleFile', this.$refs.fileInput.files[0])
+      _data.append('file', this.$refs.fileInput.files[0])
 
       axios.post(this.api.upload, _data, {
         headers: { 'Content-Type': 'multipart/form-data' },
