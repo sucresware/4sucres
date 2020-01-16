@@ -24,4 +24,14 @@ class DonatorAchievement extends AbstractAchievement
         // Because the amount of the support money can buy a coffee?
         return 'A donné un café dans lequel mettre quatre sucres';
     }
+
+    public function getImage(): string
+    {
+        return 'donator.png';
+    }
+    
+    public function isRare(): bool
+    {
+        return true;
+    }
 }
