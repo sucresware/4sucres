@@ -24,4 +24,9 @@ class NewYear2020Achievement extends AbstractAchievement
     {
         return 'year2020.png';
     }
+
+    public function isRare(): bool
+    {
+        return true;
+    }
 }
