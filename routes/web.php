@@ -35,7 +35,7 @@ Route::get('/u/{nameOrId}', 'UserController@show')->name('user.show');
 
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/charter', 'HomeController@charter')->name('charter');
-Route::get('/leaderboard', 'HomeController@leaderboard')->name('leaderboard');
+Route::get('/metrics', 'HomeController@metrics')->name('metrics');
 
 Route::get('/p/{id}', 'PostController@show')->name('posts.show');
 

@@ -189,6 +189,7 @@
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span>
+            <a href="{{ route('metrics') }}">Statistiques</a> <span class="mx-1">&mdash;</span>
             <a href="https://github.com/4sucres/board" target="_blank">GitHub</a>
         </footer>
     </div>
