@@ -18,14 +18,16 @@ class AchievementsTableSeeder extends Seeder
         foreach (AchievementManager::AVAILABLE_ACHIEVEMENTS as $achievement) {
             $achievement = $manager->getAchievement($achievement);
             Achievement::updateOrCreate(
-            [
+                [
                 'code'        => $achievement->getClassName(),
-            ], [
+            ],
+                [
                 'name'        => $achievement->getName(),
                 'image'       => $achievement->getImage(),
                 'description' => $achievement->getDescription(),
                 'rare'        => $achievement->isRare(),
-            ]);
+            ]
+            );
         }
     }
 }
