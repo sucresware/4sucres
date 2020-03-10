@@ -26,18 +26,44 @@
                             </div>
                         </div>
 
-                        {!! BootForm::text('display_name', 'Nom d\'affichage*', old('display_name', $user->display_name)) !!}
+                        @include('components.form.input', [
+                            'type' => 'text',
+                            'name' => 'display_name',
+                            'label' => 'Nom d\'affichage',
+                            'value' => $user->display_name,
+                            'required' => true,
+                        ])
 
                         @can('update shown_role')
-                            {!! BootForm::text('shown_role', 'Classification', old('shown_role', $user->shown_role)) !!}
+                            @include('components.form.input', [
+                                'type' => 'text',
+                                'name' => 'shown_role',
+                                'label' => 'Classification',
+                                'value' => $user->shown_role,
+                            ])
                         @endcan
 
                         @can('update achievements')
-                            {!! BootForm::select('achievements[]', 'Succès', $achievements, old('achievements[]', $user->achievements->pluck('id')), ['class' => 'select2', 'multiple']) !!}
+                            @include('components.form.select', [
+                                'name' => 'achievements[]',
+                                'label' => 'Succès',
+                                'options' => $achievements,
+                                'value' => $user->achievements->pluck('id'),
+                                'required' => true,
+                                'multiple' => true,
+                                'class' => 'select2'
+                            ])
                         @endcan
 
                         @can('update roles')
-                            {!! BootForm::select('role', 'Rôle', $roles, old('role', $user->roles[0]->id), ['class' => 'select2']) !!}
+                            @include('components.form.select', [
+                                'name' => 'role',
+                                'label' => 'Rôle',
+                                'options' => $roles,
+                                'value' => $user->roles[0]->id,
+                                'required' => true,
+                                'class' => 'select2'
+                            ])
                         @endcan
                     </div>
 

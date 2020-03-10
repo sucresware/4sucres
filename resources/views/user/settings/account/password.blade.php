@@ -20,9 +20,26 @@
                         Modification du mot de passe
                     </div>
                     <div class="card-body">
-                        {!! BootForm::password('password', 'Mot de passe actuel*') !!}
-                        {!! BootForm::password('new_password', 'Nouveau mot de passe*') !!}
-                        {!! BootForm::password('new_password_confirmation', 'Nouveau mot de passe (confirmation)*') !!}
+                        @include('components.form.input', [
+                            'type' => 'password',
+                            'name' => 'password',
+                            'label' => 'Mot de passe actuel',
+                            'required' => true,
+                        ])
+
+                        @include('components.form.input', [
+                            'type' => 'password',
+                            'name' => 'new_password',
+                            'label' => 'Nouveau mot de passe',
+                            'required' => true,
+                        ])
+
+                        @include('components.form.input', [
+                            'type' => 'password',
+                            'name' => 'new_password_confirmation',
+                            'label' => 'Nouveau mot de passe (confirmation)',
+                            'required' => true,
+                        ])
                     </div>
                 </div>
 

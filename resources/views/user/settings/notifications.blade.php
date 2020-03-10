@@ -107,18 +107,22 @@
                                 <a href="javascript:void(0)" class="btn btn-secondary mb-1" id="test-notification" style="display: none;" onclick="testNotification()">Envoyer une notification de test</a>
                             </div>
 
-                            {!! BootForm::select('idle_wait', 'Lorsque je ne suis pas actif&middot;ve sur 4sucres, envoyer les notifications WebPush :', [
-                                0 => 'immédiatement',
-                                1 => 'après 1 minute d\'inactivité',
-                                2 => 'après 2 minutes d\'inactivité',
-                                5 => 'après 5 minutes d\'inactivité',
-                                10 => 'après 10 minutes d\'inactivité',
-                                15 => 'après 15 minutes d\'inactivité',
-                                20 => 'après 20 minutes d\'inactivité',
-                                30 => 'après 30 minutes d\'inactivité',
-                            ], old('idle_wait', $user->getSetting('webpush.idle_wait', 1)), [
+                            @include('components.form.select', [
+                                'name' => 'idle_wait',
+                                'label' => 'Lorsque je ne suis pas actif&middot;ve sur 4sucres, envoyer les notifications WebPush :',
+                                'options' => [
+                                    0 => 'immédiatement',
+                                    1 => 'après 1 minute d\'inactivité',
+                                    2 => 'après 2 minutes d\'inactivité',
+                                    5 => 'après 5 minutes d\'inactivité',
+                                    10 => 'après 10 minutes d\'inactivité',
+                                    15 => 'après 15 minutes d\'inactivité',
+                                    20 => 'après 20 minutes d\'inactivité',
+                                    30 => 'après 30 minutes d\'inactivité',
+                                ],
+                                'value' => $user->getSetting('webpush.idle_wait', 1),
                                 'help_text' => 'FYI: Garder un onglet ouvert sur 4sucres.org est considéré comme une activité.'
-                            ]) !!}
+                            ])
                         </div>
                     </div>
                 </div>
@@ -144,7 +148,13 @@
                             </label>
                         </div>
 
-                        {!! BootForm::email('email', 'Adresse e-mail du compte Pushbullet', old('email', $user->getSetting('services.pushbullet.email'))) !!}
+                        @include('components.form.input', [
+                            'type' => 'text',
+                            'name' => 'email',
+                            'label' => 'Adresse e-mail du compte Pushbullet',
+                            'value' => $user->getSetting('services.pushbullet.email'),
+                            'required' => true,
+                        ])
 
                         @if ($user->getSetting('services.pushbullet.enabled', 0))
                             <a href="{{ route('user.settings.notifications.pushbullet.test') }}" class="btn btn-primary">Test de notification</a>

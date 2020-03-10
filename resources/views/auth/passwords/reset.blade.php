@@ -14,9 +14,22 @@
                         <h1 class="h6">Redéfinir mon mot de passe</h1>
 
                         @csrf
-                        {!! BootForm::hidden('token', $token) !!}
-                        {!! BootForm::password('password', 'Nouveau mot de passe*') !!}
-                        {!! BootForm::password('password_confirmation', 'Nouveau mot de passe (confirmation)*') !!}
+
+                        <input type="hidden" value="{{ $token }}" name="token">
+
+                        @include('components.form.input', [
+                            'type' => 'password',
+                            'name' => 'password',
+                            'label' => 'Nouveau mot de passe',
+                            'required' => true,
+                        ])
+
+                        @include('components.form.input', [
+                            'type' => 'password',
+                            'name' => 'password_confirmation',
+                            'label' => 'Nouveau mot de passe (confirmation)',
+                            'required' => true,
+                        ])
 
                         @if ($errors->has('g-recaptcha-response'))
                             <span class="text-danger">

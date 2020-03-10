@@ -11,7 +11,14 @@
             <div class="card-body">
                 <h1 class="h6">Nouveau message privé pour {{ $to->name }}</h1>
                 @csrf
-                {!! BootForm::text('title', 'Sujet') !!}
+
+                @include('components.form.input', [
+                    'type' => 'text',
+                    'name' => 'title',
+                    'label' => 'Sujet',
+                    'required' => true,
+                ])
+
                 @include('includes/_editor', ['name' => 'body', 'value' => old('body')])
             </div>
             <div class="card-footer">

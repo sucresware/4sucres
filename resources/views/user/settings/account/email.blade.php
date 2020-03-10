@@ -20,7 +20,13 @@
                         Modification de l'adresse e-mail
                     </div>
                     <div class="card-body">
-                        {!! BootForm::email('email', 'Adresse e-mail*', old('email', $user->email)) !!}
+                        @include('components.form.input', [
+                            'type' => 'email',
+                            'name' => 'email',
+                            'label' => 'Adresse e-mail',
+                            'value' => $user->email,
+                            'required' => true,
+                        ])
                     </div>
                 </div>
 

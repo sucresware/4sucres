@@ -9,14 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                {!! BootForm::horizontal([
-                    'url' => route('register'),
-                    'method' => 'post',
-                    'left_column_class' => 'col-md-2',
-                    'left_column_offset_class' => 'col-md-offset-2',
-                    'right_column_class' => 'col-md-10',
-                    'id' => 'register',
-                ]) !!}
+                <form method="POST" action="{{ route('register') }}" id="register">
                     <div class="card-body">
                         <div class="text-center">
                             <h1>Formulaire d'admission</h1>
@@ -28,10 +21,37 @@
 
                         @csrf
 
-                        {!! BootForm::text('name', 'Pseudo*', old('name'), ['help_text' => "Tu peux définir un nom d'affichage différent plus tard !"]) !!}
-                        {!! BootForm::text('email', 'Adresse email*', old('email'), ['help_text' => "Ton email ne sera jamais partagé ou affiché publiquement."]) !!}
-                        {!! BootForm::password('password', 'Mot de passe*', ['help_text' => "6 caractères minimum, c'est important pour la sécurité."]) !!}
-                        {!! BootForm::date('dob', 'Date de naissance*', old('dob'), ['help_text' => "On a pas le droit d'utiliser ça UNIQUEMENT qu'en cas de restrictions pour les messages NSFW."]) !!}
+                        @include('components.form.input', [
+                            'type' => 'text',
+                            'name' => 'name',
+                            'label' => 'Pseudo',
+                            'required' => true,
+                            'help_text' => "Tu peux définir un nom d'affichage différent plus tard !",
+                        ])
+
+                        @include('components.form.input', [
+                            'type' => 'email',
+                            'name' => 'email',
+                            'label' => 'Adresse email',
+                            'required' => true,
+                            'help_text' => "Ton email ne sera jamais partagé ou affiché publiquement.",
+                        ])
+
+                        @include('components.form.input', [
+                            'type' => 'password',
+                            'name' => 'password',
+                            'label' => 'Mot de passe',
+                            'required' => true,
+                            'help_text' => "6 caractères minimum, c'est important pour la sécurité.",
+                        ])
+
+                        @include('components.form.input', [
+                            'type' => 'date',
+                            'name' => 'dob',
+                            'label' => 'Date de naissance',
+                            'required' => true,
+                            'help_text' => "C'est UNIQUEMENT qu'en cas de restrictions pour les messages NSFW.",
+                        ])
 
                         <div class="form-group row">
                             <label for="gender" class="col-form-label col-md-2">Sexe*</label>
@@ -91,7 +111,7 @@
                                     <small class="text-danger">{{ $errors->referrer }}</small><br>
                                 @endif
 
-                                <span class="help-block">Prends le premier choix si tu ne souhaites pas subir de discrimination raciale.</span>
+                                <span class="help-block">Prends le premier choix si tu ne souhaites pas subir de discrimination interforumiale.</span>
                             </div>
                         </div>
 
@@ -111,7 +131,7 @@
                         </div>
                     </div>
 
-                {!! BootForm::close() !!}
+                </form>
             </div>
         </div>
     </div>

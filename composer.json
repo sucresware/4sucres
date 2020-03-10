@@ -42,7 +42,6 @@
         "pusher/pusher-php-server": "~3.0",
         "qirolab/laravel-reactions": "^2.2",
         "realrashid/sweet-alert": "^1.1",
-        "realripley00/bootstrap-4-form": "^1.1",
         "sentry/sentry-laravel": "1.0.2",
         "socialiteproviders/discord": "^2.0",
         "spatie/db-dumper": "^2.14",

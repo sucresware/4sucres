@@ -14,10 +14,20 @@
 
                 <div class="row">
                     <div class="col-md-8">
-                        {!! BootForm::text('title', 'Sujet') !!}
+                        @include('components.form.input', [
+                            'type' => 'text',
+                            'name' => 'title',
+                            'label' => 'Sujet',
+                            'required' => true,
+                        ])
                     </div>
                     <div class="col-md-4">
-                        {!! BootForm::select('category', 'Catégorie', $categories) !!}
+                        @include('components.form.select', [
+                            'name' => 'category',
+                            'label' => 'Catégorie',
+                            'options' => $categories,
+                            'required' => true,
+                        ])
                     </div>
                 </div>
                 @include('includes/_editor', ['name' => 'body', 'value' => old('body')])

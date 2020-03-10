@@ -14,7 +14,13 @@
                         <h1 class="h6">Mot de passe oublié</h1>
 
                         @csrf
-                        {!! BootForm::text('email', 'Adresse email*') !!}
+
+                        @include('components.form.input', [
+                            'type' => 'email',
+                            'name' => 'email',
+                            'label' => 'Adresse email',
+                            'required' => true,
+                        ])
 
                         @if ($errors->has('g-recaptcha-response'))
                             <span class="text-danger">

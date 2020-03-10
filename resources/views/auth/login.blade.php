@@ -14,9 +14,26 @@
                         <h1 class="h6">Connexion</h1>
 
                         @csrf
-                        {!! BootForm::text('email', 'Adresse email*') !!}
-                        {!! BootForm::password('password', 'Mot de passe*') !!}
-                        {!! BootForm::checkbox('remember', 'Se souvenir de moi', 1, old('remember', 1)) !!}
+
+                        @include('components.form.input', [
+                            'type' => 'email',
+                            'name' => 'email',
+                            'label' => 'Adresse email',
+                            'required' => true,
+                        ])
+
+                        @include('components.form.input', [
+                            'type' => 'password',
+                            'name' => 'password',
+                            'label' => 'Mot de passe',
+                            'required' => true,
+                        ])
+
+                        @include('components.form.checkbox', [
+                            'name' => 'remember',
+                            'label' => 'Se souvenir de moi',
+                            'value' => 1
+                        ])
 
                         @if ($errors->has('g-recaptcha-response'))
                             <span class="text-danger">

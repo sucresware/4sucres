@@ -14,21 +14,46 @@
                     @method('put')
                     <div class="row">
                         <div class="col-md-8">
-                            {!! BootForm::text('title', 'Sujet', old('title', $discussion->title)) !!}
+                            @include('components.form.input', [
+                                'type' => 'text',
+                                'name' => 'title',
+                                'label' => 'Sujet',
+                                'value' => $discussion->title,
+                                'required' => true,
+                            ])
                         </div>
                         <div class="col-md-4">
                             @php
-                                $disabled = ($discussion->category_id !== \App\Models\Category::SHITPOST_CATEGORY_ID || user()->can('bypass discussions guard')) ? '' : 'disabled';
+                                $disabled = (bool) ($discussion->category_id == \App\Models\Category::SHITPOST_CATEGORY_ID && !user()->can('bypass discussions guard'));
                             @endphp
-                            {!! BootForm::select('category', 'Catégorie', $categories, old('categories', $discussion->category_id), [$disabled]) !!}
+
+                            @include('components.form.select', [
+                                'name' => 'category',
+                                'label' => 'Catégorie',
+                                'options' => $categories,
+                                'value' => $discussion->category_id,
+                                'required' => true,
+                                'disabled' => $disabled,
+                            ])
                         </div>
                     </div>
 
                     @can('bypass discussions guard')
                         <div class="card">
                             <div class="card-body pb-0">
-                                {!! BootForm::checkbox('sticky', 'Épingler cette discussion', 1, $discussion->sticky) !!}
-                                {!! BootForm::checkbox('locked', 'Verrouiller cette discussion', 1, $discussion->locked) !!}
+                                @include('components.form.checkbox', [
+                                    'name' => 'sticky',
+                                    'label' => 'Épingler cette discussion',
+                                    'value' => 1,
+                                    'default' => $discussion->sticky,
+                                ])
+
+                                @include('components.form.checkbox', [
+                                    'name' => 'locked',
+                                    'label' => 'Verrouiller cette discussion',
+                                    'value' => 1,
+                                    'default' => $discussion->locked,
+                                ])
                             </div>
                         </div>
                     @endcan

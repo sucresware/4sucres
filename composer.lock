@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b32269e0602798f570ab17174f0f216b",
+    "content-hash": "8dcedba003303b34d8fd60d81d8dfb7f",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2705,74 +2705,6 @@
                 "psysh"
             ],
             "time": "2019-08-07T15:10:45+00:00"
-        },
-        {
-            "name": "laravelcollective/html",
-            "version": "v5.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/3a1c9974ea629eed96e101a24e3852ced382eb29",
-                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/http": "5.8.*",
-                "illuminate/routing": "5.8.*",
-                "illuminate/session": "5.8.*",
-                "illuminate/support": "5.8.*",
-                "illuminate/view": "5.8.*",
-                "php": ">=7.1.3"
-            },
-            "require-dev": {
-                "illuminate/database": "5.8.*",
-                "mockery/mockery": "~1.0",
-                "phpunit/phpunit": "~7.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.8-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Collective\\Html\\HtmlServiceProvider"
-                    ],
-                    "aliases": {
-                        "Form": "Collective\\Html\\FormFacade",
-                        "Html": "Collective\\Html\\HtmlFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Collective\\Html\\": "src/"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adam Engebretson",
-                    "email": "adam@laravelcollective.com"
-                },
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "description": "HTML and Form Builders for the Laravel Framework",
-            "homepage": "https://laravelcollective.com",
-            "time": "2019-09-05T12:32:25+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -5893,65 +5825,6 @@
                 "sweet-alert2"
             ],
             "time": "2019-03-29T18:34:57+00:00"
-        },
-        {
-            "name": "realripley00/bootstrap-4-form",
-            "version": "1.1.29",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/realripley00/bootstrap-form.git",
-                "reference": "e8a446a39463911772c4df70819f03bf4c1d477f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/realripley00/bootstrap-form/zipball/e8a446a39463911772c4df70819f03bf4c1d477f",
-                "reference": "e8a446a39463911772c4df70819f03bf4c1d477f",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/config": "~5.0",
-                "illuminate/session": "~5.0",
-                "illuminate/support": "~5.0",
-                "laravelcollective/html": "~5.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~4.6"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "RealRipley\\BootstrapForm\\BootstrapFormServiceProvider"
-                    ],
-                    "aliases": {
-                        "BootForm": "RealRipley\\BootstrapForm\\Facades\\BootstrapForm"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "RealRipley\\BootstrapForm\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "RealRipley00",
-                    "email": "realripley00@gmail.com"
-                }
-            ],
-            "description": "Laravel 5 form wrappers for Bootstrap 4.",
-            "keywords": [
-                "bootstrap",
-                "form",
-                "laravel"
-            ],
-            "time": "2018-12-03T02:05:48+00:00"
         },
         {
             "name": "restcord/restcord",
