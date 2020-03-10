@@ -221,7 +221,14 @@ class SucresParser
 
     public function renderVocaroo()
     {
-        $pattern = '/http(?:s|):\/\/vocaroo\.com\/i\/((?:\w|-)*)/m';
+        /**
+         * Matches :
+         * - vocaroo.com/i/{id} (legacy)
+         * - vocaroo.com/{id}
+         * - voca.ro/{id}
+         */
+
+        $pattern = '/http(?:s|):\/\/voca(?:roo\.com(?:\/i|)|\.ro)\/((?:\w|-)+)/m';
 
         $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
@@ -230,11 +237,10 @@ class SucresParser
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
             $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
-            $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $match->group(1) . '&command=download_mp3" type="audio/mpeg">';
-            $markup .= '<source src="https://vocaroo.com/media_command.php?media=' . $match->group(1) . '&command=download_webm" type="audio/webm"></audio>';
+            $markup .= '<source src="https://media.vocaroo.com/mp3/' . $match->group(1) . '" type="audio/mpeg">';
             $markup .= '</audio>';
             $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="https://vocaroo.com/i/' . $match->group(1) . '">Écouter sur Vocaroo</a></div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="https://voca.ro.com/' . $match->group(1) . '">Écouter sur Vocaroo</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
