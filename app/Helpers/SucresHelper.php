@@ -27,7 +27,7 @@ class SucresHelper
             if (request()->ajax()) {
                 throw new TooManyRequestsHttpException($decayInMinutes);
             } elseif (request()->isMethod('post')) {
-                $response = back()->withInput()->with('error', 'Commence par cliquer plus lentement ¯\_(ツ). Réessaie dans ' . $decayInMinutes . ' ' . str_plural('minute', $decayInMinutes) . '.');
+                $response = back()->withInput()->with('error', 'Commence par cliquer plus lentement ¯\_(ツ). Réessaie dans ' . $decayInMinutes . ' ' . Str::plural('minute', $decayInMinutes) . '.');
                 $response->throwResponse();
             }
 

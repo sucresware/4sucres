@@ -130,7 +130,7 @@ class SucresParser
 
             $this->replacements[$uuid] = implode('', $str);
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -150,7 +150,7 @@ class SucresParser
 
             $this->replacements[$uuid] = '<span class="wow baffle">' . $match->group(1) . '</span>';
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -182,7 +182,7 @@ class SucresParser
 
             $this->replacements[$uuid] = trim($output);
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -209,7 +209,7 @@ class SucresParser
 
             $this->replacements[$uuid] = $markup;
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -239,7 +239,7 @@ class SucresParser
 
             $this->replacements[$uuid] = $markup;
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -266,7 +266,7 @@ class SucresParser
 
             $this->replacements[$uuid] = $markup;
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -293,7 +293,7 @@ class SucresParser
 
             $this->replacements[$uuid] = $markup;
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -321,7 +321,7 @@ class SucresParser
             $lightbox = "<a href='" . $match->group(0) . "' data-toggle='lightbox' data-type='image' class='my-2'>" . $markup . '</a>';
             $this->replacements[$uuid] = $lightbox;
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -351,7 +351,7 @@ class SucresParser
 
             $this->replacements[$uuid] = $markup;
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $match->group(0),
                 $uuid,
                 $this->content
@@ -372,7 +372,7 @@ class SucresParser
 
             $this->replacements[$uuid] = '<a href="' . $mention['user']->link . '" class="badge badge-primary align-middle">@' . $mention['user']->name . '</a>' . ' ';
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $mention['excerpt'],
                 $uuid,
                 $this->content
@@ -410,7 +410,7 @@ class SucresParser
                 default:
             }
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $excerpt,
                 $markup,
                 $this->content
@@ -431,7 +431,7 @@ class SucresParser
 
             $this->replacements[$uuid] = view('discussion.post._show_as_quote', array_merge(['post' => $quote['post']], ['current' => $quote['post']]))->render();
 
-            $this->content = str_replace_first(
+            $this->content = Str::replaceFirst(
                 $quote['excerpt'],
                 $uuid,
                 $this->content

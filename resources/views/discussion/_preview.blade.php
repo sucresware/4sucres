@@ -67,7 +67,7 @@
         @else
             <i class="far fa-comments fw-fw mr-1 d-none d-ld-none d-lg-inline"></i> 0
         @endif
-        <span class="d-inline d-lg-none">{{ str_plural('réponse', $discussion->presented_replies) }}</span>
+        <span class="d-inline d-lg-none">{{ Str::plural('réponse', $discussion->presented_replies) }}</span>
     </div>
 
     @if (!$discussion->private)

@@ -143,7 +143,7 @@
                     <div class="col-auto">
                     </div>
                     <div class="col-auto">
-                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-lg-inline-block">{{ str_plural('utilisateur', $presence_counter) }} {{str_plural('actif', $presence_counter)}}</span></small>
+                        <small><i class="fas fa-circle text-success mr-1"></i><span class="presence-counter">{{ $presence_counter }}</span> <span class="d-none d-lg-inline-block">{{ Str::plural('utilisateur', $presence_counter) }} {{Str::plural('actif', $presence_counter)}}</span></small>
                     </div>
                 </div>
             </div>
@@ -218,7 +218,7 @@
             {{ $version }} - &copy; SucresWare - 2019<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
-            <span title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ str_plural('membre', count($presence)) }} {{ str_plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
+            <span title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
             Temps d'exécution : {{ round((microtime(true) - LARAVEL_START), 3) }} s<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span>

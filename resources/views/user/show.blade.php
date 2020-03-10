@@ -40,7 +40,7 @@
                         @elseif ($user->created_at->isLastDay())
                             <span class="text-warning">hier</span>
                         @else
-                            {{ $diffInDays . ' ' . str_plural('jour', $diffInDays) }}
+                            {{ $diffInDays . ' ' . Str::plural('jour', $diffInDays) }}
                         @endif
                         ({{ $user->created_at->format('d/m/Y') }})<br>
                         <strong>Dernière activité :</strong> {{ $user->last_activity->diffForHumans() }}<br>
@@ -85,7 +85,7 @@
                                 @endif
                                 <small>le {{ $ban->created_at->format('d/m/Y') }}
                                     @if (!$ban->isPermanent() && ($ban->created_at != $ban->expired_at))
-                                    / {{ $diffInDays = $ban->created_at->diffInWeekDays($ban->expired_at) }} {{ str_plural('jour', $diffInDays) }}
+                                    / {{ $diffInDays = $ban->created_at->diffInWeekDays($ban->expired_at) }} {{ Str::plural('jour', $diffInDays) }}
                                     @endif
                                 </small>
                             </div>

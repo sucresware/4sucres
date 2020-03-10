@@ -66,7 +66,7 @@ class Throttle implements Rule
      */
     public function message()
     {
-        return __('C\'est un peu trop rapide D: ! Réessaie dans ' . $this->decayInMinutes . ' ' . str_plural('minute', $this->decayInMinutes) . '.');
+        return __('C\'est un peu trop rapide D: ! Réessaie dans ' . $this->decayInMinutes . ' ' . Str::plural('minute', $this->decayInMinutes) . '.');
     }
 
     /**

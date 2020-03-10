@@ -18,7 +18,7 @@
 			@isset ($posts)
 				<div class="card rounded shadow-sm mb-3">
 					<div class="card-header">
-						{{ $count = $posts->total() }} {{ str_plural('post', $count) }} {{ str_plural('correspondant', $count) }}
+						{{ $count = $posts->total() }} {{ Str::plural('post', $count) }} {{ Str::plural('correspondant', $count) }}
 					</div>
 					@forelse($posts as $post)
 						<blockquote class="discussions-search-results bg-theme-primary mx-3 mb-2">
@@ -51,7 +51,7 @@
 			@isset ($discussions)
 				<div class="card rounded shadow-sm mb-3">
 					<div class="card-header">
-						{{ $count = $discussions->total() }} {{ str_plural('discussion', $count) }} {{ str_plural('correspondante', $count) }}
+						{{ $count = $discussions->total() }} {{ Str::plural('discussion', $count) }} {{ Str::plural('correspondante', $count) }}
 					</div>
 					@forelse($discussions as $discussion)
 						<blockquote class="discussions-search-results bg-theme-primary mx-3 mb-2">
@@ -83,7 +83,7 @@
 			@isset ($users)
 				<div class="card rounded shadow-sm mb-3">
 					<div class="card-header">
-						{{ $count = $users->total() }} {{ str_plural('utilisateur', $count) }} {{ str_plural('correspondant', $count) }}
+						{{ $count = $users->total() }} {{ Str::plural('utilisateur', $count) }} {{ Str::plural('correspondant', $count) }}
 					</div>
 					@forelse($users as $user)
 						<blockquote class="user-search-results bg-theme-primary mx-3 mb-2">
