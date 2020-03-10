@@ -215,7 +215,7 @@
         <footer>
             <hr>
             <img src="{{ url('/img/4sucres_alt_glitched.png') }}" width="70px">
-            @version('compact') - &copy; SucresWare - 2019<br>
+            {{ $version }} - &copy; SucresWare - 2019<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
             <span title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ str_plural('membre', count($presence)) }} {{ str_plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>

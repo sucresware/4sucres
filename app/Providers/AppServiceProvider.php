@@ -21,8 +21,15 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale(config('app.locale'));
         setlocale(LC_TIME, config('app.locale'));
 
-        View::composer(['layouts/app', 'layouts/admin'], function ($view) {
+        $version = 'WIP';
+        try {
+            $version = 'v' . file_get_contents(config_path('.version'));
+        } catch (\Exception $e) {
+        }
+
+        View::composer(['layouts/app', 'layouts/admin'], function ($view) use ($version) {
             $view
+                ->with('version', $version)
                 ->with('presence', User::online()->pluck('name')->toArray());
 
             if (auth()->check()) {
