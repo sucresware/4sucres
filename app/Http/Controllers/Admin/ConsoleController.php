@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Discussion;
+use ZipArchive;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use League\Csv\Writer;
-use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
+use App\Models\Discussion;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Spatie\Activitylog\Models\Activity;
+use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
 
 class ConsoleController extends Controller
 {
@@ -199,6 +200,13 @@ class ConsoleController extends Controller
                 $uuid = Str::uuid();
                 $path = storage_path('app/temp/' . $uuid);
                 File::makeDirectory($path, 0755, true, true);
+                $zip_path = storage_path('app/public/exports/' . $uuid . '.zip');
+                $zip = new ZipArchive();
+
+                if (!$zip->open($zip_path, ZipArchive::CREATE)) {
+                    $output .= 'Cannot create zip archive 🙁';
+                    break;
+                }
 
                 $a_user = $user->makeVisible([
                     'email', 'gender', 'dob', 'email_verified_at', 'avatar',
@@ -207,34 +215,34 @@ class ConsoleController extends Controller
                 $csv = Writer::createFromString('');
                 $csv->insertOne(array_keys($a_user));
                 $csv->insertOne($a_user);
-                File::put($path . '/user.csv', $csv->getContent());
+                $zip->addFromString('user.csv', $csv->getContent());
 
                 $activity = Activity::causedBy($user)->get()->toArray();
                 $csv = Writer::createFromString('');
                 $csv->insertOne(array_keys($activity[0]));
                 $csv->insertAll($activity);
-                File::put($path . '/activity_caused_by.csv', $csv->getContent());
+                $zip->addFromString('activity_caused_by.csv', $csv->getContent());
 
                 $activity = Activity::forSubject($user)->get()->toArray();
                 $csv = Writer::createFromString('');
                 $csv->insertOne(array_keys($activity[0]));
                 $csv->insertAll($activity);
-                File::put($path . '/activity_for_subject.csv', $csv->getContent());
+                $zip->addFromString('activity_for_subject.csv', $csv->getContent());
 
                 $discussions = Discussion::where('user_id', $user->id)->get()->toArray();
                 $csv = Writer::createFromString('');
                 $csv->insertOne(array_keys($discussions[0]));
                 $csv->insertAll($discussions);
-                File::put($path . '/discussions.csv', $csv->getContent());
+                $zip->addFromString('discussions.csv', $csv->getContent());
 
                 $posts = Post::where('user_id', $user->id)->get()->makeHidden(['presented_body', 'presented_date'])->toArray();
                 $csv = Writer::createFromString('');
                 $csv->insertOne(array_keys($posts[0]));
                 $csv->insertAll($posts);
-                File::put($path . '/posts.csv', $csv->getContent());
+                $zip->addFromString('posts.csv', $csv->getContent());
 
-                $zip_path = storage_path('app/public/exports/' . $uuid . '.zip');
-                (new \Chumper\Zipper\Zipper())->make($zip_path)->add($path)->close();
+                $zip->close();
+
                 activity()
                     ->performedOn($user)
                     ->causedBy(user())
