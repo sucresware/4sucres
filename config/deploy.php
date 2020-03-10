@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default deployment strategy
@@ -29,7 +28,6 @@ return [
     */
 
     'strategies' => [
-        //
     ],
 
     /*
@@ -68,7 +66,6 @@ return [
 
         // Deployment is done and live
         'done' => [
-            //
         ],
 
         // Deployment succeeded.
@@ -94,8 +91,8 @@ return [
     */
 
     'options' => [
-        'application' => env('APP_NAME', 'Laravel'),
-        'repository' => 'https://github.com/4sucres/board.git',
+        'application'   => env('APP_NAME', 'Laravel'),
+        'repository'    => 'https://github.com/4sucres/board.git',
         'slack_webhook' => env('DEPLOY_SLACK_WEBHOOK_URL'),
     ],
 
@@ -112,9 +109,9 @@ return [
 
     'hosts' => [
         env('DEPLOY_SERVER') => [
-            'deploy_path' => env('DEPLOY_PATH'),
-            'user' => env('DEPLOY_USER'),
-            'http_user' => env('DEPLOY_HTTP_USER'),
+            'deploy_path'   => env('DEPLOY_PATH'),
+            'user'          => env('DEPLOY_USER'),
+            'http_user'     => env('DEPLOY_HTTP_USER'),
             'writable_mode' => 'chown',
         ],
     ],
@@ -131,7 +128,6 @@ return [
     */
 
     'localhost' => [
-        //
     ],
 
     /*
@@ -162,5 +158,4 @@ return [
     */
 
     'custom_deployer_file' => false,
-
 ];

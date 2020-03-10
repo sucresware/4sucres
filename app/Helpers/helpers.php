@@ -1,4 +1,5 @@
 <?php
+
     function isImage($url)
     {
         $pos = strrpos($url, '.');
@@ -18,8 +19,7 @@
      * Turn all URLs in clickable links.
      *
      * @param string $value
-     * @param array  $protocols  http/https, ftp, mail, twitter
-     * @param array  $attributes
+     * @param array  $protocols http/https, ftp, mail, twitter
      *
      * @return string
      */

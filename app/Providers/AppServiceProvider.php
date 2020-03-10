@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, config('app.locale'));
 
         $version = 'WIP';
+
         try {
             $version = 'v' . file_get_contents(config_path('.version'));
         } catch (\Exception $e) {

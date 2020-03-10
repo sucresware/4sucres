@@ -24,7 +24,7 @@ class PazzRaiderAchievement extends AbstractAchievement
     {
         return 'pazz.png';
     }
-    
+
     public function isRare(): bool
     {
         return true;

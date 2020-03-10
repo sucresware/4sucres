@@ -16,8 +16,6 @@ class LogsOutDeletedUser
 
     /**
      * Create a new middleware instance.
-     *
-     * @param \Illuminate\Contracts\Auth\Factory $auth
      */
     public function __construct(Auth $auth)
     {
@@ -28,7 +26,6 @@ class LogsOutDeletedUser
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
      *
      * @return mixed
      */

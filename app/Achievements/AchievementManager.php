@@ -37,7 +37,6 @@ class AchievementManager
     /**
      * Checks if the given achievements can be unlocked by the given user.
      *
-     * @param User              $user
      * @param array|string|null $achievements
      *
      * @return bool If not achievement is given, returns true
@@ -56,7 +55,6 @@ class AchievementManager
     /**
      * Unlocks the given achievements for the given user.
      *
-     * @param User         $user
      * @param array|string $achievements    A list of achievements
      * @param bool         $assertCanUnlock Checks that the user can actually unlock this achievement.
      *                                      Set false to force unlock.
@@ -126,16 +124,9 @@ class AchievementManager
             }
 
             if (!\is_bool($achievement[1])) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'The given array is not well-formatted. Index at position 2 should be a boolean, given %s.',
-                        $achievement[1]
-                    )
-                );
+                throw new \InvalidArgumentException(sprintf('The given array is not well-formatted. Index at position 2 should be a boolean, given %s.', $achievement[1]));
             } elseif (null === $this->getAchievement($achievement[0])) {
-                throw new \InvalidArgumentException(
-                    sprintf('Could not find achievement %s.', $achievement[0])
-                );
+                throw new \InvalidArgumentException(sprintf('Could not find achievement %s.', $achievement[0]));
             }
 
             $result[] = $achievement;
@@ -160,13 +151,9 @@ class AchievementManager
         }
 
         if (!\class_exists($achievement)) {
-            throw new \InvalidArgumentException(
-                sprintf('The given achievement (%s) could not be found.', $achievement)
-            );
+            throw new \InvalidArgumentException(sprintf('The given achievement (%s) could not be found.', $achievement));
         } elseif (!\is_subclass_of($achievement, AchievementInterface::class)) {
-            throw new \InvalidArgumentException(
-                sprintf('%s does not inherit %s.', $achievement, AchievementInterface::class)
-            );
+            throw new \InvalidArgumentException(sprintf('%s does not inherit %s.', $achievement, AchievementInterface::class));
         }
 
         return new $achievement();

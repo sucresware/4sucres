@@ -24,7 +24,7 @@ class NewcomerFromTheBunkerAchievement extends AbstractAchievement
     {
         return 'lebunker.png';
     }
-    
+
     public function isRare(): bool
     {
         return false;

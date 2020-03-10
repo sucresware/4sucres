@@ -29,7 +29,7 @@ class DonatorAchievement extends AbstractAchievement
     {
         return 'donator.png';
     }
-    
+
     public function isRare(): bool
     {
         return true;

@@ -24,7 +24,7 @@ class NewcomerFromPlayVideoGamesDotComAchievement extends AbstractAchievement
     {
         return 'jvc.png';
     }
-    
+
     public function isRare(): bool
     {
         return false;

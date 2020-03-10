@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use ZipArchive;
+use App\Http\Controllers\Controller;
+use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
-use League\Csv\Writer;
-use App\Models\Discussion;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Str;
+use League\Csv\Writer;
 use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
+use Spatie\Activitylog\Models\Activity;
+use ZipArchive;
 
 class ConsoleController extends Controller
 {
@@ -205,6 +205,7 @@ class ConsoleController extends Controller
 
                 if (!$zip->open($zip_path, ZipArchive::CREATE)) {
                     $output .= 'Cannot create zip archive 🙁';
+
                     break;
                 }
 
@@ -328,8 +329,8 @@ class ConsoleController extends Controller
                     ->performedOn($discussion)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'  => 'error',
-                        'method' => __METHOD__,
+                        'level'      => 'error',
+                        'method'     => __METHOD__,
                         'elevated'   => true,
                     ])
                     ->log('DiscussionRestored');
