@@ -24,20 +24,18 @@
 }
 
 .nav-pills {
-
     .nav-link {
         padding: 0.5rem;
         color: $primary-color;
-        background: $primary-background;
 
         &.active {
             color: $primary-color;
-            background: $primary-background;
+            background: lighten($body-bg, 10%);
         }
 
         @include on-event() {
             color: $primary-color;
-            background: $quaternary-background;
+            background: lighten($body-bg, 5%);
         }
     }
 }

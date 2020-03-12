@@ -10,15 +10,13 @@
         <div class="col-md-12">
             <div class="card">
                 <form method="POST" action="{{ route('register') }}" id="register">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h1>Formulaire d'admission</h1>
-                            <img src="https://image.noelshack.com/fichiers/2018/49/1/1543859026-ne-tinquiete-pas-ca-va-bien-spasser-ne-tinquiete-pas-kekeh.png" class="img-fluid" width="60px">
-                            <p>Ne t'inquiète pas ça va bien se passer, bien se passer ne t'inquiète pas.</p>
+                    <div class="card-header">
+                        Formulaire d'admission
+                        <div class="mt-2" style="text-transform: none; font-weight: 400;">
+                            Ne t'inquiète pas ça va bien se passer, bien se passer ne t'inquiète pas <img src="https://image.noelshack.com/fichiers/2018/49/1/1543859026-ne-tinquiete-pas-ca-va-bien-spasser-ne-tinquiete-pas-kekeh.png" class="img-fluid" width="30px">
                         </div>
-
-                        <hr>
-
+                    </div>
+                    <div class="card-body">
                         @csrf
 
                         @include('components.form.input', [

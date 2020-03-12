@@ -21,7 +21,14 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/theme-light.css') }}" rel="stylesheet">
-    @if (auth()->check()) <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if (user()->getSetting('layout.theme', 'light-theme') != 'dark-theme') disabled @endif> @endif
+
+    @if (auth()->check())
+        <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if (user()->getSetting('layout.theme', 'light-theme') != 'dark-theme') disabled @endif>
+        @if (!in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
+            <link href="{{ mix('css/theme-onche-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'onche-light-theme') disabled @endif>
+            <link href="{{ mix('css/theme-avn-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'avn-light-theme') disabled @endif>
+        @endif
+    @endif
 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url('/img/icons/apple-touch-icon-152x152.png') }}">
@@ -63,12 +70,14 @@
                             </span>
                         </a>
 
-                        <a class="text-center mr-1 order-lg-8" href="javascript:void(0)" data-action="light-toggle">
-                            <span class="fa-stack notification">
-                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
-                                <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
-                            </span>
-                        </a>
+                        @if (in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
+                            <a class="text-center mr-1 order-lg-8" href="javascript:void(0)" data-action="light-toggle">
+                                <span class="fa-stack notification">
+                                    <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                                    <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
+                                </span>
+                            </a>
+                        @endif
 
                         @if (user()->hasRole('admin') || user()->hasRole('moderator'))
                             <a class="text-center mr-1 order-lg-9" href="{{ route('admin.index') }}">

@@ -131,19 +131,19 @@ class UserSettingsController extends Controller
 
             if ($user->shown_role != $old_shown_role) {
                 activity()
-                ->performedOn($user)
-                ->causedBy(user())
-                ->withProperties([
-                    'level'      => 'warning',
-                    'method'     => __METHOD__,
-                    'attributes' => [
-                        'shown_role' => request()->shown_role,
-                    ],
-                    'old' => [
-                        'shown_role' => $old_shown_role,
-                    ],
-                ])
-                ->log('UserShownRoleUpdated');
+                    ->performedOn($user)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'      => 'warning',
+                        'method'     => __METHOD__,
+                        'attributes' => [
+                            'shown_role' => request()->shown_role,
+                        ],
+                        'old' => [
+                            'shown_role' => $old_shown_role,
+                        ],
+                    ])
+                    ->log('UserShownRoleUpdated');
             }
         }
 
@@ -158,16 +158,16 @@ class UserSettingsController extends Controller
                 }
 
                 activity()
-                ->performedOn($user)
-                ->causedBy(user())
-                ->withProperties([
-                    'level'        => 'alert',
-                    'method'       => __METHOD__,
-                    'elevated'     => true,
-                    'request'      => request()->all(),
-                    'sync'         => $sync,
-                ])
-                ->log('UserAchievementsUpdated');
+                    ->performedOn($user)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'        => 'alert',
+                        'method'       => __METHOD__,
+                        'elevated'     => true,
+                        'request'      => request()->all(),
+                        'sync'         => $sync,
+                    ])
+                    ->log('UserAchievementsUpdated');
             }
         }
 
@@ -176,16 +176,16 @@ class UserSettingsController extends Controller
 
             if (count($sync['attached']) || count($sync['detached']) || count($sync['updated'])) {
                 activity()
-                ->performedOn($user)
-                ->causedBy(user())
-                ->withProperties([
-                    'level'      => 'critical',
-                    'method'     => __METHOD__,
-                    'elevated'   => true,
-                    'request'    => request()->all(),
-                    'sync'       => $sync,
-                ])
-                ->log('UserRolesUpdated');
+                    ->performedOn($user)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'      => 'critical',
+                        'method'     => __METHOD__,
+                        'elevated'   => true,
+                        'request'    => request()->all(),
+                        'sync'       => $sync,
+                    ])
+                    ->log('UserRolesUpdated');
             }
         }
 
@@ -201,7 +201,7 @@ class UserSettingsController extends Controller
         request()->validate([
             'sidebar'  => [Rule::in(['left', 'right'])],
             'stickers' => [Rule::in(['default', 'inline'])],
-            'theme'    => [Rule::in(['light-theme', 'dark-theme'])],
+            'theme'    => [Rule::in(['light-theme', 'dark-theme', 'onche-light-theme', 'avn-light-theme'])],
         ]);
 
         $user->setMultipleSettings([

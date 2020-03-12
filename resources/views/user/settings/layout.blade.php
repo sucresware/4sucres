@@ -29,9 +29,17 @@
                                     <input name="theme" id="theme_light-theme" type="radio" value="light-theme" {{ old('theme', $user->getSetting('layout.theme', 'light-theme')) == "light-theme" ? 'checked' : '' }} class="custom-control-input">
                                     <label for="theme_light-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.light.png') }}" class="img-fluid rounded shadow"></label>
                                 </div>
-                                <div class="custom-control custom-radio flex-center col">
+                                <div class="custom-control custom-radio flex-center col mb-3 mb-md-0">
                                     <input name="theme" id="theme_dark-theme" type="radio" value="dark-theme" {{ old('theme', $user->getSetting('layout.theme', 'light-theme')) == "dark-theme" ? 'checked' : '' }} class="custom-control-input">
                                     <label for="theme_dark-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.dark.png') }}" class="img-fluid rounded shadow"></label>
+                                </div>
+                                <div class="custom-control custom-radio flex-center col mb-3 mb-md-0">
+                                    <input name="theme" id="theme_onche-light-theme" type="radio" value="onche-light-theme" {{ old('theme', $user->getSetting('layout.theme', 'onche-light-theme')) == "onche-light-theme" ? 'checked' : '' }} class="custom-control-input">
+                                    <label for="theme_onche-light-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.onche-light.png') }}" class="img-fluid rounded shadow"></label>
+                                </div>
+                                <div class="custom-control custom-radio flex-center col">
+                                    <input name="theme" id="theme_avn-light-theme" type="radio" value="avn-light-theme" {{ old('theme', $user->getSetting('layout.theme', 'avn-light-theme')) == "avn-light-theme" ? 'checked' : '' }} class="custom-control-input">
+                                    <label for="theme_avn-light-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.avn-light.png') }}" class="img-fluid rounded shadow"></label>
                                 </div>
                                 {{--  <div class="custom-control custom-radio flex-center col pr-0">
                                     <input name="theme" id="theme_lebunker" type="radio" value="lebunker" {{ old('theme', $user->getSetting('layout.theme', 'light')) == "lebunker" ? 'checked' : '' }} class="custom-control-input">
@@ -90,10 +98,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="text-right">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                    <div class="card-footer">
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

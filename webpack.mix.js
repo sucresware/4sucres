@@ -17,6 +17,8 @@ mix
     .js('resources/js/service-worker.js', 'public/js')
     .sass('resources/sass/theme/dark/index.scss', 'public/css/theme-dark.css')
     .sass('resources/sass/theme/light/index.scss', 'public/css/theme-light.css')
+    .sass('resources/sass/theme/onche-light/index.scss', 'public/css/theme-onche-light.css')
+    .sass('resources/sass/theme/avn-light/index.scss', 'public/css/theme-avn-light.css')
     // .sass('resources/sass/theme/bunker/index.scss', 'public/css/theme-bunker.css')
 
     // Copies reused resources

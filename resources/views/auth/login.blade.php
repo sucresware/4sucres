@@ -10,9 +10,10 @@
         <div class="col-md-6">
             <div class="card">
                 <form method="POST" action="{{ route('login') }}" id="login">
+                    <div class="card-header">
+                        Connexion
+                    </div>
                     <div class="card-body">
-                        <h1 class="h6">Connexion</h1>
-
                         @csrf
 
                         @include('components.form.input', [

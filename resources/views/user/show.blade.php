@@ -9,16 +9,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card rounded" style="margin-top: 50px">
+            <div class="card" style="margin-top: 50px">
                 <div class="text-center">
                     <img src="{{ $user->avatar_link }}" class="img-fluid rounded mb-3" width="100" style="margin-top: -45px;">
-                    <div>
-                        <strong>
-                            <big>
-                                {{ $user->display_name }}
-                            </big>
-                        </strong>
-                    </div>
+                    <div><strong><big>{{ $user->display_name }}</big></strong></div>
 
                     <div class="badge">
                         <i class="fas fa-circle {{ $user->online_circle_color }} mr-1"></i>
@@ -105,32 +99,29 @@
                     </div>
 
                     @if ($user->achievements && $user->achievements->count() > 0)
-                    <hr>
+                        <hr>
 
-                    <h3 class="h5">Succès</h5>
-                    <div class="p-3 pb-3">
-                        @foreach ($user->achievements as $achievement)
-                            <div class="row position-relative overflow-hidden align-items-center border rounded no-gutters mb-1 p-2 bg-theme-tertiary">
-                                <div class="col-auto mr-3">
-                                    <img src="{{ url('/img/achievements/' . $achievement->image) }}" class="img-fluid" width="60px">
+                        <h3 class="h5">Succès</h5>
+                        <div class="p-3 pb-3">
+                            @foreach ($user->achievements as $achievement)
+                                <div class="row position-relative overflow-hidden align-items-center border rounded no-gutters mb-1 p-2 bg-theme-tertiary">
+                                    <div class="col-auto mr-3">
+                                        <img src="{{ url('/img/achievements/' . $achievement->image) }}" class="img-fluid" width="60px">
+                                    </div>
+                                    <div class="col text-left">
+                                        <strong>{{ $achievement->name }}</strong><br>
+                                        {{ $achievement->description }}<br>
+                                        <small>Obtenu le {{ \Carbon\Carbon::parse($achievement->pivot->unlocked_at)->format('d/m/Y') }}</small>
+                                    </div>
+                                    @if ($achievement->rare == true)
+                                        <div title="Ce succès est rare" class="ribbon ribbon-achievement shadow-lg"></div>
+                                    @endif
                                 </div>
-                                <div class="col text-left">
-                                    <strong>{{ $achievement->name }}</strong><br>
-                                    {{ $achievement->description }}<br>
-                                    <small>Obtenu le {{ \Carbon\Carbon::parse($achievement->pivot->unlocked_at)->format('d/m/Y') }}</small>
-                                </div>
-                                @if ($achievement->rare == true)
-                                    <div title="Ce succès est rare" class="ribbon ribbon-achievement shadow-lg"></div>
-                                @endif
-                            </div>
-                        @endforeach
+                            @endforeach
                         </div>
-                    </div>
-                    @endif
-
-
+                @endif
                 </div>
-                <div class="card-footer border-top-0">
+                <div class="card-footer">
                     <div class="text-right">
                         @auth
                             @if ($user->id == user()->id)

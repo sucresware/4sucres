@@ -1,11 +1,17 @@
 .card {
-    background-color: $secondary-background;
+    background-color: $primary-background;
     color: $primary-color;
 
     .card-header {
         text-transform: uppercase;
         border: 0;
         font-weight: bold;
+        background-color: $secondary-background;
+        color: $primary-color;
+    }
+
+    .card-footer {
+        border: 0;
         background-color: $secondary-background;
         color: $primary-color;
     }

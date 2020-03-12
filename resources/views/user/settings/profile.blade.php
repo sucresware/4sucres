@@ -78,10 +78,11 @@
                             ])
                         @endcan
                     </div>
-                </div>
-
-                <div class="text-right">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                    <div class="card-footer">
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

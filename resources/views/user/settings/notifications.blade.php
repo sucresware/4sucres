@@ -125,10 +125,11 @@
                             ])
                         </div>
                     </div>
-                </div>
-
-                <div class="text-right mb-5">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                    <div class="card-footer">
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                        </div>
+                    </div>
                 </div>
             </form>
 
@@ -160,9 +161,11 @@
                             <a href="{{ route('user.settings.notifications.pushbullet.test') }}" class="btn btn-primary">Test de notification</a>
                         @endif
                     </div>
-                </div>
-                <div class="text-right mb-5">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                    <div class="card-footer">
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
