@@ -17,6 +17,7 @@
             class="form-control @error($name) is-invalid @enderror {{ $class ?? '' }}"
             name="{{ $name }}"
             value="{{ old($name, $value ?? null) }}"
+            {{ $readonly ?? false ? 'readonly' : '' }}
             {{ $disabled ?? false ? 'disabled' : '' }}
             {{ $required ?? false ? 'required' : '' }} />
 

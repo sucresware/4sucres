@@ -43,7 +43,9 @@ class DiscordConnectorController extends Controller
             abort(404);
         }
 
-        $guild = DiscordGuild::updateOrCreate(['id'=> request()->id], [
+        $guild = DiscordGuild::updateOrCreate([
+            'id' => request()->id
+        ], [
             'icon' => request()->icon,
             'name' => request()->name,
         ]);
@@ -62,46 +64,42 @@ class DiscordConnectorController extends Controller
         }
 
         request()->validate([
-            'id'             => ['required', 'integer'],
-            'guild_id'       => ['required', 'integer', 'exists:discord_guilds,id'],
-            'name'           => ['required', 'string', 'max:255'],
-            'animated'       => ['boolean'],
-            'deleted'        => ['boolean'],
-            'require_colons' => ['boolean'],
+            'guild_id'              => ['required', 'integer', 'exists:discord_guilds,id'],
+            'emojis'                => ['required', 'array'],
+            'emojis.*.id'             => ['required', 'integer'],
+            'emojis.*.name'           => ['required', 'string', 'max:255'],
+            'emojis.*.animated'       => ['boolean'],
+            'emojis.*.deleted'        => ['boolean'],
+            'emojis.*.require_colons' => ['boolean'],
         ]);
 
-        $emoji = new DiscordEmoji([
-            'id'                => request()->id,
-            'name'              => request()->name,
-            'animated'          => request()->input('animated', false),
-            'deleted'           => request()->input('deleted', false),
-            'require_colons'    => request()->input('require_colons', true),
-            'discord_guild_id'  => request()->guild_id,
-        ]);
+        foreach (request()->emojis as $incomingEmoji) {
+            $emoji = DiscordEmoji::updateOrCreate([
+                'id' => $incomingEmoji['id']
+            ], [
+                'name'              => $incomingEmoji['name'],
+                'animated'          => $incomingEmoji['animated'] ?? false,
+                'deleted'           => $incomingEmoji['deleted'] ?? false,
+                'require_colons'    => $incomingEmoji['require_colons'] ?? true,
+                'discord_guild_id'  => request()->guild_id,
+            ]);
 
-        try {
-            file_get_contents($emoji->link);
-        } catch (\Exception $e) {
-            activity()
-                ->causedBy(auth()->user('api'))
-                ->withProperties([
-                    'level'        => 'warning',
-                    'method'       => __METHOD__,
-                    'request'      => request()->all(),
-                    'attributes'   => array_merge($emoji->toArray(), ['link' => $emoji->link]),
-                ])
-                ->log('DiscordEmojiNotFound');
+            try {
+                file_get_contents($emoji->link);
+            } catch (\Exception $e) {
+                activity()
+                    ->causedBy(auth()->user('api'))
+                    ->withProperties([
+                        'level'        => 'warning',
+                        'method'       => __METHOD__,
+                        'request'      => request()->all(),
+                        'attributes'   => array_merge($emoji->toArray(), ['link' => $emoji->link]),
+                    ])
+                    ->log('DiscordEmojiNotFound');
 
-            abort(404);
+                $emoji->delete();
+            }
         }
-
-        $emoji = DiscordEmoji::updateOrCreate(['id'=> request()->id], [
-            'name'              => request()->name,
-            'animated'          => request()->input('animated', false),
-            'deleted'           => request()->input('deleted', false),
-            'require_colons'    => request()->input('require_colons', true),
-            'discord_guild_id'  => request()->guild_id,
-        ]);
 
         Cache::tags('emojis')->forget('user:' . user('api')->id);
 

@@ -13,6 +13,19 @@
         <div class="col-lg-7 col-xl-8">
             <div class="card mb-3">
                 <div class="card-header">
+                    Token
+                </div>
+                <div class="card-body dimmed-border-bottom">
+                    <copy-input
+                        type="text"
+                        name="token"
+                        label="Token personnel 4sucres"
+                        value="{{ $user->api_token }}" />
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
                     Connexions
                 </div>
                 <div class="card-body dimmed-border-bottom">
