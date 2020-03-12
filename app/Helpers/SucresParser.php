@@ -225,9 +225,8 @@ class SucresParser
          * Matches :
          * - vocaroo.com/i/{id} (legacy)
          * - vocaroo.com/{id}
-         * - voca.ro/{id}
+         * - voca.ro/{id}.
          */
-
         $pattern = '/http(?:s|):\/\/voca(?:roo\.com(?:\/i|)|\.ro)\/((?:\w|-)+)/m';
 
         $matchs = Regex::matchAll($pattern, $this->content);
