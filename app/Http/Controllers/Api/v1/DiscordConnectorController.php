@@ -44,7 +44,7 @@ class DiscordConnectorController extends Controller
         }
 
         $guild = DiscordGuild::updateOrCreate([
-            'id' => request()->id
+            'id' => request()->id,
         ], [
             'icon' => request()->icon,
             'name' => request()->name,
@@ -64,8 +64,8 @@ class DiscordConnectorController extends Controller
         }
 
         request()->validate([
-            'guild_id'              => ['required', 'integer', 'exists:discord_guilds,id'],
-            'emojis'                => ['required', 'array'],
+            'guild_id'                => ['required', 'integer', 'exists:discord_guilds,id'],
+            'emojis'                  => ['required', 'array'],
             'emojis.*.id'             => ['required', 'integer'],
             'emojis.*.name'           => ['required', 'string', 'max:255'],
             'emojis.*.animated'       => ['boolean'],
@@ -75,7 +75,7 @@ class DiscordConnectorController extends Controller
 
         foreach (request()->emojis as $incomingEmoji) {
             $emoji = DiscordEmoji::updateOrCreate([
-                'id' => $incomingEmoji['id']
+                'id' => $incomingEmoji['id'],
             ], [
                 'name'              => $incomingEmoji['name'],
                 'animated'          => $incomingEmoji['animated'] ?? false,
