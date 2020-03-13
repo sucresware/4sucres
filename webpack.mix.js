@@ -19,6 +19,7 @@ mix
     .sass('resources/sass/theme/light/index.scss', 'public/css/theme-light.css')
     .sass('resources/sass/theme/onche-light/index.scss', 'public/css/theme-onche-light.css')
     .sass('resources/sass/theme/avn-light/index.scss', 'public/css/theme-avn-light.css')
+    .sass('resources/sass/theme/synth/index.scss', 'public/css/theme-synth.css')
     // .sass('resources/sass/theme/bunker/index.scss', 'public/css/theme-bunker.css')
 
     // Copies reused resources

@@ -41,6 +41,10 @@
                                     <input name="theme" id="theme_avn-light-theme" type="radio" value="avn-light-theme" {{ old('theme', $user->getSetting('layout.theme', 'avn-light-theme')) == "avn-light-theme" ? 'checked' : '' }} class="custom-control-input">
                                     <label for="theme_avn-light-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.avn-light.png') }}" class="img-fluid rounded shadow"></label>
                                 </div>
+                                <div class="custom-control custom-radio flex-center col">
+                                    <input name="theme" id="theme_synth-theme" type="radio" value="synth-theme" {{ old('theme', $user->getSetting('layout.theme', 'synth-theme')) == "synth-theme" ? 'checked' : '' }} class="custom-control-input">
+                                    <label for="theme_synth-theme" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.synth.png') }}" class="img-fluid rounded shadow"></label>
+                                </div>
                                 {{--  <div class="custom-control custom-radio flex-center col pr-0">
                                     <input name="theme" id="theme_lebunker" type="radio" value="lebunker" {{ old('theme', $user->getSetting('layout.theme', 'light')) == "lebunker" ? 'checked' : '' }} class="custom-control-input">
                                     <label for="theme_lebunker" class="custom-control-label"><img src="{{ url('/img/settings/themes/theme.lebunker.png') }}" class="img-fluid rounded shadow"></label>
