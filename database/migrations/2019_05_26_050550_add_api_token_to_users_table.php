@@ -1,9 +1,10 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AddApiTokenToUsersTable extends Migration
 {
@@ -17,7 +18,7 @@ class AddApiTokenToUsersTable extends Migration
         });
 
         User::where('api_token', null)->each(function ($user) {
-            $user->api_token = str_random(60);
+            $user->api_token = Str::random(60);
             $user->save();
         });
     }
