@@ -101,6 +101,7 @@ class SucresParser
     {
         return $this
             ->renderYouTube()
+            ->renderWebmshare()
             ->renderVocaroo()
             ->renderVocaBank()
             ->renderTwitchClips()
@@ -205,6 +206,33 @@ class SucresParser
             $markup .= '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' . $match->group(1) . '?rel=0" allowfullscreen></iframe>';
             $markup .= '</div>';
             $markup .= '<div class="integration-text"><i class="fab fa-youtube text-danger"></i> <a target="_blank" href="https://www.youtube.com/watch?v=' . $match->group(1) . '">Ouvrir dans YouTube</a></div>';
+            $markup .= '</div>';
+
+            $this->replacements[$uuid] = $markup;
+
+            $this->content = Str::replaceFirst(
+                $match->group(0),
+                $uuid,
+                $this->content
+            );
+        }
+
+        return $this;
+    }
+
+    public function renderWebmshare()
+    {
+        $pattern = '/http(?:s|):\/\/webmshare\.com(?:\/play|)\/(\w+)/m';
+        $matchs = Regex::matchAll($pattern, $this->content);
+
+        foreach ($matchs->results() as $match) {
+            $uuid = (string) Str::uuid();
+
+            $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
+            $markup .= '<div class="embed-responsive embed-responsive-16by9" style="max-width: 500px">';
+            $markup .= '<iframe class="embed-responsive-item" src="https://webmshare.com/play/' . $match->group(1) . '"></iframe>';
+            $markup .= '</div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-video"></i> <a target="_blank" href="https://webmshare.com/' . $match->group(1) . '">Ouvrir sur Webmshare</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
