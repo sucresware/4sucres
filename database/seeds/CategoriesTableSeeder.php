@@ -13,7 +13,7 @@ class CategoriesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        Category::updateOrCreate(['id' => Category::ANNOUNCES_CATEGORY_ID], [
+        Category::updateOrCreate(['id' => Category::CATEGORY_ANNOUNCES], [
             'name'     => '#annonces',
             'order'    => 1,
             'can_post' => ['admin', 'moderator'],
@@ -34,7 +34,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 10,
         ]);
 
-        Category::updateOrCreate(['id' => Category::SHITPOST_CATEGORY_ID], [
+        Category::updateOrCreate(['id' => Category::CATEGORY_SHITPOST], [
             'name'  => '#shitpost',
             'order' => 999,
         ]);

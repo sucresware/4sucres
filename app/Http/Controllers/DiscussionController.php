@@ -108,7 +108,7 @@ class DiscussionController extends Controller
                 ->where('category_id', $category->id);
         } else {
             $discussions = $discussions
-                ->where('category_id', '!=', Category::SHITPOST_CATEGORY_ID);
+                ->where('category_id', '!=', Category::CATEGORY_SHITPOST);
         }
 
         if (request()->input('page', 1) == 1) {
@@ -267,7 +267,7 @@ class DiscussionController extends Controller
         $discussion->title = request()->title;
 
         // Do not update category if the post is in #shitpost
-        if ($discussion->category_id !== \App\Models\Category::SHITPOST_CATEGORY_ID || user()->can('bypass discussions guard')) {
+        if ($discussion->category_id !== \App\Models\Category::CATEGORY_SHITPOST || user()->can('bypass discussions guard')) {
             $discussion->category_id = request()->category;
         }
 

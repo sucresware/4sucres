@@ -1,28 +1,34 @@
-<div class="row mx-0 gutters-sm align-items-center p-3 d-flex"
+<div class="row mx-0 gutters-sm align-items-center px-0 py-3 px-md-3 d-flex"
     data-action="open-discussion"
     data-id="{{ $discussion->id }}"
     data-slug="{{ $discussion->slug }}">
 
-    @if ($discussion->sticky)
-        <div class="sidetag">
-            <i class="fas fa-fw fa-map-pin text-success"></i>
-        </div>
-    @else
-        @if ($discussion->locked)
-            <div class="sidetag">
-                <i class="fas fa-fw fa-lock text-warning"></i>
-            </div>
-        @endif
-    @endif
-
     @if (!$discussion->private)
         <div class="d-none d-lg-block col-auto px-0">
-            <img src="{{ $discussion->user->avatar_link }}" class="rounded" style="width: 50px;">
+            <img src="{{ $discussion->user->avatar_link }}" class="rounded" style="width: 32px; height: 32px;">
         </div>
     @endif
 
     <div class="col overflow-ellipsis">
         <div class="discussion-title overflow-ellipsis mb-2 mb-lg-0">
+            @if ($discussion->sticky)
+                <span class="badge badge-info px-1">
+                    <i class="fas fa-map-pin text-white fa-fw"></i>
+                </span>
+            @else
+                @if ($discussion->locked)
+                    <span class="badge badge-warning px-1">
+                        <i class="fas fa-lock text-white fa-fw"></i>
+                    </span>
+                @endif
+            @endif
+
+            @if (!$discussion->private && $discussion->category->id != \App\Models\Category::CATEGORY_GLOBAL)
+                <a href="{{ route('discussions.categories.index', [$discussion->category->id, $discussion->category->slug]) }}" class="badge badge-primary">
+                    <i class="fas fa-fw fa-hashtag"></i> {{ ltrim($discussion->category->name, '#') }}
+                </a>
+            @endif
+
             @if (!user() || in_array($discussion->id, $user_has_read))
                 <a href="{{ $discussion->link }}">{{ $discussion->title }}</a>
             @else
@@ -30,7 +36,7 @@
             @endif
         </div>
         <div class="text-small overflow-ellipsis">
-            par <a href="{{ $discussion->user->link }}">{{ $discussion->user->display_name }}</a> le {{ $discussion->created_at->format('d/m/Y à H:i') }}
+            <a href="{{ $discussion->user->link }}">{{ $discussion->user->display_name }}</a> &middot; {{ $discussion->created_at->format('d/m/Y à H:i') }}
         </div>
     </div>
 
@@ -69,11 +75,4 @@
         @endif
         <span class="d-inline d-lg-none">{{ Str::plural('réponse', $discussion->presented_replies) }}</span>
     </div>
-
-    @if (!$discussion->private)
-        <div class="d-none d-lg-block col-lg-fixed category pr-0">
-            <a href="{{ route('discussions.categories.index', [$discussion->category->id, $discussion->category->slug]) }}"
-                class="btn btn-outline-primary btn-block">{{ $discussion->category->name }}</a>
-        </div>
-    @endif
 </div>

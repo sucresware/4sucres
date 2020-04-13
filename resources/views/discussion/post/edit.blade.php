@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-4">
                             @php
-                                $disabled = (bool) ($discussion->category_id == \App\Models\Category::SHITPOST_CATEGORY_ID && !user()->can('bypass discussions guard'));
+                                $disabled = (bool) ($discussion->category_id == \App\Models\Category::CATEGORY_SHITPOST && !user()->can('bypass discussions guard'));
                             @endphp
 
                             @include('components.form.select', [

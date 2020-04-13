@@ -65,39 +65,32 @@
                 @endif
             @endif
 
-            @if (isset($sticky_discussions) && count($sticky_discussions))
-                <section class="card shadow-sm mb-3 discussion-previews discussion-sticky-previews">
+            <section class="card shadow-sm mb-3 discussion-previews">
+                @if (isset($sticky_discussions) && count($sticky_discussions))
                     @foreach ($sticky_discussions as $discussion)
-                        <div class="discussion-preview">
-                            <div class="p-3">
-                                @include('discussion._small_preview')
-                            </div>
-                        </div>
-                    @endforeach
-                </section>
-            @endif
-
-            @if (isset($discussions) && count($discussions))
-                <section class="card shadow-sm mb-3 discussion-previews">
-                    @forelse ($discussions as $discussion)
                         <div class="discussion-preview">
                             @include('discussion._preview')
                         </div>
-                    @empty
-                    @endforelse
-                </section>
-            @endif
+                    @endforeach
+                @endif
 
-            @if (count($sticky_discussions) + count($discussions) == 0)
-                <section class="card shadow-sm mb-3 discussion-previews discussion-empty-previews">
+                @if (isset($discussions) && count($discussions))
+                    @foreach ($discussions as $discussion)
+                        <div class="discussion-preview">
+                            @include('discussion._preview')
+                        </div>
+                    @endforeach
+                @endif
+
+                @if (count($sticky_discussions) + count($discussions) == 0)
                     <div class="card-body">
                         <div class="text-center text-muted">
                             <img src="{{ url('svg/sucre_sad.svg') }}" class="img-fluid" width="60px"><br><br>
                             Aucune discussion dans cette catégorie !
                         </div>
                     </div>
-                </section>
-            @endif
+                @endif
+            </section>
 
             {{ $discussions->onEachSide(1)->links() }}
         </div>

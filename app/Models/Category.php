@@ -11,8 +11,9 @@ class Category extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    const ANNOUNCES_CATEGORY_ID = 1;
-    const SHITPOST_CATEGORY_ID = 5;
+    const CATEGORY_ANNOUNCES = 1;
+    const CATEGORY_GLOBAL = 2;
+    const CATEGORY_SHITPOST = 5;
 
     protected $casts = [
         'can_post'  => 'array',
