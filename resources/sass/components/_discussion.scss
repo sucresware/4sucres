@@ -4,7 +4,7 @@ section.discussion {
 
         // Even and odd posts
         &:nth-child(odd) {
-            background-color: $discussion-primary-background;
+            background-color: $discussion-secondary-background;
             color: $discussion-secondary-color;
 
             .post {
@@ -33,7 +33,7 @@ section.discussion {
         }
 
         &:nth-child(even) {
-            background-color: $discussion-secondary-background;
+            background-color: $discussion-primary-background;
             color: $discussion-secondary-color;
 
             .post {
@@ -87,8 +87,8 @@ section.discussion {
             }
 
             .post-image {
-                height: 50px;
-                width: 50px;
+                height: 42px;
+                width: 42px;
             }
 
             .action-buttons {

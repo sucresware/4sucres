@@ -21,23 +21,6 @@
 @endif
 
 <div class="container">
-	<div class="row mb-3">
-		<div class="col">
-			<h1>{{ $discussion->title }}</h1>
-		</div>
-		<div class="col-auto">
-			@if (!$discussion->private)
-				<a class="mr-2 text-muted" href="{{ route('discussions.categories.index', [$discussion->category->id, $discussion->category->slug]) }}">
-					{{ $discussion->category->name }}
-				</a>
-				@if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', user()->id)->count())
-					<a href="{{ route('discussions.unsubscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">Se désabonner</a>
-				@else
-					<a href="{{ route('discussions.subscribe', [$discussion->id, $discussion->slug]) }}" class="btn btn-outline-primary">S'abonner</a>
-				@endif
-			@endif
-		</div>
-	</div>
 
 	@if ($discussion->id == 2566)
 		<div class="embed-responsive embed-responsive-16by9 mb-5">
@@ -47,6 +30,26 @@
 
 	<div class="pb-0">
 		{{ $posts->onEachSide(1)->links() }}
+	</div>
+
+	<div class="card border-b-0">
+		<div class="card-header">
+			<div class="row">
+				<div class="col">
+					{{ $discussion->title }}
+				</div>
+				<div class="col-auto">
+					@if (!$discussion->private)
+						<a class="mr-2 text-muted" href="{{ route('discussions.categories.index', [$discussion->category->id, $discussion->category->slug]) }}">{{ $discussion->category->name }}</a>
+						@if (auth()->check() && $discussion->subscribed()->wherePivot('user_id', user()->id)->count())
+							<a href="{{ route('discussions.unsubscribe', [$discussion->id, $discussion->slug]) }}" class=""><i class="fas fa-star"></i></a>
+						@else
+							<a href="{{ route('discussions.subscribe', [$discussion->id, $discussion->slug]) }}" class=""><i class="far fa-star"></i></a>
+						@endif
+					@endif
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<discussion :discussion-id="{{ $discussion->id }}" :initial-paginator="{{ $posts->toJson() }}"></discussion>
@@ -72,6 +75,7 @@
 			</div>
 		</section>
 	@endif
+
 </div>
 
 @endsection
