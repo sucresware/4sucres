@@ -110,10 +110,10 @@ class Post extends Model implements ReactableInterface
         $markup = SucresHelper::niceDate($this->created_at);
 
         if ($this->deleted_at) {
-            $markup .= ' (supprimé ' . SucresHelper::niceDate($this->deleted_at) . ')';
+            $markup .= ' (supprimé)';
         } else {
             if ($this->created_at != $this->updated_at) {
-                $markup .= ' (modifié ' . SucresHelper::niceDate($this->updated_at) . ')';
+                $markup .= ' (modifié)';
             }
         }
 
