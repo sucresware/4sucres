@@ -2,9 +2,10 @@
 
 namespace App\Rules;
 
-use GrahamCampbell\Throttle\Facades\Throttle as Throttler;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Validation\Rule;
+use GrahamCampbell\Throttle\Facades\Throttle as Throttler;
 
 class Throttle implements Rule
 {

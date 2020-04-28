@@ -45,15 +45,32 @@ class ConsoleController extends Controller
                 break;
             case 'user:info':
                 list($command, $user_id_or_name) = $args;
+
                 $user = User::find($user_id_or_name);
+
                 if (!$user) {
                     $user = User::where('name', $user_id_or_name)->first();
                 }
+
                 if (!$user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
                 }
+
+                $ips = Activity::query()
+                    ->select(DB::raw('count(*) as count'), 'properties->ip as ip')
+                    ->causedBy($user)
+                    ->groupBy('ip')
+                    ->orderBy('count', 'DESC')
+                    ->get();
+
+                $uas = Activity::query()
+                    ->select(DB::raw('count(*) as count'), 'properties->ua as ua')
+                    ->causedBy($user)
+                    ->groupBy('ua')
+                    ->orderBy('count', 'DESC')
+                    ->get();
 
                 $output .= '<span class="text-muted">id: </span> ' . $user->id . '<br>';
                 $output .= '<span class="text-muted">name: </span> ' . $user->name . '<br>';
@@ -67,29 +84,38 @@ class ConsoleController extends Controller
                 $output .= '<span class="text-muted">created_at: </span> ' . $user->created_at . '<br>';
                 $output .= '<span class="text-muted">updated_at: </span> ' . $user->updated_at . '<br>';
                 $output .= '<span class="text-muted">deleted_at: </span> ' . $user->deleted_at . '<br>';
-                $output .= '<span class="text-muted">ip(s): </span><br>';
-                Activity::query()
-                    ->select(DB::raw('count(*) as count'), 'properties->ip as ip')
-                    ->causedBy($user)
-                    ->groupBy('ip')
-                    ->orderBy('count', 'DESC')
-                    ->each(function ($row) use (&$output) {
-                        if ($row->ip) {
-                            $output .= '&nbsp;&nbsp;' . $row->ip . ' <span class="text-muted">(' . $row->count . ')</span><br>';
-                        }
-                    });
-                $output .= '<span class="text-muted">ua(s): </span><br>';
 
-                Activity::query()
-                    ->select(DB::raw('count(*) as count'), 'properties->ua as ua')
-                    ->causedBy($user)
-                    ->groupBy('ua')
-                    ->orderBy('count', 'DESC')
-                    ->each(function ($row) use (&$output) {
-                        if ($row->ua) {
-                            $output .= '&nbsp;&nbsp;' . $row->ua . ' <span class="text-muted">(' . $row->count . ')</span><br>';
-                        }
-                    });
+                // $output .= '<span class="text-muted">raw ip(s): </span><br>';
+                // $ips->each(function ($row) use (&$output) {
+                //     if ($row->ip) {
+                //         $output .= '&nbsp;&nbsp;' . $row->ip . ' <span class="text-muted">(' . $row->count . ')</span><br>';
+                //     }
+                // });
+
+                // $output .= '<span class="text-muted">raw ua(s): </span><br>';
+                // $uas->each(function ($row) use (&$output) {
+                //     if ($row->ua) {
+                //         $output .= '&nbsp;&nbsp;' . $row->ua . ' <span class="text-muted">(' . $row->count . ')</span><br>';
+                //     }
+                // });
+
+                $output .= '<span class="text-muted">ip(s): </span><br>';
+                $ips = $ips->transform(function ($row) {
+                    if ($row->ip && strstr($row->ip, ":")) {
+                        $row->ip = substr($row->ip, 0, 18);
+                    }
+
+                    return $row;
+                })->groupBy('ip');
+
+                dd($ips->toArray());
+
+                // $output .= '<span class="text-muted">ua(s): </span><br>';
+                // $uas->each(function ($row) use (&$output) {
+                //     if ($row->ua) {
+                //         $output .= '&nbsp;&nbsp;' . $row->ua . ' <span class="text-muted">(' . $row->count . ')</span><br>';
+                //     }
+                // });
 
                 break;
             case 'user:ban':
@@ -169,9 +195,6 @@ class ConsoleController extends Controller
                     'comment'    => str_replace('_', ' ', $comment),
                 ]);
 
-                $user->banned_at = null;
-                $user->save();
-
                 activity()
                     ->performedOn($user)
                     ->causedBy(user())
@@ -181,6 +204,10 @@ class ConsoleController extends Controller
                         'elevated' => true,
                     ])
                     ->log('UserWarned');
+
+                $user = $user->fresh();
+                $user->banned_at = null;
+                $user->save();
 
                 $output .= 'User "' . $user_id_or_name . '" warned ✅';
 

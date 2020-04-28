@@ -28,7 +28,6 @@ mix
     .copyDirectory('resources/video', 'public/video')
     .copyDirectory('resources/svg', 'public/svg')
     .copyDirectory('resources/vendor', 'public/vendor')
-
     .copyDirectory('resources/public', 'public/')
 
     .options({

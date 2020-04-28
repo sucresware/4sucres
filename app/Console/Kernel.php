@@ -23,8 +23,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule
-            ->command('queue:work --tries=3 --stop-when-empty')
+            ->command('queue:work --tries=3')
             ->everyMinute()
+            ->runInBackground()
             ->withoutOverlapping();
 
         $schedule
@@ -40,9 +41,9 @@ class Kernel extends ConsoleKernel
             ->twiceDaily(11, 23)
             ->withoutOverlapping();
 
-        // $schedule
-        //     ->command('ban:delete-expired')
-        //     ->everyMinute();
+        $schedule
+            ->command('ban:delete-expired')
+            ->everyMinute();
     }
 
     /**
