@@ -26,7 +26,7 @@
                         <strong>Classification :</strong> {{ $user->shown_role }}<br>
                         <strong>Membre depuis :</strong>
                         @php
-                            $diffInDays = $user->created_at->startOfDay()->diffInWeekDays(now()->startOfDay());
+                            $diffInDays = $user->created_at->startOfDay()->diffInDays(now()->startOfDay());
                         @endphp
 
                         @if ($user->created_at->isToday())
@@ -79,7 +79,7 @@
                                 @endif
                                 <small>le {{ $ban->created_at->format('d/m/Y') }}
                                     @if (!$ban->isPermanent() && ($ban->created_at != $ban->expired_at))
-                                    / {{ $diffInDays = $ban->created_at->diffInWeekDays($ban->expired_at) }} {{ Str::plural('jour', $diffInDays) }}
+                                    / {{ $diffInDays = $ban->created_at->diffInDays($ban->expired_at) }} {{ Str::plural('jour', $diffInDays) }}
                                     @endif
                                 </small>
                             </div>
