@@ -85,37 +85,38 @@ class ConsoleController extends Controller
                 $output .= '<span class="text-muted">updated_at: </span> ' . $user->updated_at . '<br>';
                 $output .= '<span class="text-muted">deleted_at: </span> ' . $user->deleted_at . '<br>';
 
-                // $output .= '<span class="text-muted">raw ip(s): </span><br>';
-                // $ips->each(function ($row) use (&$output) {
-                //     if ($row->ip) {
-                //         $output .= '&nbsp;&nbsp;' . $row->ip . ' <span class="text-muted">(' . $row->count . ')</span><br>';
-                //     }
-                // });
-
-                // $output .= '<span class="text-muted">raw ua(s): </span><br>';
-                // $uas->each(function ($row) use (&$output) {
-                //     if ($row->ua) {
-                //         $output .= '&nbsp;&nbsp;' . $row->ua . ' <span class="text-muted">(' . $row->count . ')</span><br>';
-                //     }
-                // });
-
-                $output .= '<span class="text-muted">ip(s): </span><br>';
-                $ips = $ips->transform(function ($row) {
-                    if ($row->ip && strstr($row->ip, ":")) {
-                        $row->ip = substr($row->ip, 0, 18);
+                $output .= '<span class="text-muted">raw ip(s): </span><br>';
+                $ips->each(function ($row) use (&$output) {
+                    if ($row->ip) {
+                        $output .= '&nbsp;&nbsp;' . $row->ip . ' <span class="text-muted">(' . $row->count . ')</span><br>';
                     }
+                });
 
-                    return $row;
-                })->groupBy('ip');
+                $output .= '<span class="text-muted">raw ua(s): </span><br>';
+                $uas->each(function ($row) use (&$output) {
+                    if ($row->ua) {
+                        $output .= '&nbsp;&nbsp;' . $row->ua . ' <span class="text-muted">(' . $row->count . ')</span><br>';
+                    }
+                });
 
-                dd($ips->toArray());
+                // Reverse ip search
+                $other_accounts = Activity::query()
+                    ->select('causer_id')
+                    ->where('causer_type', User::class)
+                    ->where('causer_id', '!=', $user->id)
+                    ->whereIn('properties->ip', [$ips->pluck('ip')])
+                    ->groupBy('causer_id')
+                    ->get();
 
-                // $output .= '<span class="text-muted">ua(s): </span><br>';
-                // $uas->each(function ($row) use (&$output) {
-                //     if ($row->ua) {
-                //         $output .= '&nbsp;&nbsp;' . $row->ua . ' <span class="text-muted">(' . $row->count . ')</span><br>';
-                //     }
-                // });
+                if ($other_accounts->count()) {
+                    $output .= '<span class="text-muted">shared accounts: </span><br>';
+                    $other_accounts->each(function ($row) use (&$output) {
+                        $causer = User::find($row->causer_id);
+                        if ($causer) {
+                            $output .= '&nbsp;&nbsp;' . $causer->display_name . ' - @' . $causer->name . ' <span class="text-muted">(' . $causer->id . ')</span><br>';
+                        }
+                    });
+                }
 
                 break;
             case 'user:ban':
