@@ -108,8 +108,6 @@ class AchievementManager
      * Asserts that achievement array is well-formatted and inherits AchivementInterface.
      *
      * @param array|string|null $achievements if null, all achievements in self::AVAILABLE_ACHIEVEMENTS will be checked
-     *
-     * @return array
      */
     private function assertAchievements($achievements): array
     {
