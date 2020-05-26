@@ -57,7 +57,7 @@
                 @else
                     <div class="owl-carousel d-none d-md-block">
                         {{-- <div><img src="{{ url('/img/banners/new_year.jpg') }}" class="img-fluid shadow"></div> --}}
-                        <div><img src="{{ url('/img/banners/release.png') }}" class="img-fluid shadow"></div>
+                        <div><img src="{{ url('/img/banners/release.jpg') }}" class="img-fluid shadow"></div>
                         <div><img src="{{ url('/img/banners/welcome.jpg') }}" class="img-fluid shadow"></div>
                         {{-- <div><img src="{{ url('/img/banners/natives.jpg') }}" class="img-fluid shadow"></div> --}}
                         {{-- <div><img src="{{ url('/img/banners/beta.jpg') }}" class="img-fluid shadow"></div> --}}
