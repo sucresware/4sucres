@@ -15,11 +15,11 @@ class ActivityLogged implements ShouldBroadcast
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $activity;
+    public $activity_id;
 
     public function __construct(Activity $activity)
     {
-        $this->activity = $activity;
+        $this->activity_id = $activity->id;
     }
 
     public function broadcastOn()

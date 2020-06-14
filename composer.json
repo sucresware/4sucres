@@ -51,7 +51,6 @@
         "spatie/regex": "^1.4",
         "tightenco/ziggy": "^0.9",
         "watson/active": "^4.0",
-        "yajra/laravel-datatables-oracle": "^9.3",
         "yish/imgur": "^1.0"
     },
     "require-dev": {

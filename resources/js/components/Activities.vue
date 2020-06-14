@@ -5,8 +5,9 @@
         <i class="fas fa-expand"></i> Élargir
       </a>
       <div v-if="page == 1" class="float-right">
-        <span class="btn btn-success btn-sm">
-          <i class="fas fa-sync fa-spin"></i> Synced
+        <span class="btn btn-primary btn-sm">
+          <template v-if="pending"><i class="fas fa-sync fa-spin"></i> Fetching</template>
+          <template v-else><i class="fas fa-sync"></i> Synced</template>
         </span>
       </div>
     </div>
@@ -20,6 +21,8 @@
 
 <script>
 import Echo from "../scripts/echo";
+import AuthedAxios from "../scripts/axios";
+
 var $ = require("jquery");
 
 export default {
@@ -27,7 +30,8 @@ export default {
   data() {
     return {
       page: undefined,
-      activities: []
+      activities: [],
+      pending: false,
     };
   },
   methods: {
@@ -39,6 +43,10 @@ export default {
     }
   },
   mounted: function() {
+    AuthedAxios.defaults.baseURL = "/admin/";
+
+    let vm = this;
+
     if (this.initialPaginator) {
       this.activities = this.initialPaginator.data;
       this.page = this.initialPaginator.current_page;
@@ -46,9 +54,14 @@ export default {
 
     if (this.page == 1) {
       Echo.echo.private(`Activities`).listen("ActivityLogged", e => {
-        this.activities.unshift(e.activity);
-        // this.activities.push(e.activity);
-        // vm.$forceUpdate();
+        vm.pending = true;
+        AuthedAxios.get('activity/' + e.activity_id)
+          .then(resp => {
+            vm.activities.unshift(resp.data.activity);
+          })
+          .finally(() => {
+            vm.pending = false;
+          });
       });
     }
   }

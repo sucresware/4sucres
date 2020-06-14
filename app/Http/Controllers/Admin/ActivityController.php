@@ -17,4 +17,16 @@ class ActivityController extends Controller
 
         return view('admin.activity.index', compact('activities'));
     }
+
+    public function show(Activity $activity)
+    {
+        $activity
+            ->load('causer')
+            ->load('subject');
+
+        return response()->json([
+            'success' => 'true',
+            'activity' => $activity,
+        ]);
+    }
 }

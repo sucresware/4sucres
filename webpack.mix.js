@@ -13,7 +13,6 @@ const mix = require('laravel-mix');
 
 mix
     .js('resources/js/app.js', 'public/js')
-    .js('resources/js/admin.js', 'public/js')
     .js('resources/js/service-worker.js', 'public/js')
     .sass('resources/sass/theme/dark/index.scss', 'public/css/theme-dark.css')
     .sass('resources/sass/theme/light/index.scss', 'public/css/theme-light.css')

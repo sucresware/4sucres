@@ -8,7 +8,7 @@
 
 Route::get('/', 'AdminController@index')->name('index');
 Route::get('/activity', 'ActivityController@index')->name('activity.index');
-Route::get('/activity/data', 'ActivityController@data')->name('activity.data');
+Route::get('/activity/{activity}', 'ActivityController@show')->name('activity.show');
 
 Route::group(['middleware' => 'role:admin'], function () {
     Route::get('/console', 'ConsoleController@index')->name('console.index');
