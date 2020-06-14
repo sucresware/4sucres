@@ -9,7 +9,9 @@
         v-model="command"
         class="form-control"
         v-hotkey="keymap"
-        v-on:keyup.enter="run()"
+        v-on:keydown.enter="run()"
+        v-on:keydown.up.prevent="up()"
+        v-on:keydown.down.prevent="down()"
       />
       <div class="loading-indicator" v-show="loading">
         <i class="fas fa-circle-notch fa-spin"></i>
@@ -27,7 +29,9 @@ export default {
     return {
       command: "",
       loading: false,
-      lines: []
+      lines: [],
+      history: [],
+      historyCursor: undefined,
     };
   },
   methods: {
@@ -36,6 +40,9 @@ export default {
       command = command ? command : this.command;
 
       if (!command) return;
+
+      if (this.history.slice(-1).pop() != command) this.history.push(command);
+      this.historyCursor = undefined;
 
       this.lines.push('<span class="text-muted">›</span> ' + command);
       this.loading = true;
@@ -61,7 +68,29 @@ export default {
       this.lines = [];
       var content = this.$el.querySelector("#content");
       content.focus();
-    }
+    },
+    up() {
+      if (this.historyCursor == undefined) this.historyCursor = this.history.length;
+      this.historyCursor--;
+
+      if (this.historyCursor >= 0) {
+        this.command = this.history[this.historyCursor];
+      } else {
+        this.historyCursor = 0;
+      }
+    },
+    down() {
+      if (this.historyCursor == undefined) return;
+      this.historyCursor++;
+
+      if (this.historyCursor == this.history.length + 1) {
+        this.historyCursor = undefined;
+        this.command = '';
+      } else {
+        this.command = this.history[this.historyCursor];
+      }
+      
+    },
   },
   mounted() {
     AuthedAxios.defaults.baseURL = "/admin/console/run/";
