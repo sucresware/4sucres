@@ -474,6 +474,8 @@ class ConsoleController extends Controller
                 foreach ($discussions as $discussion) {
                     $output .= "\t Deleting discussion #" . $discussion->id . '.<br>';
 
+                    $discussion->disableLogging();
+
                     $discussion
                         ->posts()
                         ->whereNull('deleted_at')
