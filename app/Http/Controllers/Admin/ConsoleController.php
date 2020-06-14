@@ -48,7 +48,7 @@ class ConsoleController extends Controller
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 2) {
+                    } elseif (count($args) < 2) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -133,7 +133,7 @@ class ConsoleController extends Controller
                 if (count($args) != 3) {
                     if (count($args) > 3) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 3) {
+                    } elseif (count($args) < 3) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -152,7 +152,7 @@ class ConsoleController extends Controller
                     $output .= 'User "' . $user_id_or_name . '" is already banned 🙁';
 
                     break;
-                }   
+                }
 
                 $user->ban([
                     'comment' => str_replace('_', ' ', $comment),
@@ -175,7 +175,7 @@ class ConsoleController extends Controller
                 if (count($args) != 4) {
                     if (count($args) > 4) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 4) {
+                    } elseif (count($args) < 4) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -194,7 +194,7 @@ class ConsoleController extends Controller
                     $output .= 'User "' . $user_id_or_name . '" is already banned 🙁';
 
                     break;
-                }   
+                }
 
                 $user->ban([
                     'expired_at' => '+' . $days . ' days',
@@ -218,7 +218,7 @@ class ConsoleController extends Controller
                 if (count($args) != 3) {
                     if (count($args) > 3) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 3) {
+                    } elseif (count($args) < 3) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -262,7 +262,7 @@ class ConsoleController extends Controller
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 2) {
+                    } elseif (count($args) < 2) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -345,7 +345,7 @@ class ConsoleController extends Controller
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 2) {
+                    } elseif (count($args) < 2) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -382,7 +382,7 @@ class ConsoleController extends Controller
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 2) {
+                    } elseif (count($args) < 2) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -411,7 +411,7 @@ class ConsoleController extends Controller
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 2) {
+                    } elseif (count($args) < 2) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -451,7 +451,7 @@ class ConsoleController extends Controller
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
-                    } else if (count($args) < 2) {
+                    } elseif (count($args) < 2) {
                         $output .= 'Not enough arguments 🙁';
                     }
 
@@ -487,7 +487,7 @@ class ConsoleController extends Controller
                 $output .= $posts->count() . ' posts found.<br>';
 
                 $posts->update([
-                    'deleted_at' => now()
+                    'deleted_at' => now(),
                 ]);
 
                 $output .= 'Discussions and posts deleted ✅';
@@ -500,13 +500,13 @@ class ConsoleController extends Controller
                         'method'     => __METHOD__,
                         'elevated'   => true,
                         'attributes' => [
-                            'user' => $user->getNameAttribute(),
-                            'posts' => $posts->count(),
-                            'discussions' => $discussions->count()
+                            'user'        => $user->getNameAttribute(),
+                            'posts'       => $posts->count(),
+                            'discussions' => $discussions->count(),
                         ],
                     ])
                     ->log('MassDelete');
-                
+
                 break;
             default:
                 $output .= 'Command "' . $args[0] . '" not found 🤔';
