@@ -33,10 +33,11 @@ class LoginController extends Controller
                 $error = 'Le compte est banni ';
                 $latest_ban = user()->bans->first();
 
-                ($latest_ban->isPermanent()) ? $error .= 'définitivement' : 'jusqu\'au ' . $latest_ban->expired_at->format('d/m/Y à H:i');
-                ($latest_ban->comment) ? $error .= ' (' . $latest_ban->comment . ').' : '.';
-
-                $validator->errors()->add('password', $error);
+                if ($latest_ban) {
+                    ($latest_ban->isPermanent()) ? $error .= 'définitivement' : 'jusqu\'au ' . $latest_ban->expired_at->format('d/m/Y à H:i');
+                    ($latest_ban->comment) ? $error .= ' (' . $latest_ban->comment . ').' : '.';
+                    $validator->errors()->add('password', $error);
+                }
 
                 auth()->logout();
 
