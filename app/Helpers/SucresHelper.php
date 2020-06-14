@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
 use GrahamCampbell\Throttle\Facades\Throttle;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class SucresHelper

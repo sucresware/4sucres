@@ -25,7 +25,7 @@ class ActivityController extends Controller
             ->load('subject');
 
         return response()->json([
-            'success' => 'true',
+            'success'  => 'true',
             'activity' => $activity,
         ]);
     }
