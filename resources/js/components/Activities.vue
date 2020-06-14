@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="card shadow-sm">
-      <div v-for="(activity, $index) in activities" :key="$index">
+      <div v-for="(activity) in activities" :key="activity.id">
         <activity :activity="activity"></activity>
       </div>
     </div>
