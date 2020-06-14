@@ -9,6 +9,8 @@
         'bg-warning': activity.properties
             && activity.properties.level == 'warning'
       }"
+
+      v-b-toggle="'context-' + activity.id"
     >
       <div class="row align-items-center no-gutters text-monospace">
         <div class="col-sm-auto p-1">
@@ -22,12 +24,7 @@
         </div>
         <div class="col-sm">{{ activity.created_at }}</div>
         <div class="col-sm">{{ description() }}</div>
-        <div class="col-sm">
-          <button
-            class="btn btn-link btn-sm"
-            v-b-toggle="'context-' + activity.id"
-          >{{ subject().markup }}</button>
-        </div>
+        <div class="col-sm">{{ subject().markup }}</div>
         <div class="col-sm">
           <template v-if="activity.causer">
             <a :href="activity.causer.link" target="_blank">
@@ -48,7 +45,12 @@
                 target="_blank"
               >{{ activity.subject_type }} - {{ activity.subject_id }}</a>
               <hr>
-              <pre>{{ activity.properties }}</pre>
+              <div v-for="(property, name, $index) in activity.properties" :key="name" :class="{ 'bg-secondary' : $index % 2 }">
+                <div class="row flex-nowrap">
+                  <div class="col-sm-2 text-right">{{ name }}</div>
+                  <div class="col-sm text-left">{{ property }}</div>
+                </div>
+              </div>
             </div>
           </div>
         </b-collapse>
@@ -129,6 +131,7 @@ export default {
           break;
       }
 
+      if(!type) type = "Other";
       if (!markup) markup = type;
 
       return {
