@@ -236,14 +236,14 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         }
 
         return Cache::tags($cache[0])->rememberForever($cache[1], function () {
-            $jvc_smileys = Cache::get('jvc_smileys')->transform(function ($smiley) {
+            $jvc_smileys = Cache::get('jvc_smileys', collect([]))->transform(function ($smiley) {
                 $smiley->type = 'smiley';
                 $smiley->link = url('/img/smileys/' . $smiley->image);
 
                 return $smiley;
             });
 
-            $emojis = Cache::get('emojis')->transform(function ($smiley) {
+            $emojis = Cache::get('emojis', collect([]))->transform(function ($smiley) {
                 $smiley->type = 'emoji';
 
                 return $smiley;
