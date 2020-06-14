@@ -40,13 +40,16 @@ class SucresHelper
 
     public static function throttle($key = 'validation', $maxAttempts = 5, $decayInMinutes = 10)
     {
-        $throttle = Throttle::get(['ip' => request()->ip(), 'route' => $key], $maxAttempts, $decayInMinutes);
+        $ip_throttle = Throttle::get([
+            'ip' => request()->ip(),
+            'route' => $key
+        ], $maxAttempts, $decayInMinutes);
 
-        if ($check = $throttle->check()) {
-            $throttle->hit();
+        if ($ip_check = $ip_throttle->check()) {
+            $ip_throttle->hit();
         }
 
-        return $check;
+        return $ip_check;
     }
 
     const NICEDATE_MINIMAL = 0;
