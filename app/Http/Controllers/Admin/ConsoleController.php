@@ -34,6 +34,7 @@ class ConsoleController extends Controller
                 $output .= 'Available commands:' . '<br>';
                 $output .= '- user:info <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- user:ban <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
+                $output .= '- user:massdelete <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- user:tempban <span class="text-muted">{<i>User:</i> $id|$name} {$days} {$comment}</span>' . '<br>';
                 $output .= '- user:warn <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
                 $output .= '- user:banip <span class="text-muted">{$ip_address}</span>' . '<br>';
@@ -44,6 +45,15 @@ class ConsoleController extends Controller
 
                 break;
             case 'user:info':
+                if (count($args) != 2) {
+                    if (count($args) > 2) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 2) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $user_id_or_name) = $args;
 
                 $user = User::find($user_id_or_name);
@@ -120,6 +130,15 @@ class ConsoleController extends Controller
 
                 break;
             case 'user:ban':
+                if (count($args) != 3) {
+                    if (count($args) > 3) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 3) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $user_id_or_name, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
@@ -129,7 +148,11 @@ class ConsoleController extends Controller
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
-                }
+                } elseif ($user->isBanned()) {
+                    $output .= 'User "' . $user_id_or_name . '" is already banned 🙁';
+
+                    break;
+                }   
 
                 $user->ban([
                     'comment' => str_replace('_', ' ', $comment),
@@ -149,6 +172,15 @@ class ConsoleController extends Controller
 
                 break;
             case 'user:tempban':
+                if (count($args) != 4) {
+                    if (count($args) > 4) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 4) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $user_id_or_name, $days, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
@@ -158,7 +190,11 @@ class ConsoleController extends Controller
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
-                }
+                } elseif ($user->isBanned()) {
+                    $output .= 'User "' . $user_id_or_name . '" is already banned 🙁';
+
+                    break;
+                }   
 
                 $user->ban([
                     'expired_at' => '+' . $days . ' days',
@@ -179,6 +215,15 @@ class ConsoleController extends Controller
 
                 break;
             case 'user:warn':
+                if (count($args) != 3) {
+                    if (count($args) > 3) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 3) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $user_id_or_name, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (!$user) {
@@ -214,6 +259,15 @@ class ConsoleController extends Controller
 
                 break;
             case 'user:export':
+                if (count($args) != 2) {
+                    if (count($args) > 2) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 2) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $user_id_or_name) = $args;
                 $user = User::find($user_id_or_name);
                 if (!$user) {
@@ -288,6 +342,15 @@ class ConsoleController extends Controller
 
                 break;
             case 'user:unban':
+                if (count($args) != 2) {
+                    if (count($args) > 2) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 2) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $user_id_or_name) = $args;
                 $user = User::find($user_id_or_name);
                 if (!$user) {
@@ -309,13 +372,22 @@ class ConsoleController extends Controller
                         'method'   => __METHOD__,
                         'elevated' => true,
                     ])
-                    ->log('User Unban');
+                    ->log('UserUnbanned');
 
                 $output .= 'User "' . $user_id_or_name . '" unbanned ✅';
 
                 break;
             case 'user:banip':
             case 'user:unbanip':
+                if (count($args) != 2) {
+                    if (count($args) > 2) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 2) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $ip_address) = $args;
 
                 ($command == 'user:banip') ? Firewall::blacklist($ip_address, true) : Firewall::remove($ip_address);
@@ -336,6 +408,15 @@ class ConsoleController extends Controller
 
                 break;
             case 'discussion:restore':
+                if (count($args) != 2) {
+                    if (count($args) > 2) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 2) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
                 list($command, $discussion_id) = $args;
 
                 $discussion = Discussion::find($discussion_id);
@@ -365,6 +446,67 @@ class ConsoleController extends Controller
 
                 $output .= 'Discussion "' . $discussion_id . '" restored ✅';
 
+                break;
+            case 'user:massdelete':
+                if (count($args) != 2) {
+                    if (count($args) > 2) {
+                        $output .= 'Too many arguments 🙁';
+                    } else if (count($args) < 2) {
+                        $output .= 'Not enough arguments 🙁';
+                    }
+
+                    break;
+                }
+                list($command, $user_id_or_name) = $args;
+                $user = User::find($user_id_or_name);
+                if (!$user) {
+                    $user = User::where('name', $user_id_or_name)->first();
+                }
+                if (!$user) {
+                    $output .= 'User "' . $user_id_or_name . '" not found 🙁';
+
+                    break;
+                }
+
+                $discussions = $user->discussions()->whereNull('deleted_at')->get();
+                $output .= $discussions->count() . ' discussions found.<br>';
+
+                foreach ($discussions as $discussion) {
+                    $output .= "\t Deleting discussion #" . $discussion->id . '.<br>';
+
+                    $discussion
+                        ->posts()
+                        ->whereNull('deleted_at')
+                        ->update(['deleted_at' => now()]);
+
+                    $discussion->deleted_at = now();
+                    $discussion->save();
+                }
+
+                $posts = $user->posts()->whereNull('deleted_at');
+                $output .= $posts->count() . ' posts found.<br>';
+
+                $posts->update([
+                    'deleted_at' => now()
+                ]);
+
+                $output .= 'Discussions and posts deleted ✅';
+
+                activity()
+                    ->performedOn($user)
+                    ->causedBy(user())
+                    ->withProperties([
+                        'level'      => 'error',
+                        'method'     => __METHOD__,
+                        'elevated'   => true,
+                        'attributes' => [
+                            'user' => $user->getNameAttribute(),
+                            'posts' => $posts->count(),
+                            'discussions' => $discussions->count()
+                        ],
+                    ])
+                    ->log('MassDelete');
+                
                 break;
             default:
                 $output .= 'Command "' . $args[0] . '" not found 🤔';
