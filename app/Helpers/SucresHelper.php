@@ -41,7 +41,7 @@ class SucresHelper
     public static function throttle($key = 'validation', $maxAttempts = 5, $decayInMinutes = 10)
     {
         $ip_throttle = Throttle::get([
-            'ip' => request()->ip(),
+            'ip'    => request()->ip(),
             'route' => $key
         ], $maxAttempts, $decayInMinutes);
 
