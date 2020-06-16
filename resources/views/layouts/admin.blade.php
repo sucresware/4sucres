@@ -192,14 +192,18 @@
         </main>
 
         <footer>
+            <hr>
             <img src="{{ url('/img/4sucres_alt_glitched.png') }}" width="70px">
-            &copy; SucresWare - 2019<br>
+            {{ $version }} - &copy; SucresWare - 2019-{{ date('Y') }}<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
+            <span title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
+            Temps d'exécution : {{ round((microtime(true) - LARAVEL_START), 3) }} s<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="{{ route('metrics') }}">Statistiques</a> <span class="mx-1">&mdash;</span>
-            <a href="https://github.com/4sucres/board" target="_blank">GitHub</a>
+            <a href="https://vocabank.org" target="_blank">VocaBank</a><span class="mx-1">&mdash;</span>
+            <a href="https://github.com/SucresWare/4sucres" target="_blank">GitHub</a>
         </footer>
     </div>
 
