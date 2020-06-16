@@ -26,7 +26,7 @@ class ConsoleController extends Controller
         $args = explode(' ', e(trim($command)));
         $output = '';
 
-        switch ($args[0]) {
+        switch (Str::lower($args[0])) {
             case 'help':
                 $output .= '<b>4𝙨𝙪𝙘𝙧𝙚𝙨/𝙩𝙚𝙧𝙢𝙞𝙣𝙖𝙡 😎</b>' . '<br>';
                 $output .= 'Welcome ' . user()->name . '<br>';
