@@ -42,7 +42,7 @@ class SucresHelper
     {
         $ip_throttle = Throttle::get([
             'ip'    => request()->ip(),
-            'route' => $key
+            'route' => $key,
         ], $maxAttempts, $decayInMinutes);
 
         if ($ip_check = $ip_throttle->check()) {
