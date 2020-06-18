@@ -49,8 +49,8 @@
         <div class="sticky-top">
             <nav class="navbar navbar-expand-lg shadow">
                 <div class="container justify-content-between position-relative">
-                    <img src="/img/banners/olinux.png" alt="olinux" class="olinux">
-                    <img src="/img/banners/mains.png" alt="mains" class="mains">
+                    <img src="/img/banners/olinux.png" alt="olinux" class="d-none d-lg-block olinux">
+                    <img src="/img/banners/mains.png" alt="mains" class="d-none d-lg-block mains">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ url('/svg/4sucres.svg') }}" height="35px" class="d-sm-none">
                         <img src="{{ url('/img/4sucres_white.png') }}" height="30px" class="d-none d-sm-inline-block">
