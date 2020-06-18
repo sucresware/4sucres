@@ -460,6 +460,17 @@ class SucresParser
                 continue;
             }
 
+            $current_discussion = $this->post->discussion;
+ 
+            if (
+                $quote['post']->discussion->category->nsfw && 
+                ($current_discussion->private ||
+                $current_discussion->category && 
+                !$current_discussion->category->nsfw)
+            ) {
+                continue;
+            }
+
             $uuid = (string) Str::uuid();
 
             $this->replacements[$uuid] = view('discussion.post._show_as_quote', array_merge(['post' => $quote['post']], ['current' => $quote['post']]))->render();
