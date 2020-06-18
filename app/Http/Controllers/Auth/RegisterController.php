@@ -54,6 +54,10 @@ class RegisterController extends Controller
         ]);
         $user->assignRole('user');
 
+        if(request()->cookie('guest_theme') == 'dark-theme') {
+            $user->setSetting('layout.theme', 'dark-theme');
+        }
+
         switch (request()->referrer) {
             case 'none.none':
                 $user->achievements()->attach(Achievement::where('name', 'Esprit libre')->first());
