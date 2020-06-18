@@ -9,10 +9,9 @@
         'bg-warning': activity.properties
             && activity.properties.level == 'warning'
       }"
-
-      v-b-toggle="'context-' + activity.id"
     >
-      <div class="row align-items-center no-gutters text-monospace">
+      <div class="no-gutters text-monospace activity">
+        <div class="row align-items-center no-gutters" v-b-toggle="'context-' + activity.id">
         <div class="col-sm-auto p-1">
           <i :class="levelClass()"></i>
           <i
@@ -36,6 +35,7 @@
             <i class="fas fa-user-times"></i>
             Inconnu
           </template>
+        </div>
         </div>
         <b-collapse :id="'context-' + activity.id" class="col-12">
           <div class="card border-bottom border-top">
