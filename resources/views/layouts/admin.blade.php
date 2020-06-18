@@ -197,7 +197,7 @@
             {{ $version }} - &copy; SucresWare - 2019-{{ date('Y') }}<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
-            <span title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
+            <span class="pointer" data-toggle="tooltip" data-placement="top" title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
             Temps d'exécution : {{ round((microtime(true) - LARAVEL_START), 3) }} s<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span>
