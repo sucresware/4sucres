@@ -95,6 +95,13 @@
                                 </span>
                             </a>
                         @endif
+
+                        <a class="text-center mr-1 order-lg-9" href="{{ route('user.settings') }}">
+                            <span class="fa-stack notification">
+                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                                <i class="fas fa-cog fa-stack-1x notification-icon fa-sm"></i>
+                            </span>
+                        </a>
                     @endauth
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">
