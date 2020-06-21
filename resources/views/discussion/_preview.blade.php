@@ -15,12 +15,11 @@
                 <span class="badge badge-info px-1">
                     <i class="fas fa-map-pin text-white fa-fw"></i>
                 </span>
-            @else
-                @if ($discussion->locked)
-                    <span class="badge badge-warning px-1">
-                        <i class="fas fa-lock text-white fa-fw"></i>
-                    </span>
-                @endif
+            @endif
+            @if ($discussion->locked)
+                <span class="badge badge-warning px-1">
+                    <i class="fas fa-lock text-white fa-fw"></i>
+                </span>
             @endif
 
             @if (!$discussion->private && $discussion->category->id != \App\Models\Category::CATEGORY_GLOBAL)
