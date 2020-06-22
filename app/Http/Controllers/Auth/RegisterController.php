@@ -53,7 +53,7 @@ class RegisterController extends Controller
         ]);
         $user->assignRole('user');
 
-        if(request()->cookie('guest_theme') == 'dark-theme') {
+        if (request()->cookie('guest_theme') == 'dark-theme') {
             $user->setSetting('layout.theme', 'dark-theme');
         }
 
