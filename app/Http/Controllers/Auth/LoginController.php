@@ -52,6 +52,15 @@ class LoginController extends Controller
                 ])
                 ->log('LoginSuccessful');
 
+            if (
+                $request->cookie('guest_theme') != user()->getSetting('layout.theme', 'light-theme') &&
+                in_array($request->cookie('guest_theme'), ['light-theme', 'dark-theme']) &&
+                in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme'])
+            ) {
+                $theme = $request->cookie('guest_theme', user()->getSetting('layout.theme', 'light-theme'));
+                user()->setSetting('layout.theme', $theme);
+            }
+
             return redirect()->intended();
         } else {
             auth()->logout();
@@ -72,7 +81,15 @@ class LoginController extends Controller
 
     public function logout()
     {
+        if (in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme'])) {
+            $theme = user()->getSetting('layout.theme');
+        }
+
         auth()->logout();
+
+        if (isset($theme)) {
+            return redirect()->route('home')->cookie('guest_theme', $theme, 43800, null, null, false, false);
+        }
 
         return redirect()->route('home');
     }

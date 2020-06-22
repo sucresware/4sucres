@@ -45,6 +45,22 @@ class ActionHandler {
         Howl.lightTogglerPlayer.play();
     }
 
+    onGuestLightToggle () {
+        let cookie = document.cookie.match('(^|;)\\s*guest_theme\\s*=\\s*([^;]+)');
+
+        var expDate = new Date();
+        expDate.setTime(expDate.getTime() + 2592000000);
+
+        if (!cookie || cookie.pop() == 'light-theme') {
+            document.cookie = "guest_theme=dark-theme; expires=" + expDate.toUTCString() + "; path=/";
+            document.getElementById('darkTheme').disabled = false;
+        } else {
+            document.cookie = "guest_theme=light-theme; expires=" + expDate.toUTCString() + "; path=/";
+            document.getElementById('darkTheme').disabled = true;
+        }
+        Howl.lightTogglerPlayer.play();
+    }
+
     onOpenPreview(element, event) {
         event.preventDefault();
         $("#preview-dom").html('<div class="my-5 text-center"><i class="fas fa-sync fa-spin fa-1x"></i></div>')

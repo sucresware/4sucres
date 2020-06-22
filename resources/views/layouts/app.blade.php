@@ -21,9 +21,9 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="{{ mix('css/theme-light.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if ((auth()->check() && user()->getSetting('layout.theme', 'light-theme') != 'dark-theme') || (!auth()->check() && Cookie::get('guest_theme') != 'dark-theme') ) disabled @endif>
 
     @if (auth()->check())
-        <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if (user()->getSetting('layout.theme', 'light-theme') != 'dark-theme') disabled @endif>
         @if (!in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
             <link href="{{ mix('css/theme-onche-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'onche-light-theme') disabled @endif>
             <link href="{{ mix('css/theme-avn-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'avn-light-theme') disabled @endif>
@@ -55,7 +55,14 @@
                         <img src="{{ url('/svg/4sucres.svg') }}" height="35px" class="d-sm-none">
                         <img src="{{ url('/img/4sucres_white.png') }}" height="30px" class="d-none d-sm-inline-block">
                     </a>
-
+                    @guest
+                        <a class="text-center ml-auto mr-1 order-lg-8" href="javascript:void(0)" data-action="guest-light-toggle">
+                            <span class="fa-stack notification">
+                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                                <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
+                            </span>
+                        </a>
+                    @endguest
                     @auth
                         <notifications :count="{{ $notifications_count }}"></notifications>
 
