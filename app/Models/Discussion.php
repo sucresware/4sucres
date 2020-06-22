@@ -173,9 +173,9 @@ class Discussion extends Model
 
     public static function link_to_post(Post $post)
     {
-        $pagniator = 10;
+        $paginator = 10;
         $post_position = array_search($post->id, $post->discussion->posts->pluck('id')->toArray()) + 1;
-        $guessed_page = ceil($post_position / $pagniator);
+        $guessed_page = ceil($post_position / $paginator);
 
         return $post->discussion->link . '?page=' . $guessed_page . '#p' . $post->id;
     }
