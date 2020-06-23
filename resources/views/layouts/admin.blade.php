@@ -27,6 +27,7 @@
             <link href="{{ mix('css/theme-onche-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'onche-light-theme') disabled @endif>
             <link href="{{ mix('css/theme-avn-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'avn-light-theme') disabled @endif>
             <link href="{{ mix('css/theme-synth.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'synth-theme') disabled @endif>
+            <link href="{{ mix('css/theme-sensory.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'sensory-theme') disabled @endif>
         @endif
     @endif
 
@@ -80,6 +81,13 @@
                                 </span>
                             </a>
                         @endif
+
+                        <a class="text-center mr-1 order-lg-9" href="{{ route('user.settings') }}">
+                            <span class="fa-stack notification">
+                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                                <i class="fas fa-cog fa-stack-1x notification-icon fa-sm"></i>
+                            </span>
+                        </a>
                     @endauth
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">

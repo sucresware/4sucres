@@ -10,7 +10,7 @@
 
     .content {
         padding: 10px;
-        background-color: #2D3E50;
+        background-color: $console-bg;
         height: 600px;
         width: 100%;
         border-bottom-left-radius: 0;
@@ -40,7 +40,7 @@
     .form-control {
         border: 0;
         border-top: 1px solid #3F5770;
-        background-color: #253342;
+        background-color: lighten($console-bg, 5%);
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }

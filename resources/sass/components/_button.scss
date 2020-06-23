@@ -1,6 +1,15 @@
 .btn {
     font-size: .9em;
 
+    @if variable-exists(btn-color) {
+        &.btn-primary {
+            background-color: $primary !important;
+        }
+        @include on-event($self: true) {
+            color: $primary-color;
+        }
+    }
+
     &.btn-link {
         color: $primary-color;
     }

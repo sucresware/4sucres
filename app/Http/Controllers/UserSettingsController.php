@@ -201,7 +201,7 @@ class UserSettingsController extends Controller
         request()->validate([
             'sidebar'  => [Rule::in(['left', 'right'])],
             'stickers' => [Rule::in(['default', 'inline'])],
-            'theme'    => [Rule::in(['light-theme', 'dark-theme', 'onche-light-theme', 'avn-light-theme', 'synth-theme'])],
+            'theme'    => [Rule::in(['light-theme', 'dark-theme', 'onche-light-theme', 'avn-light-theme', 'synth-theme', 'sensory-theme'])],
         ]);
 
         $user->setMultipleSettings([

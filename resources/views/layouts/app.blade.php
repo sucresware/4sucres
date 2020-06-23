@@ -28,6 +28,7 @@
             <link href="{{ mix('css/theme-onche-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'onche-light-theme') disabled @endif>
             <link href="{{ mix('css/theme-avn-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'avn-light-theme') disabled @endif>
             <link href="{{ mix('css/theme-synth.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'synth-theme') disabled @endif>
+            <link href="{{ mix('css/theme-sensory.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'sensory-theme') disabled @endif>
         @endif
     @endif
 
