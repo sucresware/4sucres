@@ -14,11 +14,11 @@
 $primary-background: #335C5F;
 $secondary-background: darken($primary-background, 2.5%);;
 $tertiary-background: lighten($primary-background, 5%);
-$quaternary-background: lighten($nord4, 5%);
+$quaternary-background: lighten($tertiary-background, 5%);
 
 $primary-color: white;
 $secondary-color: $primary-color;
-$tertiary-color: #929db3;
+$tertiary-color: $primary-color;
 $quaternary-color: $primary-color;
 
 $danger-color: $nord12;
@@ -146,7 +146,7 @@ $header-tertiary-color: $nord4;
 
 $editor-primary-background: $secondary-background;
 $editor-secondary-background: $tertiary-background;
-$editor-tertiary-background: $tertiary-background;
+$editor-tertiary-background: darken($secondary-background, 2.5%);
 $editor-quaternary-background: $nord3;
 
 $editor-primary-color: $primary-color;
