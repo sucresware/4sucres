@@ -28,6 +28,7 @@
             <link href="{{ mix('css/theme-onche-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'onche-light-theme') disabled @endif>
             <link href="{{ mix('css/theme-avn-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'avn-light-theme') disabled @endif>
             <link href="{{ mix('css/theme-synth.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'synth-theme') disabled @endif>
+            <link href="{{ mix('css/theme-sensory.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'sensory-theme') disabled @endif>
         @endif
     @endif
 
@@ -49,8 +50,8 @@
         <div class="sticky-top">
             <nav class="navbar navbar-expand-lg shadow">
                 <div class="container justify-content-between position-relative">
-                    <img src="/img/banners/olinux.png" alt="olinux" class="olinux">
-                    <img src="/img/banners/mains.png" alt="mains" class="mains">
+                    <img src="/img/banners/olinux.png" alt="olinux" class="d-none d-lg-block olinux">
+                    <img src="/img/banners/mains.png" alt="mains" class="d-none d-lg-block mains">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ url('/svg/4sucres.svg') }}" height="35px" class="d-sm-none">
                         <img src="{{ url('/img/4sucres_white.png') }}" height="30px" class="d-none d-sm-inline-block">
@@ -95,6 +96,13 @@
                                 </span>
                             </a>
                         @endif
+
+                        <a class="text-center mr-1 order-lg-9" href="{{ route('user.settings') }}">
+                            <span class="fa-stack notification">
+                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                                <i class="fas fa-cog fa-stack-1x notification-icon fa-sm"></i>
+                            </span>
+                        </a>
                     @endauth
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -235,7 +243,7 @@
             {{ $version }} - &copy; SucresWare - 2019-{{ date('Y') }}<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
-            <span title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
+            <span class="pointer" data-toggle="tooltip" data-placement="top" title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
             Temps d'exécution : {{ round((microtime(true) - LARAVEL_START), 3) }} s<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span>

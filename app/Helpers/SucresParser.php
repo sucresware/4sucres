@@ -111,7 +111,7 @@ class SucresParser
 
     public function linkify()
     {
-        $this->content = linkify($this->content);
+        $this->content = linkify($this->content, ['http', 'mail'], ['target' => '_blank']);
 
         return $this;
     }
@@ -366,7 +366,7 @@ class SucresParser
 
     public function renderStrawpoll()
     {
-        $pattern = '/http(?:s|):\/\/(?:www\.|)strawpoll\.me\/(\d+)(?:\/r|\/|)/m';
+        $pattern = '/http(?:s|):\/\/(?:www\.|)strawpoll\.(me|com)\/(\w+)(?:\/r|\/|)/m';
 
         $matchs = Regex::matchAll($pattern, $this->content);
         foreach ($matchs->results() as $match) {
@@ -390,7 +390,7 @@ class SucresParser
                 $this->content
             );
         }
-
+        
         return $this;
     }
 
@@ -457,6 +457,17 @@ class SucresParser
     {
         foreach ($this->getQuotes() as $quote) {
             if (!$quote['post']) {
+                continue;
+            }
+
+            $current_discussion = $this->post->discussion;
+ 
+            if (
+                $quote['post']->discussion->category->nsfw && 
+                ($current_discussion->private ||
+                $current_discussion->category && 
+                !$current_discussion->category->nsfw)
+            ) {
                 continue;
             }
 

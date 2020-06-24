@@ -13,6 +13,7 @@
                 <div class="text-center">
                     <img src="{{ $user->avatar_link }}" class="img-fluid rounded mb-3" width="100" style="margin-top: -45px;">
                     <div><strong><big>{{ $user->display_name }}</big></strong></div>
+                    <div><small class="text-muted">{{ '@' . $user->name }}</small></div>
 
                     <div class="badge">
                         <i class="fas fa-circle {{ $user->online_circle_color }} mr-1"></i>
@@ -113,8 +114,8 @@
                                         {{ $achievement->description }}<br>
                                         <small>Obtenu le {{ \Carbon\Carbon::parse($achievement->pivot->unlocked_at)->format('d/m/Y') }}</small>
                                     </div>
-                                    @if ($achievement->rare == true)
-                                        <div title="Ce succès est rare" class="ribbon ribbon-achievement shadow-lg"></div>
+                                    @if ($achievement->rare)
+                                        <div data-toggle="tooltip" data-placement="top" title="Ce succès est rare" class="ribbon pointer ribbon-achievement shadow-lg"></div>
                                     @endif
                                 </div>
                             @endforeach

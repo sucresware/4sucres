@@ -8,6 +8,7 @@ use App\Mail\VerifyEmail;
 use App\Models\Achievement;
 use App\Models\User;
 use App\Models\VerifyUser;
+use App\Notifications\Welcome;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -94,7 +95,7 @@ class RegisterController extends Controller
             ->log('RegisterSuccess');
 
         $verify_user = VerifyUser::create([
-            'user_id' => $user->id,
+            'user_id' => $user->id, 
             'token'   => Str::random(40),
             'scope'   => VerifyUser::SCOPE_VERIFY_EMAIL,
         ]);
@@ -102,6 +103,8 @@ class RegisterController extends Controller
         Mail::to($user)->send(new VerifyEmail($user, $verify_user->token));
         Auth::login($user);
         Cache::forget('api_plucked_users');
+
+        $user->notify(new Welcome($user));
 
         return redirect()->route('home')
             ->with('swal-success', 'Ton compte a bien été créé ! Bienvenue sur 4sucres.org');

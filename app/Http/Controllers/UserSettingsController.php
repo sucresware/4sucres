@@ -86,7 +86,7 @@ class UserSettingsController extends Controller
         }
 
         request()->validate([
-            'display_name' => ['required', 'string', 'max:35', 'min:4'],
+            'display_name' => ['required', 'string', 'alpha_dash', 'max:35', 'min:4'],
             'shown_role'   => ['string', 'max:255'],
             'avatar'       => ['image', 'max:2048'],
         ]);
@@ -201,7 +201,7 @@ class UserSettingsController extends Controller
         request()->validate([
             'sidebar'  => [Rule::in(['left', 'right'])],
             'stickers' => [Rule::in(['default', 'inline'])],
-            'theme'    => [Rule::in(['light-theme', 'dark-theme', 'onche-light-theme', 'avn-light-theme', 'synth-theme'])],
+            'theme'    => [Rule::in(['light-theme', 'dark-theme', 'onche-light-theme', 'avn-light-theme', 'synth-theme', 'sensory-theme'])],
         ]);
 
         $user->setMultipleSettings([

@@ -11,20 +11,22 @@
 
 @import '~nord/src/sass/nord.scss';
 
-$primary-background: $nord0;
-$secondary-background: $nord1;
-$tertiary-background: $nord2;
-$quaternary-background: $nord3;
+$primary-background: #335C5F;
+$secondary-background: darken($primary-background, 2.5%);;
+$tertiary-background: lighten($primary-background, 5%);
+$quaternary-background: lighten($tertiary-background, 5%);
 
-$primary-color: $nord6;
-$secondary-color: $nord5;
-$tertiary-color: #7d8490;
-$quaternary-color: $nord2;
+$primary-color: white;
+$secondary-color: $primary-color;
+$tertiary-color: $primary-color;
+$quaternary-color: $primary-color;
 
 $danger-color: $nord12;
 $warning-color: $nord13;
 $success-color: $nord14;
 $info-color: $nord9;
+
+$btn-color: $primary-color;
 
 // ---- [ Bootstrap colors ] -----------------------------------------------
 
@@ -42,12 +44,12 @@ $gray: #fbfbfc;
 
 $text-muted: $tertiary-color;
 
-$primary: #5f82aa;
+$primary: #F59684;
 $secondary: $secondary-background;
 
-$body-bg: $primary-background;
+$body-bg: #243F41;
 $body-color: $primary-color;
-$border-color: darken($secondary-background, 1.25%);
+$border-color: rgba(0, 0, 0, 0.125);
 
 $danger: #bc5f6a;
 $warning: $nord13;
@@ -56,7 +58,7 @@ $info: $nord9;
 
 // ---- [ Console ] --------------------------------------------------
 
-$console-bg: $nord1;
+$console-bg: $primary-background;
 
 // ---- [ Pagination ] --------------------------------------------------
 
@@ -105,10 +107,10 @@ $custom-file-button-bg: $input-bg;
 
 // ---- [ Discussions ] ----------------------------------------------------
 
-$discussion-primary-background: $secondary-background;
-$discussion-secondary-background: $tertiary-background;
-$discussion-tertiary-background: $quaternary-background;
-$discussion-quaternary-background: lighten($quaternary-background, 2.5%);
+$discussion-primary-background: #335C5F;
+$discussion-secondary-background: #284749;
+$discussion-tertiary-background: darken($discussion-primary-background, 2.5%);
+$discussion-quaternary-background: darken($tertiary-background, 2.5%);
 
 $discussion-primary-color: $primary-color;
 $discussion-secondary-color: $secondary-color;
@@ -131,8 +133,8 @@ $card-bg: $primary-background;
 
 // ---- [ Header ] ---------------------------------------------------------
 
-$header-primary-background: $nord0;
-$header-secondary-background: $nord1;
+$header-primary-background: #B38F53;
+$header-secondary-background: #F2C882;
 $header-tertiary-background: $nord2;
 $header-quaternary-background: $nord3;
 
@@ -142,24 +144,24 @@ $header-tertiary-color: $nord4;
 
 // ---- [ Editor ] ---------------------------------------------------------
 
-$editor-primary-background: $nord0;
-$editor-secondary-background: $nord1;
-$editor-tertiary-background: $nord2;
+$editor-primary-background: $secondary-background;
+$editor-secondary-background: $tertiary-background;
+$editor-tertiary-background: darken($secondary-background, 2.5%);
 $editor-quaternary-background: $nord3;
 
-$editor-primary-color: $nord6;
-$editor-secondary-color: $nord5;
-$editor-tertiary-color: $nord4;
+$editor-primary-color: $primary-color;
+$editor-secondary-color: $secondary-color;
+$editor-tertiary-color: $tertiary-color;
 
-$editor-primary-border: $primary-background;
-$editor-secondary-border: $secondary-background;
-$editor-tertiary-border: $tertiary-background;
+$editor-primary-border: $border-color;
+$editor-secondary-border: $border-color;
+$editor-tertiary-border: $border-color;
 
-$editor-selected-background: $editor-tertiary-background;
+$editor-selected-background: $quaternary-background;
 
 // ---- [ Spoilers ] ---------------------------------------------------------
 
-$spoiler-background: darken($quaternary-background, 12.5%);
+$spoiler-background: darken($quaternary-background, 2.5%);
 
 // ---- [ Links ] ---------------------------------------------------------
 
