@@ -114,8 +114,8 @@
                                         {{ $achievement->description }}<br>
                                         <small>Obtenu le {{ \Carbon\Carbon::parse($achievement->pivot->unlocked_at)->format('d/m/Y') }}</small>
                                     </div>
-                                    @if ($achievement->rare == true)
-                                        <div title="Ce succès est rare" class="ribbon ribbon-achievement shadow-lg"></div>
+                                    @if ($achievement->rare)
+                                        <div data-toggle="tooltip" data-placement="top" title="Ce succès est rare" class="ribbon pointer ribbon-achievement shadow-lg"></div>
                                     @endif
                                 </div>
                             @endforeach
