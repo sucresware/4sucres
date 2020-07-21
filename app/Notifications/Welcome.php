@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Models\User;
+use Illuminate\Bus\Queueable;
 
 class Welcome extends DefaultNotification
 {

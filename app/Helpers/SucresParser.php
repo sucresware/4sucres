@@ -390,7 +390,7 @@ class SucresParser
                 $this->content
             );
         }
-        
+
         return $this;
     }
 
@@ -461,11 +461,11 @@ class SucresParser
             }
 
             $current_discussion = $this->post->discussion;
- 
+
             if (
-                $quote['post']->discussion->category->nsfw && 
+                $quote['post']->discussion->category->nsfw &&
                 ($current_discussion->private ||
-                $current_discussion->category && 
+                $current_discussion->category &&
                 !$current_discussion->category->nsfw)
             ) {
                 continue;
