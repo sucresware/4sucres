@@ -102,7 +102,7 @@ class RegisterController extends Controller
             ->log('RegisterSuccess');
 
         $verify_user = VerifyUser::create([
-            'user_id' => $user->id, 
+            'user_id' => $user->id,
             'token'   => Str::random(40),
             'scope'   => VerifyUser::SCOPE_VERIFY_EMAIL,
         ]);

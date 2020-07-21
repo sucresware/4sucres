@@ -82,7 +82,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
     {
         if (config('app.env') === 'local') {
             return url('/img/pp/indep.png');
-        } else if (Str::startsWith($this->avatar, '/pp')) {
+        } elseif (Str::startsWith($this->avatar, '/pp')) {
             return url('img' . $this->avatar);
         } else {
             return $this->avatar ? url('storage/avatars/' . $this->avatar) : url('/img/pp/indep.png');
