@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="referrer" class="col-form-label col-md-2">Forum d'exfiltration</label>
+                            <label for="referrer" class="col-form-label col-md-2">Forum d'exfiltration*</label>
                             <div class="col-md-10">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input checked="checked" id="referrer_none.none" name="referrer" type="radio" value="none.none" {{ old('referrer') == 'none.none' ? 'checked' : '' }} class="custom-control-input">
