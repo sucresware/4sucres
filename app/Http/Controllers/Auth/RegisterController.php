@@ -33,6 +33,7 @@ class RegisterController extends Controller
             'password'             => ['required', 'string', 'min:6'],
             'dob'                  => ['required', 'date', 'before:' . $min_date, 'after:' . $max_date],
             'gender'               => ['required', 'in:M,F'],
+            'referrer'             => ['required', 'in:none.none,avenoel.org,jeuxvideo.com,2sucres.org,lebunker.net,onche.party'],
             'g-recaptcha-response' => ['required', 'captcha'],
         ], [
             'gender.in'            => 'Désolé, pas de sucres non genrés ici. Tu peux trouver ta place sur <a href="http://www.madmoizelle.com/">mademoiZelle.com</a>',
@@ -65,25 +66,31 @@ class RegisterController extends Controller
                 break;
             case 'avenoel.org':
                 $user->achievements()->attach(Achievement::where('name', 'Noëliste')->first());
+                $user->avatar = '/pp/avenoel.png';
 
                 break;
             case 'jeuxvideo.com':
                 $user->achievements()->attach(Achievement::where('name', 'ISSOU !')->first());
+                $user->avatar = '/pp/jvc.png';
 
                 break;
             case '2sucres.org':
                 $user->achievements()->attach(Achievement::where('name', 'Ça fait 6 sucres')->first());
+                $user->avatar = '/pp/2sucres.png';
 
                 break;
             case 'lebunker.net':
                 $user->achievements()->attach(Achievement::where('name', 'Bunkered')->first());
+                $user->avatar = '/pp/lebunker.png';
 
                 break;
             case 'onche.party':
                 $user->achievements()->attach(Achievement::where('name', 'Tu veux du ponche ?')->first());
+                $user->avatar = '/pp/onche.png';
 
                 break;
         }
+        $user->save();
 
         activity()
             ->performedOn($user)

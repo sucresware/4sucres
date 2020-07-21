@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
@@ -80,9 +81,11 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
     public function getAvatarLinkAttribute()
     {
         if (config('app.env') === 'local') {
-            return url('/img/guest.png');
+            return url('/img/pp/indep.png');
+        } else if (Str::startsWith($this->avatar, '/pp')) {
+            return url('img' . $this->avatar);
         } else {
-            return $this->avatar ? url('storage/avatars/' . $this->avatar) : url('/img/guest.png');
+            return $this->avatar ? url('storage/avatars/' . $this->avatar) : url('/img/pp/indep.png');
         }
     }
 
