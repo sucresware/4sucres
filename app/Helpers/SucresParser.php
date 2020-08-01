@@ -5,8 +5,9 @@ namespace App\Helpers;
 use App\Models\Post;
 use App\Models\User;
 use ForceUTF8\Encoding;
-use Illuminate\Support\Str;
 use Spatie\Regex\Regex;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class SucresParser
 {
@@ -373,13 +374,38 @@ class SucresParser
             $uuid = (string) Str::uuid();
 
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 680px">';
-            $markup .= '<div style="max-width: 680px" class="border-bottom d-none d-lg-block">';
-            $markup .= '<iframe style="width:680px; height:457px; border:0;" scrolling="no" frameborder="no" src="https://www.strawpoll.me/embed_1/' . $match->group(1) . '/r"></iframe>';
-            $markup .= '</div>';
-            $markup .= '<div class="border-bottom d-lg-none p-2 text-center" style="background-color: #ffd756">';
-            $markup .= '<a color="#000" target="_blank" href="https://www.strawpoll.me/' . $match->group(1) . '">https://www.strawpoll.me/' . $match->group(1) . '</a>';
-            $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="https://www.strawpoll.me/' . $match->group(1) . '">Voter sur StrawPoll</a></div>';
+
+            if ($match->group(1) == 'me') {
+                $markup .= '<div style="max-width: 680px" class="border-bottom d-none d-lg-block">';
+                $markup .= '<iframe style="width:680px; height:457px; border:0;" scrolling="no" frameborder="no" src="https://www.strawpoll.me/embed_1/' . $match->group(2) . '/r"></iframe>';
+                $markup .= '</div>';
+                $markup .= '<div class="border-bottom d-lg-none p-2 text-center" style="background-color: #ffd756">';
+                $markup .= '<a color="#000" target="_blank" href="https://www.strawpoll.me/' . $match->group(2) . '">https://www.strawpoll.me/' . $match->group(2) . '</a>';
+                $markup .= '</div>';
+                $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="https://www.strawpoll.me/' . $match->group(2) . '">Voter sur StrawPoll.me</a></div>';
+            } elseif ($match->group(1) == 'com') {
+                $poll_id = $match->group(2);
+
+                try {
+                    $poll_results = Cache::remember('parser_poll_' . $poll_id, now()->addMinute(), function () use ($poll_id) {
+                        $client = new \GuzzleHttp\Client(['verify' => false]);
+                        $res = $client->request('GET', 'https://strawpoll.com/api/poll/' . $poll_id,);
+                        return json_decode((string) $res->getBody());
+                    });
+
+                    $markup .= '<div style="max-width: 680px" class="border-bottom p-3">';
+                    $markup .= '<div class="mb-3"><strong>' . $poll_results->content->poll->title . '</strong></div>';
+                    foreach ($poll_results->content->poll->poll_answers as $answer) {
+                        $markup .= '- ' . $answer->answer . ' (' . $answer->votes . ' vote(s)) <br>';
+                    }
+                    $markup .= '</div>';
+                } catch (\Throwable $th) {
+                    report($th);
+                }
+
+                $markup .= '<div class="integration-text"><i class="fas fa-chart-pie" color="#ca302c"></i> <a target="_blank" href="https://www.strawpoll.com/' . $match->group(2) . '">Voter sur StrawPoll.com</a></div>';
+            }
+
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
@@ -465,8 +491,8 @@ class SucresParser
             if (
                 $quote['post']->discussion->category->nsfw &&
                 ($current_discussion->private ||
-                $current_discussion->category &&
-                !$current_discussion->category->nsfw)
+                    $current_discussion->category &&
+                    !$current_discussion->category->nsfw)
             ) {
                 continue;
             }
