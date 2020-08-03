@@ -41,9 +41,9 @@ class Kernel extends ConsoleKernel
             ->twiceDaily(11, 23)
             ->withoutOverlapping();
 
-        // $schedule
-        //     ->command('ban:delete-expired')
-        //     ->everyMinute();
+        $schedule
+            ->command('ban:delete-expired-alt')
+            ->everyMinute();
     }
 
     /**

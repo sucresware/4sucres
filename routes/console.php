@@ -1,12 +1,14 @@
 <?php
 
-use App\Models\Achievement;
-use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
+use Spatie\Regex\Regex;
+use App\Models\Discussion;
+use App\Models\Achievement;
+use Illuminate\Support\Carbon;
+use Cog\Laravel\Ban\Models\Ban;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Regex\Regex;
 
 /*
 |--------------------------------------------------------------------------
@@ -183,5 +185,21 @@ Artisan::command('fix-inconsistensies', function () {
     Discussion::get()->each(function ($discussion) {
         $discussion->replies = $discussion->posts()->count();
         $discussion->save();
+    });
+});
+
+/**
+ * Bug obscure, uniquement en production.
+ * La commande orignale du package n'est pas trouvée/reconnue.
+ * Du coup, voici une version alternative.
+ */
+
+Artisan::command('ban:delete-expired-alt', function () {
+    $bans = Ban::query()
+        ->where('expired_at', '<=', Carbon::now()->format('Y-m-d H:i:s'))
+        ->get();
+
+    $bans->each(function ($ban) {
+        $ban->delete();
     });
 });
