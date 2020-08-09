@@ -22,7 +22,7 @@
 
                     <hr>
 
-                    <h3 class="h5">Profil du Sucre</h5>
+                    <h3 class="h5">Profil du Doublesucros</h5>
                     <div class="p-1">
                         <strong>Classification :</strong> {{ $user->shown_role }}<br>
                         <strong>Membre depuis :</strong>

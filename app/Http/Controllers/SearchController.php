@@ -51,7 +51,7 @@ class SearchController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->with('discussion')
                     ->whereHas('discussion', function ($q) use ($categories) {
-                        return $q->where('category_id', $categories->pluck('id'));
+                        return $q->whereIn('category_id', $categories->pluck('id'));
                     })
                     ->paginate(10);
 
