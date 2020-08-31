@@ -302,12 +302,22 @@ class ConsoleController extends Controller
 
                 $activity = Activity::causedBy($user)->get()->toArray();
                 $csv = Writer::createFromString('');
+
+                foreach ($activity as $line => $content)
+                    foreach ($content as $key => $value)
+                        if (is_array($value)) $activity[$line][$key] = json_encode($value);
+
                 $csv->insertOne(array_keys($activity[0]));
                 $csv->insertAll($activity);
                 $zip->addFromString('activity_caused_by.csv', $csv->getContent());
 
                 $activity = Activity::forSubject($user)->get()->toArray();
                 $csv = Writer::createFromString('');
+
+                foreach ($activity as $line => $content)
+                    foreach ($content as $key => $value)
+                        if (is_array($value)) $activity[$line][$key] = json_encode($value);
+
                 $csv->insertOne(array_keys($activity[0]));
                 $csv->insertAll($activity);
                 $zip->addFromString('activity_for_subject.csv', $csv->getContent());
@@ -323,6 +333,9 @@ class ConsoleController extends Controller
                 $csv->insertOne(array_keys($posts[0]));
                 $csv->insertAll($posts);
                 $zip->addFromString('posts.csv', $csv->getContent());
+
+                // Add avatars
+                $zip->addGlob(storage_path('app/public/avatars') . '/' . $user->id . '_avatar*');
 
                 $zip->close();
 
