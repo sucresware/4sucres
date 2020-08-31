@@ -34,7 +34,7 @@ class ConsoleController extends Controller
                 $output .= 'Available commands:' . '<br>';
                 $output .= '- user:info <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- user:ban <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
-                $output .= '- user:massdelete <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
+                $output .= '- user:forcedelete <span class="text-muted">{<i>User:</i> $id|$name}</span>' . '<br>';
                 $output .= '- user:tempban <span class="text-muted">{<i>User:</i> $id|$name} {$days} {$comment}</span>' . '<br>';
                 $output .= '- user:warn <span class="text-muted">{<i>User:</i> $id|$name} {$comment}</span>' . '<br>';
                 $output .= '- user:banip <span class="text-muted">{$ip_address}</span>' . '<br>';
@@ -447,7 +447,7 @@ class ConsoleController extends Controller
                 $output .= 'Discussion "' . $discussion_id . '" restored ✅';
 
                 break;
-            case 'user:massdelete':
+            case 'user:forcedelete':
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
@@ -457,7 +457,9 @@ class ConsoleController extends Controller
 
                     break;
                 }
+
                 list($command, $user_id_or_name) = $args;
+
                 $user = User::find($user_id_or_name);
                 if (!$user) {
                     $user = User::where('name', $user_id_or_name)->first();
@@ -468,7 +470,9 @@ class ConsoleController extends Controller
                     break;
                 }
 
-                $discussions = $user->discussions()->whereNull('deleted_at')->get();
+                $impacted_discussions = collect([]);
+
+                $discussions = $user->discussions()->get();
                 $output .= $discussions->count() . ' discussions found.<br>';
 
                 foreach ($discussions as $discussion) {
@@ -478,21 +482,43 @@ class ConsoleController extends Controller
 
                     $discussion
                         ->posts()
-                        ->whereNull('deleted_at')
-                        ->update(['deleted_at' => now()]);
+                        ->each(function ($post) {
+                            $post->disableLogging();
+                            $post->delete();
+                        });
 
-                    $discussion->deleted_at = now();
-                    $discussion->save();
+                    $discussion->delete();
                 }
 
-                $posts = $user->posts()->whereNull('deleted_at');
+                $posts = $user->posts();
                 $output .= $posts->count() . ' posts found.<br>';
 
-                $posts->update([
-                    'deleted_at' => now(),
-                ]);
+                $posts->each(function ($post) use ($impacted_discussions) {
+                    $impacted_discussions[] = $post->discussion_id;
 
-                $output .= 'Discussions and posts deleted ✅';
+                    $post->disableLogging();
+                    $post->delete();
+                });
+
+                collect($impacted_discussions)
+                    ->unique()
+                    ->each(function ($discussion_id) use ($output) {
+                        $discussion = Discussion::find($discussion_id);
+                        $discussion->disableLogging();
+
+                        try {
+                            $discussion->last_reply_at = $discussion
+                                ->latestPost()
+                                ->notTrashed()
+                                ->first()
+                                ->created_at;
+                            $discussion->save();
+                        } catch (\Throwable $th) {
+                            $output .= "\t Error: Cannot find latest post for discussion #" . $discussion->id . '.<br>';
+                        }
+                    });
+
+                $output .= 'Discussions and posts deleted ✅<br>';
 
                 activity()
                     ->performedOn($user)
@@ -501,13 +527,24 @@ class ConsoleController extends Controller
                         'level'      => 'error',
                         'method'     => __METHOD__,
                         'elevated'   => true,
-                        'attributes' => [
-                            'user'        => $user->getNameAttribute(),
-                            'posts'       => $posts->count(),
-                            'discussions' => $discussions->count(),
-                        ],
+                        'attributes' => [],
                     ])
-                    ->log('MassDelete');
+                    ->log('ForceDelete');
+
+                // Remove user activity
+                Activity::causedBy($user)
+                    ->delete();
+
+                $output .= 'User activity deleted ✅<br>';
+
+                // Remove user avatars
+                foreach (File::glob(storage_path('app/public/avatars') . '/' . $user->id . '_avatar*') as $avatar_path) {
+                    File::delete($avatar_path);
+                }
+
+                $user->delete();
+
+                $output .= 'User deleted ✅<br>';
 
                 break;
             default:
