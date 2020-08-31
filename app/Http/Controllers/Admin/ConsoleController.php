@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Discussion;
+use ZipArchive;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use League\Csv\Writer;
-use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
+use App\Models\Discussion;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Activitylog\Models\Activity;
-use ZipArchive;
+use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
 
 class ConsoleController extends Controller
 {
@@ -41,7 +42,8 @@ class ConsoleController extends Controller
                 $output .= '- user:unban <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
                 $output .= '- user:unbanip <span class="text-muted">{$ip_address}</span><br>';
                 $output .= '- user:export <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
-                $output .= '- discussion:restore <span class="text-muted">{<i>Discussion:</i> $id}</span>';
+                $output .= '- discussion:restore <span class="text-muted">{<i>Discussion:</i> $id}</span><br>';
+                $output .= '- killswitch';
 
                 break;
             case 'user:info':
@@ -558,6 +560,12 @@ class ConsoleController extends Controller
                 $user->delete();
 
                 $output .= 'User deleted ✅<br>';
+
+                break;
+            case 'killswitch':
+                Artisan::call('down');
+
+                $output .= 'Bye bye ✅';
 
                 break;
             default:
