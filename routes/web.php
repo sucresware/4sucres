@@ -22,8 +22,10 @@ Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail
 Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('/password/reset/{token}', 'Auth\ResetPasswordController@reset')->name('password.update');
 
-Route::get('/login', 'Auth\LoginController@login')->name('login');
-Route::post('/login', 'Auth\LoginController@submit');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/login', 'Auth\LoginController@login')->name('login');
+    Route::post('/login', 'Auth\LoginController@submit');
+});
 
 Route::get('/d', 'DiscussionController@index')->name('discussions.index');
 Route::get('/d/c/{category}-{slug}', 'DiscussionController@index')->name('discussions.categories.index');
