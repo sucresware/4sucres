@@ -56,9 +56,8 @@ export default {
         }
       }).then((resp) => {
         let data = resp.data;
-
         if (data.err == null) {
-          vm.$parent.insertText(data.msg.link);
+          vm.$parent.insertText(data.link);
           vm.$bvModal.hide("aveshack-uploader");
           vm.reset();
         } else {
