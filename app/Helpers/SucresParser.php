@@ -265,10 +265,10 @@ class SucresParser
             $markup = '<div class="integration my-2 shadow-sm" style="max-width: 500px">';
             $markup .= '<div style="max-width: 500px" class="border-bottom">';
             $markup .= '<audio controls="controls" volume="0.5" style="width: 100%; max-width: 500px">';
-            $markup .= '<source src="https://media.vocaroo.com/mp3/' . $match->group(1) . '" type="audio/mpeg">';
+            $markup .= '<source src="https://media1.vocaroo.com/mp3/' . $match->group(1) . '" type="audio/mpeg">';
             $markup .= '</audio>';
             $markup .= '</div>';
-            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="https://voca.ro.com/' . $match->group(1) . '">Écouter sur Vocaroo</a></div>';
+            $markup .= '<div class="integration-text"><i class="fas fa-microphone text-success"></i> <a target="_blank" href="https://vocaroo.com/' . $match->group(1) . '">Écouter sur Vocaroo</a></div>';
             $markup .= '</div>';
 
             $this->replacements[$uuid] = $markup;
