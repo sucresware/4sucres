@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import v from 'voca';
-import Imgur from './imgur.js';
 import Howl from './howl';
 import AuthedAxios from "../scripts/axios";
 import Editor from './editor';

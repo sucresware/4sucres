@@ -91,7 +91,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['prefix' => '/api/v0'], function () {
     Route::group(['middleware' => 'auth'], function () {
-        Route::post('/imgur-gateway/upload', 'Api\ImgurGatewayController@upload');
         Route::post('/webpush/subscribe', 'Api\WebpushController@subscribe');
         Route::get('/users/{id}/emojis', 'Api\EmojiController@listForUser')->name('api.users.emojis');
     });

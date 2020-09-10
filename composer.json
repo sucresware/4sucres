@@ -45,8 +45,7 @@
         "spatie/laravel-permission": "^3.11",
         "spatie/regex": "^1.4",
         "tightenco/ziggy": "^0.9",
-        "watson/active": "^4.0",
-        "yish/imgur": "^1.0"
+        "watson/active": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
