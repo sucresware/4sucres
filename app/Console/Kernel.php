@@ -23,22 +23,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule
-            ->command('queue:work --tries=3')
-            ->everyMinute()
-            ->runInBackground()
-            ->withoutOverlapping();
+            ->command('backup:run')
+            ->daily();
 
         $schedule
             ->command('backup:clean')
             ->daily();
 
         $schedule
-            ->command('backup:run')
-            ->cron('0 */2 * * *');
-
-        $schedule
             ->command('achievements:distribute')
-            ->twiceDaily(11, 23)
+            ->daily(7)
             ->withoutOverlapping();
 
         $schedule
