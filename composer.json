@@ -4,6 +4,7 @@
     "description": "Forum open-source alternatif des forums de Jeuxvideo.com",
     "require": {
         "php": "^7.3|^8.0",
+        "anhskohbo/no-captcha": "^3.3",
         "appstract/laravel-options": "^2.2.0",
         "barryvdh/laravel-debugbar": "^3.2",
         "bepsvpt/secure-headers": "^7.0",
