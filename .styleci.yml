@@ -10,7 +10,6 @@ disabled:
   - concat_without_spaces
   - yoda_style
   - unalign_double_arrow
-  - const_separation
 finder:
   name: "*.php"
   not-name:
