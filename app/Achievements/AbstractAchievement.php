@@ -2,8 +2,8 @@
 
 namespace App\Achievements;
 
-use App\Models\User;
 use App\Models\Achievement;
+use App\Models\User;
 use App\Notifications\UnlockedAchievement;
 
 /**

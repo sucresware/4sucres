@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Achievement;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller

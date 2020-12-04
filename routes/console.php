@@ -1,14 +1,14 @@
 <?php
 
+use App\Models\Achievement;
+use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
-use Spatie\Regex\Regex;
-use App\Models\Discussion;
-use App\Models\Achievement;
-use Illuminate\Support\Carbon;
 use Cog\Laravel\Ban\Models\Ban;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+use Spatie\Regex\Regex;
 
 /*
 |--------------------------------------------------------------------------

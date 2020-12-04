@@ -4,19 +4,23 @@
 // .gitignore /.php_cs.cache
 // tools/php-cs-fixer fix -v --dry-run
 
-// @see https://styleci.readme.io/docs/presets#section-laravel
+// @see https://docs.styleci.io/presets#laravel
 // wget -qO- "https://api.styleci.io/presets" | jq --indent 4 -r '.[] | select(.name=="laravel") | .fixers'
 $styleciFixers = [
     "align_phpdoc",
+    "alpha_ordered_imports",
+    "array_indentation",
     "binary_operator_spaces",
     "blank_line_after_namespace",
     "blank_line_after_opening_tag",
     "blank_line_before_return",
-    "braces",
     "cast_spaces",
     "class_definition",
+    // "clean_namespace",
+    "compact_nullable_typehint",
     "concat_without_spaces",
     "declare_equal_normalize",
+    // "die_to_exit",
     "elseif",
     "encoding",
     "full_opening_tag",
@@ -26,7 +30,6 @@ $styleciFixers = [
     "heredoc_to_nowdoc",
     "include",
     "indentation",
-    "length_ordered_imports",
     "lowercase_cast",
     "lowercase_constants",
     "lowercase_keywords",
@@ -39,6 +42,8 @@ $styleciFixers = [
     "native_function_casing",
     "native_function_type_declaration_casing",
     "no_alias_functions",
+    "no_alternative_syntax",
+    "no_binary_string",
     "no_blank_lines_after_class_opening",
     "no_blank_lines_after_phpdoc",
     "no_blank_lines_after_throw",
@@ -62,8 +67,11 @@ $styleciFixers = [
     "no_trailing_whitespace",
     "no_trailing_whitespace_in_comment",
     "no_unneeded_control_parentheses",
+    "no_unneeded_curly_braces",
     "no_unreachable_default_argument_value",
+    "no_unset_cast",
     "no_unused_imports",
+    // "no_unused_lambda_imports",
     "no_useless_return",
     "no_whitespace_before_comma_in_array",
     "no_whitespace_in_blank_line",
@@ -71,14 +79,15 @@ $styleciFixers = [
     "not_operator_with_successor_space",
     "object_operator_without_whitespace",
     "phpdoc_indent",
-    "phpdoc_inline_tag",
+    "phpdoc_inline_tag_normalizer",
     "phpdoc_no_access",
     "phpdoc_no_package",
     "phpdoc_no_useless_inheritdoc",
+    "phpdoc_return_self_reference",
     "phpdoc_scalar",
     "phpdoc_single_line_var_spacing",
+    // "phpdoc_singular_inheritdoc",
     "phpdoc_summary",
-    "phpdoc_to_comment",
     "phpdoc_trim",
     "phpdoc_type_to_var",
     "phpdoc_types",
@@ -86,12 +95,13 @@ $styleciFixers = [
     "post_increment",
     "print_to_echo",
     "property_visibility_required",
+    "psr12_braces",
     "psr4",
+    "return_type_declaration",
     "self_accessor",
     "short_array_syntax",
     "short_list_syntax",
     "short_scalar_cast",
-    "simplified_null_return",
     "single_blank_line_at_eof",
     "single_blank_line_before_namespace",
     "single_class_element_per_statement",
@@ -102,13 +112,14 @@ $styleciFixers = [
     "standardize_not_equals",
     "switch_case_semicolon_to_colon",
     "switch_case_space",
+    // "switch_continue_to_break",
     "ternary_operator_spaces",
     "trailing_comma_in_multiline_array",
     "trim_array_spaces",
     "unalign_equals",
     "unary_operator_spaces",
     "unix_line_endings",
-    "whitespace_after_comma_in_array",
+    "whitespace_after_comma_in_array"
 ];
 
 // wget -qO- "https://github.com/FriendsOfPHP/PHP-CS-Fixer/raw/2.15/UPGRADE.md" \
@@ -182,14 +193,16 @@ $rulesUpgrade = [
 
 $styleciToPhpcs = [
     'align_phpdoc' => ['phpdoc_align' => ['align' => 'vertical']],
-    'length_ordered_imports' => ['ordered_imports' => ['sort_algorithm' => 'length']],
+    'alpha_ordered_imports' => ['ordered_imports' => ['sort_algorithm' => 'alpha']],
     'method_visibility_required' => 'visibility_required',
     'no_blank_lines_after_throw' => 'no_blank_lines_after_phpdoc',
     'no_blank_lines_between_imports' => false, // FIXME single_line_after_imports?
     'no_blank_lines_between_traits' => false, // FIXME
     'no_spaces_inside_offset' => 'no_spaces_around_offset',
+    'phpdoc_inline_tag_normalizer' => 'phpdoc_inline_tag',
     'post_increment' => 'pre_increment',
     'property_visibility_required' => 'visibility_required',
+    'psr12_braces' => 'braces',
     'short_list_syntax' => false, // FIXME
     'unix_line_endings' => 'line_ending',
     'long_array_syntax' => ['array_syntax' => ['syntax' => 'long']],

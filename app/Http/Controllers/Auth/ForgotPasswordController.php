@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Rules\Throttle;
-use App\Models\VerifyUser;
-use App\Mail\ResetPassword;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Mail\ResetPassword;
+use App\Models\User;
+use App\Models\VerifyUser;
+use App\Rules\Throttle;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Controller;
 use App\Models\DiscordEmoji;
 use App\Models\DiscordGuild;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
 class DiscordConnectorController extends Controller

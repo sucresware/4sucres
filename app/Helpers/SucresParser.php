@@ -5,9 +5,9 @@ namespace App\Helpers;
 use App\Models\Post;
 use App\Models\User;
 use ForceUTF8\Encoding;
-use Spatie\Regex\Regex;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Spatie\Regex\Regex;
 
 class SucresParser
 {

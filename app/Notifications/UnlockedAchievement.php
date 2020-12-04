@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Achievements\AbstractAchievement;
+use Illuminate\Bus\Queueable;
 
 class UnlockedAchievement extends DefaultNotification
 {

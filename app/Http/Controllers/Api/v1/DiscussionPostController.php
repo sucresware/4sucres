@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Models\Category;
-use App\Models\Discussion;
 use App\Helpers\SucresHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Discussion;
 
 class DiscussionPostController extends Controller
 {

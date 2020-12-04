@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Category;
-use App\Models\Discussion;
-use Illuminate\Http\Request;
 use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
+use App\Models\Category;
+use App\Models\Discussion;
 use App\Models\Notification as NotificationModel;
+use App\Models\Post;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class DiscussionController extends Controller
 {

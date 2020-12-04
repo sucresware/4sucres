@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-use App\Notifications\ReplyInDiscussion;
 use App\Notifications\RepliesInDiscussion;
+use App\Notifications\ReplyInDiscussion;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Discussion extends Model

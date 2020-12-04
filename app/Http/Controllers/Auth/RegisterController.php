@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Mail\VerifyEmail;
-use App\Models\VerifyUser;
-use App\Models\Achievement;
-use Illuminate\Support\Str;
 use App\Helpers\SucresHelper;
-use App\Notifications\Welcome;
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyEmail;
+use App\Models\Achievement;
+use App\Models\User;
+use App\Models\VerifyUser;
+use App\Notifications\Welcome;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {

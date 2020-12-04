@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Achievement;
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use App\Achievements\AchievementManager;
+use App\Models\Achievement;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class AchievementsTableSeeder extends Seeder
 {

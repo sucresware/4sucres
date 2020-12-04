@@ -4,13 +4,13 @@ namespace App\Models;
 
 use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
-use App\Notifications\QuotedInPost;
 use App\Notifications\MentionnedInPost;
+use App\Notifications\QuotedInPost;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Facades\Notification;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Post extends Model implements ReactableInterface
 {
