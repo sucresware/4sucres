@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use App\Models\Post;
 use App\Models\User;
 use Spatie\Regex\Regex;
