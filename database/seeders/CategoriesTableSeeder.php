@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -16,28 +16,28 @@ class CategoriesTableSeeder extends Seeder
         Model::unguard();
 
         Category::updateOrCreate(['id' => Category::CATEGORY_ANNOUNCES], [
-            'name'     => '#annonces',
-            'order'    => 1,
+            'name' => '#annonces',
+            'order' => 1,
             'can_post' => ['admin', 'moderator'],
         ]);
 
         Category::updateOrCreate(['id' => 2], [
-            'name'  => '#général',
+            'name' => '#général',
             'order' => 5,
         ]);
 
         Category::updateOrCreate(['id' => 3], [
-            'name'  => '#lifehacks',
+            'name' => '#lifehacks',
             'order' => 10,
         ]);
 
         Category::updateOrCreate(['id' => 4], [
-            'name'  => '#jeux',
+            'name' => '#jeux',
             'order' => 10,
         ]);
 
         Category::updateOrCreate(['id' => Category::CATEGORY_SHITPOST], [
-            'name'  => '#shitpost',
+            'name' => '#shitpost',
             'order' => 999,
         ]);
 
@@ -49,33 +49,33 @@ class CategoriesTableSeeder extends Seeder
         // ]);
 
         Category::updateOrCreate(['id' => 7], [
-            'name'  => '#nsfw',
+            'name' => '#nsfw',
             'order' => 10,
-            'nsfw'  => true,
+            'nsfw' => true,
         ]);
 
         Category::updateOrCreate(['id' => 8], [
-            'name'  => '#tech',
+            'name' => '#tech',
             'order' => 10,
         ]);
 
         Category::updateOrCreate(['id' => 9], [
-            'name'  => '#anime',
+            'name' => '#anime',
             'order' => 10,
         ]);
 
         Category::updateOrCreate(['id' => 10], [
-            'name'  => '#pol',
+            'name' => '#pol',
             'order' => 10,
         ]);
 
         Category::updateOrCreate(['id' => 11], [
-            'name'  => '#vidéothèque',
+            'name' => '#vidéothèque',
             'order' => 10,
         ]);
 
         Category::updateOrCreate(['id' => 12], [
-            'name'  => '#olinux',
+            'name' => '#olinux',
             'order' => 10,
         ]);
     }

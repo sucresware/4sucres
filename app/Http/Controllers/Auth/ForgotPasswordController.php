@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Mail\ResetPassword;
 use App\Models\User;
-use App\Models\VerifyUser;
 use App\Rules\Throttle;
-use Illuminate\Support\Facades\Mail;
+use App\Models\VerifyUser;
+use App\Mail\ResetPassword;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
 {
@@ -20,7 +20,7 @@ class ForgotPasswordController extends Controller
     public function sendResetLinkEmail()
     {
         request()->validate([
-            'email'                => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
+            'email' => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
             'g-recaptcha-response' => ['required', 'captcha'],
         ]);
 
@@ -29,8 +29,8 @@ class ForgotPasswordController extends Controller
         if ($user != null) {
             $verify_user = VerifyUser::create([
                 'user_id' => $user->id,
-                'token'   => Str::random(40),
-                'scope'   => VerifyUser::SCOPE_RESET_PASSWORD,
+                'token' => Str::random(40),
+                'scope' => VerifyUser::SCOPE_RESET_PASSWORD,
             ]);
 
             Mail::to($user)->send(new ResetPassword($user, $verify_user->token));
@@ -39,7 +39,7 @@ class ForgotPasswordController extends Controller
                 ->performedOn($user)
                 ->causedBy($user)
                 ->withProperties([
-                    'level'  => 'info',
+                    'level' => 'info',
                     'method' => __METHOD__,
                 ])
                 ->log('PasswordRequest');

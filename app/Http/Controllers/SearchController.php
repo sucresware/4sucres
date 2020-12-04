@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SucresHelper;
-use App\Models\Category;
-use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Spatie\Regex\Regex;
+use App\Models\Category;
+use App\Models\Discussion;
+use Illuminate\Support\Str;
+use App\Helpers\SucresHelper;
 
 class SearchController extends Controller
 {

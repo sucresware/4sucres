@@ -9,7 +9,7 @@ class Notification extends Model
     public $incrementing = false;
 
     protected $casts = [
-        'data'    => 'array',
+        'data' => 'array',
         'read_at' => 'datetime',
     ];
 }

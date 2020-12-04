@@ -2,7 +2,6 @@ preset: laravel
 risky: true
 enabled:
   - concat_with_spaces
-  - align_double_arrow
 disabled:
   - no_unused_imports
   - concat_without_spaces

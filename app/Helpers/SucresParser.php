@@ -5,9 +5,9 @@ namespace App\Helpers;
 use App\Models\Post;
 use App\Models\User;
 use ForceUTF8\Encoding;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Spatie\Regex\Regex;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class SucresParser
 {
@@ -424,7 +424,7 @@ class SucresParser
     public function renderMentions()
     {
         foreach ($this->getMentions() as $mention) {
-            if (!$mention['user']) {
+            if (! $mention['user']) {
                 continue;
             }
 
@@ -450,7 +450,7 @@ class SucresParser
         foreach ($matchs->results() as $match) {
             $excerpt = $match->group(0);
             $emoji = $poster_emojis->where('shortname', $excerpt)->first();
-            if (!$emoji) {
+            if (! $emoji) {
                 continue;
             }
 
@@ -483,7 +483,7 @@ class SucresParser
     public function renderQuotes()
     {
         foreach ($this->getQuotes() as $quote) {
-            if (!$quote['post']) {
+            if (! $quote['post']) {
                 continue;
             }
 
@@ -493,7 +493,7 @@ class SucresParser
                 $quote['post']->discussion->category->nsfw &&
                 ($current_discussion->private ||
                     $current_discussion->category &&
-                    !$current_discussion->category->nsfw)
+                    ! $current_discussion->category->nsfw)
             ) {
                 continue;
             }
@@ -525,7 +525,7 @@ class SucresParser
             } elseif ($ret_type == self::MENTIONS_RETURN_COMPLETE) {
                 $mentions[] = [
                     'excerpt' => $excerpt,
-                    'user'    => $user, // /!\ Can return null if user was not found
+                    'user' => $user, // /!\ Can return null if user was not found
                 ];
             }
         }
@@ -557,7 +557,7 @@ class SucresParser
             } elseif ($ret_type == self::QUOTES_RETURN_COMPLETE) {
                 $quotes[] = [
                     'excerpt' => $excerpt,
-                    'post'    => $post, // /!\ Can return null if post was not found
+                    'post' => $post, // /!\ Can return null if post was not found
                 ];
             }
         }

@@ -2,8 +2,8 @@
 
 namespace App\Achievements;
 
-use App\Models\Achievement;
 use App\Models\User;
+use App\Models\Achievement;
 use App\Notifications\UnlockedAchievement;
 
 /**
@@ -23,7 +23,7 @@ abstract class AbstractAchievement implements AchievementInterface
     {
         $userHasAchievement = (bool) $user->achievements()->where('code', $this->getClassName())->count();
 
-        return static::ENABLED && static::UNLOCKABLE && !$userHasAchievement;
+        return static::ENABLED && static::UNLOCKABLE && ! $userHasAchievement;
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\v1\DiscordConnectorController;
-use App\Http\Controllers\Api\v1\DiscussionPostController;
-use App\Http\Controllers\Api\v1\SelfController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\v1\SelfController;
+use App\Http\Controllers\Api\v1\DiscussionPostController;
+use App\Http\Controllers\Api\v1\DiscordConnectorController;
 
 /*
 |--------------------------------------------------------------------------

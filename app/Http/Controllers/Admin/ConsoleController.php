@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Discussion;
+use ZipArchive;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use League\Csv\Writer;
-use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
+use App\Models\Discussion;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Activitylog\Models\Activity;
-use ZipArchive;
+use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
 
 class ConsoleController extends Controller
 {
@@ -60,11 +60,11 @@ class ConsoleController extends Controller
 
                 $user = User::find($user_id_or_name);
 
-                if (!$user) {
+                if (! $user) {
                     $user = User::where('name', $user_id_or_name)->first();
                 }
 
-                if (!$user) {
+                if (! $user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
@@ -143,10 +143,10 @@ class ConsoleController extends Controller
                 }
                 list($command, $user_id_or_name, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
-                if (!$user) {
+                if (! $user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
                 }
-                if (!$user) {
+                if (! $user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
@@ -164,8 +164,8 @@ class ConsoleController extends Controller
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'    => 'error',
-                        'method'   => __METHOD__,
+                        'level' => 'error',
+                        'method' => __METHOD__,
                         'elevated' => true,
                     ])
                     ->log('UserBanned');
@@ -185,10 +185,10 @@ class ConsoleController extends Controller
                 }
                 list($command, $user_id_or_name, $days, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
-                if (!$user) {
+                if (! $user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
                 }
-                if (!$user) {
+                if (! $user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
@@ -200,15 +200,15 @@ class ConsoleController extends Controller
 
                 $user->ban([
                     'expired_at' => '+' . $days . ' days',
-                    'comment'    => str_replace('_', ' ', $comment),
+                    'comment' => str_replace('_', ' ', $comment),
                 ]);
 
                 activity()
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'    => 'error',
-                        'method'   => __METHOD__,
+                        'level' => 'error',
+                        'method' => __METHOD__,
                         'elevated' => true,
                     ])
                     ->log('UserTempBanned');
@@ -228,10 +228,10 @@ class ConsoleController extends Controller
                 }
                 list($command, $user_id_or_name, $comment) = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
-                if (!$user) {
+                if (! $user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
                 }
-                if (!$user) {
+                if (! $user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
@@ -240,15 +240,15 @@ class ConsoleController extends Controller
                 $user->ban([
                     'expired_at' => now(),
                     'deleted_at' => now(),
-                    'comment'    => str_replace('_', ' ', $comment),
+                    'comment' => str_replace('_', ' ', $comment),
                 ]);
 
                 activity()
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'    => 'error',
-                        'method'   => __METHOD__,
+                        'level' => 'error',
+                        'method' => __METHOD__,
                         'elevated' => true,
                     ])
                     ->log('UserWarned');
@@ -272,10 +272,10 @@ class ConsoleController extends Controller
                 }
                 list($command, $user_id_or_name) = $args;
                 $user = User::find($user_id_or_name);
-                if (!$user) {
+                if (! $user) {
                     $user = User::where('name', $user_id_or_name)->first();
                 }
-                if (!$user) {
+                if (! $user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
@@ -287,7 +287,7 @@ class ConsoleController extends Controller
                 $zip_path = storage_path('app/public/exports/' . $uuid . '.zip');
                 $zip = new ZipArchive();
 
-                if (!$zip->open($zip_path, ZipArchive::CREATE)) {
+                if (! $zip->open($zip_path, ZipArchive::CREATE)) {
                     $output .= 'Cannot create zip archive 🙁';
 
                     break;
@@ -353,8 +353,8 @@ class ConsoleController extends Controller
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'    => 'error',
-                        'method'   => __METHOD__,
+                        'level' => 'error',
+                        'method' => __METHOD__,
                         'elevated' => true,
                     ])
                     ->log('UserExported');
@@ -376,10 +376,10 @@ class ConsoleController extends Controller
                 }
                 list($command, $user_id_or_name) = $args;
                 $user = User::find($user_id_or_name);
-                if (!$user) {
+                if (! $user) {
                     $user = User::where('name', $user_id_or_name)->first();
                 }
-                if (!$user) {
+                if (! $user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
@@ -391,8 +391,8 @@ class ConsoleController extends Controller
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'    => 'error',
-                        'method'   => __METHOD__,
+                        'level' => 'error',
+                        'method' => __METHOD__,
                         'elevated' => true,
                     ])
                     ->log('UserUnbanned');
@@ -418,9 +418,9 @@ class ConsoleController extends Controller
                 activity()
                     ->causedBy(user())
                     ->withProperties([
-                        'level'      => 'error',
-                        'method'     => __METHOD__,
-                        'elevated'   => true,
+                        'level' => 'error',
+                        'method' => __METHOD__,
+                        'elevated' => true,
                         'attributes' => [
                             'ip' => $ip_address,
                         ],
@@ -444,7 +444,7 @@ class ConsoleController extends Controller
 
                 $discussion = Discussion::find($discussion_id);
 
-                if (!$discussion) {
+                if (! $discussion) {
                     $output .= 'Discussion "' . $discussion_id . '" not found 🙁';
 
                     break;
@@ -461,9 +461,9 @@ class ConsoleController extends Controller
                     ->performedOn($discussion)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'      => 'error',
-                        'method'     => __METHOD__,
-                        'elevated'   => true,
+                        'level' => 'error',
+                        'method' => __METHOD__,
+                        'elevated' => true,
                     ])
                     ->log('DiscussionRestored');
 
@@ -484,10 +484,10 @@ class ConsoleController extends Controller
                 list($command, $user_id_or_name) = $args;
 
                 $user = User::find($user_id_or_name);
-                if (!$user) {
+                if (! $user) {
                     $user = User::where('name', $user_id_or_name)->first();
                 }
-                if (!$user) {
+                if (! $user) {
                     $output .= 'User "' . $user_id_or_name . '" not found 🙁';
 
                     break;
@@ -547,9 +547,9 @@ class ConsoleController extends Controller
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'      => 'error',
-                        'method'     => __METHOD__,
-                        'elevated'   => true,
+                        'level' => 'error',
+                        'method' => __METHOD__,
+                        'elevated' => true,
                         'attributes' => [],
                     ])
                     ->log('ForceDelete');

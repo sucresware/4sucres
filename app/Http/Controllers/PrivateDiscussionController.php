@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SucresHelper;
-use App\Models\Discussion;
 use App\Models\User;
-use App\Notifications\NewPrivateDiscussion;
+use App\Models\Discussion;
 use Illuminate\Http\Request;
+use App\Helpers\SucresHelper;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\NewPrivateDiscussion;
 
 class PrivateDiscussionController extends Controller
 {
@@ -48,20 +48,20 @@ class PrivateDiscussionController extends Controller
 
         request()->validate([
             'title' => 'required|min:3',
-            'body'  => 'required|min:3',
+            'body' => 'required|min:3',
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 1);
 
         $discussion = Discussion::create([
-            'title'       => request()->title,
-            'user_id'     => user()->id,
+            'title' => request()->title,
+            'user_id' => user()->id,
             'category_id' => 0,
-            'private'     => true,
+            'private' => true,
         ]);
 
         $post = $discussion->posts()->create([
-            'body'    => request()->body,
+            'body' => request()->body,
             'user_id' => user()->id,
         ]);
 

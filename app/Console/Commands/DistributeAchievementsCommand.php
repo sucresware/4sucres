@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Achievements\AchievementManager;
 use App\Models\User;
 use Illuminate\Console\Command;
+use App\Achievements\AchievementManager;
 
 class DistributeAchievementsCommand extends Command
 {

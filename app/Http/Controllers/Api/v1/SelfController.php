@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Notification;
+use App\Http\Controllers\Controller;
 
 class SelfController extends Controller
 {

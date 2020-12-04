@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -16,8 +16,8 @@ class Category extends Model
     const CATEGORY_SHITPOST = 5;
 
     protected $casts = [
-        'can_post'  => 'array',
-        'can_view'  => 'array',
+        'can_post' => 'array',
+        'can_view' => 'array',
         'can_reply' => 'array',
     ];
 
@@ -47,21 +47,21 @@ class Category extends Model
     public static function viewables()
     {
         return self::ordered()->get()->reject(function ($category) {
-            return !$category->canView(user());
+            return ! $category->canView(user());
         });
     }
 
     public static function postables()
     {
         return self::ordered()->get()->reject(function ($category) {
-            return !$category->canPost(user());
+            return ! $category->canPost(user());
         });
     }
 
     public static function replyable()
     {
         return self::ordered()->get()->reject(function ($category) {
-            return !$category->canReply(user());
+            return ! $category->canReply(user());
         });
     }
 
@@ -80,7 +80,7 @@ class Category extends Model
                 $auth = false;
             }
         } else {
-            $auth = ($this->can_view == null && !$this->nsfw);
+            $auth = ($this->can_view == null && ! $this->nsfw);
         }
 
         return $auth;
@@ -101,7 +101,7 @@ class Category extends Model
                 $auth = false;
             }
         } else {
-            $auth = ($this->can_post == null && !$this->nsfw);
+            $auth = ($this->can_post == null && ! $this->nsfw);
         }
 
         return $auth;
@@ -122,7 +122,7 @@ class Category extends Model
                 $auth = false;
             }
         } else {
-            $auth = ($this->can_reply == null && !$this->nsfw);
+            $auth = ($this->can_reply == null && ! $this->nsfw);
         }
 
         return $auth;

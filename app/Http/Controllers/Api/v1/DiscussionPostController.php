@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Helpers\SucresHelper;
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Discussion;
+use App\Helpers\SucresHelper;
+use App\Http\Controllers\Controller;
 
 class DiscussionPostController extends Controller
 {
@@ -15,7 +15,7 @@ class DiscussionPostController extends Controller
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de continuer à répondre !');
         }
 
-        if (null !== $discussion->category && !in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (null !== $discussion->category && ! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -24,7 +24,7 @@ class DiscussionPostController extends Controller
                 ->performedOn($discussion)
                 ->causedBy(user('api'))
                 ->withProperties([
-                    'level'  => 'warning',
+                    'level' => 'warning',
                     'method' => __METHOD__,
                 ])
                 ->log('PermissionWarn');
@@ -47,7 +47,7 @@ class DiscussionPostController extends Controller
             $post = $latest_post;
         } else {
             $post = $discussion->posts()->create([
-                'body'    => request()->input('body'),
+                'body' => request()->input('body'),
                 'user_id' => user('api')->id,
             ]);
 

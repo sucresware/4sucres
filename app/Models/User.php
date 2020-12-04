@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Ban\Bannable as BannableContract;
-use Cog\Laravel\Ban\Traits\Bannable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
-use NotificationChannels\WebPush\HasPushSubscriptions;
-use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Cog\Laravel\Ban\Traits\Bannable;
+use Illuminate\Support\Facades\Cache;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
 use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Permission\Traits\HasRoles;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use NotificationChannels\WebPush\HasPushSubscriptions;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 
 class User extends Authenticatable implements ReactsInterface, BannableContract
 {
@@ -61,11 +61,11 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'last_activity'     => 'datetime',
-        'created_at'        => 'datetime',
-        'updated_at'        => 'datetime',
-        'dob'               => 'datetime',
-        'settings'          => 'array',
+        'last_activity' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'dob' => 'datetime',
+        'settings' => 'array',
     ];
 
     public function verify_user()
@@ -276,17 +276,17 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
             ))->transform(function ($emoji) use (&$duplicates) {
                 if (is_array($emoji)) {
                     $e = [
-                        'type'      => $emoji['type'],
+                        'type' => $emoji['type'],
                         'shortname' => $emoji['shortname'],
-                        'link'      => $emoji['link'] ?? '',
-                        'html'      => $emoji['html'] ?? '',
+                        'link' => $emoji['link'] ?? '',
+                        'html' => $emoji['html'] ?? '',
                     ];
                 } else {
                     $e = [
-                        'type'      => $emoji->type,
+                        'type' => $emoji->type,
                         'shortname' => $emoji->shortname,
-                        'link'      => $emoji->link ?? '',
-                        'html'      => $emoji->html ?? '',
+                        'link' => $emoji->link ?? '',
+                        'html' => $emoji->html ?? '',
                     ];
                 }
 
@@ -334,7 +334,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function getApiTokenAttribute()
     {
-        if (!isset($this->attributes['api_token'])) {
+        if (! isset($this->attributes['api_token'])) {
             $this->attributes['api_token'] = $this->createToken('personal')->accessToken;
             $this->save();
         }

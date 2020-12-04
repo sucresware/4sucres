@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-use GrahamCampbell\Throttle\Facades\Throttle;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use GrahamCampbell\Throttle\Facades\Throttle;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class SucresHelper
@@ -15,13 +15,13 @@ class SucresHelper
             return true;
         }
 
-        if (!self::throttle($key, $maxAttempts, $decayInMinutes)) {
+        if (! self::throttle($key, $maxAttempts, $decayInMinutes)) {
             activity()
                 ->causedBy(auth()->user())
                 ->withProperties([
-                    'level'  => 'warning',
+                    'level' => 'warning',
                     'method' => __METHOD__,
-                    'key'    => $key,
+                    'key' => $key,
                 ])
                 ->log('ThrottleHit');
 
@@ -41,7 +41,7 @@ class SucresHelper
     public static function throttle($key = 'validation', $maxAttempts = 5, $decayInMinutes = 10)
     {
         $ip_throttle = Throttle::get([
-            'ip'    => request()->ip(),
+            'ip' => request()->ip(),
             'route' => $key,
         ], $maxAttempts, $decayInMinutes);
 

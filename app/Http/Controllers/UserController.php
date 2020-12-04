@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Achievement;
 use App\Models\User;
+use App\Models\Achievement;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         $user = User::where('name', $nameOrId)->first();
 
-        if (!$user) {
+        if (! $user) {
             $user = User::findOrFail($nameOrId);
         }
 
@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->firstOrFail();
 
-        if ($user->id != user()->id && !user()->can('bypass users guard')) {
+        if ($user->id != user()->id && ! user()->can('bypass users guard')) {
             return abort(403);
         }
 
@@ -68,7 +68,7 @@ class UserController extends Controller
             activity()
                 ->causedBy(auth()->user())
                 ->withProperties([
-                    'level'  => 'warning',
+                    'level' => 'warning',
                     'method' => __METHOD__,
                 ])
                 ->log('PermissionWarn');
@@ -83,8 +83,8 @@ class UserController extends Controller
             ->performedOn($user)
             ->causedBy(user())
             ->withProperties([
-                'level'    => 'error',
-                'method'   => __METHOD__,
+                'level' => 'error',
+                'method' => __METHOD__,
                 'elevated' => true,
             ])
             ->log('UserSoftDeleted');

@@ -4,13 +4,13 @@ namespace App\Models;
 
 use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
-use App\Notifications\MentionnedInPost;
 use App\Notifications\QuotedInPost;
+use App\Notifications\MentionnedInPost;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Notification;
-use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Notification;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 
 class Post extends Model implements ReactableInterface
 {
@@ -50,7 +50,7 @@ class Post extends Model implements ReactableInterface
             $created_post->discussion->has_read()->sync([]);
             $created_post->discussion->notify_subscibers($created_post);
 
-            if (!$created_post->discussion->private) {
+            if (! $created_post->discussion->private) {
                 $parser = new SucresParser($created_post);
 
                 $mentioned_users = $parser->getMentions(SucresParser::MENTIONS_RETURN_USERS)
@@ -89,7 +89,7 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedBodyAttribute()
     {
-        if ($this->deleted_at && !(user() && user()->can('read deleted posts'))) {
+        if ($this->deleted_at && ! (user() && user()->can('read deleted posts'))) {
             return '';
         }
 
@@ -98,7 +98,7 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedLightBodyAttribute()
     {
-        if ($this->deleted_at && !(user() && user()->can('read deleted posts'))) {
+        if ($this->deleted_at && ! (user() && user()->can('read deleted posts'))) {
             return '';
         }
 

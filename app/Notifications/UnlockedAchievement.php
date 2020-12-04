@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Achievements\AbstractAchievement;
 use Illuminate\Bus\Queueable;
+use App\Achievements\AbstractAchievement;
 
 class UnlockedAchievement extends DefaultNotification
 {
@@ -24,10 +24,10 @@ class UnlockedAchievement extends DefaultNotification
     protected function attributes()
     {
         $attributes = [
-            'title'  => 'Ah oui oui !',
+            'title' => 'Ah oui oui !',
             'target' => route('profile'),
-            'html'   => 'Succès débloqué : <b>' . $this->achievement->getName() . '</b>',
-            'text'   => 'Succès débloqué : ' . $this->achievement->getName(),
+            'html' => 'Succès débloqué : <b>' . $this->achievement->getName() . '</b>',
+            'text' => 'Succès débloqué : ' . $this->achievement->getName(),
         ];
 
         return $attributes;

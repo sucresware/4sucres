@@ -2,9 +2,9 @@
 
 namespace App\Achievements\Achievements;
 
-use App\Achievements\AbstractAchievement;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Achievements\AbstractAchievement;
 
 class VocaBankAchievement extends AbstractAchievement
 {

@@ -16,10 +16,10 @@ class TestNotification extends DefaultNotification
     protected function attributes()
     {
         $attributes = [
-            'title'  => 'Oh putain j\'me suis dit oulaaah !',
+            'title' => 'Oh putain j\'me suis dit oulaaah !',
             'target' => route('home'),
-            'html'   => 'Ceci est un test de notification. <b>T\'as vu ?</b>',
-            'text'   => 'Ceci est un test de notification. T\'as vu ?',
+            'html' => 'Ceci est un test de notification. <b>T\'as vu ?</b>',
+            'text' => 'Ceci est un test de notification. T\'as vu ?',
         ];
 
         return $attributes;

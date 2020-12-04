@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\VerifyUser;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,7 +34,7 @@ class ResetPasswordController extends Controller
             ->performedOn($user)
             ->causedBy($user)
             ->withProperties([
-                'level'  => 'warning',
+                'level' => 'warning',
                 'method' => __METHOD__,
             ])
             ->log('PasswordChanged#Email');

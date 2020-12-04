@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Controller;
 use App\Models\DiscordEmoji;
 use App\Models\DiscordGuild;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
 class DiscordConnectorController extends Controller
 {
     public function guilds()
     {
-        if (!user('api')->can('sync discord emojis')) {
+        if (! user('api')->can('sync discord emojis')) {
             abort(403);
         }
 
         request()->validate([
-            'id'   => ['required', 'integer'],
+            'id' => ['required', 'integer'],
             'icon' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
         ]);
 
         $guild = new DiscordGuild([
-            'id'   => request()->id,
+            'id' => request()->id,
             'icon' => request()->icon,
             'name' => request()->name,
         ]);
@@ -33,10 +33,10 @@ class DiscordConnectorController extends Controller
             activity()
                 ->causedBy(auth()->user('api'))
                 ->withProperties([
-                    'level'        => 'warning',
-                    'method'       => __METHOD__,
-                    'request'      => request()->all(),
-                    'attributes'   => array_merge($guild->toArray(), ['link' => $guild->link]),
+                    'level' => 'warning',
+                    'method' => __METHOD__,
+                    'request' => request()->all(),
+                    'attributes' => array_merge($guild->toArray(), ['link' => $guild->link]),
                 ])
                 ->log('DiscordGuildNotFound');
 
@@ -59,17 +59,17 @@ class DiscordConnectorController extends Controller
 
     public function emojis()
     {
-        if (!user('api')->can('sync discord emojis')) {
+        if (! user('api')->can('sync discord emojis')) {
             abort(403);
         }
 
         request()->validate([
-            'guild_id'                => ['required', 'integer', 'exists:discord_guilds,id'],
-            'emojis'                  => ['required', 'array'],
-            'emojis.*.id'             => ['required', 'integer'],
-            'emojis.*.name'           => ['required', 'string', 'max:255'],
-            'emojis.*.animated'       => ['boolean'],
-            'emojis.*.deleted'        => ['boolean'],
+            'guild_id' => ['required', 'integer', 'exists:discord_guilds,id'],
+            'emojis' => ['required', 'array'],
+            'emojis.*.id' => ['required', 'integer'],
+            'emojis.*.name' => ['required', 'string', 'max:255'],
+            'emojis.*.animated' => ['boolean'],
+            'emojis.*.deleted' => ['boolean'],
             'emojis.*.require_colons' => ['boolean'],
         ]);
 
@@ -77,11 +77,11 @@ class DiscordConnectorController extends Controller
             $emoji = DiscordEmoji::updateOrCreate([
                 'id' => $incomingEmoji['id'],
             ], [
-                'name'              => $incomingEmoji['name'],
-                'animated'          => $incomingEmoji['animated'] ?? false,
-                'deleted'           => $incomingEmoji['deleted'] ?? false,
-                'require_colons'    => $incomingEmoji['require_colons'] ?? true,
-                'discord_guild_id'  => request()->guild_id,
+                'name' => $incomingEmoji['name'],
+                'animated' => $incomingEmoji['animated'] ?? false,
+                'deleted' => $incomingEmoji['deleted'] ?? false,
+                'require_colons' => $incomingEmoji['require_colons'] ?? true,
+                'discord_guild_id' => request()->guild_id,
             ]);
 
             try {
@@ -90,10 +90,10 @@ class DiscordConnectorController extends Controller
                 activity()
                     ->causedBy(auth()->user('api'))
                     ->withProperties([
-                        'level'        => 'warning',
-                        'method'       => __METHOD__,
-                        'request'      => request()->all(),
-                        'attributes'   => array_merge($emoji->toArray(), ['link' => $emoji->link]),
+                        'level' => 'warning',
+                        'method' => __METHOD__,
+                        'request' => request()->all(),
+                        'attributes' => array_merge($emoji->toArray(), ['link' => $emoji->link]),
                     ])
                     ->log('DiscordEmojiNotFound');
 

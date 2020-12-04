@@ -30,35 +30,35 @@ return [
     'disks' => [
         'local' => [
             'driver' => 'local',
-            'root'   => storage_path('app'),
+            'root' => storage_path('app'),
         ],
 
         'public' => [
-            'driver'     => 'local',
-            'root'       => storage_path('app/public'),
-            'url'        => env('APP_URL') . '/storage',
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
         'backup' => [
-            'driver'     => 'ftp',
-            'host'       => env('BACKUP_FTP_HOST'),
-            'username'   => env('BACKUP_FTP_USERNAME'),
-            'password'   => env('BACKUP_FTP_PASSWORD'),
-            'port'       => env('BACKUP_FTP_PORT', 21),
-            'root'       => env('BACKUP_FTP_ROOT', ''),
-            'passive'    => true,
-            'ssl'        => true,
-            'timeout'    => 30,
+            'driver' => 'ftp',
+            'host' => env('BACKUP_FTP_HOST'),
+            'username' => env('BACKUP_FTP_USERNAME'),
+            'password' => env('BACKUP_FTP_PASSWORD'),
+            'port' => env('BACKUP_FTP_PORT', 21),
+            'root' => env('BACKUP_FTP_ROOT', ''),
+            'passive' => true,
+            'ssl' => true,
+            'timeout' => 30,
         ],
 
         's3' => [
             'driver' => 's3',
-            'key'    => env('AWS_ACCESS_KEY_ID'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
-            'url'    => env('AWS_URL'),
+            'url' => env('AWS_URL'),
         ],
     ],
 

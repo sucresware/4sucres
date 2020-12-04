@@ -4,13 +4,13 @@ namespace App\Notifications;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\Pushbullet\PushbulletChannel;
-use NotificationChannels\Pushbullet\PushbulletMessage;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
+use NotificationChannels\Pushbullet\PushbulletChannel;
+use NotificationChannels\Pushbullet\PushbulletMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class DefaultNotification extends Notification implements ShouldQueue
 {
@@ -45,7 +45,7 @@ class DefaultNotification extends Notification implements ShouldQueue
 
         return new BroadcastMessage(array_merge($attributes, [
             'title' => $attributes['title'],
-            'url'   => route('notifications.show', $this->id),
+            'url' => route('notifications.show', $this->id),
         ]));
     }
 

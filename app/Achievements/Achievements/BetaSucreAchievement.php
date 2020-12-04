@@ -2,8 +2,8 @@
 
 namespace App\Achievements\Achievements;
 
-use App\Achievements\AbstractAchievement;
 use App\Models\User;
+use App\Achievements\AbstractAchievement;
 
 class BetaSucreAchievement extends AbstractAchievement
 {

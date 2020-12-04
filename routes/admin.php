@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\ActivityController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ConsoleController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
