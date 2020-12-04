@@ -43,7 +43,7 @@ class Post extends Model implements ReactableInterface
 
         self::created(function ($created_post) {
             $discussion = $created_post->discussion;
-            ++$discussion->replies;
+            $discussion->replies++;
             $discussion->last_reply_at = now();
             $discussion->save();
 

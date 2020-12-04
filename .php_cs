@@ -200,10 +200,10 @@ $styleciToPhpcs = [
     'no_blank_lines_between_traits' => false, // FIXME
     'no_spaces_inside_offset' => 'no_spaces_around_offset',
     'phpdoc_inline_tag_normalizer' => 'phpdoc_inline_tag',
-    'post_increment' => 'pre_increment',
+    'post_increment' => ['increment_style' => ['style' => 'post']],
     'property_visibility_required' => 'visibility_required',
     'psr12_braces' => 'braces',
-    'short_list_syntax' => false, // FIXME
+    'short_list_syntax' => ['list_syntax' => ['syntax' => 'short']],
     'unix_line_endings' => 'line_ending',
     'long_array_syntax' => ['array_syntax' => ['syntax' => 'long']],
     'short_array_syntax' => ['array_syntax' => ['syntax' => 'short']],

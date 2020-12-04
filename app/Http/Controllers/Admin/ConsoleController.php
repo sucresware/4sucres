@@ -56,7 +56,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $user_id_or_name) = $args;
+                [$command, $user_id_or_name] = $args;
 
                 $user = User::find($user_id_or_name);
 
@@ -141,7 +141,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $user_id_or_name, $comment) = $args;
+                [$command, $user_id_or_name, $comment] = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (! $user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
@@ -183,7 +183,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $user_id_or_name, $days, $comment) = $args;
+                [$command, $user_id_or_name, $days, $comment] = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (! $user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
@@ -226,7 +226,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $user_id_or_name, $comment) = $args;
+                [$command, $user_id_or_name, $comment] = $args;
                 $user = User::notTrashed()->find($user_id_or_name);
                 if (! $user) {
                     $user = User::notTrashed()->where('name', $user_id_or_name)->first();
@@ -270,7 +270,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $user_id_or_name) = $args;
+                [$command, $user_id_or_name] = $args;
                 $user = User::find($user_id_or_name);
                 if (! $user) {
                     $user = User::where('name', $user_id_or_name)->first();
@@ -374,7 +374,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $user_id_or_name) = $args;
+                [$command, $user_id_or_name] = $args;
                 $user = User::find($user_id_or_name);
                 if (! $user) {
                     $user = User::where('name', $user_id_or_name)->first();
@@ -411,7 +411,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $ip_address) = $args;
+                [$command, $ip_address] = $args;
 
                 ($command == 'user:banip') ? Firewall::blacklist($ip_address, true) : Firewall::remove($ip_address);
 
@@ -440,7 +440,7 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                list($command, $discussion_id) = $args;
+                [$command, $discussion_id] = $args;
 
                 $discussion = Discussion::find($discussion_id);
 
@@ -481,7 +481,7 @@ class ConsoleController extends Controller
                     break;
                 }
 
-                list($command, $user_id_or_name) = $args;
+                [$command, $user_id_or_name] = $args;
 
                 $user = User::find($user_id_or_name);
                 if (! $user) {

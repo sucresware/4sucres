@@ -172,9 +172,9 @@ class SucresParser
 
             $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $match->group(1));
             $output = '';
-            for ($i = 0; $i < strlen($input); ++$i) {
+            for ($i = 0; $i < strlen($input); $i++) {
                 $char = $input[$i];
-                list(, $code) = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
+                [, $code] = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
                 if ($code >= 33 && $code <= 270) {
                     $output .= mb_convert_encoding('&#' . intval($code + 65248) . ';', 'UTF-8', 'HTML-ENTITIES');
                 } elseif ($code == 32) {
