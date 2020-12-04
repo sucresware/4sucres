@@ -28,30 +28,30 @@ class RegisterController extends Controller
         $max_date = now()->setYear(1900);
 
         request()->validate([
-            'name'                 => ['required', 'string', 'alpha_dash', 'max:35', 'min:4', 'unique:users'],
-            'email'                => ['required', 'string', 'email', 'not_throw_away', 'max:255', 'unique:users'],
-            'password'             => ['required', 'string', 'min:6'],
-            'dob'                  => ['required', 'date', 'before:' . $min_date, 'after:' . $max_date],
-            'gender'               => ['required', 'in:M,F'],
-            'referrer'             => ['required', 'in:none.none,avenoel.org,jeuxvideo.com,2sucres.org,lebunker.net,onche.party'],
+            'name' => ['required', 'string', 'alpha_dash', 'max:35', 'min:4', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'not_throw_away', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6'],
+            'dob' => ['required', 'date', 'before:' . $min_date, 'after:' . $max_date],
+            'gender' => ['required', 'in:M,F'],
+            'referrer' => ['required', 'in:none.none,avenoel.org,jeuxvideo.com,2sucres.org,lebunker.net,onche.party'],
             'g-recaptcha-response' => ['required', 'captcha'],
         ], [
-            'gender.in'            => 'Désolé, pas de sucres non genrés ici. Tu peux trouver ta place sur <a href="http://www.madmoizelle.com/">mademoiZelle.com</a>',
-            'dob.before'           => 'Tu dois avoir plus de 13 ans pour t\'inscrire ici.',
-            'dob.after'            => 'WTF l\'ancien !? T\'es né avant 1900?',
+            'gender.in' => 'Désolé, pas de sucres non genrés ici. Tu peux trouver ta place sur <a href="http://www.madmoizelle.com/">mademoiZelle.com</a>',
+            'dob.before' => 'Tu dois avoir plus de 13 ans pour t\'inscrire ici.',
+            'dob.after' => 'WTF l\'ancien !? T\'es né avant 1900?',
             'email.not_throw_away' => 'Un problème avec l\'adresse e-mail?',
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 1, 10);
 
         $user = User::create([
-            'name'         => request()->name,
+            'name' => request()->name,
             'display_name' => request()->name,
-            'shown_role'   => (request()->gender == 'M') ? 'Sucros' : 'Sucrette',
-            'email'        => request()->email,
-            'password'     => Hash::make(request()->password),
-            'gender'       => request()->gender,
-            'dob'          => request()->dob,
+            'shown_role' => (request()->gender == 'M') ? 'Sucros' : 'Sucrette',
+            'email' => request()->email,
+            'password' => Hash::make(request()->password),
+            'gender' => request()->gender,
+            'dob' => request()->dob,
         ]);
         $user->assignRole('user');
 
@@ -96,15 +96,15 @@ class RegisterController extends Controller
             ->performedOn($user)
             ->causedBy($user)
             ->withProperties([
-                'level'  => 'notice',
+                'level' => 'notice',
                 'method' => __METHOD__,
             ])
             ->log('RegisterSuccess');
 
         $verify_user = VerifyUser::create([
             'user_id' => $user->id,
-            'token'   => Str::random(40),
-            'scope'   => VerifyUser::SCOPE_VERIFY_EMAIL,
+            'token' => Str::random(40),
+            'scope' => VerifyUser::SCOPE_VERIFY_EMAIL,
         ]);
 
         Mail::to($user)->send(new VerifyEmail($user, $verify_user->token));
@@ -133,7 +133,7 @@ class RegisterController extends Controller
             ->performedOn($user)
             ->causedBy($user)
             ->withProperties([
-                'level'  => 'info',
+                'level' => 'info',
                 'method' => __METHOD__,
             ])
             ->log('EmailVerified');

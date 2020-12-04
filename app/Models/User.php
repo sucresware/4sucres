@@ -61,11 +61,11 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'last_activity'     => 'datetime',
-        'created_at'        => 'datetime',
-        'updated_at'        => 'datetime',
-        'dob'               => 'datetime',
-        'settings'          => 'array',
+        'last_activity' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'dob' => 'datetime',
+        'settings' => 'array',
     ];
 
     public function verify_user()
@@ -276,17 +276,17 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
             ))->transform(function ($emoji) use (&$duplicates) {
                 if (is_array($emoji)) {
                     $e = [
-                        'type'      => $emoji['type'],
+                        'type' => $emoji['type'],
                         'shortname' => $emoji['shortname'],
-                        'link'      => $emoji['link'] ?? '',
-                        'html'      => $emoji['html'] ?? '',
+                        'link' => $emoji['link'] ?? '',
+                        'html' => $emoji['html'] ?? '',
                     ];
                 } else {
                     $e = [
-                        'type'      => $emoji->type,
+                        'type' => $emoji->type,
                         'shortname' => $emoji->shortname,
-                        'link'      => $emoji->link ?? '',
-                        'html'      => $emoji->html ?? '',
+                        'link' => $emoji->link ?? '',
+                        'html' => $emoji->html ?? '',
                     ];
                 }
 
@@ -334,7 +334,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function getApiTokenAttribute()
     {
-        if (!isset($this->attributes['api_token'])) {
+        if (! isset($this->attributes['api_token'])) {
             $this->attributes['api_token'] = $this->createToken('personal')->accessToken;
             $this->save();
         }

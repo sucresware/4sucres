@@ -43,14 +43,14 @@ class Post extends Model implements ReactableInterface
 
         self::created(function ($created_post) {
             $discussion = $created_post->discussion;
-            ++$discussion->replies;
+            $discussion->replies++;
             $discussion->last_reply_at = now();
             $discussion->save();
 
             $created_post->discussion->has_read()->sync([]);
             $created_post->discussion->notify_subscibers($created_post);
 
-            if (!$created_post->discussion->private) {
+            if (! $created_post->discussion->private) {
                 $parser = new SucresParser($created_post);
 
                 $mentioned_users = $parser->getMentions(SucresParser::MENTIONS_RETURN_USERS)
@@ -89,7 +89,7 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedBodyAttribute()
     {
-        if ($this->deleted_at && !(user() && user()->can('read deleted posts'))) {
+        if ($this->deleted_at && ! (user() && user()->can('read deleted posts'))) {
             return '';
         }
 
@@ -98,7 +98,7 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedLightBodyAttribute()
     {
-        if ($this->deleted_at && !(user() && user()->can('read deleted posts'))) {
+        if ($this->deleted_at && ! (user() && user()->can('read deleted posts'))) {
             return '';
         }
 

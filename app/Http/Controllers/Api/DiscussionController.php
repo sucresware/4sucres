@@ -12,7 +12,7 @@ class DiscussionController extends Controller
     {
         $categories = Category::viewables();
 
-        if ($discussion->category && !in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
+        if ($discussion->category && ! in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
             return abort(403);
         }
 

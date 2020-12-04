@@ -2,8 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -12,7 +12,8 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontReport = [];
+    protected $dontReport = [
+    ];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -25,30 +26,22 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
+     * Register the exception handling callbacks for the application.
      *
-     * @throws \Exception
+     * @return void
      */
-    public function report(Exception $exception)
+    public function register()
     {
-        if (app()->bound('sentry') && $this->shouldReport($exception)) {
+        $this->reportable(function (Throwable $e) {
+        });
+    }
+
+    public function report(Throwable $exception)
+    {
+        if ($this->shouldReport($exception) && app()->bound('sentry')) {
             app('sentry')->captureException($exception);
         }
 
         parent::report($exception);
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Exception
-     */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
     }
 }

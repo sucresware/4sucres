@@ -35,19 +35,19 @@ return [
 
     'responses' => [
         'blacklist' => [
-            'code'        => 403, // 200 = log && notify, but keep pages rendering
-            'message'     => null,
-            'view'        => 'errors.firewall',
+            'code' => 403, // 200 = log && notify, but keep pages rendering
+            'message' => null,
+            'view' => 'errors.firewall',
             'redirect_to' => null,
-            'abort'       => false, // return abort() instead of Response::make() - disabled by default
+            'abort' => false, // return abort() instead of Response::make() - disabled by default
         ],
 
         'whitelist' => [
-            'code'        => 403, // 200 = log && notify, but keep pages rendering
-            'message'     => null,
-            'view'        => null,
+            'code' => 403, // 200 = log && notify, but keep pages rendering
+            'message' => null,
+            'view' => null,
             'redirect_to' => null,
-            'abort'       => false, // return abort() instead of Response::make() - disabled by default
+            'abort' => false, // return abort() instead of Response::make() - disabled by default
         ],
     ],
 
@@ -157,7 +157,7 @@ return [
 
     'attack_blocker' => [
         'enabled' => [
-            'ip'      => true,
+            'ip' => true,
             'country' => false,
         ],
 
@@ -166,33 +166,33 @@ return [
         'allowed_frequency' => [
             'ip' => [
                 'requests' => 50,
-                'seconds'  => 1 * 60, // 1 minute
+                'seconds' => 1 * 60, // 1 minute
             ],
 
             'country' => [
                 'requests' => 3000,
-                'seconds'  => 2 * 60, // 2 minutes
+                'seconds' => 2 * 60, // 2 minutes
             ],
         ],
 
         'action' => [
             'ip' => [
-                'blacklist_unknown'     => true,
+                'blacklist_unknown' => true,
                 'blacklist_whitelisted' => false,
             ],
 
             'country' => [
-                'blacklist_unknown'     => false,
+                'blacklist_unknown' => false,
                 'blacklist_whitelisted' => false,
             ],
         ],
 
         'response' => [
-            'code'        => 403, // 200 = log && notify, but keep pages rendering
-            'message'     => null,
-            'view'        => null,
+            'code' => 403, // 200 = log && notify, but keep pages rendering
+            'message' => null,
+            'view' => null,
             'redirect_to' => null,
-            'abort'       => false, // return abort() instead of Response::make() - disabled by default
+            'abort' => false, // return abort() instead of Response::make() - disabled by default
         ],
     ],
 
@@ -200,10 +200,10 @@ return [
         'enabled' => true,
 
         'message' => [
-            'title'         => 'User agent',
-            'message'       => "A possible attack on '%s' has been detected from %s",
+            'title' => 'User agent',
+            'message' => "A possible attack on '%s' has been detected from %s",
             'request_count' => [
-                'title'   => 'Request count',
+                'title' => 'Request count',
                 'message' => 'Received %s requests in the last %s seconds. Timestamp of first request: %s',
             ],
             'uri' => [
@@ -216,25 +216,25 @@ return [
                 'title' => 'User agent',
             ],
             'geolocation' => [
-                'title'              => 'Geolocation',
-                'field_latitude'     => 'Latitude',
-                'field_longitude'    => 'Longitude',
+                'title' => 'Geolocation',
+                'field_latitude' => 'Latitude',
+                'field_longitude' => 'Longitude',
                 'field_country_code' => 'Country code',
                 'field_country_name' => 'Country name',
-                'field_city'         => 'City',
+                'field_city' => 'City',
             ],
         ],
 
         'route' => '',
 
         'from' => [
-            'name'       => 'Laravel Firewall',
-            'address'    => 'firewall@mydomain.com',
+            'name' => 'Laravel Firewall',
+            'address' => 'firewall@mydomain.com',
             'icon_emoji' => ':fire:',
         ],
 
         'users' => [
-            'model'  => PragmaRX\Firewall\Vendor\Laravel\Models\User::class,
+            'model' => PragmaRX\Firewall\Vendor\Laravel\Models\User::class,
             'emails' => [
                 'admin@mydomain.com',
             ],
@@ -243,12 +243,12 @@ return [
         'channels' => [
             'slack' => [
                 'enabled' => true,
-                'sender'  => PragmaRX\Firewall\Notifications\Channels\Slack::class,
+                'sender' => PragmaRX\Firewall\Notifications\Channels\Slack::class,
             ],
 
             'mail' => [
                 'enabled' => true,
-                'sender'  => PragmaRX\Firewall\Notifications\Channels\Mail::class,
+                'sender' => PragmaRX\Firewall\Notifications\Channels\Mail::class,
             ],
         ],
     ],

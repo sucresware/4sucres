@@ -1,17 +1,10 @@
-preset: symfony
+preset: laravel
 risky: true
 enabled:
-  - ordered_imports
-  - short_array_syntax
   - concat_with_spaces
-  - align_double_arrow
 disabled:
-  - unused_use
+  - no_unused_imports
   - concat_without_spaces
-  - yoda_style
-  - unalign_double_arrow
-  - property_separation
-  - const_separation
 finder:
   name: "*.php"
   not-name:

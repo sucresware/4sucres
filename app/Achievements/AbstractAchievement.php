@@ -23,7 +23,7 @@ abstract class AbstractAchievement implements AchievementInterface
     {
         $userHasAchievement = (bool) $user->achievements()->where('code', $this->getClassName())->count();
 
-        return static::ENABLED && static::UNLOCKABLE && !$userHasAchievement;
+        return static::ENABLED && static::UNLOCKABLE && ! $userHasAchievement;
     }
 
     /**

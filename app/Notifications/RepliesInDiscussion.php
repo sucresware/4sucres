@@ -41,10 +41,10 @@ class RepliesInDiscussion extends DefaultNotification
     protected function attributes()
     {
         return [
-            'title'  => 'Oui, allo ?',
+            'title' => 'Oui, allo ?',
             'target' => $this->discussion->link,
-            'html'   => 'Plusieurs réponses ont été postées sur la discussion <b>' . e($this->discussion->title) . '</b>',
-            'text'   => 'Plusieurs réponses ont été postées sur la discussion : ' . $this->discussion->title,
+            'html' => 'Plusieurs réponses ont été postées sur la discussion <b>' . e($this->discussion->title) . '</b>',
+            'text' => 'Plusieurs réponses ont été postées sur la discussion : ' . $this->discussion->title,
         ];
     }
 }

@@ -48,20 +48,20 @@ class PrivateDiscussionController extends Controller
 
         request()->validate([
             'title' => 'required|min:3',
-            'body'  => 'required|min:3',
+            'body' => 'required|min:3',
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 1);
 
         $discussion = Discussion::create([
-            'title'       => request()->title,
-            'user_id'     => user()->id,
+            'title' => request()->title,
+            'user_id' => user()->id,
             'category_id' => 0,
-            'private'     => true,
+            'private' => true,
         ]);
 
         $post = $discussion->posts()->create([
-            'body'    => request()->body,
+            'body' => request()->body,
             'user_id' => user()->id,
         ]);
 

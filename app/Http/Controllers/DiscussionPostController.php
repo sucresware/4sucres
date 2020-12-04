@@ -16,7 +16,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -33,7 +33,7 @@ class DiscussionPostController extends Controller
                 ->performedOn($discussion)
                 ->causedBy(user())
                 ->withProperties([
-                    'level'  => 'warning',
+                    'level' => 'warning',
                     'method' => __METHOD__,
                 ])
                 ->log('PermissionWarn');
@@ -41,7 +41,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -63,7 +63,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -77,7 +77,7 @@ class DiscussionPostController extends Controller
                 ->performedOn($discussion)
                 ->causedBy(user())
                 ->withProperties([
-                    'level'  => 'warning',
+                    'level' => 'warning',
                     'method' => __METHOD__,
                 ])
                 ->log('PermissionWarn');
@@ -85,7 +85,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -105,7 +105,7 @@ class DiscussionPostController extends Controller
                 ->performedOn($discussion)
                 ->causedBy(user())
                 ->withProperties([
-                    'level'  => 'warning',
+                    'level' => 'warning',
                     'method' => __METHOD__,
                 ])
                 ->log('DiscussionSoftDeleted');
@@ -121,7 +121,7 @@ class DiscussionPostController extends Controller
                 ->performedOn($post)
                 ->causedBy(user())
                 ->withProperties([
-                    'level'  => 'warning',
+                    'level' => 'warning',
                     'method' => __METHOD__,
                 ])
                 ->log('PostSoftDeleted');

@@ -20,8 +20,8 @@ class Discussion extends Model
     ];
 
     protected $casts = [
-        'sticky'  => 'bool',
-        'locked'  => 'bool',
+        'sticky' => 'bool',
+        'locked' => 'bool',
         'private' => 'bool',
     ];
 
@@ -35,7 +35,7 @@ class Discussion extends Model
 
         self::creating(function ($discussion) {
             $discussion->slug = Str::slug($discussion->title);
-            if (!$discussion->slug) {
+            if (! $discussion->slug) {
                 $discussion->slug = 'singe';
             }
 
@@ -139,7 +139,7 @@ class Discussion extends Model
     {
         foreach ($this->subscribed as $user) {
             if ($user->id != $post->user->id) {
-                if ((!$post->discussion->private && $user->getSetting('notifications.on_subscribed_discussions', true)) || ($post->discussion->private && $user->getSetting('notifications.on_new_private_message', true))) {
+                if ((! $post->discussion->private && $user->getSetting('notifications.on_subscribed_discussions', true)) || ($post->discussion->private && $user->getSetting('notifications.on_new_private_message', true))) {
                     // Check if the user has not already received an unread ReplyInDiscussion about this discussion :
                     $notifications = $user->notifications()
                         ->where('data->discussion_id', $post->discussion->id)
@@ -152,7 +152,7 @@ class Discussion extends Model
                             $notification->save();
                         });
 
-                        if (!$post->discussion->private) {
+                        if (! $post->discussion->private) {
                             $user->notify(new RepliesInDiscussion($post->discussion));
                             $user->notify(new ReplyInDiscussion($post, false));
                         } else {

@@ -20,7 +20,7 @@ class QuotedInPost extends DefaultNotification
     public function toArray($notifiable)
     {
         return array_merge($this->attributes(), [
-            'post_id'       => $this->post->id,
+            'post_id' => $this->post->id,
             'discussion_id' => $this->post->discussion->id,
         ]);
     }
@@ -37,10 +37,10 @@ class QuotedInPost extends DefaultNotification
     protected function attributes()
     {
         $attributes = [
-            'title'  => 'Hey! T\'as été cité !',
+            'title' => 'Hey! T\'as été cité !',
             'target' => $this->post->link,
-            'html'   => '<b>' . e($this->post->user->display_name) . '</b> t\'as répondu dans la discussion <b>' . e($this->post->discussion->title) . '</b>',
-            'text'   => $this->post->user->display_name . ' t\'as répondu dans la discussion : ' . $this->post->discussion->title,
+            'html' => '<b>' . e($this->post->user->display_name) . '</b> t\'as répondu dans la discussion <b>' . e($this->post->discussion->title) . '</b>',
+            'text' => $this->post->user->display_name . ' t\'as répondu dans la discussion : ' . $this->post->discussion->title,
         ];
 
         return $attributes;

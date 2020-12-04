@@ -63,21 +63,21 @@ class DiscussionController extends Controller
         $categories = Category::postables()->pluck('id');
 
         request()->validate([
-            'title'    => ['required', 'min:3', 'max:255'],
-            'body'     => ['required', 'min:3', 'max:10000'],
+            'title' => ['required', 'min:3', 'max:255'],
+            'body' => ['required', 'min:3', 'max:10000'],
             'category' => ['required', 'exists:categories,id', Rule::in($categories)],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 10);
 
         $discussion = Discussion::create([
-            'title'       => request()->title,
-            'user_id'     => user()->id,
+            'title' => request()->title,
+            'user_id' => user()->id,
             'category_id' => request()->category,
         ]);
 
         $post = $discussion->posts()->create([
-            'body'    => request()->body,
+            'body' => request()->body,
             'user_id' => user()->id,
         ]);
 
@@ -92,7 +92,7 @@ class DiscussionController extends Controller
     {
         $categories = Category::viewables();
 
-        if ($category && !in_array($category->id, $categories->pluck('id')->toArray())) {
+        if ($category && ! in_array($category->id, $categories->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -176,11 +176,11 @@ class DiscussionController extends Controller
         $discussion = Discussion::query()
             ->findOrFail($id);
 
-        if (null !== $discussion->category && !in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+        if (null !== $discussion->category && ! in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        if ($discussion->deleted_at && !(user() && user()->can('read deleted discussions'))) {
+        if ($discussion->deleted_at && ! (user() && user()->can('read deleted discussions'))) {
             return abort(410);
         }
 
@@ -253,12 +253,12 @@ class DiscussionController extends Controller
 
         $categories = Category::postables();
 
-        if (!in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
+        if (! in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
             return abort(403);
         }
 
         request()->validate([
-            'title'    => 'required|min:4|max:255',
+            'title' => 'required|min:4|max:255',
             'category' => ['required', 'exists:categories,id', Rule::in($categories->pluck('id'))],
         ]);
 
@@ -278,8 +278,8 @@ class DiscussionController extends Controller
             activity()
                 ->causedBy(auth()->user())
                 ->withProperties([
-                    'level'    => 'warning',
-                    'method'   => __METHOD__,
+                    'level' => 'warning',
+                    'method' => __METHOD__,
                     'elevated' => true,
                 ])
                 ->log('DiscussionUpdated');
@@ -299,7 +299,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+        if (! in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -317,7 +317,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        if (!in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+        if (! in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 

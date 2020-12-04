@@ -17,8 +17,8 @@ class LoginController extends Controller
     public function submit(Request $request)
     {
         $validator = Validator::make($request->input(), [
-            'email'                => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
-            'password'             => 'required',
+            'email' => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
+            'password' => 'required',
             'g-recaptcha-response' => ['required', 'captcha'],
         ]);
         $validator->validate();
@@ -28,7 +28,7 @@ class LoginController extends Controller
         if (auth()->attempt([
             'email' => request()->email,
             'password' => request()->password,
-        ], $remember) && !user()->deleted_at) {
+        ], $remember) && ! user()->deleted_at) {
             if (user()->isBanned()) {
                 $error = 'Le compte est banni ';
                 $latest_ban = user()->bans->first();
@@ -47,7 +47,7 @@ class LoginController extends Controller
             activity()
                 ->causedBy(user())
                 ->withProperties([
-                    'level'  => 'info',
+                    'level' => 'info',
                     'method' => __METHOD__,
                 ])
                 ->log('LoginSuccessful');
@@ -67,7 +67,7 @@ class LoginController extends Controller
                 $res = $client->request('GET', env('APP_URL') . '/api/v1/@me', [
                     'headers' => [
                         'Authorization' => 'Bearer ' . user()->api_token,
-                    ]
+                    ],
                 ]);
 
                 $json_response = json_decode((string) $res->getBody());
@@ -85,9 +85,9 @@ class LoginController extends Controller
 
             activity()
                 ->withProperties([
-                    'level'    => 'warning',
-                    'method'   => __METHOD__,
-                    'email'    => request()->email,
+                    'level' => 'warning',
+                    'method' => __METHOD__,
+                    'email' => request()->email,
                 ])
                 ->log('LoginFailed');
 

@@ -10,9 +10,7 @@ use App\Notifications\UnlockedAchievement;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
-use Imagine\Imagick\Imagine;
+use Intervention\Image\Facades\Image;
 use Spatie\Permission\Models\Role;
 
 class UserSettingsController extends Controller
@@ -30,7 +28,7 @@ class UserSettingsController extends Controller
             $user = user();
         }
 
-        if ($user->id != user()->id && !user()->can('bypass users guard')) {
+        if ($user->id != user()->id && ! user()->can('bypass users guard')) {
             return abort(403);
         }
 
@@ -72,13 +70,13 @@ class UserSettingsController extends Controller
     {
         $user = User::where('name', $name)->firstOrFail();
 
-        if ($user->id != user()->id && !user()->can('bypass users guard')) {
+        if ($user->id != user()->id && ! user()->can('bypass users guard')) {
             activity()
                 ->causedBy(auth()->user())
                 ->withProperties([
-                    'level'        => 'warning',
-                    'method'       => __METHOD__,
-                    'request'      => request()->all(),
+                    'level' => 'warning',
+                    'method' => __METHOD__,
+                    'request' => request()->all(),
                 ])
                 ->log('PermissionWarn');
 
@@ -87,8 +85,8 @@ class UserSettingsController extends Controller
 
         request()->validate([
             'display_name' => ['required', 'string', 'alpha_dash', 'max:35', 'min:4'],
-            'shown_role'   => ['string', 'max:255'],
-            'avatar'       => ['image', 'max:2048'],
+            'shown_role' => ['string', 'max:255'],
+            'avatar' => ['image', 'max:2048'],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 10, 10);
@@ -96,17 +94,18 @@ class UserSettingsController extends Controller
         if (request()->hasFile('avatar')) {
             $avatar_name = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
 
-            $imagine = (new Imagine())
-                ->open(request()->avatar)
-                ->thumbnail(new Box(300, 300), ImageInterface::THUMBNAIL_OUTBOUND);
+            Image::make(request()->avatar)
+                ->fit(300)
+                ->save(storage_path('app/public/avatars/' . $avatar_name));
 
-            if (request()->avatar->getClientOriginalExtension() == 'gif' && user()->can('upload animated avatars')) {
-                $imagine->save(storage_path('app/public/avatars/' . $avatar_name), [
-                    'animated' => true,
-                ]);
-            } else {
-                $imagine->save(storage_path('app/public/avatars/' . $avatar_name));
-            }
+            // TODO: Réparer le resize des avatars animés !
+            // if (request()->avatar->getClientOriginalExtension() == 'gif' && user()->can('upload animated avatars')) {
+            //     $img->save(storage_path('app/public/avatars/' . $avatar_name), [
+            //         'animated' => true,
+            //     ]);
+            // } else {
+            //     $img->save(storage_path('app/public/avatars/' . $avatar_name));
+            // }
 
             $user->avatar = $avatar_name;
 
@@ -114,8 +113,8 @@ class UserSettingsController extends Controller
                 ->performedOn($user)
                 ->causedBy(auth()->user())
                 ->withProperties([
-                    'level'      => 'notice',
-                    'method'     => __METHOD__,
+                    'level' => 'notice',
+                    'method' => __METHOD__,
                     'attributes' => [
                         'avatar' => $avatar_name,
                     ],
@@ -134,8 +133,8 @@ class UserSettingsController extends Controller
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'      => 'warning',
-                        'method'     => __METHOD__,
+                        'level' => 'warning',
+                        'method' => __METHOD__,
                         'attributes' => [
                             'shown_role' => request()->shown_role,
                         ],
@@ -161,11 +160,11 @@ class UserSettingsController extends Controller
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'        => 'alert',
-                        'method'       => __METHOD__,
-                        'elevated'     => true,
-                        'request'      => request()->all(),
-                        'sync'         => $sync,
+                        'level' => 'alert',
+                        'method' => __METHOD__,
+                        'elevated' => true,
+                        'request' => request()->all(),
+                        'sync' => $sync,
                     ])
                     ->log('UserAchievementsUpdated');
             }
@@ -179,11 +178,11 @@ class UserSettingsController extends Controller
                     ->performedOn($user)
                     ->causedBy(user())
                     ->withProperties([
-                        'level'      => 'critical',
-                        'method'     => __METHOD__,
-                        'elevated'   => true,
-                        'request'    => request()->all(),
-                        'sync'       => $sync,
+                        'level' => 'critical',
+                        'method' => __METHOD__,
+                        'elevated' => true,
+                        'request' => request()->all(),
+                        'sync' => $sync,
                     ])
                     ->log('UserRolesUpdated');
             }
@@ -199,16 +198,16 @@ class UserSettingsController extends Controller
         $user = user();
 
         request()->validate([
-            'sidebar'  => [Rule::in(['left', 'right'])],
+            'sidebar' => [Rule::in(['left', 'right'])],
             'stickers' => [Rule::in(['default', 'inline'])],
-            'theme'    => [Rule::in(['light-theme', 'dark-theme', 'onche-light-theme', 'avn-light-theme', 'synth-theme', 'sensory-theme'])],
+            'theme' => [Rule::in(['light-theme', 'dark-theme', 'onche-light-theme', 'avn-light-theme', 'synth-theme', 'sensory-theme'])],
         ]);
 
         $user->setMultipleSettings([
-            'layout.sidebar'  => request()->input('sidebar', 'left'),
+            'layout.sidebar' => request()->input('sidebar', 'left'),
             'layout.stickers' => request()->input('stickers', 'default'),
-            'layout.theme'    => request()->input('theme', 'light-theme'),
-            'layout.compact'  => (bool) request()->input('layout_compact', false),
+            'layout.theme' => request()->input('theme', 'light-theme'),
+            'layout.compact' => (bool) request()->input('layout_compact', false),
         ]);
 
         return redirect(route('user.settings.layout'))->with('success', 'Modifications enregistrées !');
@@ -219,13 +218,13 @@ class UserSettingsController extends Controller
         $user = user();
 
         $user->setMultipleSettings([
-            'notifications.subscribe_on_create'                 => (bool) request()->input('subscribe_on_create', false),
-            'notifications.subscribe_on_reply'                  => (bool) request()->input('subscribe_on_reply', false),
-            'notifications.on_subscribed_discussions'           => (bool) request()->input('notification_on_subscribed_discussions', false),
-            'notifications.on_new_private_message'              => (bool) request()->input('notification_on_new_private_message', false),
-            'notifications.when_mentionned_or_quoted'           => (bool) request()->input('notification_when_mentionned_or_quoted', false),
-            'webpush.enabled'                                   => (bool) request()->input('optin_webpush', false),
-            'webpush.idle_wait'                                 => request()->input('idle_wait', 1),
+            'notifications.subscribe_on_create' => (bool) request()->input('subscribe_on_create', false),
+            'notifications.subscribe_on_reply' => (bool) request()->input('subscribe_on_reply', false),
+            'notifications.on_subscribed_discussions' => (bool) request()->input('notification_on_subscribed_discussions', false),
+            'notifications.on_new_private_message' => (bool) request()->input('notification_on_new_private_message', false),
+            'notifications.when_mentionned_or_quoted' => (bool) request()->input('notification_when_mentionned_or_quoted', false),
+            'webpush.enabled' => (bool) request()->input('optin_webpush', false),
+            'webpush.idle_wait' => request()->input('idle_wait', 1),
         ]);
 
         return redirect(route('user.settings.notifications'))->with('success', 'Modifications enregistrées !');
@@ -244,7 +243,7 @@ class UserSettingsController extends Controller
 
         $user->setMultipleSettings([
             'services.pushbullet.enabled' => $optin_pushbullet,
-            'services.pushbullet.email'   => $email,
+            'services.pushbullet.email' => $email,
         ]);
 
         return redirect(route('user.settings.notifications'))->with('success', 'Modifications enregistrées !');
@@ -280,14 +279,14 @@ class UserSettingsController extends Controller
         $user = user();
 
         $validator = Validator::make(request()->input(), [
-            'password'     => ['required'],
+            'password' => ['required'],
             'new_password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
         $validator->validate();
 
         SucresHelper::throttleOrFail(__METHOD__, 1, 10);
 
-        if (!Hash::check(request()->password, $user->password)) {
+        if (! Hash::check(request()->password, $user->password)) {
             $validator->errors()->add('password', 'Le mot de passe est incorrect');
 
             return redirect(route('user.settings.account.password'))->withErrors($validator)->withInput(request()->input());
@@ -300,7 +299,7 @@ class UserSettingsController extends Controller
             ->performedOn($user)
             ->causedBy($user)
             ->withProperties([
-                'level'  => 'warning',
+                'level' => 'warning',
                 'method' => __METHOD__,
             ])
             ->log('PasswordChanged#Account');

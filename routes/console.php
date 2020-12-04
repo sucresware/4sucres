@@ -1,14 +1,14 @@
 <?php
 
+use App\Models\Achievement;
+use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
-use Spatie\Regex\Regex;
-use App\Models\Discussion;
-use App\Models\Achievement;
-use Illuminate\Support\Carbon;
 use Cog\Laravel\Ban\Models\Ban;
-use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Regex\Regex;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +20,6 @@ use Illuminate\Support\Facades\Cache;
 | simple approach to interacting with each command's IO methods.
 |
 */
-
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
 
 // Oneshot command to convert all legacy bbcode posts to markdown
 Artisan::command('convert_all_posts_from_bbcode_to_markdown', function () {
@@ -188,7 +184,7 @@ Artisan::command('fix-inconsistensies', function () {
     });
 });
 
-/**
+/*
  * Bug obscure, uniquement en production.
  * La commande orignale du package n'est pas trouvée/reconnue.
  * Du coup, voici une version alternative.

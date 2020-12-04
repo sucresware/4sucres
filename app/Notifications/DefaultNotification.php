@@ -45,7 +45,7 @@ class DefaultNotification extends Notification implements ShouldQueue
 
         return new BroadcastMessage(array_merge($attributes, [
             'title' => $attributes['title'],
-            'url'   => route('notifications.show', $this->id),
+            'url' => route('notifications.show', $this->id),
         ]));
     }
 

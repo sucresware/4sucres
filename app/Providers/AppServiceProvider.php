@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -14,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Paginator::useBootstrap();
+
         if (config('app.env') === 'production') {
             \URL::forceScheme('https');
         }

@@ -5,9 +5,9 @@ namespace App\Helpers;
 use App\Models\Post;
 use App\Models\User;
 use ForceUTF8\Encoding;
-use Spatie\Regex\Regex;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Spatie\Regex\Regex;
 
 class SucresParser
 {
@@ -172,9 +172,9 @@ class SucresParser
 
             $input = transliterator_transliterate('Any-Latin; Latin-ASCII;', $match->group(1));
             $output = '';
-            for ($i = 0; $i < strlen($input); ++$i) {
+            for ($i = 0; $i < strlen($input); $i++) {
                 $char = $input[$i];
-                list(, $code) = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
+                [, $code] = unpack('N', mb_convert_encoding($char, 'UCS-4BE', 'UTF-8'));
                 if ($code >= 33 && $code <= 270) {
                     $output .= mb_convert_encoding('&#' . intval($code + 65248) . ';', 'UTF-8', 'HTML-ENTITIES');
                 } elseif ($code == 32) {
@@ -389,7 +389,8 @@ class SucresParser
                 try {
                     $poll_results = Cache::remember('parser_poll_' . $poll_id, now()->addMinute(), function () use ($poll_id) {
                         $client = new \GuzzleHttp\Client(['verify' => false]);
-                        $res = $client->request('GET', 'https://strawpoll.com/api/poll/' . $poll_id,);
+                        $res = $client->request('GET', 'https://strawpoll.com/api/poll/' . $poll_id, );
+
                         return json_decode((string) $res->getBody());
                     });
 
@@ -423,7 +424,7 @@ class SucresParser
     public function renderMentions()
     {
         foreach ($this->getMentions() as $mention) {
-            if (!$mention['user']) {
+            if (! $mention['user']) {
                 continue;
             }
 
@@ -449,7 +450,7 @@ class SucresParser
         foreach ($matchs->results() as $match) {
             $excerpt = $match->group(0);
             $emoji = $poster_emojis->where('shortname', $excerpt)->first();
-            if (!$emoji) {
+            if (! $emoji) {
                 continue;
             }
 
@@ -482,7 +483,7 @@ class SucresParser
     public function renderQuotes()
     {
         foreach ($this->getQuotes() as $quote) {
-            if (!$quote['post']) {
+            if (! $quote['post']) {
                 continue;
             }
 
@@ -492,7 +493,7 @@ class SucresParser
                 $quote['post']->discussion->category->nsfw &&
                 ($current_discussion->private ||
                     $current_discussion->category &&
-                    !$current_discussion->category->nsfw)
+                    ! $current_discussion->category->nsfw)
             ) {
                 continue;
             }
@@ -524,7 +525,7 @@ class SucresParser
             } elseif ($ret_type == self::MENTIONS_RETURN_COMPLETE) {
                 $mentions[] = [
                     'excerpt' => $excerpt,
-                    'user'    => $user, // /!\ Can return null if user was not found
+                    'user' => $user, // /!\ Can return null if user was not found
                 ];
             }
         }
@@ -556,7 +557,7 @@ class SucresParser
             } elseif ($ret_type == self::QUOTES_RETURN_COMPLETE) {
                 $quotes[] = [
                     'excerpt' => $excerpt,
-                    'post'    => $post, // /!\ Can return null if post was not found
+                    'post' => $post, // /!\ Can return null if post was not found
                 ];
             }
         }
