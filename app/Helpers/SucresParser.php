@@ -5,9 +5,9 @@ namespace App\Helpers;
 use App\Models\Post;
 use App\Models\User;
 use ForceUTF8\Encoding;
-use Spatie\Regex\Regex;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Spatie\Regex\Regex;
 
 class SucresParser
 {
@@ -389,7 +389,8 @@ class SucresParser
                 try {
                     $poll_results = Cache::remember('parser_poll_' . $poll_id, now()->addMinute(), function () use ($poll_id) {
                         $client = new \GuzzleHttp\Client(['verify' => false]);
-                        $res = $client->request('GET', 'https://strawpoll.com/api/poll/' . $poll_id,);
+                        $res = $client->request('GET', 'https://strawpoll.com/api/poll/' . $poll_id, );
+
                         return json_decode((string) $res->getBody());
                     });
 

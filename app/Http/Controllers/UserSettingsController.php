@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Achievement;
 use App\Helpers\SucresHelper;
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
+use App\Models\Achievement;
+use App\Models\User;
 use App\Notifications\TestNotification;
-use Illuminate\Support\Facades\Validator;
 use App\Notifications\UnlockedAchievement;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
+use Spatie\Permission\Models\Role;
 
 class UserSettingsController extends Controller
 {

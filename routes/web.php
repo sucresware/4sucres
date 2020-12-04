@@ -1,24 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Api\DiscussionController as ApiDiscussionController;
 use App\Http\Controllers\Api\EmojiController as ApiEmojiController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DiscussionController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\UserSettingsController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\DiscussionPostController;
-use App\Http\Controllers\PrivateDiscussionController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Settings\ConnectionsController;
 use App\Http\Controllers\Api\UsersController as ApiUsersController;
 use App\Http\Controllers\Api\WebpushController as ApiWebpushController;
-use App\Http\Controllers\Api\DiscussionController as ApiDiscussionController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DiscussionController;
+use App\Http\Controllers\DiscussionPostController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PrivateDiscussionController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Settings\ConnectionsController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserSettingsController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

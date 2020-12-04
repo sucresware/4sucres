@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use ZipArchive;
+use App\Http\Controllers\Controller;
+use App\Models\Discussion;
 use App\Models\Post;
 use App\Models\User;
-use League\Csv\Writer;
-use App\Models\Discussion;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use League\Csv\Writer;
 use PragmaRX\Firewall\Vendor\Laravel\Facade as Firewall;
+use Spatie\Activitylog\Models\Activity;
+use ZipArchive;
 
 class ConsoleController extends Controller
 {
@@ -305,9 +305,13 @@ class ConsoleController extends Controller
                 $activity = Activity::causedBy($user)->get()->toArray();
                 $csv = Writer::createFromString('');
 
-                foreach ($activity as $line => $content)
-                    foreach ($content as $key => $value)
-                        if (is_array($value)) $activity[$line][$key] = json_encode($value);
+                foreach ($activity as $line => $content) {
+                    foreach ($content as $key => $value) {
+                        if (is_array($value)) {
+                            $activity[$line][$key] = json_encode($value);
+                        }
+                    }
+                }
 
                 $csv->insertOne(array_keys($activity[0]));
                 $csv->insertAll($activity);
@@ -316,9 +320,13 @@ class ConsoleController extends Controller
                 $activity = Activity::forSubject($user)->get()->toArray();
                 $csv = Writer::createFromString('');
 
-                foreach ($activity as $line => $content)
-                    foreach ($content as $key => $value)
-                        if (is_array($value)) $activity[$line][$key] = json_encode($value);
+                foreach ($activity as $line => $content) {
+                    foreach ($content as $key => $value) {
+                        if (is_array($value)) {
+                            $activity[$line][$key] = json_encode($value);
+                        }
+                    }
+                }
 
                 $csv->insertOne(array_keys($activity[0]));
                 $csv->insertAll($activity);

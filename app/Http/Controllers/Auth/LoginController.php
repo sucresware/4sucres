@@ -67,7 +67,7 @@ class LoginController extends Controller
                 $res = $client->request('GET', env('APP_URL') . '/api/v1/@me', [
                     'headers' => [
                         'Authorization' => 'Bearer ' . user()->api_token,
-                    ]
+                    ],
                 ]);
 
                 $json_response = json_decode((string) $res->getBody());
