@@ -6,8 +6,6 @@ enabled:
   - align_double_arrow
 disabled:
   - no_unused_imports
-  - concat_without_spaces
-  - unalign_double_arrow
 finder:
   name: "*.php"
   not-name:
