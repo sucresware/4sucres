@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SucresHelper;
-use App\Models\Achievement;
 use App\Models\User;
-use App\Notifications\TestNotification;
-use App\Notifications\UnlockedAchievement;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Achievement;
+use App\Helpers\SucresHelper;
 use Illuminate\Validation\Rule;
-use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
-use Imagine\Imagick\Imagine;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
+use App\Notifications\TestNotification;
+use Illuminate\Support\Facades\Validator;
+use App\Notifications\UnlockedAchievement;
 
 class UserSettingsController extends Controller
 {
@@ -96,17 +94,18 @@ class UserSettingsController extends Controller
         if (request()->hasFile('avatar')) {
             $avatar_name = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
 
-            $imagine = (new Imagine())
-                ->open(request()->avatar)
-                ->thumbnail(new Box(300, 300), ImageInterface::THUMBNAIL_OUTBOUND);
+            Image::make(request()->avatar)
+                ->fit(300)
+                ->save(storage_path('app/public/avatars/' . $avatar_name));
 
-            if (request()->avatar->getClientOriginalExtension() == 'gif' && user()->can('upload animated avatars')) {
-                $imagine->save(storage_path('app/public/avatars/' . $avatar_name), [
-                    'animated' => true,
-                ]);
-            } else {
-                $imagine->save(storage_path('app/public/avatars/' . $avatar_name));
-            }
+            // TODO: Réparer le resize des avatars animés !
+            // if (request()->avatar->getClientOriginalExtension() == 'gif' && user()->can('upload animated avatars')) {
+            //     $img->save(storage_path('app/public/avatars/' . $avatar_name), [
+            //         'animated' => true,
+            //     ]);
+            // } else {
+            //     $img->save(storage_path('app/public/avatars/' . $avatar_name));
+            // }
 
             $user->avatar = $avatar_name;
 

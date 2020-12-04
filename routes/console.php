@@ -7,7 +7,6 @@ use App\Models\Discussion;
 use App\Models\Achievement;
 use Illuminate\Support\Carbon;
 use Cog\Laravel\Ban\Models\Ban;
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Cache;
 
 /*
@@ -20,10 +19,6 @@ use Illuminate\Support\Facades\Cache;
 | simple approach to interacting with each command's IO methods.
 |
 */
-
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
 
 // Oneshot command to convert all legacy bbcode posts to markdown
 Artisan::command('convert_all_posts_from_bbcode_to_markdown', function () {

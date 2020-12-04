@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Achievements\AchievementManager;
 use App\Models\Achievement;
 use Illuminate\Database\Eloquent\Model;
@@ -19,14 +21,14 @@ class AchievementsTableSeeder extends Seeder
             $achievement = $manager->getAchievement($achievement);
             Achievement::updateOrCreate(
                 [
-                'code'        => $achievement->getClassName(),
-            ],
+                    'code'        => $achievement->getClassName(),
+                ],
                 [
-                'name'        => $achievement->getName(),
-                'image'       => $achievement->getImage(),
-                'description' => $achievement->getDescription(),
-                'rare'        => $achievement->isRare(),
-            ]
+                    'name'        => $achievement->getName(),
+                    'image'       => $achievement->getImage(),
+                    'description' => $achievement->getDescription(),
+                    'rare'        => $achievement->isRare(),
+                ]
             );
         }
     }
