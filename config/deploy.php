@@ -27,8 +27,7 @@ return [
     |
     */
 
-    'strategies' => [
-    ],
+    'strategies' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -62,11 +61,11 @@ return [
             'artisan:migrate',
             'artisan:db:seed',
             'artisan:cache:rebuild',
+            'artisan:queue:restart',
         ],
 
         // Deployment is done and live
-        'done' => [
-        ],
+        'done' => [],
 
         // Deployment succeeded.
         'success' => [
@@ -127,8 +126,7 @@ return [
     |
     */
 
-    'localhost' => [
-    ],
+    'localhost' => [],
 
     /*
     |--------------------------------------------------------------------------
