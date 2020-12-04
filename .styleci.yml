@@ -1,7 +1,6 @@
 preset: laravel
 risky: true
 enabled:
-  - ordered_imports
   - concat_with_spaces
   - align_double_arrow
 disabled:
