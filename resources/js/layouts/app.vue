@@ -1,26 +1,132 @@
 <template>
-    <div class="min-h-screen bg-gray-100">
-        <nav class="bg-white shadow py-4 mb-6">
-            <div class="container flex justify-between mx-auto">
-                <inertia-link href="/" class="text-lg">Laravel</inertia-link>
+  <div class="min-h-screen">
+    <nav class="mb-6 bg-gray-700 shadow">
+      <div class="flex items-center">
+        <inertia-link href="$route('next.home')">
+          <img
+            src="/svg/logo.svg"
+            alt="4sucres.org V2"
+            class="inline-block h-8 ml-4"
+          />
+        </inertia-link>
 
-                <button v-if="$page.user" type="button" class="text-gray-600 text-sm px-2" @click="$inertia.post($route('logout'))">Logout</button>
-                <div v-else>
-                    <inertia-link class="text-gray-600 text-sm px-2" :href="$route('login')">Login</inertia-link>
-                    <inertia-link class="text-gray-600 text-sm px-2" :href="$route('register')">Register</inertia-link>
+        <div class="ml-auto"></div>
+
+        <t-dropdown v-if="$page.props.user">
+          <div
+            slot="trigger"
+            slot-scope="{
+              mousedownHandler,
+              focusHandler,
+              blurHandler,
+              keydownHandler,
+            }"
+          >
+            <button
+              class="flex flex-row items-center p-2 transition duration-150 ease-in-out bg-gray-800 rounded-full hover:bg-gray-900 focus:bg-gray-900 focus:outline-none"
+              @mousedown="mousedownHandler"
+              @focus="focusHandler"
+              @blur="blurHandler"
+              @keydown="keydownHandler"
+            >
+              <i class="fas fa-bell"></i>
+            </button>
+          </div>
+
+          <div slot-scope="{ blurHandler }" class="p-2 bg-gray-800 rounded">
+            <div class="p-4">Notifications</div>
+
+            <button
+              class="block w-full px-4 py-2 text-left text-gray-100 transition duration-150 ease-in-out bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:bg-gray-900"
+              @blur="blurHandler"
+            >
+              ...<br />
+              ...
+            </button>
+            <button
+              class="block w-full px-4 py-2 text-left text-gray-100 transition duration-150 ease-in-out bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:bg-gray-900"
+              @blur="blurHandler"
+            >
+              ...<br />
+              ...
+            </button>
+            <button
+              class="block w-full px-4 py-2 text-left text-gray-100 transition duration-150 ease-in-out bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:bg-gray-900"
+              @blur="blurHandler"
+            >
+              ...<br />
+              ...
+            </button>
+          </div>
+        </t-dropdown>
+
+        <t-dropdown v-if="$page.props.user">
+          <div
+            slot="trigger"
+            slot-scope="{
+              mousedownHandler,
+              focusHandler,
+              blurHandler,
+              keydownHandler,
+            }"
+          >
+            <button
+              class="flex flex-row items-center h-16 px-4 ml-4 transition duration-150 ease-in-out bg-gray-800 hover:bg-gray-900 focus:bg-gray-900 focus:outline-none"
+              @mousedown="mousedownHandler"
+              @focus="focusHandler"
+              @blur="blurHandler"
+              @keydown="keydownHandler"
+            >
+              <img
+                :src="$page.props.user.avatar_link"
+                :alt="$page.props.user.display_name"
+                class="w-10 h-10 mr-4 rounded"
+              />
+              <div class="flex flex-col items-start justify-center h-16">
+                <div>{{ $page.props.user.display_name }}</div>
+                <div class="text-sm text-gray-400">
+                  {{ $page.props.user.shown_role }}
                 </div>
-            </div>
-        </nav>
+              </div>
+            </button>
+          </div>
 
-        <div class="container">
-            <slot></slot>
+          <div slot-scope="{ blurHandler }" class="p-2 bg-gray-800 rounded">
+            <inertia-link
+              class="block w-full px-4 py-2 text-left text-gray-100 transition duration-150 ease-in-out bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:bg-gray-900"
+              :href="$route('user.settings')"
+              @blur="blurHandler"
+            >
+              <i class="mr-1 fas fa-cog fa-fw"></i> Paramètres
+            </inertia-link>
+            <button
+              class="block w-full px-4 py-2 text-left text-gray-100 transition duration-150 ease-in-out bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:bg-gray-900"
+              @blur="blurHandler"
+              @click="$inertia.post($route('logout'))"
+            >
+              <i class="mr-1 fas fa-sign-out-alt fa-fw"></i> Déconnexion
+            </button>
+          </div>
+        </t-dropdown>
+
+        <div v-if="!$page.props.user">
+          <inertia-link class="px-2 text-gray-200" :href="$route('login')">
+            Login
+          </inertia-link>
+          <inertia-link class="px-2 text-gray-200" :href="$route('register')">
+            Register
+          </inertia-link>
         </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <slot></slot>
     </div>
+  </div>
 </template>
 
 
 <script>
-    export default {
-        //
-    }
+export default {};
 </script>

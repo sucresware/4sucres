@@ -1,61 +1,65 @@
 <template>
-    <form class="max-w-lg bg-white rounded-lg shadow mx-auto p-8" @submit.prevent="submit">
-        <h1 class="text-2xl font-bold mb-6">Verify Your Email Address</h1>
+  <form
+    class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow"
+    @submit.prevent="submit"
+  >
+    <h1 class="mb-6 text-2xl font-bold">Verify Your Email Address</h1>
 
-        <h3 class="text-gray-600 text-sm mb-10">
-            Before proceeding, please check your email for a verification link. If you did not receive the email click the button below to request another.
-        </h3>
+    <h3 class="mb-10 text-sm text-gray-600">
+      Before proceeding, please check your email for a verification link. If you
+      did not receive the email click the button below to request another.
+    </h3>
 
-        <button class="w-full bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold rounded focus:outline-none focus:shadow-outline py-3">
-            Resend Verification Email
-        </button>
-    </form>
+    <button
+      class="w-full py-3 text-sm font-semibold text-white bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:shadow-outline"
+    >
+      Resend Verification Email
+    </button>
+  </form>
 </template>
 
 <script>
-    export default {
-        /**
-         * Layout of the page.
-         *
-         * @type {Object}
-         */
-        layout: require('../../layouts/app').default,
+export default {
+  /**
+   * Layout of the page.
+   *
+   * @type {Object}
+   */
+  layout: require("../../layouts/app").default,
 
-        /**
-         * Component reactive data.
-         *
-         * @return {Object}
-         */
-        data() {
-            return {
-                form: {
-                    email: '',
-                    password: '',
-                    remember: false,
-                }
-            }
-        },
+  /**
+   * Component reactive data.
+   *
+   * @return {Object}
+   */
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+        remember: false,
+      },
+    };
+  },
 
-        /**
-         * Component methods.
-         *
-         * @type {Object}
-         */
-        methods: {
-            /**
-             * Submit the form.
-             *
-             * @return {void}
-             */
-            submit() {
-                this.$page.errors = {}
+  /**
+   * Component methods.
+   *
+   * @type {Object}
+   */
+  methods: {
+    /**
+     * Submit the form.
+     *
+     * @return {void}
+     */
+    submit() {
+      this.$page.errors = {};
 
-                this.$inertia.post(
-                    this.$route('verification.resend'), { ...this.form }
-                )
+      this.$inertia.post(this.$route("verification.resend"), { ...this.form });
 
-                this.form.password = ''
-            }
-        }
-    }
+      this.form.password = "";
+    },
+  },
+};
 </script>

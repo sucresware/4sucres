@@ -1,6 +1,10 @@
 import "./bootstrap"
 import Vue from "vue"
 import { InertiaApp } from "@inertiajs/inertia-vue"
+import VueTailwind from 'vue-tailwind'
+import settings from './theme.base.js'
+
+Vue.use(VueTailwind, settings)
 
 Vue.use(InertiaApp)
 
