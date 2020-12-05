@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-3 col-xl-2 mb-3">
+        <div class="mb-3 col-lg-3 col-xl-2">
             @include('user.settings._navigation')
         </div>
         <div class="col-lg-7 col-xl-8">
@@ -15,15 +15,15 @@
                 @method('put')
                 @csrf
 
-                <div class="card mb-3">
+                <div class="mb-3 card">
                     <div class="card-header">
                         Gestion des notifications
                     </div>
                     <div class="card-body">
-                    <div class="row mb-3">
+                    <div class="mb-3 row">
                             <div class="col-md-3">M'abonner automatiquement..</div>
                             <div class="col-md-9">
-                                <div class="form-group mb-1">
+                                <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="subscribe_on_create" name="subscribe_on_create" {{ old('subscribe_on_create', $user->getSetting('notifications.subscribe_on_create', true)) ? 'checked' : '' }} >
                                         <label class="custom-control-label" for="subscribe_on_create">
@@ -31,7 +31,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="form-group mb-1">
+                                <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="subscribe_on_reply" name="subscribe_on_reply" {{ old('subscribe_on_reply', $user->getSetting('notifications.subscribe_on_reply', false)) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="subscribe_on_reply">
@@ -41,10 +41,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="mb-3 row">
                             <div class="col-md-3">Je souhaite être notifié..</div>
                             <div class="col-md-9">
-                                <div class="form-group mb-1">
+                                <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="notification_on_new_private_message" name="notification_on_new_private_message" {{ old('notification_on_new_private_message', $user->getSetting('notifications.on_new_private_message', true)) ? 'checked' : '' }} >
                                         <label class="custom-control-label" for="notification_on_new_private_message">
@@ -52,7 +52,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="form-group mb-1">
+                                <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="notification_when_mentionned_or_quoted" name="notification_when_mentionned_or_quoted" {{ old('notification_when_mentionned_or_quoted', $user->getSetting('notifications.when_mentionned_or_quoted', true)) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="notification_when_mentionned_or_quoted">
@@ -60,7 +60,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="form-group mb-1">
+                                <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="notification_on_subscribed_discussions" name="notification_on_subscribed_discussions" {{ old('notification_on_subscribed_discussions', $user->getSetting('notifications.on_subscribed_discussions', true)) ? 'checked' : '' }} >
                                         <label class="custom-control-label" for="notification_on_subscribed_discussions">
@@ -86,25 +86,25 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="d-none d-md-block col-md-4 pr-1">
+                                    <div class="pr-1 d-none d-md-block col-md-4">
                                         <a href='{{ url('/img/settings/notifications.webpush.gif') }}' data-toggle='lightbox' data-type='image'>
-                                            <img src="{{ url('/img/settings/notifications.webpush.gif') }}" class="img-fluid rounded">
+                                            <img src="{{ url('/img/settings/notifications.webpush.gif') }}" class="rounded img-fluid">
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div id="webpush_settings" style="display: none;">
-                            <div class="alert border">
+                            <div class="border alert">
                                 <p>
                                     Tu dois autoriser <strong>chaque appareil</strong> sur lequel tu veux recevoir des notifications WebPush :<br>
                                     <small>Si y'a rien quand t'appuie sur "Autoriser cet appareil", y'a un souci.</small>
                                 </p>
 
-                                <a href="javascript:void(0)" class="btn btn-primary mb-1" id="enable-webpush" onclick="enableNotifications()">Autoriser cet appareil</a>
-                                {{--  <a href="javascript:void(0)" class="btn btn-danger mb-1" id="disable-webpush">Révoquer cet appareil</a>  --}}
-                                {{--  <a href="javascript:void(0)" class="btn btn-danger mb-1" id="">Révoquer tous les appareils</a>  --}}
-                                <a href="javascript:void(0)" class="btn btn-secondary mb-1" id="test-notification" style="display: none;" onclick="testNotification()">Envoyer une notification de test</a>
+                                <a href="javascript:void(0)" class="mb-1 btn btn-primary" id="enable-webpush" onclick="enableNotifications()">Autoriser cet appareil</a>
+                                {{--  <a href="javascript:void(0)" class="mb-1 btn btn-danger" id="disable-webpush">Révoquer cet appareil</a>  --}}
+                                {{--  <a href="javascript:void(0)" class="mb-1 btn btn-danger" id="">Révoquer tous les appareils</a>  --}}
+                                <a href="javascript:void(0)" class="mb-1 btn btn-secondary" id="test-notification" style="display: none;" onclick="testNotification()">Envoyer une notification de test</a>
                             </div>
 
                             @include('components.form.select', [
@@ -137,12 +137,12 @@
                 @method('put')
                 @csrf
 
-                <div class="card mb-3">
+                <div class="mb-3 card">
                     <div class="card-header">
                         <img src="{{ url('/img/pushbullet_logo.png') }}" height="24px">
                     </div>
                     <div class="card-body">
-                        <div class="custom-control custom-checkbox mb-3">
+                        <div class="mb-3 custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="optin_pushbullet" name="optin_pushbullet" {{ old('optin_pushbullet', $user->getSetting('services.pushbullet.enabled', 0)) ? 'checked' : '' }} value="1">
                             <label class="custom-control-label" for="optin_pushbullet">
                                 Activer l'envoi des notifications sur Pushbullet

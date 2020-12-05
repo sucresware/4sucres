@@ -1,8 +1,8 @@
 import "./bootstrap";
 import Vue from "vue";
 
-import { InertiaApp } from "@inertiajs/inertia-vue";
-Vue.use(InertiaApp);
+import { App, plugin } from '@inertiajs/inertia-vue'
+Vue.use(plugin)
 
 import VueTailwind from "vue-tailwind";
 import settings from "./theme.base.js";
@@ -19,24 +19,19 @@ Vue.prototype.$route = route;
  */
 
 const files = require.context("./", true, /\.vue$/i);
-files.keys().map(key =>
-    Vue.component(
-        key
-            .split("/")
-            .pop()
-            .split(".")[0],
-        files(key).default
-    )
-);
+files.keys().map(key => {
+    // Only load lowercased files (workaround)
+    let letter = key.split('/').pop().split('.')[0][0];
+    if (letter === letter.toLowerCase()) Vue.component(key.split('/').pop().split('.')[0], files(key).default)
+})
 
-const app = document.getElementById("app");
+const el = document.getElementById('app')
 
 new Vue({
-    render: h =>
-        h(InertiaApp, {
-            props: {
-                initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: name => require(`./pages/${name}`).default
-            }
-        })
-}).$mount(app);
+  render: h => h(App, {
+    props: {
+      initialPage: JSON.parse(el.dataset.page),
+      resolveComponent: name => require(`./pages/${name}`).default,
+    },
+  }),
+}).$mount(el)

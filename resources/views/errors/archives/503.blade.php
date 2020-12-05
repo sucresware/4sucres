@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
         4sucres.org
@@ -59,8 +58,8 @@
                     {!! File::get(base_path('/resources/svg/4sucres_alt.svg')) !!}
                 </div>
 
-                <div class="text-center mt-5">
-                    <i class="fas fa-spin fa-circle-notch fa-2x mb-3"></i><br>
+                <div class="mt-5 text-center">
+                    <i class="mb-3 fas fa-spin fa-circle-notch fa-2x"></i><br>
                     De retour dans quelques minutes !
                 </div>
             </div>

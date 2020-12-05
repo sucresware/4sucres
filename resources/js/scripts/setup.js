@@ -45,11 +45,11 @@ class Setup {
     }
 
     initializeAjax() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-            }
-        });
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
+        //     }
+        // });
     }
 
     initializeHighlightJS() {

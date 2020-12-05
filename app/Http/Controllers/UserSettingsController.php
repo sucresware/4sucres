@@ -49,7 +49,27 @@ class UserSettingsController extends Controller
     {
         $user = user();
 
-        return view('user.settings.account.password', compact('user'));
+        if ($user->getSetting('google_2fa.enabled', false)) {
+            $google2fa = app('pragmarx.google2fa');
+
+            $qr_image = $google2fa->getQRCodeInline(
+                config('app.name'),
+                $user->email,
+                $google_2fa_secret = decrypt($user->getSetting('google_2fa.secret'))
+            );
+
+            $google_2fa = [
+                'enabled' => $user->getSetting('google_2fa.enabled', false),
+                'qr_image' => $qr_image,
+                'secret' => $google_2fa_secret,
+            ];
+        } else {
+            $google_2fa = [
+                'enabled' => false,
+            ];
+        }
+
+        return view('user.settings.account.password', compact('user', 'google_2fa'));
     }
 
     public function layout()
@@ -303,6 +323,83 @@ class UserSettingsController extends Controller
                 'method' => __METHOD__,
             ])
             ->log('PasswordChanged#Account');
+
+        return redirect(route('user.settings.account.password'))->with('success', 'Modifications enregistrées !');
+    }
+
+    public function enableAccount2FA()
+    {
+        $user = user();
+
+        $google2fa = app('pragmarx.google2fa');
+
+        $user->setMultipleSettings([
+            'google_2fa.enabled' => true,
+            'google_2fa.secret' => encrypt($google2fa->generateSecretKey()),
+        ]);
+
+        activity()
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties([
+                'level' => 'warning',
+                'method' => __METHOD__,
+            ])
+            ->log('2FAEnabled');
+
+        return redirect(route('user.settings.account.password'))->with('success', 'Modifications enregistrées !');
+    }
+
+    public function disableAccount2FA()
+    {
+        $user = user();
+
+        $user->setMultipleSettings([
+            'google_2fa.enabled' => false,
+            'google_2fa.secret' => null,
+        ]);
+
+        activity()
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties([
+                'level' => 'warning',
+                'method' => __METHOD__,
+            ])
+            ->log('2FADisabled');
+
+        return redirect(route('user.settings.account.password'))->with('success', 'Modifications enregistrées !');
+    }
+
+    public function updateAccount2FA()
+    {
+        $user = user();
+
+        // $validator = Validator::make(request()->input(), [
+        //     'password'     => ['required'],
+        //     'new_password' => ['required', 'string', 'min:6', 'confirmed'],
+        // ]);
+        // $validator->validate();
+
+        // SucresHelper::throttleOrFail(__METHOD__, 1, 10);
+
+        // if (!Hash::check(request()->password, $user->password)) {
+        //     $validator->errors()->add('password', 'Le mot de passe est incorrect');
+
+        //     return redirect(route('user.settings.account.password'))->withErrors($validator)->withInput(request()->input());
+        // }
+
+        // $user->password = Hash::make(request()->new_password);
+        // $user->save();
+
+        activity()
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties([
+                'level' => 'warning',
+                'method' => __METHOD__,
+            ])
+            ->log('2FAUpdated');
 
         return redirect(route('user.settings.account.password'))->with('success', 'Modifications enregistrées !');
     }

@@ -69,6 +69,8 @@ Route::group(['prefix' => 'legacy'], function () {
         Route::put('/settings/account/email', [UserSettingsController::class, 'updateAccountEmail']);
         Route::get('/settings/account/password', [UserSettingsController::class, 'accountPassword'])->name('user.settings.account.password');
         Route::put('/settings/account/password', [UserSettingsController::class, 'updateAccountPassword']);
+        Route::get('/settings/account/security/2fa/enable', [UserSettingsController::class, 'enableAccount2FA'])->name('user.settings.account.security.2fa.enable');
+        Route::get('/settings/account/security/2fa/disable', [UserSettingsController::class, 'disableAccount2FA'])->name('user.settings.account.security.2fa.disable');
         Route::get('/settings/layout', [UserSettingsController::class, 'layout'])->name('user.settings.layout');
         Route::put('/settings/layout', [UserSettingsController::class, 'updateLayout']);
         Route::get('/settings/notifications', [UserSettingsController::class, 'notifications'])->name('user.settings.notifications');

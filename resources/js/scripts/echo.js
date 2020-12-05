@@ -7,6 +7,8 @@ const DefaultOptions = {
     cluster: '',
 };
 
+console.log("coucou");
+
 class EchoWrapper {
 
     constructor(options) {

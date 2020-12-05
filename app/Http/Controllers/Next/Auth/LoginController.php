@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Next\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Rules\Throttle;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -16,7 +15,7 @@ class LoginController extends Controller
     public function submit(Request $request)
     {
         $validator = validator()->make($request->input(), [
-            'email' => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
+            'email' => ['required', 'email'],
             'password' => 'required',
             'g-recaptcha-response' => [...(config('app.env') == 'production') ? ['required', 'captcha'] : []],
         ]);
@@ -25,7 +24,7 @@ class LoginController extends Controller
 
         $remember = $request->remember ?? false;
 
-        if (auth()->attempt($request->only(['email', 'password']), $remember) && ! user()->deleted_at) {
+        if (auth()->once($request->only(['email', 'password']), $remember) && ! user()->deleted_at) {
             if (user()->isBanned()) {
                 $error = 'Ton compte est banni';
                 $latest_ban = user()->bans->first();
@@ -38,21 +37,29 @@ class LoginController extends Controller
 
                 auth()->logout();
 
-                return redirect(route('next.login'))->withErrors($validator)->withInput($request->input());
+                return response(['errors' => $validator->errors()], 422);
             }
+
+            if (user()->getSetting('google_2fa.enabled', false)) {
+                $validator = validator()->make($request->input(), ['totp' => 'required']);
+                $validator->validate();
+
+                $google2fa = app('pragmarx.google2fa');
+
+                if (! $google2fa->verifyKey(decrypt(user()->getSetting('google_2fa.secret')), $request->totp)) {
+                    $validator->errors()->add('totp', 'Le code OTP est incorrect.');
+
+                    // LOG: Login 2FA failed
+
+                    return response(['errors' => $validator->errors()], 422);
+                }
+            }
+
+            auth()->loginUsingId(user()->id);
 
             // LOG: Login successful
 
-            if (
-                $request->cookie('guest_theme') != user()->getSetting('layout.theme', 'light-theme') &&
-                in_array($request->cookie('guest_theme'), ['light-theme', 'dark-theme']) &&
-                in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme'])
-            ) {
-                $theme = $request->cookie('guest_theme', user()->getSetting('layout.theme', 'light-theme'));
-                user()->setSetting('layout.theme', $theme);
-            }
-
-            return redirect()->intended();
+            return response()->json(['intended_url' => session()->pull('url.intended', route('home'))]);
         } else {
             auth()->logout();
 
@@ -60,7 +67,7 @@ class LoginController extends Controller
 
             // LOG: Login failed
 
-            return redirect(route('next.login'))->withErrors($validator)->withInput($request->input());
+            return response(['errors' => $validator->errors()], 422);
         }
     }
 

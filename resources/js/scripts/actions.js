@@ -68,7 +68,6 @@ class ActionHandler {
             type: 'POST',
             url: route(PREVIEW_ROUTE).url(),
             data: {
-                '_token': $('meta[name=csrf-token]').attr('content'),
                 'body': $(EDITOR).val(),
             },
             success: function (resp) {

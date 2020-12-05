@@ -18,7 +18,7 @@
     <p
       v-if="errors.length"
       class="pl-1 text-sm text-red-500"
-      v-text="errors"
+      v-text="errors[0]"
     ></p>
   </label>
 </template>
@@ -32,8 +32,8 @@ export default {
     label: String,
     value: String,
     errors: {
-      type: String,
-      default: () => "",
+      type: Array,
+      default: () => [],
     },
   },
 

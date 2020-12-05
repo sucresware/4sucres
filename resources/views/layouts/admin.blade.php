@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @auth
         <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email', 'api_token']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
@@ -19,7 +18,7 @@
     </title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    
+
     <link href="{{ mix('css/theme-light.css') }}" rel="stylesheet" id="lightTheme">
     @if (auth()->check())
         <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if (user()->getSetting('layout.theme', 'light-theme') != 'dark-theme') disabled @endif>
@@ -43,7 +42,7 @@
 <body class="{!! $body_classes !!}">
     <div id="app">
         <div class="sticky-top">
-            <nav class="navbar navbar-expand-lg shadow">
+            <nav class="shadow navbar navbar-expand-lg">
                 <div class="container justify-content-between">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ url('/svg/4sucres.svg') }}" height="35px" class="d-sm-none">
@@ -53,7 +52,7 @@
                     @auth
                         <notifications :count="{{ $notifications_count }}"></notifications>
 
-                        <a class="text-center mr-1 order-lg-8" href="{{ route('private_discussions.index') }}">
+                        <a class="mr-1 text-center order-lg-8" href="{{ route('private_discussions.index') }}">
                             <span class="fa-stack notification" id="private_discussions_indicator">
                                 <i class="fas fa-circle fa-stack-2x notification-background"></i>
                                 @if ($private_unread_count)
@@ -65,7 +64,7 @@
                             </span>
                         </a>
                         @if (in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
-                            <a class="text-center mr-1 order-lg-8" href="javascript:void(0)" data-action="light-toggle">
+                            <a class="mr-1 text-center order-lg-8" href="javascript:void(0)" data-action="light-toggle">
                                 <span class="fa-stack notification">
                                     <i class="fas fa-circle fa-stack-2x notification-background"></i>
                                     <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
@@ -74,7 +73,7 @@
                         @endif
 
                         @if (user()->hasRole('admin') || user()->hasRole('moderator'))
-                            <a class="text-center mr-1 order-lg-9" href="{{ route('admin.index') }}">
+                            <a class="mr-1 text-center order-lg-9" href="{{ route('admin.index') }}">
                                 <span class="fa-stack">
                                     <i class="fas fa-circle fa-stack-2x {{ (active('admin.*')) ? 'text-primary' : 'notification-background' }}"></i>
                                     <i class="fas fa-lock fa-stack-1x fa-inverse fa-sm"></i>
@@ -82,7 +81,7 @@
                             </a>
                         @endif
 
-                        <a class="text-center mr-1 order-lg-9" href="{{ route('user.settings') }}">
+                        <a class="mr-1 text-center order-lg-9" href="{{ route('user.settings') }}">
                             <span class="fa-stack notification">
                                 <i class="fas fa-circle fa-stack-2x notification-background"></i>
                                 <i class="fas fa-cog fa-stack-1x notification-icon fa-sm"></i>
@@ -97,11 +96,11 @@
                         </span>
                     </a>
 
-                    <div class="collapse navbar-collapse my-3 my-lg-3" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
+                    <div class="my-3 collapse navbar-collapse my-lg-3" id="navbarSupportedContent">
+                        <ul class="mr-auto navbar-nav">
                             <li class="nav-item">
                                 <form id="search" action="{{ route('search.query') }}">
-                                    <div class="input-group mb-0">
+                                    <div class="mb-0 input-group">
                                         <input type="text" name="query" class="form-control input-header" value="{{ $query ?? null }}">
                                         <input type="hidden" name="scope" value="{{ $scope ?? 'posts' }}">
                                         <div class="input-group-append">
@@ -111,34 +110,34 @@
                                 </form>
                             </li>
                             {{--  <li class="nav-item">
-                                <a class="nav-link text-center" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-lg-none d-lg-block"> Forum</span></a>
+                                <a class="text-center nav-link" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-lg-none d-lg-block"> Forum</span></a>
                             </li>  --}}
                             {{--  <li class="nav-item">
-                                <a class="nav-link text-center" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-lg-none d-lg-block"> Classement</span></a>
+                                <a class="text-center nav-link" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-lg-none d-lg-block"> Classement</span></a>
                             </li> --}}
                         </ul>
                     </div>
 
-                    <div class="collapse navbar-collapse flex-grow-0 order-lg-10 pl-lg-2" id="navbarSupportedContent">
+                    <div class="flex-grow-0 collapse navbar-collapse order-lg-10 pl-lg-2" id="navbarSupportedContent">
                         @guest
-                            <div class="row no-gutters account-block mb-3 mb-lg-0">
-                                <div class="col account-details rounded text-lg-right text-center text-lg-left">
-                                    <a href="{{ route('register') }}" class="mr-1"><i class="fas fa-user-plus mr-2"></i>Inscription</a>
-                                    <a href="{{ route('login') }}"><i class="fas fa-power-off mr-2"></i>Connexion</a>
+                            <div class="mb-3 row no-gutters account-block mb-lg-0">
+                                <div class="text-center rounded col account-details text-lg-right text-lg-left">
+                                    <a href="{{ route('register') }}" class="mr-1"><i class="mr-2 fas fa-user-plus"></i>Inscription</a>
+                                    <a href="{{ route('login') }}"><i class="mr-2 fas fa-power-off"></i>Connexion</a>
                                 </div>
                             </div>
                         @else
-                            <div class="row no-gutters account-block mb-3 mb-lg-0">
-                                <div class="col account-details rounded text-lg-right">
+                            <div class="mb-3 row no-gutters account-block mb-lg-0">
+                                <div class="rounded col account-details text-lg-right">
                                     <span class="account-username">
                                         <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
                                     </span>
                                     <br>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-2"></i>Déconnexion</a>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="mr-2 fas fa-power-off"></i>Déconnexion</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                                 </div>
                                 <div class="col-auto account-image">
-                                    <img src="{{ user()->avatar_link }}" class="img-fluid rounded">
+                                    <img src="{{ user()->avatar_link }}" class="rounded img-fluid">
                                 </div>
                             </div>
                         @endguest
@@ -148,7 +147,7 @@
         </div>
 
         @if (session('success'))
-            <div class="alert alert-success shadow">
+            <div class="shadow alert alert-success">
                 <div class="container">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-check-circle"></i></div>
@@ -161,7 +160,7 @@
         @endif
 
         @if (session('info'))
-            <div class="alert alert-info shadow">
+            <div class="shadow alert alert-info">
                 <div class="container">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-info-triangle"></i></div>
@@ -174,7 +173,7 @@
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger shadow">
+            <div class="shadow alert alert-danger">
                 <div class="container">
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
@@ -189,7 +188,7 @@
         <main class="py-4">
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-lg-3 col-xl-2 mb-3">
+                    <div class="mb-3 col-lg-3 col-xl-2">
                         @include('admin._navigation')
                     </div>
                     <div class="col">

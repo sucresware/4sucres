@@ -1,42 +1,76 @@
 <template>
   <form class="w-full max-w-sm" @submit.prevent="submit">
-    <div class="mb-8 text-center">
-      <h1 class="text-xl font-bold">Connexion à 4sucres.org</h1>
-      <h3 class="text-sm">
-        T'as pas de compte ?
-        <inertia-link :href="$route('register')" class="text-sm font-semibold">
-          Inscription
-        </inertia-link>
-      </h3>
-    </div>
+    <template v-if="!totp_required">
+      <inertia-link :href="$route('next.home')">
+        <img
+          src="/img/4sucres_alt_glitched.png"
+          alt="4sucres.org"
+          class="h-16 mx-auto mb-8"
+        />
+      </inertia-link>
 
-    <form-input
-      class="mb-6"
-      label="Adresse e-mail"
-      v-model="form.email"
-      :errors="$page.props.errors.email"
-      required
-      autofocus
-      autocomplete="email"
-    />
+      <div class="mb-8 text-center">
+        <h1 class="text-xl font-bold">Connexion à 4sucres.org</h1>
+        <h3 class="text-sm">
+          T'as pas de compte ?
+          <inertia-link :href="$route('register')" class="text-sm font-semibold">
+            Inscription
+          </inertia-link>
+        </h3>
+      </div>
 
-    <form-input
-      class="mb-2"
-      label="Mot de passe"
-      type="password"
-      v-model="form.password"
-      :errors="$page.props.errors.password"
-      required
-      autocomplete="current-password"
-    />
+      <form-input
+        class="mb-6"
+        label="Adresse e-mail"
+        v-model="form.email"
+        :errors="errors.email"
+        :disabled="loading"
+        required
+        autofocus
+        autocomplete="email"
+      />
 
-    <div class="mb-8 text-right">
-      <inertia-link class="text-sm hover:" :href="$route('password.request')"
-        >Oublié ?</inertia-link
-      >
-    </div>
+      <form-input
+        class="mb-2"
+        label="Mot de passe"
+        type="password"
+        v-model="form.password"
+        :errors="errors.password"
+        :disabled="loading"
+        required
+        autocomplete="current-password"
+      />
 
-    <t-button class="w-full" variant="large" type="submit">Connexion</t-button>
+      <div class="mb-8 text-right">
+        <inertia-link class="text-sm hover:" :href="$route('password.request')"
+          >Oublié ?</inertia-link
+        >
+      </div>
+    </template>
+
+    <template v-if="totp_required">
+      <img class="w-64 mx-auto mb-8" src="/img/settings/google_2fa.png">
+
+      <div class="mb-8 text-center">
+        <h1 class="text-xl font-bold">Connexion à 4sucres.org</h1>
+        <h3 class="text-sm">Authentification à deux facteurs</h3>
+      </div>
+
+        <form-input
+            class="mb-8"
+            label="OTP"
+            type="text"
+            v-model="form.totp"
+            :errors="errors.totp"
+            :disabled="loading"
+            required
+          />
+    </template>
+
+    <t-button class="w-full" variant="large" type="submit" :disabled="loading">
+      <span v-if="loading"><i class="fas fa-spinner fa-spin"></i></span>
+      <span v-if="!loading">Valider</span>
+    </t-button>
   </form>
 </template>
 
@@ -46,21 +80,45 @@ export default {
 
   data() {
     return {
+      errors: {},
       form: {
         email: "",
         password: "",
         remember: false,
+        totp: '',
       },
+      loading: false,
+      totp_required: false,
     };
   },
 
   methods: {
     submit() {
-      this.$page.props.errors = {};
+      if (this.loading) return;
 
-      this.$inertia.post(this.$route("next.login"), { ...this.form });
+      this.loading = true;
 
-      this.form.password = "";
+      axios
+        .post(route('next.login'), { ...this.form })
+        .then(response => {
+          this.$inertia.visit(response.data.intended_url);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+
+          if (this.errors.totp) {
+            if (!this.totp_required) {
+              this.errors = {};
+            }
+            this.totp_required = true;
+
+          } else {
+            this.form.password = "";
+          }
+        })
+        .finally(response => {
+          this.loading = false;
+        });
     },
   },
 };
