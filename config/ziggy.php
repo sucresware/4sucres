@@ -2,5 +2,5 @@
 
 return [
     // 'whitelist' => ['home', 'api.*'],
-    'blacklist' => ['debugbar.*', 'horizon.*', 'admin.*'],
+    'blacklist' => ['horizon.*', 'admin.*'],
 ];

@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-import 'bootstrap';
+import './bootstrap.legacy.js';
 import 'select2';
 
 import './vue.js';

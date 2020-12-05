@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Ban\Bannable as BannableContract;
-use Cog\Laravel\Ban\Traits\Bannable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Laravel\Passport\HasApiTokens;
-use NotificationChannels\WebPush\HasPushSubscriptions;
-use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Illuminate\Support\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Cog\Laravel\Ban\Traits\Bannable;
+use Illuminate\Support\Facades\Cache;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
 use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Permission\Traits\HasRoles;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use NotificationChannels\WebPush\HasPushSubscriptions;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 
 class User extends Authenticatable implements ReactsInterface, BannableContract
 {
@@ -46,7 +46,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         'password', 'remember_token',
         'email', 'gender', 'dob',
         'email_verified_at', 'settings',
-        'avatar', 'api_token',
+        'avatar',
     ];
 
     protected static $logAttributes = ['name', 'display_name', 'shown_role', 'email', 'avatar', 'settings'];
@@ -330,16 +330,6 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
             ->discussions()
             ->public()
             ->count();
-    }
-
-    public function getApiTokenAttribute()
-    {
-        if (! isset($this->attributes['api_token'])) {
-            $this->attributes['api_token'] = $this->createToken('personal')->accessToken;
-            $this->save();
-        }
-
-        return $this->attributes['api_token'];
     }
 
     public function getPrivateUnreadCountAttribute()

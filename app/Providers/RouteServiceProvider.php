@@ -34,6 +34,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware(['firewall', 'web'])
             ->group(base_path('routes/web.php'));
+
+        Route::middleware(['firewall', 'web'])
+            ->group(base_path('routes/legacy.php'));
     }
 
     /**

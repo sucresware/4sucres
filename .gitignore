@@ -12,3 +12,4 @@ yarn-error.log
 !/public/index.php
 .php_cs.cache
 *.sql
+.vscode/

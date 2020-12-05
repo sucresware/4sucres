@@ -19,7 +19,7 @@ class LoginController extends Controller
         $validator = Validator::make($request->input(), [
             'email' => ['required', 'email', new Throttle(__METHOD__, 3, 1)],
             'password' => 'required',
-            'g-recaptcha-response' => ['required', 'captcha'],
+            'g-recaptcha-response' => [...(config('app.env') == 'production') ? ['required', 'captcha'] : []],
         ]);
         $validator->validate();
 
@@ -59,22 +59,6 @@ class LoginController extends Controller
             ) {
                 $theme = $request->cookie('guest_theme', user()->getSetting('layout.theme', 'light-theme'));
                 user()->setSetting('layout.theme', $theme);
-            }
-
-            // Refresh the api_token if it is expired
-            try {
-                $client = new \GuzzleHttp\Client(['verify' => false]);
-                $res = $client->request('GET', env('APP_URL') . '/api/v1/@me', [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . user()->api_token,
-                    ],
-                ]);
-
-                $json_response = json_decode((string) $res->getBody());
-                $user_id = $json_response->id;
-            } catch (\Throwable $e) {
-                user()->api_token = user()->createToken('personal')->accessToken;
-                user()->save();
             }
 
             return redirect()->intended();

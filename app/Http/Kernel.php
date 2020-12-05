@@ -42,10 +42,11 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\LastActivityUser::class,
             \App\Http\Middleware\LogsOutDeletedUser::class,
             \Cog\Laravel\Ban\Http\Middleware\LogsOutBannedUser::class,
-            \App\Http\Middleware\DebugBarMiddleware::class,
+            \App\Http\Middleware\HandleInertiaRequests::class,
         ],
 
         'api' => [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:240,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

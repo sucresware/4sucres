@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -12,6 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix
+    // Next
+    .js('resources/js/next.js', 'public/js')
+    .sass('resources/sass/next.scss', 'public/css')
+
+    // Legacy
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/service-worker.js', 'public/js')
     .sass('resources/sass/theme/dark/index.scss', 'public/css/theme-dark.css')
@@ -31,7 +36,10 @@ mix
     .copyDirectory('resources/public', 'public/')
 
     .options({
-        processCssUrls: false
+        processCssUrls: false,
+        postCss: [
+            require('tailwindcss')()
+        ],
     })
+    .disableSuccessNotifications()
     .version()
-;

@@ -48,7 +48,11 @@
                         </div>
 
                         <div class="text-right">
-                            {!! NoCaptcha::displaySubmit('login', 'Connexion', ['class' => 'btn btn-primary']) !!}
+                            @if (config('app.env') == 'production')
+                                {!! NoCaptcha::displaySubmit('login', 'Connexion', ['class' => 'btn btn-primary']) !!}
+                            @else
+                                <button class="btn btn-primary" type="submit">Connexion</button>
+                            @endif
                         </div>
                     </div>
                 </form>
