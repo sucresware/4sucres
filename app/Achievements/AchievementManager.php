@@ -32,6 +32,7 @@ class AchievementManager
         \App\Achievements\Achievements\VocaBankAchievement::class,
         \App\Achievements\Achievements\TheLuckAchievement::class,
         \App\Achievements\Achievements\NewYear2020Achievement::class,
+        \App\Achievements\Achievements\NewYear2021Achievement::class,
     ];
 
     /**
