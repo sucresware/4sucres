@@ -5,7 +5,6 @@ use App\Http\Controllers\Api\EmojiController as ApiEmojiController;
 use App\Http\Controllers\Api\UsersController as ApiUsersController;
 use App\Http\Controllers\Api\WebpushController as ApiWebpushController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\DiscussionController;
@@ -32,6 +31,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'legacy'], function () {
+    Route::view('/login', 'unavailable')->name('login');
+    Route::view('/logout', 'unavailable')->name('logout');
+
     Route::get('/', [DiscussionController::class, 'index'])->name('home');
 
     Route::get('/register', [RegisterController::class, 'register'])->name('register');
@@ -42,11 +44,6 @@ Route::group(['prefix' => 'legacy'], function () {
     Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('/password/reset/{token}', [ResetPasswordController::class, 'reset'])->name('password.update');
-
-    Route::group(['middleware' => 'guest'], function () {
-        Route::get('/login', [LoginController::class, 'login'])->name('login');
-        Route::post('/login', [LoginController::class, 'submit']);
-    });
 
     Route::get('/d', [DiscussionController::class, 'index'])->name('discussions.index');
     Route::get('/d/c/{category}-{slug}', [DiscussionController::class, 'index'])->name('discussions.categories.index');
@@ -63,8 +60,6 @@ Route::group(['prefix' => 'legacy'], function () {
     Route::get('/p/{id}', [PostController::class, 'show'])->name('posts.show');
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
         Route::get('/settings', [UserSettingsController::class, 'index'])->name('user.settings');

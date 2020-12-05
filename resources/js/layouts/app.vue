@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen">
-    <nav class="mb-6 bg-gray-700 shadow">
+  <div class="flex flex-col min-h-screen">
+    <nav class="bg-gray-700">
       <div class="flex items-center">
         <inertia-link href="$route('next.home')">
           <img
@@ -102,30 +102,30 @@
             <button
               class="block w-full px-4 py-2 text-left text-gray-100 transition duration-150 ease-in-out bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:bg-gray-900"
               @blur="blurHandler"
-              @click="$inertia.post($route('logout'))"
+              @click="$inertia.post($route('next.logout'))"
             >
               <i class="mr-1 fas fa-sign-out-alt fa-fw"></i> Déconnexion
             </button>
           </div>
         </t-dropdown>
 
-        <div v-if="!$page.props.user">
-          <inertia-link class="px-2 text-gray-200" :href="$route('login')">
-            Login
-          </inertia-link>
-          <inertia-link class="px-2 text-gray-200" :href="$route('register')">
-            Register
-          </inertia-link>
+        <div
+          v-if="!$page.props.user"
+          class="flex flex-row items-center h-16 px-4 ml-4 transition duration-150 ease-in-out bg-gray-800"
+        >
+          <t-button :href="$route('register')" variant="link"
+            ><i class="mr-1 fas fa-user-plus"></i> Inscription</t-button
+          >
+          <t-button :href="$route('next.login')" variant="link"
+            ><i class="mr-1 fas fa-power-off"></i> Connexion</t-button
+          >
         </div>
       </div>
     </nav>
 
-    <div class="container">
-      <slot></slot>
-    </div>
+    <slot class="flex-grow"></slot>
   </div>
 </template>
-
 
 <script>
 export default {};

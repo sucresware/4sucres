@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\DB;
+use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
-use Illuminate\Support\Facades\Cache;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
+use NotificationChannels\WebPush\HasPushSubscriptions;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Traits\Reacts;
 use Spatie\Activitylog\Traits\CausesActivity;
-use Cog\Contracts\Ban\Bannable as BannableContract;
-use NotificationChannels\WebPush\HasPushSubscriptions;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements ReactsInterface, BannableContract
 {
@@ -80,7 +81,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function getAvatarLinkAttribute()
     {
-        if (config('app.env') === 'local') {
+        if (config('app.env') === 'local' && ! File::exists(storage_path('app/public/avatars/' . $this->avatar))) {
             return url('/img/pp/indep.png');
         } elseif (Str::startsWith($this->avatar, '/pp')) {
             return url('img' . $this->avatar);

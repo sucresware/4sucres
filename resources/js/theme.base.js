@@ -1,25 +1,28 @@
 const TInput = {
-  classes: 'border-2 block w-full rounded text-gray-800',
-  // Optional variants
-  variants: {
-    // ...
-  },
-  // Optional fixedClasses
-  // fixedClasses: '',
-}
+    classes: "border-2 block w-full rounded text-gray-800",
+    // Optional variants
+    variants: {
+        // ...
+    }
+    // Optional fixedClasses
+    // fixedClasses: '',
+};
 
 const TButton = {
-  classes: 'rounded-lg border block inline-flex items-center justify-center',
-  variants: {
-    secondary: 'rounded-lg border block inline-flex items-center justify-center bg-purple-500 border-purple-500 hover:bg-purple-600 hover:border-purple-600',
-  },
-  // Optional fixedClasses
-  // fixedClasses: 'transform ease-in-out duration-100',
-}
+    fixedClasses:
+        "focus:outline-none focus:shadow-outline inline-block text-center transition ease-in-out duration-150 text-sm font-medium border border-transparent px-3 py-2 rounded-md",
+    classes:
+        "text-white bg-brand-500 hover:bg-brand-600 focus:border-brand-700 active:bg-brand-700",
+    variants: {
+        link: "px-3 py-2 text-gray-300 hover:text-gray-100 rounded",
+        plarge:
+            "text-white bg-gray-800 hover:bg-gray-700 focus:border-gray-700 active:bg-gray-700 px-4 py-3 text-base"
+    }
+};
 
 const settings = {
-  TInput,
-  TButton,
-}
+    // TInput
+    TButton
+};
 
-export default settings
+export default settings;
