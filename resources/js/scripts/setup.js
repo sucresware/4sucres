@@ -118,7 +118,7 @@ class Setup {
 
     initializeCountdown() {
         var $timer = $(".countdown>.row>.block>.timer");
-        var then = "01/01/2020 00:00:00";
+        var then = "01/01/2021 00:00:00";
 
         if ($timer) {
             setInterval(() => {
