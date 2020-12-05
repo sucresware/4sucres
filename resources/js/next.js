@@ -1,14 +1,14 @@
-import "./bootstrap"
-import Vue from "vue"
-import { InertiaApp } from "@inertiajs/inertia-vue"
-import VueTailwind from 'vue-tailwind'
-import settings from './theme.base.js'
+import "./bootstrap";
+import Vue from "vue";
 
-Vue.use(VueTailwind, settings)
+import { InertiaApp } from "@inertiajs/inertia-vue";
+Vue.use(InertiaApp);
 
-Vue.use(InertiaApp)
+import VueTailwind from "vue-tailwind";
+import settings from "./theme.base.js";
+Vue.use(VueTailwind, settings);
 
-Vue.prototype.$route = route
+Vue.prototype.$route = route;
 
 /**
  * The following block of code may be used to automatically register your
@@ -18,16 +18,25 @@ Vue.prototype.$route = route
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context("./", true, /\.vue$/i);
+files.keys().map(key =>
+    Vue.component(
+        key
+            .split("/")
+            .pop()
+            .split(".")[0],
+        files(key).default
+    )
+);
 
-const app = document.getElementById('app')
+const app = document.getElementById("app");
 
 new Vue({
-    render: h => h(InertiaApp, {
-        props: {
-            initialPage: JSON.parse(app.dataset.page),
-            resolveComponent: name => require(`./pages/${name}`).default,
-        },
-    }),
-}).$mount(app)
+    render: h =>
+        h(InertiaApp, {
+            props: {
+                initialPage: JSON.parse(app.dataset.page),
+                resolveComponent: name => require(`./pages/${name}`).default
+            }
+        })
+}).$mount(app);

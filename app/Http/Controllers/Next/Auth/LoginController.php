@@ -33,7 +33,7 @@ class LoginController extends Controller
                 if ($latest_ban) {
                     ($latest_ban->isPermanent()) ? $error .= ' définitivement' : 'jusqu\'au ' . $latest_ban->expired_at->format('d/m/Y à H:i');
                     ($latest_ban->comment) ? $error .= ' (' . $latest_ban->comment . ').' : '.';
-                    $validator->errors()->add('password', [$error]);
+                    $validator->errors()->add('password', $error);
                 }
 
                 auth()->logout();
@@ -56,7 +56,7 @@ class LoginController extends Controller
         } else {
             auth()->logout();
 
-            $validator->errors()->add('password', ['Le mot de passe est incorrect']);
+            $validator->errors()->add('password', 'Le mot de passe est incorrect');
 
             // LOG: Login failed
 

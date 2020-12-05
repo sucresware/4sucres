@@ -11,7 +11,7 @@
     </h3>
 
     <button
-      class="w-full py-3 text-sm font-semibold text-white bg-gray-800 rounded hover:bg-gray-900 focus:outline-none focus:shadow-outline"
+      class="w-full py-3 text-sm font-semibold text-white bg-gray-800 rounded-md hover:bg-gray-900 focus:outline-none focus:shadow-outline"
     >
       Resend Verification Email
     </button>

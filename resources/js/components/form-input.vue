@@ -6,20 +6,19 @@
       v-text="label"
     ></span>
 
-    <input
-      class="w-full px-3 py-3 text-sm leading-tight text-gray-200 bg-gray-800 border border-gray-700 rounded appearance-none focus:outline-none focus:shadow-outline"
-      :class="{ 'border-red-500 mb-1': errors.length }"
-      v-bind="$attrs"
-      v-on="{
-        ...$listeners,
-        input: (event) => $emit('input', event.target.value),
+    <t-input
+      :variant="{
+        error: errors.length,
       }"
+      v-bind="$attrs"
+      v-model="model"
+      v-on="{ ...$listeners }"
     />
 
     <p
       v-if="errors.length"
-      class="pl-1 text-sm italic text-red-500"
-      v-text="errors[0]"
+      class="pl-1 text-sm text-red-500"
+      v-text="errors"
     ></p>
   </label>
 </template>
@@ -31,9 +30,21 @@ export default {
   props: {
     id: String,
     label: String,
+    value: String,
     errors: {
-      type: Array,
-      default: () => [],
+      type: String,
+      default: () => "",
+    },
+  },
+
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
     },
   },
 };

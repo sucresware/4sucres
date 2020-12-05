@@ -29,7 +29,7 @@
     @routes
 </head>
 
-<body class="text-base text-gray-300 bg-gray-900">
+<body class="text-base text-gray-600 bg-gray-100">
     @inertia
 </body>
 

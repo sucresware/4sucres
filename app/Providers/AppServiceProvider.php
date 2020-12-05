@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,10 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Paginator::useBootstrap();
-
-        if (config('app.env') === 'production') {
-            \URL::forceScheme('https');
-        }
+        URL::forceScheme('https');
 
         Carbon::setLocale(config('app.locale'));
         setlocale(LC_TIME, config('app.locale'));
@@ -30,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
             $version = 'v' . file_get_contents(config_path('.version'));
         } catch (\Exception $e) {
         }
+
+        Inertia::share([
+            'version' => $version . ' ' . config('app.env'),
+            'execution_time' => round((microtime(true) - LARAVEL_START), 3),
+        ]);
 
         View::composer(['layouts/app', 'layouts/admin'], function ($view) use ($version) {
             $view

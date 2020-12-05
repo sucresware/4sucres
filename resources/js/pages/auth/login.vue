@@ -36,7 +36,7 @@
       >
     </div>
 
-    <t-button class="w-full" variant="plarge">Connexion</t-button>
+    <t-button class="w-full" variant="large" type="submit">Connexion</t-button>
   </form>
 </template>
 
