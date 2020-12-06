@@ -1,34 +1,17 @@
 <template>
-  <div class="flex flex-row min-h-screen">
-    <nav class="bg-gray-700">
-      <div class="flex flex-col min-h-screen">
-        <inertia-link :href="$route('next.home')" class="block w-full p-4">
-          <img
-            src="/img/4sucres_inline.png"
-            alt="4sucres.org V2"
-            class="block w-8 mx-auto"
-          />
+  <div class="flex flex-col-reverse h-screen md:flex-row">
+    <nav class="flex-shrink-0 bg-gray-700 md:block" :class="open ? 'block': 'hidden'">
+      <div class="flex flex-row items-center justify-center w-full md:h-full md:flex-col">
+
+        <inertia-link :href="$route('next.home')" class="block p-4 md:w-full">
+          <img src="/img/4sucres_inline.png" alt="4sucres.org V2" class="block w-8 mx-auto" />
         </inertia-link>
 
-        <div class="mt-auto"></div>
+        <div class="ml-auto md:mt-auto"></div>
 
-        <t-dropdown variant="sidebar">
-          <div
-            slot="trigger"
-            slot-scope="{
-              mousedownHandler,
-              focusHandler,
-              blurHandler,
-              keydownHandler,
-            }"
-          >
-            <t-button
-              @mousedown="mousedownHandler"
-              @focus="focusHandler"
-              @blur="blurHandler"
-              @keydown="keydownHandler"
-              variant="sidebar"
-            >
+        <t-dropdown variant="sidebar" :show="true">
+          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
               <i class="fas fa-question-circle"></i>
             </t-button>
           </div>
@@ -37,9 +20,7 @@
             <div class="p-4 border-b">
               <div class="mb-1 text-black">
                 4sucres.org
-                <div
-                  class="inline-block px-2 ml-1 text-sm text-white bg-gray-400 rounded-lg"
-                >
+                <div class="inline-block px-2 ml-1 text-sm text-white bg-gray-400 rounded-lg" >
                   {{ $page.props.version }}
                 </div>
               </div>
@@ -75,22 +56,8 @@
         </t-dropdown>
 
         <t-dropdown v-if="$page.props.user" variant="sidebar">
-          <div
-            slot="trigger"
-            slot-scope="{
-              mousedownHandler,
-              focusHandler,
-              blurHandler,
-              keydownHandler,
-            }"
-          >
-            <t-button
-              @mousedown="mousedownHandler"
-              @focus="focusHandler"
-              @blur="blurHandler"
-              @keydown="keydownHandler"
-              variant="sidebar"
-            >
+          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
               <i class="fas fa-bell"></i>
             </t-button>
           </div>
@@ -112,22 +79,8 @@
         </t-dropdown>
 
         <t-dropdown v-if="$page.props.user" variant="sidebar">
-          <div
-            slot="trigger"
-            slot-scope="{
-              mousedownHandler,
-              focusHandler,
-              blurHandler,
-              keydownHandler,
-            }"
-          >
-            <t-button
-              @mousedown="mousedownHandler"
-              @focus="focusHandler"
-              @blur="blurHandler"
-              @keydown="keydownHandler"
-              variant="sidebar"
-            >
+          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
               <img
                 :src="$page.props.user.avatar_link"
                 :alt="$page.props.user.display_name"
@@ -176,29 +129,32 @@
           </div>
         </t-dropdown>
 
-        <template v-if="!$page.props.user">
-          <t-button
-            :href="$route('register')"
-            @mousedown="mousedownHandler"
-            @focus="focusHandler"
-            @blur="blurHandler"
-            @keydown="keydownHandler"
-            variant="sidebar"
-          >
-            <i class="fas fa-user-plus"></i>
-          </t-button>
+        <t-dropdown v-if="!$page.props.user" variant="sidebar">
+          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
+              <i class="fas fa-power-off"></i>
+            </t-button>
+          </div>
 
-          <t-button
-            :href="$route('next.login')"
-            @mousedown="mousedownHandler"
-            @focus="focusHandler"
-            @blur="blurHandler"
-            @keydown="keydownHandler"
-            variant="sidebar"
-          >
-            <i class="fas fa-power-off"></i>
-          </t-button>
-        </template>
+          <div slot-scope="{ blurHandler }">
+            <div class="p-2">
+              <t-button
+                :href="$route('register')"
+                @blur="blurHandler"
+                variant="dropdown"
+              >
+                <i class="fas fa-user-plus fa-fw"></i> Inscription
+              </t-button>
+              <t-button
+                :href="$route('next.login')"
+                @blur="blurHandler"
+                variant="dropdown"
+              >
+                <i class="fas fa-power-off fa-fw"></i> Connexion
+              </t-button>
+            </div>
+          </div>
+        </t-dropdown>
       </div>
     </nav>
 
@@ -207,5 +163,17 @@
 </template>
 
 <script>
-export default {};
+  export default {
+    data(){
+      return {
+        open: true,
+      }
+    },
+
+    methods:{
+      toggle(){
+        this.open = !this.open;
+      }
+    }
+  };
 </script>

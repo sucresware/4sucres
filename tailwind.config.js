@@ -57,6 +57,11 @@ module.exports = {
                     800: "#15181B",
                     900: "#0C1014"
                 }
+            },
+            spacing: {
+                "full-plus-14": "-100% + 3.5rem",
+                "full-plus-4": "-100% + 1rem",
+                "full-minus-4": "-100% - 1rem",
             }
         },
         container: {

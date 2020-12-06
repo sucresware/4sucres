@@ -1,18 +1,15 @@
 <template>
-  <div class="flex flex-row w-full">
-    <div
-      class="flex flex-col w-full h-screen border-r bg-gray-50 md:border-r md:block md:w-1/2 lg:w-1/3"
-      :class="{ 'hidden md:flex': show_discussion }"
-      >
+  <div class="flex flex-row w-full h-full min-h-0">
+    <div class="flex flex-col w-full border-r bg-gray-50 md:border-r md:w-1/2 lg:w-1/3" :class="{ 'hidden md:flex': show_discussion }">
       <div class="p-4 border-b">
         <div class="flex flex-row items-center">
           <div class="mr-auto text-xl">Discussions</div>
           <paginator :paginator="_.omit(discussions, 'data')" :only="['discussions']" />
-          <t-button @click="reload" class="ml-2"><i class="fas fa-sync"></i></t-button>
+          <t-button @click="reload" class="ml-2" variant="secondary"><i class="fas fa-sync"></i></t-button>
         </div>
         <!-- <t-button v-if="$page.props.user && $page.props.user.permissions.includes('create discussions')" :href="$route('discussions.create')"><i class="fas fa-plus"></i></t-button> -->
       </div>
-      <div class="flex-grow p-2" scroll-region>
+      <div class="flex-grow p-2 overflow-y-auto" scroll-region>
         <div
           v-for="item in discussions.data"
           class="px-2 py-4 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-200"
@@ -27,9 +24,9 @@
                   :only="['discussion']"
                   preserve-scroll
                   class="font-bold">
-                  <i
-                    class="mr-1 text-sm truncate text-brand fas fa-circle"
-                    :class="{'hidden': ($page.props.user && !item.has_seen)}" />
+                  <!-- <i
+                    class="mr-1 text-sm text-brand fas fa-circle"
+                    :class="{'hidden': ($page.props.user && !item.has_seen)}" /> -->
                   {{ item.title }}
                 </inertia-link>
               </div>
@@ -48,7 +45,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full min-h-screen md:block md:w-1/2 lg:w-2/3" v-if="show_discussion && discussion">
+    <div class="flex flex-col w-full md:w-1/2 lg:w-2/3" v-if="show_discussion && discussion">
       <div class="p-4 border-b">
         <div class="flex flex-row items-center">
           <t-button @click="blur" class="mr-2"><i class="fas fa-arrow-left"></i></t-button>
@@ -61,7 +58,7 @@
           <t-button @click="reload" class="ml-2"><i class="fas fa-sync"></i></t-button>
         </div>
       </div>
-      <div class="flex-grow p-2" scroll-region>
+      <div class="flex-grow p-2 overflow-y-auto" scroll-region>
         <div
           v-for="post in discussion.posts.data"
           :key="post.id"
@@ -89,7 +86,7 @@
                         <li>
                           <inertia-link
                             v-if="$page.props.user.id == post.user.id || $page.props.user.permissions.includes('bypass discussions guard')"
-                            :href="route('discussions.posts.edit', [discussion.id, discussion.slug, post.id])"
+                            :href="$route('discussions.posts.edit', [discussion.id, discussion.slug, post.id])"
                             class="btn btn-sm btn-tertiary">
                               <i class="fal fa-edit"></i> Modifier
                           </inertia-link>
@@ -97,7 +94,7 @@
                         <li>
                           <inertia-link
                             v-if="$page.props.user.id == post.user.id || $page.props.user.permissions.includes('bypass discussions guard')"
-                            :href="route('discussions.posts.delete', [discussion.id, discussion.slug, post.id])"
+                            :href="$route('discussions.posts.delete', [discussion.id, discussion.slug, post.id])"
                             class="btn btn-sm btn-tertiary">
                             <i class="fal fa-trash"></i> Supprimer
                           </inertia-link>
@@ -122,10 +119,8 @@
         </div>
       </div>
     </div>
-    <div class="w-full min-h-screen overflow-y-auto md:block md:w-1/2 lg:w-2/3" v-else>
-      <div class="flex items-center justify-center h-screen">
-        <img src="/img/4sucres_white_white.png" alt="4sucres.org">
-      </div>
+    <div class="flex items-center justify-center hidden w-full overflow-y-auto md:flex bg-gradient-to-t from-gray-50 to-gray-100 md:w-1/2 lg:w-2/3" v-else>
+      <img src="/img/4sucres_white_white.png" alt="4sucres.org">
     </div>
   </div>
 </template>

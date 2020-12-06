@@ -39,9 +39,9 @@ class InertiaServiceProvider extends ServiceProvider
     {
         Inertia::share([
             'user' => function () {
-                return auth()
-                    ->user()
-                    ->load('permissions');
+                return optional(
+                    auth()->user()
+                )->load('permissions');
             },
             'errors' => function () {
                 return $this->sharedValidationErrors();
