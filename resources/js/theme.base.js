@@ -9,12 +9,12 @@ const TInput = {
 
 const TButton = {
     fixedClasses:
-        "focus:outline-none focus:shadow-outline mx-auto inline-block transition ease-in-out duration-150 text-sm font-medium rounded-md",
+        "focus:outline-none focus:shadow-outline inline-block transition ease-in-out duration-150 text-sm font-medium rounded-md",
     classes:
         "text-center text-white bg-brand-500 hover:bg-brand-600 focus:border-brand-700 active:bg-brand-700 px-3 py-2",
     variants: {
         sidebar:
-            "flex text-gray-300 items-center justify-center w-10 h-10 mb-4 bg-gray-800 rounded-md hover:bg-gray-900 focus:text-white focus:bg-brand-500 focus:outline-none",
+            "mx-auto flex text-gray-300 items-center justify-center w-10 h-10 mb-4 bg-gray-800 rounded-md hover:bg-gray-900 focus:text-white focus:bg-brand-500 focus:outline-none",
         dropdown:
             "text-left w-full px-2 py-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100",
         large:

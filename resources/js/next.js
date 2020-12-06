@@ -8,6 +8,11 @@ import VueTailwind from "vue-tailwind";
 import settings from "./theme.base.js";
 Vue.use(VueTailwind, settings);
 
+import moment from 'moment';
+moment.locale('fr');
+
+Vue.prototype._ = _;
+Vue.prototype.moment = moment;
 Vue.prototype.$route = route;
 
 /**
