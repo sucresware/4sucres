@@ -26,7 +26,6 @@
         "laravel/socialite": "^5.1.0",
         "laravel/tinker": "^2.0",
         "league/csv": "^9.2",
-        "lorisleiva/laravel-deployer": "^0.3.5",
         "mattketmo/email-checker": "^1.5",
         "molayli/laravel-cloudflare-real-ip": "^0.1.0",
         "neitanod/forceutf8": "^2.0",
