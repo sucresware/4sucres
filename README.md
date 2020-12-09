@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/sucresware/4sucres/raw/master/resources/img/icons/apple-touch-icon-152x152.png" width="152"></p>
+<p align="center"><img src="https://github.com/sucresware/4sucres/raw/main/resources/img/icons/apple-touch-icon-152x152.png" width="152"></p>
 
 <p align="center">
 <img alt="Rocket" src="https://img.shields.io/endpoint?style=flat-square&url=https://rocket.mgk.dev/api/projects/01es1bpebrvvytay0nwrz2k1pm/shield">
