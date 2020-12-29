@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row w-full h-full min-h-0">
     <div class="flex flex-col w-full md:w-1/2 lg:w-1/3" :class="{ 'hidden md:flex': show_discussion }">
-      <div class="p-4 bg-toolbar-default text-on-toolbar-default">
+      <div class="flex-none p-4 bg-toolbar-default text-on-toolbar-default">
         <div class="flex flex-row items-center">
           <div class="mr-auto text-xl">Discussions</div>
           <paginator :paginator="_.omit(discussions, 'data')" :only="['discussions']" />
@@ -9,12 +9,12 @@
         </div>
         <!-- <t-button v-if="$page.props.user && $page.props.user.permissions.includes('create discussions')" :href="$route('discussions.create')"><i class="fas fa-plus"></i></t-button> -->
       </div>
-      <div class="flex-grow p-2 overflow-y-auto" scroll-region>
+      <div class="flex-auto overflow-y-auto" scroll-region>
         <div
           v-for="item in discussions.data"
-          class="px-2 py-4 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-200"
+          class="px-4 py-3 duration-150 transition-background hover:bg-background-hover focus:bg-background-active"
           :key="item.id"
-          :class="{ 'bg-gray-200': (show_discussion && discussion && item.id == discussion.id) }"
+          :class="{ 'bg-background-selected text-on-background-selected hover:bg-background-selected hover:text-on-background-selected': (show_discussion && discussion && item.id == discussion.id) }"
         >
           <div class="flex items-center">
             <div class="flex-grow truncate">
@@ -64,7 +64,7 @@
           :key="post.id"
           class="px-2 py-4 bg-white rounded-md"
         >
-          <div class="flex-1 border-b border-body-border">
+          <div class="flex-1 border-b border-on-background-border">
             <div class="flex items-center px-6 py-4 bg-body-variant text-on-body-variant">
               <!-- <user-avatar :user="post.user" class="mr-4" /> -->
               <div>
@@ -110,7 +110,7 @@
                 </popper>
               </div>
             </div>
-            <hr class="border-body-border">
+            <hr class="border-on-background-border">
             <div class="p-6">
               <div class="user-content" v-html="post.presented_body"  v-if="!post.deleted_at" />
               <div v-else><i class="mr-1 fal fa-times"></i> Ce message a été supprimé</div>
@@ -120,7 +120,10 @@
       </div>
     </div>
     <div class="flex items-center justify-center hidden w-full overflow-y-auto md:flex bg-gradient-to-t from-gray-50 to-gray-100 md:w-1/2 lg:w-2/3" v-else>
-      <img src="/img/4sucres_white_white.png" alt="4sucres.org">
+      <svg class="block w-48 mx-auto opacity-25 fill-current" viewBox="0 0 36 28" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.5474 4.80023L33.3081 4.80023L35.0157 10.8558L28.0235 23.9102L20.0876 23.9102L20.2065 22.8424L22.4128 21.7594L23.3066 15.779L22.7141 15.1637L21.4974 15.1637L22.3432 8.79223L21.8897 8.27744L20.5493 8.27744L22.5474 4.80023Z" fill="currentColor"/>
+        <path d="M12.0384 26L12.7644 21.479H2.56737L1.87437 18.608L11.7084 1.481H18.2424L9.92637 16.067H13.6224L14.1834 12.437L15.8994 9.269H21.0804L20.0244 16.067H22.0044L21.2784 20.489L19.1664 21.479L18.4404 26H12.0384Z" fill="currentColor"/>
+      </svg>
     </div>
   </div>
 </template>
