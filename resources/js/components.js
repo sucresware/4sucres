@@ -23,7 +23,7 @@ const TDropdown = {
         button: "p-3",
         wrapper: "inline-flex flex-col",
         dropdownWrapper: "relative z-10",
-        dropdown: "transform absolute shadow bg-background-alt text-on-background-default rounded-md",
+        dropdown: "transform absolute shadow-md bg-background-alt text-on-background-default rounded-md",
         enterClass: "",
         enterActiveClass: "transition ease-out duration-100 transform opacity-0 scale-95",
         enterToClass: "transform opacity-100 scale-100",

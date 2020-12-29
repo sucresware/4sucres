@@ -14,13 +14,6 @@ module.exports = {
     },
     darkMode: 'class',
     theme: {
-        fontSize: {
-            xs: "10px",
-            sm: "12px",
-            base: "14px",
-            lg: "16px",
-            xl: "20px"
-        },
         extend: {
             colors: {
                 'transparent': 'transparent'

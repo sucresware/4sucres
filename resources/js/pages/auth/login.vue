@@ -4,15 +4,15 @@
 
 
 
-<div class="p-4 mb-2 rounded shadow text-on-background-default bg-background-default">
+<div class="p-4 mb-2 rounded shadow-md text-on-background-default bg-background-default">
   test
 </div>
 
-<div class="p-4 mb-2 rounded shadow text-on-surface-default bg-surface-default">
+<div class="p-4 mb-2 rounded shadow-md text-on-surface-default bg-surface-default">
   test
 </div>
 
-<div class="p-4 mb-2 rounded shadow text-on-foreground-default bg-foreground-default">
+<div class="p-4 mb-2 rounded shadow-md text-on-foreground-default bg-foreground-default">
   test
 </div>
 
