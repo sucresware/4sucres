@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row w-full h-full min-h-0">
-    <div class="flex flex-col w-full border-r bg-gray-50 md:border-r md:w-1/2 lg:w-1/3" :class="{ 'hidden md:flex': show_discussion }">
-      <div class="p-4 border-b">
+    <div class="flex flex-col w-full md:w-1/2 lg:w-1/3" :class="{ 'hidden md:flex': show_discussion }">
+      <div class="p-4 bg-toolbar-default text-on-toolbar-default">
         <div class="flex flex-row items-center">
           <div class="mr-auto text-xl">Discussions</div>
           <paginator :paginator="_.omit(discussions, 'data')" :only="['discussions']" />
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="flex flex-col w-full md:w-1/2 lg:w-2/3" v-if="show_discussion && discussion">
-      <div class="p-4 border-b">
+      <div class="p-4 bg-toolbar-default text-on-toolbar-default">
         <div class="flex flex-row items-center">
           <t-button @click="blur" class="mr-2"><i class="fas fa-arrow-left"></i></t-button>
           <div class="mr-auto text-xl">{{ discussion.title }}</div>

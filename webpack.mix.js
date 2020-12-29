@@ -1,4 +1,5 @@
 const mix = require('laravel-mix')
+const tailwindcss = require('tailwindcss');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,7 +15,9 @@ const mix = require('laravel-mix')
 mix
     // Next
     .js('resources/js/next.js', 'public/js')
-    .sass('resources/sass/next.scss', 'public/css')
+    .sass('resources/sass/next.scss', 'public/css', {}, [
+        tailwindcss('./tailwind.config.js'),
+    ])
 
     // Legacy
     .js('resources/js/app.js', 'public/js')
@@ -37,9 +40,6 @@ mix
 
     .options({
         processCssUrls: false,
-        postCss: [
-            require('tailwindcss')()
-        ],
     })
     .disableSuccessNotifications()
     .version()

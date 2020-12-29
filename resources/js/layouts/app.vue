@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col-reverse h-screen md:flex-row">
-    <nav class="flex-shrink-0 bg-gray-700 md:block" :class="open ? 'block': 'hidden'">
+  <div class="flex flex-col-reverse w-full h-screen md:flex-row">
+    <nav class="flex-none w-16 bg-sidebar-default text-on-sidebar-default">
       <div class="flex flex-row items-center justify-center w-full md:h-full md:flex-col">
 
         <inertia-link :href="$route('next.home')" class="block p-4 md:w-full">
@@ -9,7 +9,9 @@
 
         <div class="ml-auto md:mt-auto"></div>
 
-        <t-dropdown variant="sidebar" :show="true">
+        <t-button @click="switch_theme" class="truncate">{{ this.themes[this.selected_theme_index] }}</t-button>
+
+        <t-dropdown variant="sidebar">
           <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
             <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
               <i class="fas fa-question-circle"></i>
@@ -39,16 +41,16 @@
               <t-button variant="dropdown" @blur="blurHandler">
                 Charte d'utilisation
               </t-button>
-              <t-button variant="dropdown" @blur="blurHandler">
+              <t-button variant="dropdown" target="_blank" href="https://jvflux.fr/4sucres">
                 JVFlux
               </t-button>
-              <t-button variant="dropdown" @blur="blurHandler">
+              <t-button variant="dropdown" target="_blank" href="https://github.com/sucresware/4sucres">
                 GitHub
               </t-button>
-              <t-button variant="dropdown" @blur="blurHandler">
+              <t-button variant="dropdown" target="_blank" href="https://fr.tipeee.com/4sucres">
                 Tipeee
               </t-button>
-              <t-button variant="dropdown" @blur="blurHandler">
+              <t-button variant="dropdown" target="_blank" href="https://discord.me/4sucres">
                 Discord
               </t-button>
             </div>
@@ -158,7 +160,7 @@
       </div>
     </nav>
 
-    <slot class="flex-grow"></slot>
+    <slot class="flex-auto"></slot>
   </div>
 </template>
 
@@ -166,13 +168,19 @@
   export default {
     data(){
       return {
-        open: true,
+        selected_theme_index: 0,
+        themes: [
+          'arc-light', 'nord-light', 'arc-dark', 'nord-dark',
+        ]
       }
     },
 
-    methods:{
-      toggle(){
-        this.open = !this.open;
+    methods: {
+      switch_theme(){
+        this.selected_theme_index++;
+        if (this.selected_theme_index == this.themes.length) this.selected_theme_index = 0;
+
+        document.querySelector('body').setAttribute('data-theme', this.themes[this.selected_theme_index]);
       }
     }
   };

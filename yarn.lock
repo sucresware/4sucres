@@ -825,6 +825,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@ctrl/tinycolor@^2.5.3":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-2.6.1.tgz#0e78cc836a1fd997a9a22fa1c26c555411882160"
+  integrity sha512-xKN3lAA+xbNhP+JX3sLhzA65IGiKqun/Yf9jBlZX7Og0SxlCrrqKxqTd6ccn20fv3Cgcvq6KnjPhnmS+v7uAwQ==
+
 "@fancyapps/fancybox@^3.5.7":
   version "3.5.7"
   resolved "https://registry.yarnpkg.com/@fancyapps/fancybox/-/fancybox-3.5.7.tgz#12f8734663ec6eae7f9236b92ca236e6e07fdfd5"
@@ -6850,6 +6855,14 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+tailwindcss-theming@^3.0.0-beta.1:
+  version "3.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/tailwindcss-theming/-/tailwindcss-theming-3.0.0-beta.1.tgz#4d3fb0b2bb27e1ffe1129c5df9379aed81a6db37"
+  integrity sha512-CVYveuKeM/lQVcfb6tDLCBy84c95zD31VSAaQwZlloViIh8DG2tVAqwyYuhdZXRLahbb68+QN/aJ5e8cnrz/Aw==
+  dependencies:
+    "@ctrl/tinycolor" "^2.5.3"
+    lodash "^4.17.15"
 
 tailwindcss@^2.0.1:
   version "2.0.1"

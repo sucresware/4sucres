@@ -1,5 +1,26 @@
 <template>
   <form class="w-full max-w-sm" @submit.prevent="submit">
+
+
+
+
+<div class="p-4 mb-2 rounded shadow text-on-background-default bg-background-default">
+  test
+</div>
+
+<div class="p-4 mb-2 rounded shadow text-on-surface-default bg-surface-default">
+  test
+</div>
+
+<div class="p-4 mb-2 rounded shadow text-on-foreground-default bg-foreground-default">
+  test
+</div>
+
+
+
+
+
+
     <template v-if="!totp_required">
       <inertia-link :href="$route('next.home')">
         <img

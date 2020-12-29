@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -23,17 +24,12 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale(config('app.locale'));
         setlocale(LC_TIME, config('app.locale'));
 
-        $version = 'WIP';
+        $version = rescue(fn () => 'v' . trim(File::get(config_path('.version'))), 'WIP', false);
+        $sha = rescue(fn () => ' (' . substr(File::get(base_path('REVISION')), 0, 7) . ')', null, false);
+        $env = config('app.env') == 'production' ? '' : ' - ' . config('app.env');
 
-        try {
-            $version = 'v' . file_get_contents(config_path('.version'));
-        } catch (\Exception $e) {
-        }
-
-        Inertia::share([
-            'version' => $version . ' ' . config('app.env'),
-            'execution_time' => round((microtime(true) - LARAVEL_START), 3),
-        ]);
+        Inertia::share('version', fn () => $version . $sha . $env);
+        Inertia::share('execution_time', round((microtime(true) - LARAVEL_START), 3));
 
         View::composer(['layouts/app', 'layouts/admin'], function ($view) use ($version) {
             $view

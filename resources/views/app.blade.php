@@ -29,7 +29,7 @@
     @routes
 </head>
 
-<body class="text-base text-gray-600 bg-gray-100">
+<body class="flex flex-col items-center justify-center antialiased font-medium transition-colors duration-150 bg-background-default text-on-background-default" data-theme="arc-light">
     @inertia
 </body>
 
