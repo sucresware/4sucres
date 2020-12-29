@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row w-full h-full min-h-0">
     <div class="flex flex-col w-full md:w-1/2 lg:w-1/3" :class="{ 'hidden md:flex': show_discussion }">
-      <div class="flex-none p-4 bg-toolbar-default text-on-toolbar-default">
+      <div class="flex-none p-4 border-b border-r bg-toolbar-default text-on-toolbar-default border-on-background-border">
         <div class="flex flex-row items-center">
           <div class="mr-auto text-xl">Discussions</div>
           <paginator :paginator="_.omit(discussions, 'data')" :only="['discussions']" />
@@ -9,7 +9,7 @@
         </div>
         <!-- <t-button v-if="$page.props.user && $page.props.user.permissions.includes('create discussions')" :href="$route('discussions.create')"><i class="fas fa-plus"></i></t-button> -->
       </div>
-      <div class="flex-auto overflow-y-auto" scroll-region>
+      <div class="flex-auto overflow-y-auto border-r border-on-background-border" scroll-region>
         <div
           v-for="item in discussions.data"
           class="px-4 py-3 duration-150 transition-background hover:bg-background-hover focus:bg-background-active"
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="flex flex-col w-full md:w-1/2 lg:w-2/3" v-if="show_discussion && discussion">
-      <div class="p-4 bg-toolbar-default text-on-toolbar-default">
+      <div class="p-4 border-b bg-toolbar-default text-on-toolbar-default border-on-background-border">
         <div class="flex flex-row items-center">
           <t-button @click="blur" class="mr-2"><i class="fas fa-arrow-left"></i></t-button>
           <div class="mr-auto text-xl">{{ discussion.title }}</div>
@@ -58,14 +58,14 @@
           <t-button @click="reload" class="ml-2"><i class="fas fa-sync"></i></t-button>
         </div>
       </div>
-      <div class="flex-grow p-2 overflow-y-auto" scroll-region>
+      <div class="flex-grow p-2 overflow-y-auto bg-background-alt" scroll-region>
         <div
           v-for="post in discussion.posts.data"
           :key="post.id"
           class="px-2 py-4 bg-white rounded-md"
         >
           <div class="flex-1 border-b border-on-background-border">
-            <div class="flex items-center px-6 py-4 bg-body-variant text-on-body-variant">
+            <div class="flex items-center px-6 py-4">
               <!-- <user-avatar :user="post.user" class="mr-4" /> -->
               <div>
                 <!-- <user-name :user="post.user" /> -->

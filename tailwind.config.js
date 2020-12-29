@@ -23,6 +23,7 @@ module.exports = {
         },
         extend: {
             colors: {
+                'transparent': 'transparent'
             },
             spacing: {
                 "full-plus-14": "-100% + 3.5rem",
@@ -35,7 +36,11 @@ module.exports = {
             padding: "1rem"
         }
     },
-    variants: {},
+    variants: {
+        extend: {
+            ringColor: ['hover'],
+        }
+    },
     plugins: [
         require('tailwindcss-theming')
     ]

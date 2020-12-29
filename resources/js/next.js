@@ -5,8 +5,8 @@ import { App, plugin } from '@inertiajs/inertia-vue'
 Vue.use(plugin)
 
 import VueTailwind from "vue-tailwind";
-import settings from "./theme.base.js";
-Vue.use(VueTailwind, settings);
+import components from "./components.js";
+Vue.use(VueTailwind, components);
 
 import moment from 'moment';
 moment.locale('fr');

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col-reverse w-full h-screen md:flex-row">
-    <nav class="flex-none w-16 bg-sidebar-default text-on-sidebar-default">
+    <nav class="flex-none w-16 border-r bg-sidebar-default text-on-sidebar-default border-on-sidebar-border">
       <div class="flex flex-row items-center justify-center w-full md:h-full md:flex-col">
 
         <inertia-link :href="$route('next.home')" class="block p-4 md:w-full">
