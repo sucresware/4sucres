@@ -1,10 +1,9 @@
 <template>
   <div class="flex flex-col-reverse w-full h-screen md:flex-row">
-    <nav class="flex-none w-16 border-r bg-sidebar-default text-on-sidebar-default border-on-sidebar-border">
+    <nav class="flex-none w-full border-t md:w-16 md:border-t-0 md:border-r bg-sidebar-default text-on-sidebar-default border-on-sidebar-border">
       <div class="flex flex-row items-center justify-center w-full md:h-full md:flex-col">
-
-        <inertia-link :href="$route('next.home')" class="block p-4 md:w-full">
-          <svg class="block w-8 mx-auto fill-current" viewBox="0 0 36 28" xmlns="http://www.w3.org/2000/svg">
+        <inertia-link :href="$route('next.home')" class="block px-2 py-4 md:px-0">
+          <svg class="block w-10 mx-auto fill-current" viewBox="0 0 36 28" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.5474 4.80023L33.3081 4.80023L35.0157 10.8558L28.0235 23.9102L20.0876 23.9102L20.2065 22.8424L22.4128 21.7594L23.3066 15.779L22.7141 15.1637L21.4974 15.1637L22.3432 8.79223L21.8897 8.27744L20.5493 8.27744L22.5474 4.80023Z" fill="currentColor"/>
             <path d="M12.0384 26L12.7644 21.479H2.56737L1.87437 18.608L11.7084 1.481H18.2424L9.92637 16.067H13.6224L14.1834 12.437L15.8994 9.269H21.0804L20.0244 16.067H22.0044L21.2784 20.489L19.1664 21.479L18.4404 26H12.0384Z" fill="currentColor"/>
           </svg>
@@ -12,7 +11,7 @@
 
         <div class="ml-auto md:mt-auto"></div>
 
-        <t-button @click="switch_theme" class="truncate">{{ this.themes[this.selected_theme_index] }}</t-button>
+        <t-button variant="sidebar" @click="switch_theme"><i class="fas fa-palette"></i></t-button>
 
         <t-dropdown variant="sidebar">
           <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">

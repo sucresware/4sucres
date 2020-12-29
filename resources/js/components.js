@@ -11,7 +11,7 @@ const TButton = {
     classes: "text-center shadow text-on-background-default bg-background-default hover:bg-background-selected hover:text-on-background-selected px-3 py-2",
     variants: {
         secondary: "text-center shadow text-on-background-muted bg-background-default ring-1 ring-transparent hover:ring-accent-default hover:text-on-background-default px-3 py-2",
-        sidebar: "mx-auto flex items-center justify-center w-10 h-10 mr-2 md:mr-0 md:mb-2 rounded ring-1 bg-on-sidebar-button-background ring-on-sidebar-button-border focus:ring-accent-default",
+        sidebar: "mx-auto flex items-center justify-center w-10 h-10 mr-2 md:mr-auto md:mb-2 rounded ring-1 bg-on-sidebar-button-background ring-on-sidebar-button-border focus:ring-accent-default",
         dropdown: "text-left w-full px-2 py-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100",
         large: "text-center text-white bg-brand-500 hover:bg-brand-600 focus:border-brand-700 active:bg-brand-700 px-4 py-3 text-base",
         link: "px-3 py-2 text-center text-gray-300 hover:text-gray-100"

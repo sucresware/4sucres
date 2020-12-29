@@ -1,42 +1,35 @@
 <template>
   <div class="flex flex-row w-full h-full min-h-0">
-    <div class="flex flex-col w-full md:w-1/2 lg:w-1/3" :class="{ 'hidden md:flex': show_discussion }">
+    <div class="flex flex-col flex-none w-full md:w-72 lg:w-96 xl:w-1/3" :class="{ 'hidden md:flex': show_discussion }">
       <div class="flex-none p-4 border-b border-r bg-toolbar-default text-on-toolbar-default border-on-background-border">
         <div class="flex flex-row items-center">
-          <div class="mr-auto text-xl">Discussions</div>
+          <div class="mr-auto text-lg">Discussions</div>
           <paginator :paginator="_.omit(discussions, 'data')" :only="['discussions']" />
-          <t-button @click="reload" class="ml-2" variant="secondary"><i class="fas fa-sync"></i></t-button>
+          <t-button @click="reload" class="ml-2"><i class="fas fa-sync"></i></t-button>
         </div>
-        <!-- <t-button v-if="$page.props.user && $page.props.user.permissions.includes('create discussions')" :href="$route('discussions.create')"><i class="fas fa-plus"></i></t-button> -->
       </div>
       <div class="flex-auto overflow-y-auto border-r border-on-background-border" scroll-region>
         <div
           v-for="item in discussions.data"
-          class="px-4 py-3 duration-150 transition-background hover:bg-background-hover focus:bg-background-active"
+          class="px-4 py-3 duration-150 cursor-pointer transition-background hover:bg-background-hover focus:bg-background-active"
           :key="item.id"
           :class="{ 'bg-background-selected text-on-background-selected hover:bg-background-selected hover:text-on-background-selected': (show_discussion && discussion && item.id == discussion.id) }"
+          @click="$inertia.visit($route('next.discussions.show', [item.id, item.slug]))"
         >
           <div class="flex items-center">
-            <div class="flex-grow truncate">
+            <div class="flex-auto truncate">
               <div class="pr-2 truncate">
-                <inertia-link
-                  :href="$route('next.discussions.show', [item.id, item.slug])"
-                  :only="['discussion']"
-                  preserve-scroll
-                  class="font-bold">
-                  <!-- <i
-                    class="mr-1 text-sm text-brand fas fa-circle"
-                    :class="{'hidden': ($page.props.user && !item.has_seen)}" /> -->
+                <inertia-link @click.stop="" :href="$route('next.discussions.show', [item.id, item.slug])" :only="['discussion']" preserve-scroll class="font-bold">
                   {{ item.title }}
                 </inertia-link>
               </div>
               <div class="text-sm">
-                <inertia-link :href="$route('user.show', item.user.name)">{{ item.user.display_name }}</inertia-link>
-                -
-                {{ item.replies }} réponses
+                <inertia-link @click.stop="" :href="$route('user.show', item.user.name)">{{ item.user.display_name }}</inertia-link>
+                <span class="opacity-50">&bullet;</span>
+                {{ item.replies }} réponse(s)
               </div>
             </div>
-            <div class="flex-shrink-0">
+            <div class="flex-none">
               <inertia-link :href="$route('posts.show', item.latest_post.id)">
                 {{ moment(item.latest_post.created_at).fromNow().replace('il y a ', '') }}
               </inertia-link>
@@ -45,11 +38,11 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col w-full md:w-1/2 lg:w-2/3" v-if="show_discussion && discussion">
+    <div class="flex flex-col flex-auto w-full" v-if="show_discussion && discussion">
       <div class="p-4 border-b bg-toolbar-default text-on-toolbar-default border-on-background-border">
         <div class="flex flex-row items-center">
           <t-button @click="blur" class="mr-2"><i class="fas fa-arrow-left"></i></t-button>
-          <div class="mr-auto text-xl">{{ discussion.title }}</div>
+          <div class="mr-auto text-lg">{{ discussion.title }}</div>
           <paginator :paginator="_.omit(discussion.posts, 'data')" :only="['discussion']" />
           <template v-if="$page.props.user">
             <t-button href="#" class="ml-2"><i class="fas fa-plus"></i></t-button>
@@ -58,7 +51,7 @@
           <t-button @click="reload" class="ml-2"><i class="fas fa-sync"></i></t-button>
         </div>
       </div>
-      <div class="flex-grow p-2 overflow-y-auto bg-background-alt" scroll-region>
+      <div class="flex-auto p-2 overflow-y-auto bg-background-alt" scroll-region>
         <div
           v-for="post in discussion.posts.data"
           :key="post.id"
@@ -119,7 +112,7 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center justify-center hidden w-full overflow-y-auto md:flex bg-gradient-to-t from-gray-50 to-gray-100 md:w-1/2 lg:w-2/3" v-else>
+    <div class="flex items-center justify-center flex-auto hidden w-full overflow-y-auto md:flex bg-gradient-to-t from-gray-50 to-gray-100" v-else>
       <svg class="block w-48 mx-auto opacity-25 fill-current" viewBox="0 0 36 28" xmlns="http://www.w3.org/2000/svg">
         <path d="M22.5474 4.80023L33.3081 4.80023L35.0157 10.8558L28.0235 23.9102L20.0876 23.9102L20.2065 22.8424L22.4128 21.7594L23.3066 15.779L22.7141 15.1637L21.4974 15.1637L22.3432 8.79223L21.8897 8.27744L20.5493 8.27744L22.5474 4.80023Z" fill="currentColor"/>
         <path d="M12.0384 26L12.7644 21.479H2.56737L1.87437 18.608L11.7084 1.481H18.2424L9.92637 16.067H13.6224L14.1834 12.437L15.8994 9.269H21.0804L20.0244 16.067H22.0044L21.2784 20.489L19.1664 21.479L18.4404 26H12.0384Z" fill="currentColor"/>
