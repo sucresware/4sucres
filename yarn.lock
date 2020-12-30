@@ -6909,6 +6909,11 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+tailwind-scrollbar@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/tailwind-scrollbar/-/tailwind-scrollbar-1.1.2.tgz#0a0e24d3ffa10a6e8e099a41f49bc3e3e442c347"
+  integrity sha512-kDOE3Th4zeuDAwDNnUC2t4ueQRqkRtCOXSjP17T9cYfSPi/0q3Dn+vON5PuopdxYkiUBMHnHdtWZ+6Hk3XrXTg==
+
 tailwindcss-theming@^3.0.0-beta.1:
   version "3.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/tailwindcss-theming/-/tailwindcss-theming-3.0.0-beta.1.tgz#4d3fb0b2bb27e1ffe1129c5df9379aed81a6db37"

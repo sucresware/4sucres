@@ -7,7 +7,7 @@ const TInput = {
 };
 
 const TButton = {
-    fixedClasses: "focus:outline-none focus:shadow-outline inline-block transition ease-in-out duration-150 text-sm font-medium rounded-md",
+    fixedClasses: "focus:outline-none focus:shadow-outline inline-block transition ease-in-out duration-150 text-sm font-medium rounded-button",
     classes: "text-center shadow text-on-background-default bg-background-default hover:bg-background-selected hover:text-on-background-selected px-3 py-2",
     variants: {
         secondary: "text-center shadow text-on-background-muted bg-background-default ring-1 ring-transparent hover:ring-accent-default hover:text-on-background-default px-3 py-2",
@@ -23,7 +23,7 @@ const TDropdown = {
         button: "p-3",
         wrapper: "inline-flex flex-col",
         dropdownWrapper: "relative z-10",
-        dropdown: "transform absolute shadow-md bg-background-alt text-on-background-default rounded-md",
+        dropdown: "transform absolute shadow-md bg-background-alt text-on-background-default rounded-default",
         enterClass: "",
         enterActiveClass: "transition ease-out duration-100 transform opacity-0 scale-95",
         enterToClass: "transform opacity-100 scale-100",

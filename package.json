@@ -51,6 +51,7 @@
         "sass-loader": "^7.1.0",
         "scriptjs": "^2.5.9",
         "select2": "^4.0.7-rc.0",
+        "tailwind-scrollbar": "^1.1.2",
         "tailwindcss": "^2.0.1",
         "tailwindcss-theming": "^3.0.0-beta.1",
         "textcomplete": "^0.17.1",

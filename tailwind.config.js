@@ -21,13 +21,15 @@ module.exports = {
               fontWeight: 'var(--text-weight-normal)',
               a: {
                 color: 'var(--color-variant-on-background-link)',
+                fontWeight: 'var(--font-weight-semibold)',
                 textDecoration: 'none',
                 '&:hover': {
                   textDecoration: 'underline',
                 },
               },
               strong: {
-                fontWeight: 'var(--font-weight-bold)',
+                color: 'var(--color-on-background)',
+                fontWeight: 'var(--font-weight-semibold)',
               },
               hr: {
                 borderColor: 'var(--color-variant-on-background-border)',
@@ -74,5 +76,6 @@ module.exports = {
   plugins: [
     require('tailwindcss-theming'),
     require('@tailwindcss/typography'),
+    require('tailwind-scrollbar'),
   ]
 };

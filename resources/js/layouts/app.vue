@@ -190,6 +190,13 @@
           'solarized-dark',
           'twitch-dark',
           'yaru-dark',
+          // 'avn-light',
+          // 'avn-dark',
+          // 'onche-light',
+          // 'onche-blue',
+          // 'onche-dark',
+          // '2sucres-light',
+          // '2sucres-dark',
         ]
       }
     },

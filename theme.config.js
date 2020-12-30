@@ -1,5 +1,4 @@
 const { Theme, ThemeManager } = require('tailwindcss-theming/api');
-const { TinyColor } = require('@ctrl/tinycolor');
 
 const arcDark = new Theme()
   .setName('arc-dark')
@@ -18,7 +17,13 @@ const arcDark = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#404552","background")
   .addColorVariant("border","#2b2e39","on-sidebar")
@@ -31,7 +36,6 @@ const arcDark = new Theme()
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#9eaabd","on-background")
   .addColorVariant("link","#3090ff","on-background")
-  .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
   .setVariable("sm","12px","fontSize","text")
@@ -53,9 +57,10 @@ const arcDark = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
+  .setVariable("sans",["Inter","sans-serif"],"fontFamily","font")
 
 const arcLight = new Theme()
   .setName('arc-light')
@@ -74,7 +79,13 @@ const arcLight = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#2b2e39","on-sidebar")
@@ -87,7 +98,6 @@ const arcLight = new Theme()
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#6a6f7c","on-background")
   .addColorVariant("link","#3090ff","on-background")
-  .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
   .setVariable("sm","12px","fontSize","text")
@@ -109,9 +119,10 @@ const arcLight = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
+  .setVariable("sans",["Inter","sans-serif"],"fontFamily","font")
 
 const draculaDark = new Theme()
   .setName('dracula-dark')
@@ -130,7 +141,13 @@ const draculaDark = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#282a36","background")
   .addColorVariant("border","#191a21","on-sidebar")
@@ -165,9 +182,9 @@ const draculaDark = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const draculaLight = new Theme()
   .setName('dracula-light')
@@ -186,7 +203,13 @@ const draculaLight = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#191a21","on-sidebar")
@@ -221,9 +244,9 @@ const draculaLight = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const gruvboxDark = new Theme()
   .setName('gruvbox-dark')
@@ -242,7 +265,13 @@ const gruvboxDark = new Theme()
     "success": "#689d6a",
     "on-success": "#3f5f40",
     "uncommon": "#a89984",
-    "on-uncommon": "#655c50"
+    "on-uncommon": "#655c50",
+    "red": "#cc241d",
+    "gray": "#a89984",
+    "yellow": "#d59921",
+    "purple": "#593695",
+    "green": "#689d6a",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#282828","background")
   .addColorVariant("border","#1d2021","on-sidebar")
@@ -277,9 +306,9 @@ const gruvboxDark = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const gruvboxLight = new Theme()
   .setName('gruvbox-light')
@@ -298,7 +327,13 @@ const gruvboxLight = new Theme()
     "success": "#689d6a",
     "on-success": "#3f5f40",
     "uncommon": "#a89984",
-    "on-uncommon": "#655c50"
+    "on-uncommon": "#655c50",
+    "red": "#cc241d",
+    "gray": "#a89984",
+    "yellow": "#d59921",
+    "purple": "#593695",
+    "green": "#689d6a",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#1d2021","on-sidebar")
@@ -333,14 +368,14 @@ const gruvboxLight = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const monokaiProDark = new Theme()
   .setName('monokai-pro-dark')
   .addColors({
-    "accent": "#cc9900",
+    "accent": "#b71c1c",
     "sidebar": "#272428",
     "on-sidebar": "#c1c0c0",
     "toolbar": "#2d2a2e",
@@ -354,7 +389,13 @@ const monokaiProDark = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#2d2a2e","background")
   .addColorVariant("border","#19181a","on-sidebar")
@@ -363,10 +404,10 @@ const monokaiProDark = new Theme()
   .addColorVariant("button-border","#19181a","on-sidebar")
   .addColorVariant("hover","#2a272a","background")
   .addColorVariant("active","#353135","background")
-  .addColorVariant("selected","#cc9900","background")
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#939293","on-background")
   .addColorVariant("link","#3090ff","on-background")
+  .addColorVariant("selected","#b71c1c","background")
   .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
@@ -389,14 +430,14 @@ const monokaiProDark = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const monokaiProLight = new Theme()
   .setName('monokai-pro-light')
   .addColors({
-    "accent": "#cc9900",
+    "accent": "#b71c1c",
     "sidebar": "#272428",
     "on-sidebar": "#c1c0c0",
     "toolbar": "#f6f8fa",
@@ -410,7 +451,13 @@ const monokaiProLight = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#19181a","on-sidebar")
@@ -419,10 +466,10 @@ const monokaiProLight = new Theme()
   .addColorVariant("button-border","#19181a","on-sidebar")
   .addColorVariant("hover","#f2f2f2","background")
   .addColorVariant("active","#e5e5e5","background")
-  .addColorVariant("selected","#cc9900","background")
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#6a737d","on-background")
   .addColorVariant("link","#3090ff","on-background")
+  .addColorVariant("selected","#b71c1c","background")
   .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
@@ -445,9 +492,9 @@ const monokaiProLight = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const nordDark = new Theme()
   .setName('nord-dark')
@@ -466,7 +513,13 @@ const nordDark = new Theme()
     "success": "#a3be8c",
     "on-success": "#627254",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#bf616a",
+    "gray": "#75808e",
+    "yellow": "#a3be8c",
+    "purple": "#593695",
+    "green": "#a3be8c",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#3b4252","background")
   .addColorVariant("border","#232831","on-sidebar")
@@ -479,7 +532,6 @@ const nordDark = new Theme()
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#a4b2cc","on-background")
   .addColorVariant("link","#3090ff","on-background")
-  .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
   .setVariable("sm","12px","fontSize","text")
@@ -501,9 +553,10 @@ const nordDark = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
+  .setVariable("sans",["Inter","sans-serif"],"fontFamily","font")
 
 const nordLight = new Theme()
   .setName('nord-light')
@@ -522,7 +575,13 @@ const nordLight = new Theme()
     "success": "#a3be8c",
     "on-success": "#627254",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#bf616a",
+    "gray": "#75808e",
+    "yellow": "#a3be8c",
+    "purple": "#593695",
+    "green": "#a3be8c",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#eceff4","background")
   .addColorVariant("border","#232831","on-sidebar")
@@ -535,7 +594,6 @@ const nordLight = new Theme()
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#6a737d","on-background")
   .addColorVariant("link","#3090ff","on-background")
-  .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
   .setVariable("sm","12px","fontSize","text")
@@ -557,9 +615,10 @@ const nordLight = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
+  .setVariable("sans",["Inter","sans-serif"],"fontFamily","font")
 
 const primerDark = new Theme()
   .setName('primer-dark')
@@ -578,7 +637,13 @@ const primerDark = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#2a3036","background")
   .addColorVariant("border","#141414","on-sidebar")
@@ -614,8 +679,8 @@ const primerDark = new Theme()
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("default","3px","borderRadius","radius")
+  .setVariable("button","2px","borderRadius","radius")
 
 const primerLight = new Theme()
   .setName('primer-light')
@@ -634,7 +699,13 @@ const primerLight = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#141414","on-sidebar")
@@ -670,8 +741,8 @@ const primerLight = new Theme()
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("default","3px","borderRadius","radius")
+  .setVariable("button","2px","borderRadius","radius")
 
 const solarizedDark = new Theme()
   .setName('solarized-dark')
@@ -690,7 +761,13 @@ const solarizedDark = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#05262e","background")
   .addColorVariant("border","#03171c","on-sidebar")
@@ -725,9 +802,9 @@ const solarizedDark = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","100%","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const solarizedLight = new Theme()
   .setName('solarized-light')
@@ -746,7 +823,13 @@ const solarizedLight = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#fdf6e3","background")
   .addColorVariant("border","#03171c","on-sidebar")
@@ -781,9 +864,9 @@ const solarizedLight = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","100%","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
 
 const twitchDark = new Theme()
   .setName('twitch-dark')
@@ -802,7 +885,13 @@ const twitchDark = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#0f0e11","background")
   .addColorVariant("border","#4b367c","on-sidebar")
@@ -838,8 +927,8 @@ const twitchDark = new Theme()
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("default","3px","borderRadius","radius")
+  .setVariable("button","2px","borderRadius","radius")
 
 const twitchLight = new Theme()
   .setName('twitch-light')
@@ -858,7 +947,13 @@ const twitchLight = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#4b367c","on-sidebar")
@@ -894,8 +989,8 @@ const twitchLight = new Theme()
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("default","3px","borderRadius","radius")
+  .setVariable("button","2px","borderRadius","radius")
 
 const yaruDark = new Theme()
   .setName('yaru-dark')
@@ -914,7 +1009,13 @@ const yaruDark = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#353535","background")
   .addColorVariant("border","#333333","on-sidebar")
@@ -927,7 +1028,6 @@ const yaruDark = new Theme()
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#878787","on-background")
   .addColorVariant("link","#3090ff","on-background")
-  .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
   .setVariable("sm","12px","fontSize","text")
@@ -949,9 +1049,10 @@ const yaruDark = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
+  .setVariable("sans",["Inter","sans-serif"],"fontFamily","font")
 
 const yaruLight = new Theme()
   .setName('yaru-light')
@@ -970,7 +1071,13 @@ const yaruLight = new Theme()
     "success": "#28a745",
     "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "#474d56"
+    "on-uncommon": "#474d56",
+    "red": "#d73a49",
+    "gray": "#75808e",
+    "yellow": "#dbab09",
+    "purple": "#593695",
+    "green": "#28a745",
+    "blue": "#4299e1"
 })
   .addColorVariant("alt","#f5f6f7","background")
   .addColorVariant("border","#333333","on-sidebar")
@@ -983,7 +1090,6 @@ const yaruLight = new Theme()
   .addColorVariant("selected","#ffffff","on-background")
   .addColorVariant("muted","#333333","on-background")
   .addColorVariant("link","#3090ff","on-background")
-  .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
   .setVariable("xs","11px","fontSize","text")
   .setVariable("sm","12px","fontSize","text")
@@ -1005,9 +1111,10 @@ const yaruLight = new Theme()
   .setVariable("bold","700","fontWeight","font-weight")
   .setVariable("light","300","fontWeight","font-weight")
   .setVariable("normal","400","fontWeight","font-weight")
-  .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
-  .setVariable("button-border","2px","borderRadius","radius")
+  .setVariable("avatar","5px","borderRadius","radius")
+  .setVariable("default","6px","borderRadius","radius")
+  .setVariable("button","6px","borderRadius","radius")
+  .setVariable("sans",["Inter","sans-serif"],"fontFamily","font")
 
 module.exports = new ThemeManager()
   .setDefaultTheme(arcLight.targetable())
