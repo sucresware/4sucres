@@ -30,9 +30,16 @@
     <link href="{{ mix('/css/next.css') }}" rel="stylesheet" />
     <script src="{{ mix('/js/next.js') }}" defer></script>
     @routes
+
+    <script>
+        let defaultTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'arc-dark' : 'arc-light';
+        let theme = localStorage.theme || defaultTheme;
+
+        document.querySelector('html').setAttribute('data-theme', theme)
+    </script>
 </head>
 
-<body class="flex flex-col items-center justify-center font-sans text-base antialiased font-normal leading-normal transition-colors duration-150 bg-background-default text-on-background-default" data-theme="arc-light">
+<body class="font-sans text-base antialiased font-normal leading-normal bg-background-default text-on-background-default">
     @inertia
 </body>
 

@@ -1,20 +1,10 @@
 <template>
-    <div class="flex items-center justify-between">
-        <template v-if="paginator.current_page > 1">
-            <t-button @click="visit(paginator.prev_page_url)" variant="secondary" class="mr-1"><i class="fas fa-angle-left"></i></t-button>
-        </template>
-        <template v-else>
-            <t-button disabled variant="secondary" class="mr-1"><i class="fas fa-angle-left"></i></t-button>
-        </template>
+    <div class="flex flex-row items-center justify-between">
+        <t-button :disabled="paginator.current_page <= 1" @click="visit(paginator.prev_page_url)" variant="secondary" class="mr-1"><i class="fas fa-fw fa-angle-left"></i></t-button>
         <div class="hidden mx-1 text-sm sm:block">
-            {{ paginator.current_page }} / {{ paginator.last_page }}
+            {{ paginator.current_page }} <span class="text-on-background-muted">/</span> {{ paginator.last_page }}
         </div>
-        <template v-if="paginator.current_page < paginator.last_page">
-            <t-button @click="visit(paginator.next_page_url)" variant="secondary" class="ml-1"><i class="fas fa-angle-right"></i></t-button>
-        </template>
-        <template v-else>
-            <t-button disabled variant="secondary" class="ml-1"><i class="fas fa-angle-right"></i></t-button>
-        </template>
+        <t-button :disabled="paginator.current_page == paginator.last_page" @click="visit(paginator.next_page_url)" variant="secondary" class="ml-1"><i class="fas fa-fw fa-angle-right"></i></t-button>
     </div>
 </template>
 

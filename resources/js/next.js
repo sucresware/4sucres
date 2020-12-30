@@ -43,3 +43,11 @@ new Vue({
     },
   }),
 }).$mount(el)
+
+var vh = function vh() {
+    var vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
+};
+
+window.addEventListener('resize', vh);
+vh();

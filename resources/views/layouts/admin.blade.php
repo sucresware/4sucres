@@ -118,7 +118,7 @@
                         </ul>
                     </div>
 
-                    <div class="flex-grow-0 collapse navbar-collapse order-lg-10 pl-lg-2" id="navbarSupportedContent">
+                    <div class="flex-auto-0 collapse navbar-collapse order-lg-10 pl-lg-2" id="navbarSupportedContent">
                         @guest
                             <div class="mb-3 row no-gutters account-block mb-lg-0">
                                 <div class="text-center rounded col account-details text-lg-right text-lg-left">
