@@ -1,4 +1,6 @@
 import "./bootstrap";
+import md from "./parser";
+
 import Vue from "vue";
 
 import { App, plugin } from '@inertiajs/inertia-vue'
@@ -14,6 +16,7 @@ moment.locale('fr');
 Vue.prototype._ = _;
 Vue.prototype.moment = moment;
 Vue.prototype.$route = route;
+Vue.prototype.md = md;
 
 /**
  * The following block of code may be used to automatically register your

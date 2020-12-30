@@ -12,13 +12,13 @@ const arcDark = new Theme()
     "background": "#373d48",
     "on-background": "#d3dae3",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#404552","background")
   .addColorVariant("border","#2b2e39","on-sidebar")
@@ -55,8 +55,7 @@ const arcDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const arcLight = new Theme()
   .setName('arc-light')
@@ -69,13 +68,13 @@ const arcLight = new Theme()
     "background": "#ffffff",
     "on-background": "#5c616c",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#2b2e39","on-sidebar")
@@ -112,8 +111,7 @@ const arcLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const draculaDark = new Theme()
   .setName('dracula-dark')
@@ -126,13 +124,13 @@ const draculaDark = new Theme()
     "background": "#22222c",
     "on-background": "#bfc5d9",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#282a36","background")
   .addColorVariant("border","#191a21","on-sidebar")
@@ -169,8 +167,7 @@ const draculaDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const draculaLight = new Theme()
   .setName('dracula-light')
@@ -178,29 +175,29 @@ const draculaLight = new Theme()
     "accent": "#8a3ef4",
     "sidebar": "#282a36",
     "on-sidebar": "#bfc5d9",
-    "toolbar": "#282a36",
-    "on-toolbar": "#bfc5d9",
-    "background": "#22222c",
-    "on-background": "#bfc5d9",
+    "toolbar": "#f6f8fa",
+    "on-toolbar": "#24292e",
+    "background": "#ffffff",
+    "on-background": "#24292e",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
-  .addColorVariant("alt","#282a36","background")
+  .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#191a21","on-sidebar")
-  .addColorVariant("border","#1b1c24","on-background")
+  .addColorVariant("border","#e1e4e8","on-background")
   .addColorVariant("button-background","#22222c","on-sidebar")
   .addColorVariant("button-border","#191a21","on-sidebar")
-  .addColorVariant("hover","#282a36","background")
-  .addColorVariant("active","#343746","background")
+  .addColorVariant("hover","#f2f2f2","background")
+  .addColorVariant("active","#e5e5e5","background")
   .addColorVariant("selected","#8a3ef4","background")
   .addColorVariant("selected","#ffffff","on-background")
-  .addColorVariant("muted","#6272a4","on-background")
+  .addColorVariant("muted","#6a737d","on-background")
   .addColorVariant("link","#3090ff","on-background")
   .setVariable("sans",["-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue","Arial","sans-serif"],"fontFamily","font")
   .setVariable("mono",["Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],"fontFamily","font")
@@ -226,8 +223,7 @@ const draculaLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const gruvboxDark = new Theme()
   .setName('gruvbox-dark')
@@ -240,13 +236,13 @@ const gruvboxDark = new Theme()
     "background": "#3c3836",
     "on-background": "#ebdbb2",
     "error": "#cc241d",
-    "on-error": "new TinyColor(#cc241d).darken(40)",
+    "on-error": "#7b1612",
     "warning": "#d59921",
-    "on-warning": "new TinyColor(#d59921).darken(40)",
+    "on-warning": "#805c14",
     "success": "#689d6a",
-    "on-success": "new TinyColor(#689d6a).darken(40)",
+    "on-success": "#3f5f40",
     "uncommon": "#a89984",
-    "on-uncommon": "new TinyColor(#a89984).darken(40)"
+    "on-uncommon": "#655c50"
 })
   .addColorVariant("alt","#282828","background")
   .addColorVariant("border","#1d2021","on-sidebar")
@@ -283,8 +279,7 @@ const gruvboxDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const gruvboxLight = new Theme()
   .setName('gruvbox-light')
@@ -297,13 +292,13 @@ const gruvboxLight = new Theme()
     "background": "#ffffff",
     "on-background": "#24292e",
     "error": "#cc241d",
-    "on-error": "new TinyColor(#cc241d).darken(40)",
+    "on-error": "#7b1612",
     "warning": "#d59921",
-    "on-warning": "new TinyColor(#d59921).darken(40)",
+    "on-warning": "#805c14",
     "success": "#689d6a",
-    "on-success": "new TinyColor(#689d6a).darken(40)",
+    "on-success": "#3f5f40",
     "uncommon": "#a89984",
-    "on-uncommon": "new TinyColor(#a89984).darken(40)"
+    "on-uncommon": "#655c50"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#1d2021","on-sidebar")
@@ -340,8 +335,7 @@ const gruvboxLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const monokaiProDark = new Theme()
   .setName('monokai-pro-dark')
@@ -354,13 +348,13 @@ const monokaiProDark = new Theme()
     "background": "#221f22",
     "on-background": "#c1c0c0",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#2d2a2e","background")
   .addColorVariant("border","#19181a","on-sidebar")
@@ -397,8 +391,7 @@ const monokaiProDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const monokaiProLight = new Theme()
   .setName('monokai-pro-light')
@@ -411,13 +404,13 @@ const monokaiProLight = new Theme()
     "background": "#ffffff",
     "on-background": "#24292e",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#19181a","on-sidebar")
@@ -454,8 +447,7 @@ const monokaiProLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const nordDark = new Theme()
   .setName('nord-dark')
@@ -468,13 +460,13 @@ const nordDark = new Theme()
     "background": "#2e3440",
     "on-background": "#d8dee9",
     "error": "#bf616a",
-    "on-error": "new TinyColor(#bf616a).darken(40)",
+    "on-error": "#733b40",
     "warning": "#a3be8c",
-    "on-warning": "new TinyColor(#a3be8c).darken(40)",
+    "on-warning": "#627254",
     "success": "#a3be8c",
-    "on-success": "new TinyColor(#a3be8c).darken(40)",
+    "on-success": "#627254",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#3b4252","background")
   .addColorVariant("border","#232831","on-sidebar")
@@ -511,8 +503,7 @@ const nordDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const nordLight = new Theme()
   .setName('nord-light')
@@ -525,13 +516,13 @@ const nordLight = new Theme()
     "background": "#e5e9f0",
     "on-background": "#24292e",
     "error": "#bf616a",
-    "on-error": "new TinyColor(#bf616a).darken(40)",
+    "on-error": "#733b40",
     "warning": "#a3be8c",
-    "on-warning": "new TinyColor(#a3be8c).darken(40)",
+    "on-warning": "#627254",
     "success": "#a3be8c",
-    "on-success": "new TinyColor(#a3be8c).darken(40)",
+    "on-success": "#627254",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#eceff4","background")
   .addColorVariant("border","#232831","on-sidebar")
@@ -568,8 +559,7 @@ const nordLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const primerDark = new Theme()
   .setName('primer-dark')
@@ -582,13 +572,13 @@ const primerDark = new Theme()
     "background": "#24292e",
     "on-background": "#d1d5da",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#2a3036","background")
   .addColorVariant("border","#141414","on-sidebar")
@@ -625,8 +615,7 @@ const primerDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const primerLight = new Theme()
   .setName('primer-light')
@@ -639,13 +628,13 @@ const primerLight = new Theme()
     "background": "#ffffff",
     "on-background": "#24292e",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#141414","on-sidebar")
@@ -682,8 +671,7 @@ const primerLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const solarizedDark = new Theme()
   .setName('solarized-dark')
@@ -696,13 +684,13 @@ const solarizedDark = new Theme()
     "background": "#002b36",
     "on-background": "#a8b8bd",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#05262e","background")
   .addColorVariant("border","#03171c","on-sidebar")
@@ -739,8 +727,7 @@ const solarizedDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const solarizedLight = new Theme()
   .setName('solarized-light')
@@ -753,13 +740,13 @@ const solarizedLight = new Theme()
     "background": "#eee8d5",
     "on-background": "#586e75",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#fdf6e3","background")
   .addColorVariant("border","#03171c","on-sidebar")
@@ -796,8 +783,7 @@ const solarizedLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const twitchDark = new Theme()
   .setName('twitch-dark')
@@ -810,13 +796,13 @@ const twitchDark = new Theme()
     "background": "#19171c",
     "on-background": "#c0c0c0",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#0f0e11","background")
   .addColorVariant("border","#4b367c","on-sidebar")
@@ -853,8 +839,7 @@ const twitchDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const twitchLight = new Theme()
   .setName('twitch-light')
@@ -867,13 +852,13 @@ const twitchLight = new Theme()
     "background": "#ffffff",
     "on-background": "#24292e",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#ffffff","background")
   .addColorVariant("border","#4b367c","on-sidebar")
@@ -910,8 +895,7 @@ const twitchLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const yaruDark = new Theme()
   .setName('yaru-dark')
@@ -924,13 +908,13 @@ const yaruDark = new Theme()
     "background": "#3D3D3D",
     "on-background": "#F7F7F7",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#353535","background")
   .addColorVariant("border","#333333","on-sidebar")
@@ -967,8 +951,7 @@ const yaruDark = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 const yaruLight = new Theme()
   .setName('yaru-light')
@@ -981,13 +964,13 @@ const yaruLight = new Theme()
     "background": "#ffffff",
     "on-background": "#000000",
     "error": "#d73a49",
-    "on-error": "new TinyColor(#d73a49).darken(40)",
+    "on-error": "#81232c",
     "warning": "#dbab09",
-    "on-warning": "new TinyColor(#dbab09).darken(40)",
+    "on-warning": "#846706",
     "success": "#28a745",
-    "on-success": "new TinyColor(#28a745).darken(40)",
+    "on-success": "#18652a",
     "uncommon": "#75808e",
-    "on-uncommon": "new TinyColor(#75808e).darken(40)"
+    "on-uncommon": "#474d56"
 })
   .addColorVariant("alt","#f5f6f7","background")
   .addColorVariant("border","#333333","on-sidebar")
@@ -1024,8 +1007,7 @@ const yaruLight = new Theme()
   .setVariable("normal","400","fontWeight","font-weight")
   .setVariable("avatar","calc( 3px \/ 2)","borderRadius","radius")
   .setVariable("border","3px","borderRadius","radius")
-  .setVariable("server","3px","borderRadius","radius")
-  .setVariable("border","3px","borderRadius","radius")
+  .setVariable("button-border","2px","borderRadius","radius")
 
 module.exports = new ThemeManager()
   .setDefaultTheme(arcLight.targetable())

@@ -16,7 +16,10 @@
           :class="{ 'bg-background-selected text-on-background-selected hover:bg-background-selected hover:text-on-background-selected': (show_discussion && discussion && item.id == discussion.id) }"
           @click="$inertia.visit($route('next.discussions.show', [item.id, item.slug]))"
         >
-          <div class="flex items-center">
+          <div class="flex flex-row items-center">
+            <div class="flex-none mr-4 w-avatar">
+              <img :src="item.user.avatar_link" :alt="item.user.name" class="rounded-avatar">
+            </div>
             <div class="flex-auto truncate">
               <div class="pr-2 truncate">
                 <inertia-link @click.stop="" :href="$route('next.discussions.show', [item.id, item.slug])" :only="['discussion']" preserve-scroll class="font-bold">
@@ -51,26 +54,27 @@
           <t-button @click="reload" class="ml-2"><i class="fas fa-sync"></i></t-button>
         </div>
       </div>
-      <div class="flex-auto p-2 overflow-y-auto bg-background-alt" scroll-region>
+      <div class="flex-auto overflow-y-auto bg-background-alt" scroll-region>
         <div
           v-for="post in discussion.posts.data"
           :key="post.id"
-          class="px-2 py-4 bg-white rounded-md"
+          class="m-4"
         >
-          <div class="flex-1 border-b border-on-background-border">
-            <div class="flex items-center px-6 py-4">
-              <!-- <user-avatar :user="post.user" class="mr-4" /> -->
-              <div>
-                <!-- <user-name :user="post.user" /> -->
-                <br>
-                <inertia-link :href="post.link" class="text-sm">
-                  {{ moment(post.created_at).format('L') }} {{ moment(post.created_at).format('LTS') }}
-                  <span v-if="post.created_at != post.updated_at">
-                    (modifié, {{ moment(post.updated_at).calendar() }})
-                  </span>
-                </inertia-link>
-              </div>
-              <div class="ml-auto">
+          <div class="flex flex-row">
+            <div class="flex-none mr-4 w-avatar-lg">
+              <img :src="post.user.avatar_link" :alt="post.user.name" class="rounded-avatar">
+            </div>
+            <div class="flex-auto">
+              <inertia-link @click.stop="" :href="$route('user.show', post.user.name)">{{ post.user.display_name }}</inertia-link>
+              <span class="opacity-50">&bullet;</span>
+              <inertia-link :href="post.link" class="text-sm">
+                {{ moment(post.created_at).format('L') }} {{ moment(post.created_at).format('LTS') }}
+                <span v-if="post.created_at != post.updated_at">
+                  (modifié, {{ moment(post.updated_at).calendar() }})
+                </span>
+              </inertia-link>
+
+              <!-- <div class="ml-auto">
                 <popper trigger="click" :options="{ placement: 'right-end', modifiers: {preventOverflow :{ boundariesElement: 'window'  }}}">
                   <div class="popper">
                     <ul>
@@ -101,19 +105,17 @@
                     </action-button>
                   </button>
                 </popper>
-              </div>
-            </div>
-            <hr class="border-on-background-border">
-            <div class="p-6">
-              <div class="user-content" v-html="post.presented_body"  v-if="!post.deleted_at" />
+              </div> -->
+
+              <div class="prose break-words max-w-none" v-if="!post.deleted_at" v-html="md.render(post.presented_body)"></div>
               <div v-else><i class="mr-1 fal fa-times"></i> Ce message a été supprimé</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="flex items-center justify-center flex-auto hidden w-full overflow-y-auto md:flex bg-gradient-to-t from-gray-50 to-gray-100" v-else>
-      <svg class="block w-48 mx-auto opacity-25 fill-current" viewBox="0 0 36 28" xmlns="http://www.w3.org/2000/svg">
+    <div class="flex items-center justify-center flex-auto hidden w-full overflow-y-auto bg-background-alt text-accent-default md:flex" v-else>
+      <svg class="block w-48 mx-auto fill-current opacity-30" viewBox="0 0 36 28" xmlns="http://www.w3.org/2000/svg">
         <path d="M22.5474 4.80023L33.3081 4.80023L35.0157 10.8558L28.0235 23.9102L20.0876 23.9102L20.2065 22.8424L22.4128 21.7594L23.3066 15.779L22.7141 15.1637L21.4974 15.1637L22.3432 8.79223L21.8897 8.27744L20.5493 8.27744L22.5474 4.80023Z" fill="currentColor"/>
         <path d="M12.0384 26L12.7644 21.479H2.56737L1.87437 18.608L11.7084 1.481H18.2424L9.92637 16.067H13.6224L14.1834 12.437L15.8994 9.269H21.0804L20.0244 16.067H22.0044L21.2784 20.489L19.1664 21.479L18.4404 26H12.0384Z" fill="currentColor"/>
       </svg>
