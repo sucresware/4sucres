@@ -21,8 +21,8 @@ class Megamigration extends Migration
         Schema::drop('oauth_personal_access_clients');
         Schema::drop('oauth_refresh_tokens');
 
-        Schema::rename('threads', 'threads');
-        Schema::rename('boards', 'boards');
+        Schema::rename('discussions', 'threads');
+        Schema::rename('categories', 'boards');
 
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('api_token');
