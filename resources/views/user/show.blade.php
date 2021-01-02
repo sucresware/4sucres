@@ -27,9 +27,6 @@ Profil de {{ $user->display_name }}
                         <div class="p-1">
                             <strong>Classification :</strong> {{ $user->shown_role }}<br>
                             <strong>Membre depuis :</strong>
-                            @php
-                            $diffInDays = $user->created_at->startOfDay()->diffInDays(now()->startOfDay());
-                            @endphp
 
                             @if ($user->created_at->isToday())
                             <span class="text-warning">aujourd'hui</span>
@@ -46,11 +43,10 @@ Profil de {{ $user->display_name }}
 
                         <h3 class="h5">Statistiques</h5>
                             <div class="p-1">
-                                <strong>Nombre de threads :</strong> {{ $user->threads_count }}<br>
-                                <strong>Nombre de réponses :</strong> {{ $user->replies_count }}<br>
+
                             </div>
 
-                            @if (($bans = $user->bans()->withTrashed())->orderBy('created_at', 'DESC')->count())
+                            @if (($bans = )
 
                             <hr>
 
@@ -112,14 +108,10 @@ Profil de {{ $user->display_name }}
                                             <div
                                                 class="row position-relative overflow-hidden align-items-center border rounded no-gutters mb-1 p-2 bg-theme-tertiary">
                                                 <div class="col-auto mr-3">
-                                                    <img src="{{ url('/img/achievements/' . $achievement->image) }}"
-                                                        class="img-fluid" width="60px">
+
                                                 </div>
                                                 <div class="col text-left">
-                                                    <strong>{{ $achievement->name }}</strong><br>
-                                                    {{ $achievement->description }}<br>
-                                                    <small>Obtenu le
-                                                        {{ \Carbon\Carbon::parse($achievement->pivot->unlocked_at)->format('d/m/Y') }}</small>
+
                                                 </div>
                                                 @if ($achievement->rare)
                                                 <div data-toggle="tooltip" data-placement="top"

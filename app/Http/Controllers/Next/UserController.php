@@ -11,7 +11,13 @@ class UserController extends Controller
 {
     public function show($name)
     {
-        $user = User::where('name', $name)->firstOrFail();
+        $user = User::where('name', $name)
+            ->with('achievements')
+            ->firstOrFail()
+            ->append(['online', 'threads_count', 'replies_count']);
+
+        $bans = $user->bans()->withTrashed()->orderBy('created_at', 'DESC')->get();
+        $user->bans = $bans;
 
         if ($user->deleted_at) {
             return abort(410);

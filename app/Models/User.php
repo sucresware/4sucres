@@ -325,7 +325,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         return $posts_count - $this->threads_count;
     }
 
-    public function getthreadsCountAttribute()
+    public function getThreadsCountAttribute()
     {
         return $this
             ->threads()

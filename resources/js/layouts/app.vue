@@ -153,7 +153,7 @@
         </t-dropdown>
       </div>
     </nav>
-    <div class="flex-auto">
+    <div class="flex-auto min-h-0">
       <slot></slot>
     </div>
   </div>
