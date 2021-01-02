@@ -37,12 +37,13 @@ class BoardController extends Controller
             $threads = $board->threads();
         } else {
             $board = (new Board)->fill(['slug' => 'all', 'name' => 'Accueil']);
-            $threads = Thread::query();
+            $threads = Thread::query()
+                ->with('board');
         }
 
         $threads = $threads
-            // ->with('latest_post')
-            // ->with('latest_post.user')
+            ->with('latest_post')
+            ->with('latest_post.user')
             ->with('user');
 
         $sticky_threads = collect();

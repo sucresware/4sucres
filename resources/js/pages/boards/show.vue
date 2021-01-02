@@ -5,7 +5,11 @@
       :class="{ 'hidden md:flex': show_thread }"
     >
       <div class="flex flex-row items-center flex-none px-3 py-4 border-b md:border-r border-on-toolbar-border">
-        <h1 class="flex-auto mx-1 text-lg truncate">{{ board.name }}</h1>
+        <div class="flex-auto mx-1">
+          <div class="font-mono text-sm italic">/b/{{ board.slug }}</div>
+          <h1 class="text-lg truncate">{{ board.name }}</h1>
+          <div class="text-sm" v-if="board.description">{{ board.description }}</div>
+        </div>
         <paginator class="flex-none mx-1" :paginator="_.omit(threads, 'data')" :only="['threads']" />
         <t-button class="flex-none mx-1" @click="reload" variant="secondary"
           ><i class="text-xs fas fa-fw fa-redo"></i
@@ -52,6 +56,14 @@
                     {{ item.title }}
                   </inertia-link>
                 </div>
+
+                <div v-if="item.board" class="text-sm italic">
+                  <inertia-link @click.stop="" :href="$route('next.boards.show', item.board.slug)"
+                    >/b/{{ item.board.slug }}
+                  </inertia-link>
+                  <br />
+                </div>
+
                 <div class="text-sm truncate">
                   <inertia-link @click.stop="" :href="$route('user.show', item.user.name)">{{
                     item.user.display_name

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\thread;
 use App\Models\Post;
+use App\Models\thread;
 use App\Models\User;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return redirect()->route('boards.all');
+        return redirect()->route('boards.show');
     }
 
     public function terms()

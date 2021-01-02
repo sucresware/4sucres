@@ -8,6 +8,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return redirect()->route('next.boards.all');
+        return redirect()->route('next.boards.show', 'all');
     }
 }
