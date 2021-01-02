@@ -38,7 +38,7 @@ class InertiaServiceProvider extends ServiceProvider
     protected function bootSharedProperties()
     {
         Inertia::share([
-            'user' => function () {
+            'auth' => function () {
                 return optional(
                     auth()->user()
                 )->load('permissions');

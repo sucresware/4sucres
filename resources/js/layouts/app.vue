@@ -53,7 +53,7 @@
           </div>
         </t-dropdown>
 
-        <t-dropdown v-if="$page.props.user" variant="sidebar">
+        <t-dropdown v-if="$page.props.auth" variant="sidebar">
           <t-button
             @mousedown="mousedownHandler"
             @focus="focusHandler"
@@ -82,7 +82,7 @@
           </div>
         </t-dropdown>
 
-        <t-dropdown v-if="$page.props.user" variant="sidebar">
+        <t-dropdown v-if="$page.props.auth" variant="sidebar">
           <t-button
             @mousedown="mousedownHandler"
             @focus="focusHandler"
@@ -93,8 +93,8 @@
             slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler }"
           >
             <img
-              :src="$page.props.user.avatar_link"
-              :alt="$page.props.user.display_name"
+              :src="$page.props.auth.avatar_link"
+              :alt="$page.props.auth.display_name"
               class="w-10 h-10 rounded-md"
             />
           </t-button>
@@ -102,14 +102,14 @@
           <div slot-scope="{ blurHandler }">
             <div class="flex flex-row p-4 border-b">
               <img
-                :src="$page.props.user.avatar_link"
-                :alt="$page.props.user.display_name"
+                :src="$page.props.auth.avatar_link"
+                :alt="$page.props.auth.display_name"
                 class="w-10 h-10 mr-4 rounded-md"
               />
               <div class="flex flex-col items-start justify-center">
-                <div>{{ $page.props.user.display_name }}</div>
+                <div>{{ $page.props.auth.display_name }}</div>
                 <div class="text-sm text-gray-400">
-                  {{ $page.props.user.shown_role }}
+                  {{ $page.props.next.users.shown_role }}
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@
           </div>
         </t-dropdown>
 
-        <t-dropdown v-if="!$page.props.user" variant="sidebar">
+        <t-dropdown v-if="!$page.props.auth" variant="sidebar">
           <t-button
             @mousedown="mousedownHandler"
             @focus="focusHandler"

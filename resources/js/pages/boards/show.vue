@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="text-sm truncate">
-                  <inertia-link @click.stop="" :href="$route('user.show', item.user.name)">{{
+                  <inertia-link @click.stop="" :href="$route('next.users.show', item.user.name)">{{
                     item.user.display_name
                   }}</inertia-link>
                   <span class="opacity-50">&bullet;</span>
@@ -93,7 +93,7 @@
             ><i class="text-xs fas fa-fw fa-arrow-left"></i
           ></t-button>
           <h2 class="flex-auto mx-1 text-lg text-center truncate">{{ thread.title }}</h2>
-          <template v-if="$page.props.user">
+          <template v-if="$page.props.auth">
             <t-button href="#" class="flex-none mx-1"><i class="fas fa-plus"></i></t-button>
             <t-button :href="$route('threads.unsubscribe', [thread.id, thread.slug])" class="flex-none mx-1"
               ><i class="fas fa-fw fa-star"></i
@@ -117,7 +117,7 @@
                 <img :src="post.user.avatar_link" :alt="post.user.name" class="rounded-avatar" />
               </div>
               <div class="flex-auto overflow-auto">
-                <inertia-link @click.stop="" :href="$route('user.show', post.user.name)">{{
+                <inertia-link @click.stop="" :href="$route('next.users.show', post.user.name)">{{
                   post.user.display_name
                 }}</inertia-link>
                 <span class="opacity-50">&bullet;</span>
@@ -133,10 +133,10 @@
                     <div class="popper">
                       <ul>
                         <li><i class="fal fa-quote-left"></i> Citer</li>
-                        <template v-if="$page.props.user">
+                        <template v-if="$page.props.auth">
                           <li>
                             <inertia-link
-                              v-if="$page.props.user.id == post.user.id || $page.props.user.permissions.includes('bypass threads guard')"
+                              v-if="$page.props.auth.id == post.user.id || $page.props.auth.permissions.includes('bypass threads guard')"
                               :href="$route('threads.posts.edit', [thread.id, thread.slug, post.id])"
                               class="btn btn-sm btn-tertiary">
                                 <i class="fal fa-edit"></i> Modifier
@@ -144,7 +144,7 @@
                           </li>
                           <li>
                             <inertia-link
-                              v-if="$page.props.user.id == post.user.id || $page.props.user.permissions.includes('bypass threads guard')"
+                              v-if="$page.props.auth.id == post.user.id || $page.props.auth.permissions.includes('bypass threads guard')"
                               :href="$route('threads.posts.delete', [thread.id, thread.slug, post.id])"
                               class="btn btn-sm btn-tertiary">
                               <i class="fal fa-trash"></i> Supprimer

@@ -29,11 +29,11 @@ class Megamigration extends Migration
         });
 
         Schema::table('threads', function (Blueprint $table) {
-            $table->renameColumn('board_id', 'board_id');
+            $table->renameColumn('category_id', 'board_id');
         });
 
         Schema::table('posts', function (Blueprint $table) {
-            $table->renameColumn('thread_id', 'thread_id');
+            $table->renameColumn('discussion_id', 'thread_id');
         });
 
         Schema::table('boards', function (Blueprint $table) {

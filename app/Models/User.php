@@ -76,7 +76,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function getLinkAttribute()
     {
-        return route('user.show', $this->name);
+        return route('next.users.show', $this->name);
     }
 
     public function getAvatarLinkAttribute()

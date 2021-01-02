@@ -4,6 +4,7 @@ use App\Http\Controllers\Next\Auth\LoginController;
 use App\Http\Controllers\Next\BoardController;
 use App\Http\Controllers\Next\HomeController;
 use App\Http\Controllers\Next\threadController;
+use App\Http\Controllers\Next\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'next');
@@ -14,6 +15,8 @@ Route::group(['prefix' => 'next', 'as' => 'next.'], function () {
     Route::get('/b', fn () => redirect()->route('next.boards.show', 'all'))->name('boards.index');
     Route::get('/b/{board_slug}', [BoardController::class, 'show'])->name('boards.show');
     Route::get('/b/{board_slug}/{thread_id}/{thread_slug?}', [BoardController::class, 'show'])->name('threads.show');
+
+    Route::get('/u/{name}', [UserController::class, 'show'])->name('users.show');
 
     // Route::get('/threads', [threadController::class, 'index'])->name('threads.index');
     // Route::get('/threads/{threadId}/{slug?}', [threadController::class, 'index'])->name('threads.show');

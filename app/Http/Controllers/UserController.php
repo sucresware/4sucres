@@ -27,7 +27,7 @@ class UserController extends Controller
             return abort(410);
         }
 
-        return view('user.show', compact('user'));
+        return view('next.users.show', compact('user'));
     }
 
     public function edit($name)

@@ -1,3 +1,13 @@
+const TCard = {
+  classes: {
+    wrapper: 'shadow bg-background-default text-on-background-default rounded-default',
+    body: 'p-4',
+    header: 'border-b border-on-background-border p-4 rounded-t-default',
+    footer: 'border-on-background-border bg-toolbar-default text-on-toolbar-default border-t p-4 rounded-b-default',
+  },
+  variants: {},
+};
+
 const TInput = {
   fixedClasses:
     'w-full px-3 py-3 text-sm leading-tight bg-white border rounded appearance-none focus:outline-none focus:shadow-outline',
@@ -50,6 +60,7 @@ const TDropdown = {
 };
 
 const settings = {
+  TCard,
   TInput,
   TButton,
   TDropdown,

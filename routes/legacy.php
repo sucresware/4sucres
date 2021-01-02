@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\Api\threadController as ApithreadController;
 use App\Http\Controllers\Api\EmojiController as ApiEmojiController;
+use App\Http\Controllers\Api\threadController as ApithreadController;
 use App\Http\Controllers\Api\UsersController as ApiUsersController;
 use App\Http\Controllers\Api\WebpushController as ApiWebpushController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\threadController;
-use App\Http\Controllers\threadPostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PrivatethreadController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Settings\ConnectionsController;
+use App\Http\Controllers\threadController;
+use App\Http\Controllers\threadPostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +51,7 @@ Route::group(['prefix' => 'legacy'], function () {
     Route::get('/search', [SearchController::class, 'query'])->name('search.query');
 
     Route::get('d/{id}-{slug}', [threadController::class, 'show'])->name('threads.show');
-    Route::get('/u/{nameOrId}', [UserController::class, 'show'])->name('user.show');
+    // Route::get('/u/{nameOrId}', [UserController::class, 'show'])->name('user.show');
 
     Route::get('/terms', [HomeController::class, 'terms'])->name('terms');
     Route::get('/charter', [HomeController::class, 'charter'])->name('charter');
