@@ -3,26 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
-use App\Models\Discussion;
+use App\Models\thread;
 use App\Models\User;
-use App\Notifications\NewPrivateDiscussion;
+use App\Notifications\NewPrivatethread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PrivateDiscussionController extends Controller
+class PrivatethreadController extends Controller
 {
     public function index()
     {
-        $private_discussions = Discussion::private(user())->get();
+        $private_threads = thread::private(user())->get();
 
-        $user_has_read = DB::table('has_read_discussions_users')
-            ->select('discussion_id')
+        $user_has_read = DB::table('has_read_threads_users')
+            ->select('thread_id')
             ->where('user_id', user()->id)
-            ->whereIn('discussion_id', $private_discussions->pluck('id'))
-            ->pluck('discussion_id')
+            ->whereIn('thread_id', $private_threads->pluck('id'))
+            ->pluck('thread_id')
             ->toArray();
 
-        return view('discussion.private.index', compact('private_discussions', 'user_has_read'));
+        return view('thread.private.index', compact('private_threads', 'user_has_read'));
     }
 
     public function create(User $user)
@@ -34,7 +34,7 @@ class PrivateDiscussionController extends Controller
         $from = user();
         $to = $user;
 
-        return view('discussion.private.create', compact('from', 'to'));
+        return view('thread.private.create', compact('from', 'to'));
     }
 
     public function store(User $user)
@@ -53,22 +53,22 @@ class PrivateDiscussionController extends Controller
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 1);
 
-        $discussion = Discussion::create([
+        $thread = thread::create([
             'title' => request()->title,
             'user_id' => user()->id,
-            'category_id' => 0,
+            'board_id' => 0,
             'private' => true,
         ]);
 
-        $post = $discussion->posts()->create([
+        $post = $thread->posts()->create([
             'body' => request()->body,
             'user_id' => user()->id,
         ]);
 
-        $discussion->members()->attach([$from->id, $to->id]);
-        $discussion->subscribed()->syncWithoutDetaching([$from->id, $to->id]);
+        $thread->members()->attach([$from->id, $to->id]);
+        $thread->subscribed()->syncWithoutDetaching([$from->id, $to->id]);
 
-        $to->notify(new NewPrivateDiscussion($discussion));
+        $to->notify(new NewPrivatethread($thread));
 
         return redirect($post->link);
     }

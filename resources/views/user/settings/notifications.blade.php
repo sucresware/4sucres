@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Paramètres
+Paramètres
 @endsection
 
 @section('content')
@@ -11,7 +11,8 @@
             @include('user.settings._navigation')
         </div>
         <div class="col-lg-7 col-xl-8">
-            <form method="POST" action="{{ route('user.settings.notifications') }}" enctype='multipart/form-data' id="settings">
+            <form method="POST" action="{{ route('user.settings.notifications') }}" enctype='multipart/form-data'
+                id="settings">
                 @method('put')
                 @csrf
 
@@ -20,22 +21,26 @@
                         Gestion des notifications
                     </div>
                     <div class="card-body">
-                    <div class="mb-3 row">
+                        <div class="mb-3 row">
                             <div class="col-md-3">M'abonner automatiquement..</div>
                             <div class="col-md-9">
                                 <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_create" name="subscribe_on_create" {{ old('subscribe_on_create', $user->getSetting('notifications.subscribe_on_create', true)) ? 'checked' : '' }} >
+                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_create"
+                                            name="subscribe_on_create"
+                                            {{ old('subscribe_on_create', $user->getSetting('notifications.subscribe_on_create', true)) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="subscribe_on_create">
-                                            Quand je crée une discussion
+                                            Quand je crée une thread
                                         </label>
                                     </div>
                                 </div>
                                 <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_reply" name="subscribe_on_reply" {{ old('subscribe_on_reply', $user->getSetting('notifications.subscribe_on_reply', false)) ? 'checked' : '' }}>
+                                        <input type="checkbox" class="custom-control-input" id="subscribe_on_reply"
+                                            name="subscribe_on_reply"
+                                            {{ old('subscribe_on_reply', $user->getSetting('notifications.subscribe_on_reply', false)) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="subscribe_on_reply">
-                                            Quand je réponds à une discussion
+                                            Quand je réponds à une thread
                                         </label>
                                     </div>
                                 </div>
@@ -46,7 +51,10 @@
                             <div class="col-md-9">
                                 <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="notification_on_new_private_message" name="notification_on_new_private_message" {{ old('notification_on_new_private_message', $user->getSetting('notifications.on_new_private_message', true)) ? 'checked' : '' }} >
+                                        <input type="checkbox" class="custom-control-input"
+                                            id="notification_on_new_private_message"
+                                            name="notification_on_new_private_message"
+                                            {{ old('notification_on_new_private_message', $user->getSetting('notifications.on_new_private_message', true)) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="notification_on_new_private_message">
                                             Quand je reçois un message privé
                                         </label>
@@ -54,17 +62,24 @@
                                 </div>
                                 <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="notification_when_mentionned_or_quoted" name="notification_when_mentionned_or_quoted" {{ old('notification_when_mentionned_or_quoted', $user->getSetting('notifications.when_mentionned_or_quoted', true)) ? 'checked' : '' }}>
-                                        <label class="custom-control-label" for="notification_when_mentionned_or_quoted">
+                                        <input type="checkbox" class="custom-control-input"
+                                            id="notification_when_mentionned_or_quoted"
+                                            name="notification_when_mentionned_or_quoted"
+                                            {{ old('notification_when_mentionned_or_quoted', $user->getSetting('notifications.when_mentionned_or_quoted', true)) ? 'checked' : '' }}>
+                                        <label class="custom-control-label"
+                                            for="notification_when_mentionned_or_quoted">
                                             Quand je suis cité/mentionné
                                         </label>
                                     </div>
                                 </div>
                                 <div class="mb-1 form-group">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="notification_on_subscribed_discussions" name="notification_on_subscribed_discussions" {{ old('notification_on_subscribed_discussions', $user->getSetting('notifications.on_subscribed_discussions', true)) ? 'checked' : '' }} >
-                                        <label class="custom-control-label" for="notification_on_subscribed_discussions">
-                                            Quand un membre réponds dans une discussion à laquelle je me suis abonné
+                                        <input type="checkbox" class="custom-control-input"
+                                            id="notification_on_subscribed_threads"
+                                            name="notification_on_subscribed_threads"
+                                            {{ old('notification_on_subscribed_threads', $user->getSetting('notifications.on_subscribed_threads', true)) ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="notification_on_subscribed_threads">
+                                            Quand un membre réponds dans une thread à laquelle je me suis abonné
                                         </label>
                                     </div>
                                 </div>
@@ -76,19 +91,26 @@
                                     <div class="col col-md-8">
                                         <p>
                                             Le WebPush c'est génial, so STARTUP NATION !<br>
-                                            Ça permet de reçevoir une notification sur ton téléphone (ou PC) sans même que ton navigateur soit ouvert. Un peu comme un app, mais avec 3 lettres en moins.<br>
+                                            Ça permet de reçevoir une notification sur ton téléphone (ou PC) sans même
+                                            que ton navigateur soit ouvert. Un peu comme un app, mais avec 3 lettres en
+                                            moins.<br>
                                         </p>
 
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="optin_webpush" name="optin_webpush" {{ old('optin_webpush', $user->getSetting('webpush.enabled', 0)) ? 'checked' : '' }} value="1">
+                                            <input type="checkbox" class="custom-control-input" id="optin_webpush"
+                                                name="optin_webpush"
+                                                {{ old('optin_webpush', $user->getSetting('webpush.enabled', 0)) ? 'checked' : '' }}
+                                                value="1">
                                             <label class="custom-control-label" for="optin_webpush">
                                                 Activer les notifications WebPush (expérimental)
                                             </label>
                                         </div>
                                     </div>
                                     <div class="pr-1 d-none d-md-block col-md-4">
-                                        <a href='{{ url('/img/settings/notifications.webpush.gif') }}' data-toggle='lightbox' data-type='image'>
-                                            <img src="{{ url('/img/settings/notifications.webpush.gif') }}" class="rounded img-fluid">
+                                        <a href='{{ url('/img/settings/notifications.webpush.gif') }}'
+                                            data-toggle='lightbox' data-type='image'>
+                                            <img src="{{ url('/img/settings/notifications.webpush.gif') }}"
+                                                class="rounded img-fluid">
                                         </a>
                                     </div>
                                 </div>
@@ -97,43 +119,52 @@
                         <div id="webpush_settings" style="display: none;">
                             <div class="border alert">
                                 <p>
-                                    Tu dois autoriser <strong>chaque appareil</strong> sur lequel tu veux recevoir des notifications WebPush :<br>
-                                    <small>Si y'a rien quand t'appuie sur "Autoriser cet appareil", y'a un souci.</small>
+                                    Tu dois autoriser <strong>chaque appareil</strong> sur lequel tu veux recevoir des
+                                    notifications WebPush :<br>
+                                    <small>Si y'a rien quand t'appuie sur "Autoriser cet appareil", y'a un
+                                        souci.</small>
                                 </p>
 
-                                <a href="javascript:void(0)" class="mb-1 btn btn-primary" id="enable-webpush" onclick="enableNotifications()">Autoriser cet appareil</a>
+                                <a href="javascript:void(0)" class="mb-1 btn btn-primary" id="enable-webpush"
+                                    onclick="enableNotifications()">Autoriser cet appareil</a>
                                 {{--  <a href="javascript:void(0)" class="mb-1 btn btn-danger" id="disable-webpush">Révoquer cet appareil</a>  --}}
                                 {{--  <a href="javascript:void(0)" class="mb-1 btn btn-danger" id="">Révoquer tous les appareils</a>  --}}
-                                <a href="javascript:void(0)" class="mb-1 btn btn-secondary" id="test-notification" style="display: none;" onclick="testNotification()">Envoyer une notification de test</a>
+                                <a href="javascript:void(0)" class="mb-1 btn btn-secondary" id="test-notification"
+                                    style="display: none;" onclick="testNotification()">Envoyer une notification de
+                                    test</a>
                             </div>
 
                             @include('components.form.select', [
-                                'name' => 'idle_wait',
-                                'label' => 'Lorsque je ne suis pas actif&middot;ve sur 4sucres, envoyer les notifications WebPush :',
-                                'options' => [
-                                    0 => 'immédiatement',
-                                    1 => 'après 1 minute d\'inactivité',
-                                    2 => 'après 2 minutes d\'inactivité',
-                                    5 => 'après 5 minutes d\'inactivité',
-                                    10 => 'après 10 minutes d\'inactivité',
-                                    15 => 'après 15 minutes d\'inactivité',
-                                    20 => 'après 20 minutes d\'inactivité',
-                                    30 => 'après 30 minutes d\'inactivité',
-                                ],
-                                'value' => $user->getSetting('webpush.idle_wait', 1),
-                                'help_text' => 'FYI: Garder un onglet ouvert sur 4sucres.org est considéré comme une activité.'
+                            'name' => 'idle_wait',
+                            'label' => 'Lorsque je ne suis pas actif&middot;ve sur 4sucres, envoyer les notifications
+                            WebPush :',
+                            'options' => [
+                            0 => 'immédiatement',
+                            1 => 'après 1 minute d\'inactivité',
+                            2 => 'après 2 minutes d\'inactivité',
+                            5 => 'après 5 minutes d\'inactivité',
+                            10 => 'après 10 minutes d\'inactivité',
+                            15 => 'après 15 minutes d\'inactivité',
+                            20 => 'après 20 minutes d\'inactivité',
+                            30 => 'après 30 minutes d\'inactivité',
+                            ],
+                            'value' => $user->getSetting('webpush.idle_wait', 1),
+                            'help_text' => 'FYI: Garder un onglet ouvert sur 4sucres.org est considéré comme une
+                            activité.'
                             ])
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>
+                                Enregistrer</button>
                         </div>
                     </div>
                 </div>
             </form>
 
-            <form method="POST" action="{{ route('user.settings.notifications.pushbullet') }}" enctype='multipart/form-data' id="settings">
+            <form method="POST" action="{{ route('user.settings.notifications.pushbullet') }}"
+                enctype='multipart/form-data' id="settings">
                 @method('put')
                 @csrf
 
@@ -143,27 +174,32 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="optin_pushbullet" name="optin_pushbullet" {{ old('optin_pushbullet', $user->getSetting('services.pushbullet.enabled', 0)) ? 'checked' : '' }} value="1">
+                            <input type="checkbox" class="custom-control-input" id="optin_pushbullet"
+                                name="optin_pushbullet"
+                                {{ old('optin_pushbullet', $user->getSetting('services.pushbullet.enabled', 0)) ? 'checked' : '' }}
+                                value="1">
                             <label class="custom-control-label" for="optin_pushbullet">
                                 Activer l'envoi des notifications sur Pushbullet
                             </label>
                         </div>
 
                         @include('components.form.input', [
-                            'type' => 'text',
-                            'name' => 'email',
-                            'label' => 'Adresse e-mail du compte Pushbullet',
-                            'value' => $user->getSetting('services.pushbullet.email'),
-                            'required' => true,
+                        'type' => 'text',
+                        'name' => 'email',
+                        'label' => 'Adresse e-mail du compte Pushbullet',
+                        'value' => $user->getSetting('services.pushbullet.email'),
+                        'required' => true,
                         ])
 
                         @if ($user->getSetting('services.pushbullet.enabled', 0))
-                            <a href="{{ route('user.settings.notifications.pushbullet.test') }}" class="btn btn-primary">Test de notification</a>
+                        <a href="{{ route('user.settings.notifications.pushbullet.test') }}"
+                            class="btn btn-primary">Test de notification</a>
                         @endif
                     </div>
                     <div class="card-footer">
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Enregistrer</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>
+                                Enregistrer</button>
                         </div>
                     </div>
                 </div>

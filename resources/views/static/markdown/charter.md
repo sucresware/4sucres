@@ -1,13 +1,13 @@
 # Charte d'utilisation des services
 
-La Charte d'utilisation des Services a pour objectif de garantir la sécurité et le respect à travers nos Services et cela pour chacun des membres de la communauté 4Sucres.
+La Charte d'utilisation des Services a pour objectif de garantir la sécurité et le respect à travers nos Services et cela pour chacun des membres de la communauté 4sucres.org.
 
-## Bienvenue sur 4Sucres
+## Bienvenue sur 4sucres.org
 
 ### Les termes
 
-- « **4Sucres** » site 4Sucres, forum de discussions disponible depuis un navigateur internet. Le pronom personnel « nous » et l'adjectif possessif « nos » font référence à 4Sucres.
-- « **Services** » site 4Sucres, et ses produits ou services marchands et non marchands.
+- « **4sucres.org** » site 4sucres.org, forum de threads disponible depuis un navigateur internet. Le pronom personnel « nous » et l'adjectif possessif « nos » font référence à 4sucres.org.
+- « **Services** » site 4sucres.org, et ses produits ou services marchands et non marchands.
 - « **Charte d'utilisation des Services** » ou « **Charte** » ensemble de règles à respecter dans l'objectif de garantir la sécurité et le respect à travers nos Services.
 - « **Contenu** » tout élément téléchargé, publié ou envoyé par les utilisateurs via nos Services.
 - « **Constituant** » tout constituant de nos Services « marque » ; « logo » ; « slogan » ; « design » ; « photo » ; « image » ; « vidéo » ; « texte » ; « code source » ; « logiciels » ; « structuration » ainsi que tout autre constituant de nos Services non énumérés.
@@ -15,7 +15,7 @@ La Charte d'utilisation des Services a pour objectif de garantir la sécurité e
 
 ### Notre politique
 
-Il est généralement plus facile de s'emporter derrière un écran. Faites preuve de respect et d'honnêteté lors de vos interactions avec d'autres membres de la communauté 4Sucres.
+Il est généralement plus facile de s'emporter derrière un écran. Faites preuve de respect et d'honnêteté lors de vos interactions avec d'autres membres de la communauté 4sucres.org.
 
 #### Commercialisation
 
@@ -73,14 +73,14 @@ Ne jamais faire acte de violence sur une personne, quel que soit le motif.
 
 ### Comment nous signaler un compte ?
 
-Vous pouvez signaler tout comportement ou Contenu que vous jugez non respectueux pour la communauté 4Sucres, en désaccord avec notre Charte d'utilisation des Services. Afin de nous signaler tout contenu fraudulaux, vous pouvez nous envoyer un e-mail à contact@4sucres.org, contacter un modérateur/administrateur ou bien utiliser le module de signalement incorporé aux messages. Après signalement, nous jugeons toute action.
+Vous pouvez signaler tout comportement ou Contenu que vous jugez non respectueux pour la communauté 4sucres.org, en désaccord avec notre Charte d'utilisation des Services. Afin de nous signaler tout contenu fraudulaux, vous pouvez nous envoyer un e-mail à contact@4sucres.org.org, contacter un modérateur/administrateur ou bien utiliser le module de signalement incorporé aux messages. Après signalement, nous jugeons toute action.
 
 ### Modification des règles de la communauté
 
-Nous nous réservons le droit de toutes modifications, à tout moment et de façon unilatérale de notre Charte d'utilisation des Services. De manière à prendre en considération tout changement de notre politique et/ou en fonction des modifications apportées à nos Services. De manière à garantir pleinement une utilisation sûre et agréable à l'ensemble de la communauté 4Sucres. Nous mettons à jour la date de modification lors de la publication des modifications apportées à notre Charte. Nous vous conseillons de consulter régulièrement les règles de la communauté afin de ne pas en déroger.
+Nous nous réservons le droit de toutes modifications, à tout moment et de façon unilatérale de notre Charte d'utilisation des Services. De manière à prendre en considération tout changement de notre politique et/ou en fonction des modifications apportées à nos Services. De manière à garantir pleinement une utilisation sûre et agréable à l'ensemble de la communauté 4sucres.org. Nous mettons à jour la date de modification lors de la publication des modifications apportées à notre Charte. Nous vous conseillons de consulter régulièrement les règles de la communauté afin de ne pas en déroger.
 
 ### À propos de la Charte d'utilisation des Services
 
-Vous avez des questions particulières à propos de la Charte d'utilisation des Services ou vous souhaitez tout simplement nous partager quelque chose ? Contactez-nous directement par e-mail à l'adresse suivante : contact@4sucres.org
+Vous avez des questions particulières à propos de la Charte d'utilisation des Services ou vous souhaitez tout simplement nous partager quelque chose ? Contactez-nous directement par e-mail à l'adresse suivante : contact@4sucres.org.org
 
 **Date de modification : 07/05/2019**

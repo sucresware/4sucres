@@ -1,11 +1,11 @@
 # Politique de confidentialité
 
-## Bienvenue sur 4Sucres
+## Bienvenue sur 4sucres.org
 
 ### Les termes
 
-- « **4Sucres** » site 4Sucres, forum de discussions disponible depuis un navigateur internet. Le pronom personnel « nous » et l'adjectif possessif « nos » font référence à 4Sucres.
-- « **Services** » site 4Sucres, et ses produits ou services marchands et non marchands.
+- « **4sucres.org** » site 4sucres.org, forum de threads disponible depuis un navigateur internet. Le pronom personnel « nous » et l'adjectif possessif « nos » font référence à 4sucres.org.
+- « **Services** » site 4sucres.org, et ses produits ou services marchands et non marchands.
 - « **Charte d'utilisation des Services** » ou « **Charte** » ensemble de règles à respecter dans l'objectif de garantir la sécurité et le respect à travers nos Services.
 - « **Contenu** » tout élément téléchargé, publié ou envoyé par les utilisateurs via nos Services.
 - « **Politique de confidentialité** » ou « **Politique** » vous informe sur le traitement et l'utilisation de vos données.
@@ -20,7 +20,7 @@ Lorsque vous utilisez nos Services, vous partagez toutes sortes d'informations a
 
 #### Inscription
 
-Pour devenir membre de la communauté 4Sucres, vous devez obligatoirement créer un compte. Lors de votre inscription nous collectons les informations suivantes :
+Pour devenir membre de la communauté 4sucres.org, vous devez obligatoirement créer un compte. Lors de votre inscription nous collectons les informations suivantes :
 
 - pseudonyme
 - mot de passe (sécurisé grâce à une technique de hachage)
@@ -68,17 +68,17 @@ Nous pouvons recevoir des informations de tiers comme des partenaires ou des fou
 
 ### Utilisation des informations
 
-Toutes les informations que nous collectons ont un sens et une finalité bien définie. Certaines informations sont indispensables pour les fonctionnalités du contact@4sucres.org et ses Services, d'autres permettent de protéger et sécuriser nos Services et certaines d'entre elles permettent aussi de réaliser différentes analyses et statistiques dans le but gérer, améliorer et développer chaque jour nos Services.
+Toutes les informations que nous collectons ont un sens et une finalité bien définie. Certaines informations sont indispensables pour les fonctionnalités du contact@4sucres.org.org et ses Services, d'autres permettent de protéger et sécuriser nos Services et certaines d'entre elles permettent aussi de réaliser différentes analyses et statistiques dans le but gérer, améliorer et développer chaque jour nos Services.
 
 ### Partage des informations
 
-#### 4Sucres
+#### 4sucres.org
 
-Les informations collectées par nos Services sont traités par 4Sucres. Visible chez 4Sucres, uniquement par les personnes autorisées et dans le cadre de leurs missions.
+Les informations collectées par nos Services sont traités par 4sucres.org. Visible chez 4sucres.org, uniquement par les personnes autorisées et dans le cadre de leurs missions.
 
-#### Les membres de la communauté 4Sucres
+#### Les membres de la communauté 4sucres.org
 
-Les informations partagées avec les membres de la communauté 4Sucres.
+Les informations partagées avec les membres de la communauté 4sucres.org.
 
 - photo de profil
 - pseudonyme
@@ -90,7 +90,7 @@ Les informations partagées avec les membres de la communauté 4Sucres.
 
 Nous vous rappelons qu'un message envoyé à un membre par le biais de la messagerie est un message privé, visible uniquement par celui-ci. Le destinataire a le contrôle total du caractère privé du message. Nous rappelons que nous ne sommes pas responsable du comportement des autres utilisateurs. Par conséquent, nous ne sommes pas responsable de la divulgation des informations présentes sur nos services.
 
-Certaines informations ne sont pas directement partagées avec les membres de la communauté 4Sucres mais peuvent être devinées. Par exemple, un membre peut contact@4sucres.org sexe selon votre photo de profil.
+Certaines informations ne sont pas directement partagées avec les membres de la communauté 4sucres.org mais peuvent être devinées. Par exemple, un membre peut contact@4sucres.org.org sexe selon votre photo de profil.
 
 #### Tiers juridiques
 
@@ -123,15 +123,15 @@ Vous avez la possibilité de mettre à jour ou supprimer certaines de vos inform
 - adresse e-mail
 - image hebergées
 
-Conformément à la loi du 6 janvier 1978, vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent à l'adresse e-mail suivante : contact@4sucres.org
+Conformément à la loi du 6 janvier 1978, vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent à l'adresse e-mail suivante : contact@4sucres.org.org
 
 #### Supprimer votre compte
 
-Si vous ne souhaitez pas continuer l'aventure avec nous pour des raisons qui vous concernent, vous pouvez supprimer votre compte 4Sucres à l'adresse e-mail suivante : contact@4sucres.org. Après la suppression de votre compte, vos informations sont supprimées ou conservées pour une raison juridique, administrative, ou légale.
+Si vous ne souhaitez pas continuer l'aventure avec nous pour des raisons qui vous concernent, vous pouvez supprimer votre compte 4sucres.org à l'adresse e-mail suivante : contact@4sucres.org.org. Après la suppression de votre compte, vos informations sont supprimées ou conservées pour une raison juridique, administrative, ou légale.
 
 ### CNIL
 
-Le site 4Sucres est déclarée à la CNIL en raison des informations collectées sur ses utilisateurs.
+Le site 4sucres.org est déclarée à la CNIL en raison des informations collectées sur ses utilisateurs.
 
 ### Information
 
@@ -139,11 +139,11 @@ Toutes les informations sont collectées depuis la France, où elles y sont stoc
 
 ### Respect de la réglementation
 
-Dans le cadre de la mise à disposition de ses services, 4Sucres respecte l'ensemble des dispositions réglementaires et législatives en vigueur et contact@4sucres.org la matière.
+Dans le cadre de la mise à disposition de ses services, 4sucres.org respecte l'ensemble des dispositions réglementaires et législatives en vigueur et contact@4sucres.org.org la matière.
 
 ### À propos de la Politique de confidentialité
 
-Vous avez des questions particulières à propos de notre Politique de confidentialité ? Contactez-nous directement par e-mail à l'adresse suivante : contact@4Sucres
+Vous avez des questions particulières à propos de notre Politique de confidentialité ? Contactez-nous directement par e-mail à l'adresse suivante : contact@4sucres.org
 
 ### Modification
 

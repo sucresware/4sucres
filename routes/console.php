@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Achievement;
-use App\Models\Discussion;
+use App\Models\thread;
 use App\Models\Post;
 use App\Models\User;
 use Cog\Laravel\Ban\Models\Ban;
@@ -178,9 +178,9 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
 });
 
 Artisan::command('fix-inconsistensies', function () {
-    Discussion::get()->each(function ($discussion) {
-        $discussion->replies = $discussion->posts()->count();
-        $discussion->save();
+    thread::get()->each(function ($thread) {
+        $thread->replies = $thread->posts()->count();
+        $thread->save();
     });
 });
 

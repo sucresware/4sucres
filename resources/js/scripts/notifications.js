@@ -4,7 +4,7 @@ import Howl from './howl';
 import Toast from './toasts.js';
 
 const DefaultOptions = {
-  privateMessageNotificationSelector: '#private_discussions_indicator',
+  privateMessageNotificationSelector: '#private_threads_indicator',
   genericNotificationSelector: '#notifications_indicator',
   notificationMarkup:
     `<i class="fas fa-circle fa-stack-2x text-primary"></i>` +
@@ -15,9 +15,9 @@ const DefaultOptions = {
 };
 
 const NotificationTypes = {
-  NEW_PRIVATE_DISCUSSION: 'App\\Notifications\\NewPrivateDiscussion',
+  NEW_PRIVATE_thread: 'App\\Notifications\\NewPrivatethread',
   NEW_MENTION: 'App\\QuotedInPost\\QuotedInPost',
-  NEW_REPLY: 'App\\Notifications\\ReplyInDiscussion',
+  NEW_REPLY: 'App\\Notifications\\ReplyInthread',
 };
 
 class NotificationHandler {
@@ -88,7 +88,7 @@ class NotificationHandler {
 
   updateHtml(notification) {
     let isPrivate =
-      notification.type == NotificationTypes.NEW_PRIVATE_DISCUSSION ||
+      notification.type == NotificationTypes.NEW_PRIVATE_thread ||
       (notification.type == NotificationTypes.NEW_REPLY && notification.private);
 
     let getMarkup = (icon) => {

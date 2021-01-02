@@ -5,8 +5,8 @@ import AuthedAxios from '../scripts/axios';
 import Editor from './editor';
 
 const EDITOR = 'textarea#body';
-const ON_OPEN_DISCUSSION_ROUTE = 'discussions.show';
-const PREVIEW_ROUTE = 'discussions.preview';
+const ON_OPEN_thread_ROUTE = 'threads.show';
+const PREVIEW_ROUTE = 'threads.preview';
 
 /**
  * Gère le chargement des actions.
@@ -87,10 +87,10 @@ class ActionHandler {
     Editor.insert(quote);
   }
 
-  onOpenDiscussion(element) {
+  onOpenthread(element) {
     let id = element.data('id') || undefined,
       slug = element.data('slug') || undefined,
-      url = route(ON_OPEN_DISCUSSION_ROUTE, {
+      url = route(ON_OPEN_thread_ROUTE, {
         id,
         slug,
       }).url();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Discussion;
+use App\Models\thread;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -11,6 +11,6 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($post_id);
 
-        return redirect(Discussion::link_to_post($post));
+        return redirect(thread::link_to_post($post));
     }
 }

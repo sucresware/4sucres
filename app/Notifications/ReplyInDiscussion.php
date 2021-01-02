@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 
-class ReplyInDiscussion extends DefaultNotification
+class ReplyInthread extends DefaultNotification
 {
     use Queueable;
 
@@ -37,7 +37,7 @@ class ReplyInDiscussion extends DefaultNotification
     public function toArray($notifiable)
     {
         return array_merge($this->attributes(), [
-            'discussion_id' => $this->post->discussion->id,
+            'thread_id' => $this->post->thread->id,
         ]);
     }
 
@@ -48,12 +48,12 @@ class ReplyInDiscussion extends DefaultNotification
             'target' => $this->post->link,
         ];
 
-        if (! $this->post->discussion->private) {
-            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a posté une réponse dans <b>' . e($this->post->discussion->title) . '</b>';
-            $attributes['text'] = $this->post->user->display_name . ' a posté une réponse dans : ' . $this->post->discussion->title;
+        if (! $this->post->thread->private) {
+            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a posté une réponse dans <b>' . e($this->post->thread->title) . '</b>';
+            $attributes['text'] = $this->post->user->display_name . ' a posté une réponse dans : ' . $this->post->thread->title;
         } else {
-            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a répondu dans la discussion privée <b>' . e($this->post->discussion->title) . '</b>';
-            $attributes['text'] = $this->post->user->display_name . ' a répondu dans la discussion privée : ' . $this->post->discussion->title;
+            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a répondu dans le thread privée <b>' . e($this->post->thread->title) . '</b>';
+            $attributes['text'] = $this->post->user->display_name . ' a répondu dans le thread privée : ' . $this->post->thread->title;
         }
 
         return $attributes;

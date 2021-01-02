@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Notifications\RepliesInDiscussion;
-use App\Notifications\ReplyInDiscussion;
+use App\Notifications\RepliesInthread;
+use App\Notifications\ReplyInthread;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Discussion extends Model
+class Thread extends Model
 {
     use LogsActivity;
 
@@ -33,13 +33,13 @@ class Discussion extends Model
     {
         parent::boot();
 
-        self::creating(function ($discussion) {
-            $discussion->slug = Str::slug($discussion->title);
-            if (! $discussion->slug) {
-                $discussion->slug = 'singe';
+        self::creating(function ($thread) {
+            $thread->slug = Str::slug($thread->title);
+            if (! $thread->slug) {
+                $thread->slug = 'singe';
             }
 
-            return $discussion;
+            return $thread;
         });
     }
 
@@ -48,19 +48,23 @@ class Discussion extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function category()
+    public function board()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Board::class);
     }
 
     public function posts()
     {
-        return $this->hasMany(Post::class)->orderBy('created_at', 'ASC');
+        return $this
+            ->hasMany(Post::class)
+            ->orderBy('created_at', 'ASC');
     }
 
-    public function latestPost()
+    public function latest_post()
     {
-        return $this->hasOne(Post::class)->latest();
+        return $this
+            ->hasOne(Post::class)
+            ->latest();
     }
 
     public function scopeSticky($query)
@@ -122,29 +126,29 @@ class Discussion extends Model
 
     public function members()
     {
-        return $this->belongsToMany(User::class, 'users_discussions');
+        return $this->belongsToMany(User::class, 'users_threads');
     }
 
     public function has_read()
     {
-        return $this->belongsToMany(User::class, 'has_read_discussions_users');
+        return $this->belongsToMany(User::class, 'has_read_threads_users');
     }
 
     public function subscribed()
     {
-        return $this->belongsToMany(User::class, 'subscribed_discussions_users');
+        return $this->belongsToMany(User::class, 'subscribed_threads_users');
     }
 
     public function notify_subscibers(Post $post)
     {
         foreach ($this->subscribed as $user) {
             if ($user->id != $post->user->id) {
-                if ((! $post->discussion->private && $user->getSetting('notifications.on_subscribed_discussions', true)) || ($post->discussion->private && $user->getSetting('notifications.on_new_private_message', true))) {
-                    // Check if the user has not already received an unread ReplyInDiscussion about this discussion :
+                if ((! $post->thread->private && $user->getSetting('notifications.on_subscribed_threads', true)) || ($post->thread->private && $user->getSetting('notifications.on_new_private_message', true))) {
+                    // Check if the user has not already received an unread ReplyInthread about this thread :
                     $notifications = $user->notifications()
-                        ->where('data->discussion_id', $post->discussion->id)
+                        ->where('data->thread_id', $post->thread->id)
                         ->where('read_at', null)
-                        ->whereIn('type', [ReplyInDiscussion::class, RepliesInDiscussion::class]);
+                        ->whereIn('type', [ReplyInthread::class, RepliesInthread::class]);
 
                     if ($notifications->count()) {
                         $notifications->each(function ($notification) {
@@ -152,14 +156,14 @@ class Discussion extends Model
                             $notification->save();
                         });
 
-                        if (! $post->discussion->private) {
-                            $user->notify(new RepliesInDiscussion($post->discussion));
-                            $user->notify(new ReplyInDiscussion($post, false));
+                        if (! $post->thread->private) {
+                            $user->notify(new RepliesInthread($post->thread));
+                            $user->notify(new ReplyInthread($post, false));
                         } else {
-                            $user->notify(new ReplyInDiscussion($post));
+                            $user->notify(new ReplyInthread($post));
                         }
                     } else {
-                        $user->notify(new ReplyInDiscussion($post));
+                        $user->notify(new ReplyInthread($post));
                     }
                 }
             }
@@ -168,15 +172,15 @@ class Discussion extends Model
 
     public function getLinkAttribute()
     {
-        return route('discussions.show', [$this->id, $this->slug]);
+        return route('threads.show', [$this->id, $this->slug]);
     }
 
     public static function link_to_post(Post $post)
     {
         $paginator = 10;
-        $post_position = array_search($post->id, $post->discussion->posts->pluck('id')->toArray()) + 1;
+        $post_position = array_search($post->id, $post->thread->posts->pluck('id')->toArray()) + 1;
         $guessed_page = ceil($post_position / $paginator);
 
-        return $post->discussion->link . '?page=' . $guessed_page . '#p' . $post->id;
+        return $post->thread->link . '?page=' . $guessed_page . '#p' . $post->id;
     }
 }

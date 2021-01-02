@@ -42,15 +42,15 @@ class Post extends Model implements ReactableInterface
         parent::boot();
 
         self::created(function ($created_post) {
-            $discussion = $created_post->discussion;
-            $discussion->replies++;
-            $discussion->last_reply_at = now();
-            $discussion->save();
+            $thread = $created_post->thread;
+            $thread->replies++;
+            $thread->last_reply_at = now();
+            $thread->save();
 
-            $created_post->discussion->has_read()->sync([]);
-            $created_post->discussion->notify_subscibers($created_post);
+            $created_post->thread->has_read()->sync([]);
+            $created_post->thread->notify_subscibers($created_post);
 
-            if (! $created_post->discussion->private) {
+            if (! $created_post->thread->private) {
                 $parser = new SucresParser($created_post);
 
                 $mentioned_users = $parser->getMentions(SucresParser::MENTIONS_RETURN_USERS)
@@ -77,9 +77,9 @@ class Post extends Model implements ReactableInterface
         });
     }
 
-    public function discussion()
+    public function thread()
     {
-        return $this->belongsTo(Discussion::class);
+        return $this->belongsTo(thread::class);
     }
 
     public function user()

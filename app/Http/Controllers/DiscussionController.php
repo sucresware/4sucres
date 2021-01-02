@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
-use App\Models\Category;
-use App\Models\Discussion;
+use App\Models\Board;
 use App\Models\Notification as NotificationModel;
 use App\Models\Post;
+use App\Models\Thread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -20,18 +20,18 @@ class DiscussionController extends Controller
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
         }
 
-        if (user()->cannot('create discussions')) {
+        if (user()->cannot('create threads')) {
             return abort(403);
         }
 
-        $categories = Category::postables()->pluck('name', 'id');
+        $boards = Board::postables()->pluck('name', 'id');
 
-        return view('discussion.create', compact('categories'));
+        return view('thread.create', compact('boards'));
     }
 
     public function preview()
     {
-        if (user()->cannot('create discussions')) {
+        if (user()->cannot('create threads')) {
             return abort(403);
         }
 
@@ -56,91 +56,91 @@ class DiscussionController extends Controller
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant créer un topic !');
         }
 
-        if (user()->cannot('create discussions')) {
+        if (user()->cannot('create threads')) {
             return abort(403);
         }
 
-        $categories = Category::postables()->pluck('id');
+        $boards = Board::postables()->pluck('id');
 
         request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'body' => ['required', 'min:3', 'max:10000'],
-            'category' => ['required', 'exists:categories,id', Rule::in($categories)],
+            'board' => ['required', 'exists:boards,id', Rule::in($boards)],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 10);
 
-        $discussion = Discussion::create([
+        $thread = thread::create([
             'title' => request()->title,
             'user_id' => user()->id,
-            'category_id' => request()->category,
+            'board_id' => request()->board,
         ]);
 
-        $post = $discussion->posts()->create([
+        $post = $thread->posts()->create([
             'body' => request()->body,
             'user_id' => user()->id,
         ]);
 
         if (user()->getSetting('notifications.subscribe_on_create', true)) {
-            $discussion->subscribed()->syncWithoutDetaching(user()->id);
+            $thread->subscribed()->syncWithoutDetaching(user()->id);
         }
 
         return redirect($post->link);
     }
 
-    public function index(Category $category = null, $slug = null)
+    public function index(Board $board = null, $slug = null)
     {
-        $categories = Category::viewables();
+        $boards = Board::viewables();
 
-        if ($category && ! in_array($category->id, $categories->pluck('id')->toArray())) {
+        if ($board && ! in_array($board->id, $boards->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        $discussions = Discussion::query()
-            ->whereIn('category_id', $categories->pluck('id'))
-            ->with('category')
+        $threads = thread::query()
+            ->whereIn('board_id', $boards->pluck('id'))
+            ->with('board')
             ->with('latestPost')
             ->with('latestPost.user')
             ->with('user');
 
-        if ($category) {
-            $discussions = $discussions
-                ->where('category_id', $category->id);
+        if ($board) {
+            $threads = $threads
+                ->where('board_id', $board->id);
         } else {
-            $discussions = $discussions
-                ->where('category_id', '!=', Category::CATEGORY_SHITPOST);
+            $threads = $threads
+                ->where('board_id', '!=', Board::CATEGORY_SHITPOST);
         }
 
         if (request()->input('page', 1) == 1) {
-            $sticky_discussions = clone $discussions;
-            $sticky_discussions = $sticky_discussions->sticky()->get();
+            $sticky_threads = clone $threads;
+            $sticky_threads = $sticky_threads->sticky()->get();
         } else {
-            $sticky_discussions = collect([]);
+            $sticky_threads = collect([]);
         }
 
-        $discussions = $discussions->ordered()->paginate(20);
+        $threads = $threads->ordered()->paginate(20);
 
         if (user()) {
-            $user_has_read = DB::table('has_read_discussions_users')
-                ->select('discussion_id')
+            $user_has_read = DB::table('has_read_threads_users')
+                ->select('thread_id')
                 ->where('user_id', user()->id)
-                ->whereIn('discussion_id', array_merge($sticky_discussions->pluck('id')->toArray(), $discussions->pluck('id')->toArray()))
-                ->pluck('discussion_id')
+                ->whereIn('thread_id', array_merge($sticky_threads->pluck('id')->toArray(), $threads->pluck('id')->toArray()))
+                ->pluck('thread_id')
                 ->toArray();
         } else {
             $user_has_read = [];
         }
 
-        return view('welcome', compact('categories', 'sticky_discussions', 'discussions', 'user_has_read'));
+        return view('welcome', compact('boards', 'sticky_threads', 'threads', 'user_has_read'));
     }
 
     public function subscriptions()
     {
-        $categories = Category::viewables();
+        $boards = Board::viewables();
 
-        $discussions = Discussion::query()
-            ->whereIn('category_id', $categories->pluck('id'))
-            ->with('category')
+        $threads = thread::query()
+            ->whereIn('board_id', $boards->pluck('id'))
+            ->with('board')
             ->with('latestPost')
             ->with('latestPost.user')
             ->with('user')
@@ -149,58 +149,58 @@ class DiscussionController extends Controller
             });
 
         if (request()->input('page', 1) == 1) {
-            $sticky_discussions = clone $discussions;
-            $sticky_discussions = $sticky_discussions->sticky()->get();
+            $sticky_threads = clone $threads;
+            $sticky_threads = $sticky_threads->sticky()->get();
         } else {
-            $sticky_discussions = collect([]);
+            $sticky_threads = collect([]);
         }
 
-        $discussions = $discussions->ordered()->paginate(20);
+        $threads = $threads->ordered()->paginate(20);
 
         if (user()) {
-            $user_has_read = DB::table('has_read_discussions_users')
-                ->select('discussion_id')
+            $user_has_read = DB::table('has_read_threads_users')
+                ->select('thread_id')
                 ->where('user_id', user()->id)
-                ->whereIn('discussion_id', array_merge($sticky_discussions->pluck('id')->toArray(), $discussions->pluck('id')->toArray()))
-                ->pluck('discussion_id')
+                ->whereIn('thread_id', array_merge($sticky_threads->pluck('id')->toArray(), $threads->pluck('id')->toArray()))
+                ->pluck('thread_id')
                 ->toArray();
         } else {
             $user_has_read = [];
         }
 
-        return view('welcome', compact('categories', 'sticky_discussions', 'discussions', 'user_has_read'));
+        return view('welcome', compact('boards', 'sticky_threads', 'threads', 'user_has_read'));
     }
 
-    public function show($id, $slug) // Ne pas utiliser Discussion $discussion (pour laisser possible le 410)
+    public function show($id, $slug) // Ne pas utiliser thread $thread (pour laisser possible le 410)
     {
-        $discussion = Discussion::query()
+        $thread = thread::query()
             ->findOrFail($id);
 
-        if (null !== $discussion->category && ! in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+        if (null !== $thread->board && ! in_array($thread->board->id, Board::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        if ($discussion->deleted_at && ! (user() && user()->can('read deleted discussions'))) {
+        if ($thread->deleted_at && ! (user() && user()->can('read deleted threads'))) {
             return abort(410);
         }
 
-        if ($discussion->private && (auth()->guest() || $discussion->members()->where('user_id', user()->id)->count() == 0)) {
+        if ($thread->private && (auth()->guest() || $thread->members()->where('user_id', user()->id)->count() == 0)) {
             return abort(403);
         }
 
-        // Invalidation des notifications qui font référence à cette discussion pour l'utilisateur connecté
+        // Invalidation des notifications qui font référence à cette thread pour l'utilisateur connecté
         if (auth()->check()) {
             $classes = [
-                \App\Notifications\NewPrivateDiscussion::class,
-                \App\Notifications\RepliesInDiscussion::class,
-                \App\Notifications\ReplyInDiscussion::class,
+                \App\Notifications\NewPrivatethread::class,
+                \App\Notifications\RepliesInthread::class,
+                \App\Notifications\ReplyInthread::class,
             ];
 
             NotificationModel::query()
                 ->where('read_at', null)
                 ->where('notifiable_id', user()->id)
                 ->whereIn('type', $classes)
-                ->where('data->discussion_id', $discussion->id)
+                ->where('data->thread_id', $thread->id)
                 ->each(function ($notification) {
                     $notification->read_at = now();
                     $notification->save();
@@ -208,18 +208,18 @@ class DiscussionController extends Controller
         }
 
         if (request()->page == 'last') {
-            $post = $discussion
+            $post = $thread
                 ->hasMany(Post::class)
                 ->orderBy('created_at', 'desc')
                 ->first();
 
-            return redirect(Discussion::link_to_post($post));
+            return redirect(thread::link_to_post($post));
         }
 
-        $posts = $discussion
+        $posts = $thread
             ->posts()
             ->with('user')
-            ->with('discussion')
+            ->with('thread')
             ->paginate(10);
 
         // Invalidation des notifications qui font référence à ces posts pour l'utilisateur connecté
@@ -240,40 +240,40 @@ class DiscussionController extends Controller
                 });
         }
 
-        $discussion->has_read()->attach(user());
+        $thread->has_read()->attach(user());
 
-        return view('discussion.show', compact('discussion', 'posts'));
+        return view('thread.show', compact('thread', 'posts'));
     }
 
-    public function update(Discussion $discussion, $slug)
+    public function update(thread $thread, $slug)
     {
-        if (($discussion->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($thread->user->id != user()->id && user()->cannot('bypass threads guard')) || $thread->private) {
             return abort(403);
         }
 
-        $categories = Category::postables();
+        $boards = Board::postables();
 
-        if (! in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
+        if (! in_array($thread->board->id, $boards->pluck('id')->toArray())) {
             return abort(403);
         }
 
         request()->validate([
             'title' => 'required|min:4|max:255',
-            'category' => ['required', 'exists:categories,id', Rule::in($categories->pluck('id'))],
+            'board' => ['required', 'exists:boards,id', Rule::in($boards->pluck('id'))],
         ]);
 
         SucresHelper::throttleOrFail(__METHOD__, 3, 5);
 
-        $discussion->title = request()->title;
+        $thread->title = request()->title;
 
-        // Do not update category if the post is in #shitpost
-        if ($discussion->category_id !== \App\Models\Category::CATEGORY_SHITPOST || user()->can('bypass discussions guard')) {
-            $discussion->category_id = request()->category;
+        // Do not update board if the post is in #shitpost
+        if ($thread->board_id !== \App\Models\Board::CATEGORY_SHITPOST || user()->can('bypass threads guard')) {
+            $thread->board_id = request()->board;
         }
 
-        if (user()->can('bypass discussions guard')) {
-            $discussion->sticky = request()->sticky ?? false;
-            $discussion->locked = request()->locked ?? false;
+        if (user()->can('bypass threads guard')) {
+            $thread->sticky = request()->sticky ?? false;
+            $thread->locked = request()->locked ?? false;
 
             activity()
                 ->causedBy(auth()->user())
@@ -282,50 +282,50 @@ class DiscussionController extends Controller
                     'method' => __METHOD__,
                     'elevated' => true,
                 ])
-                ->log('DiscussionUpdated');
+                ->log('threadUpdated');
         }
 
-        $discussion->save();
+        $thread->save();
 
-        return redirect(route('discussions.show', [
-            $discussion->id,
-            $discussion->slug,
+        return redirect(route('threads.show', [
+            $thread->id,
+            $thread->slug,
         ]));
     }
 
-    public function subscribe(Discussion $discussion, $slug)
+    public function subscribe(thread $thread, $slug)
     {
-        if ($discussion->private) {
+        if ($thread->private) {
             return abort(403);
         }
 
-        if (! in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+        if (! in_array($thread->board->id, Board::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        $discussion->subscribed()->syncWithoutDetaching(user()->id);
+        $thread->subscribed()->syncWithoutDetaching(user()->id);
 
-        return redirect(route('discussions.show', [
-            $discussion->id,
-            $discussion->slug,
+        return redirect(route('threads.show', [
+            $thread->id,
+            $thread->slug,
         ]));
     }
 
-    public function unsubscribe(Discussion $discussion, $slug)
+    public function unsubscribe(thread $thread, $slug)
     {
-        if ($discussion->private) {
+        if ($thread->private) {
             return abort(403);
         }
 
-        if (! in_array($discussion->category->id, Category::viewables()->pluck('id')->toArray())) {
+        if (! in_array($thread->board->id, Board::viewables()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        $discussion->subscribed()->detach(user()->id);
+        $thread->subscribed()->detach(user()->id);
 
-        return redirect(route('discussions.show', [
-            $discussion->id,
-            $discussion->slug,
+        return redirect(route('threads.show', [
+            $thread->id,
+            $thread->slug,
         ]));
     }
 }

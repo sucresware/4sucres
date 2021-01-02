@@ -487,13 +487,13 @@ class SucresParser
                 continue;
             }
 
-            $current_discussion = $this->post->discussion;
+            $current_thread = $this->post->thread;
 
             if (
-                $quote['post']->discussion->category->nsfw &&
-                ($current_discussion->private ||
-                    $current_discussion->category &&
-                    ! $current_discussion->category->nsfw)
+                $quote['post']->thread->board->nsfw &&
+                ($current_thread->private ||
+                    $current_thread->board &&
+                    ! $current_thread->board->nsfw)
             ) {
                 continue;
             }
@@ -548,7 +548,7 @@ class SucresParser
             $target = trim(str_replace(['#p:'], '', $excerpt));
             $post = Post::find($target);
 
-            if ($post && $post->discussion->private) {
+            if ($post && $post->thread->private) {
                 continue;
             }
 

@@ -2,20 +2,20 @@
 
 namespace App\Notifications;
 
-use App\Models\Discussion;
+use App\Models\thread;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use NotificationChannels\WebPush\WebPushChannel;
 
-class RepliesInDiscussion extends DefaultNotification
+class RepliesInthread extends DefaultNotification
 {
     use Queueable;
 
-    public $discussion;
+    public $thread;
 
-    public function __construct(Discussion $discussion)
+    public function __construct(thread $thread)
     {
-        $this->discussion = $discussion;
+        $this->thread = $thread;
     }
 
     public function via($notifiable)
@@ -34,7 +34,7 @@ class RepliesInDiscussion extends DefaultNotification
     public function toArray($notifiable)
     {
         return array_merge($this->attributes(), [
-            'discussion_id' => $this->discussion->id,
+            'thread_id' => $this->thread->id,
         ]);
     }
 
@@ -42,9 +42,9 @@ class RepliesInDiscussion extends DefaultNotification
     {
         return [
             'title' => 'Oui, allo ?',
-            'target' => $this->discussion->link,
-            'html' => 'Plusieurs réponses ont été postées sur la discussion <b>' . e($this->discussion->title) . '</b>',
-            'text' => 'Plusieurs réponses ont été postées sur la discussion : ' . $this->discussion->title,
+            'target' => $this->thread->link,
+            'html' => 'Plusieurs réponses ont été postées sur le thread <b>' . e($this->thread->title) . '</b>',
+            'text' => 'Plusieurs réponses ont été postées sur le thread : ' . $this->thread->title,
         ];
     }
 }

@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Discussion;
+use App\Models\Board;
+use App\Models\thread;
 
-class DiscussionController extends Controller
+class threadController extends Controller
 {
-    public function show(Discussion $discussion)
+    public function show(thread $thread)
     {
-        $categories = Category::viewables();
+        $boards = Board::viewables();
 
-        if ($discussion->category && ! in_array($discussion->category->id, $categories->pluck('id')->toArray())) {
+        if ($thread->board && ! in_array($thread->board->id, $boards->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        $posts = $discussion->posts()
+        $posts = $thread->posts()
             ->with('user')
-            ->with('discussion')
+            ->with('thread')
             ->paginate(10);
 
         return response()->json($posts);

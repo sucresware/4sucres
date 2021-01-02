@@ -4,24 +4,24 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Helpers\SucresHelper;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Discussion;
+use App\Models\Board;
+use App\Models\thread;
 
-class DiscussionPostController extends Controller
+class threadPostController extends Controller
 {
-    public function store(Discussion $discussion)
+    public function store(thread $thread)
     {
         if (user('api')->restricted && user('api')->restricted_posts_remaining <= 0) {
             return redirect()->route('home')->with('error', 'Tout doux bijou ! Tu dois vérifier ton adresse email avant de continuer à répondre !');
         }
 
-        if (null !== $discussion->category && ! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (null !== $thread->board && ! in_array($thread->board->id, Board::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        if ($discussion->locked || user('api')->cannot('create discussions')) {
+        if ($thread->locked || user('api')->cannot('create threads')) {
             activity()
-                ->performedOn($discussion)
+                ->performedOn($thread)
                 ->causedBy(user('api'))
                 ->withProperties([
                     'level' => 'warning',
@@ -38,7 +38,7 @@ class DiscussionPostController extends Controller
 
         SucresHelper::throttleOrFail(__METHOD__, 7, 1);
 
-        $latest_post = $discussion->latestPost()->notTrashed()->first();
+        $latest_post = $thread->latestPost()->notTrashed()->first();
 
         if ($latest_post->user_id == user('api')->id && $latest_post->created_at->between(now()->subMinutes(2), now())) {
             $latest_post->body .= "\r\n\r\n" . '[b]AutoEdit[/b] : ' . request()->input('body');
@@ -46,13 +46,13 @@ class DiscussionPostController extends Controller
 
             $post = $latest_post;
         } else {
-            $post = $discussion->posts()->create([
+            $post = $thread->posts()->create([
                 'body' => request()->input('body'),
                 'user_id' => user('api')->id,
             ]);
 
             if (user('api')->getSetting('notifications.subscribe_on_reply', false)) {
-                $discussion->subscribed()->syncWithoutDetaching(user('api')->id);
+                $thread->subscribed()->syncWithoutDetaching(user('api')->id);
             }
         }
 

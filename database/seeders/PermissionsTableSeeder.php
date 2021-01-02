@@ -23,8 +23,8 @@ class PermissionsTableSeeder extends Seeder
         $user = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'user']);
         $verified = Role::firstOrCreate(['guard_name' => 'web', 'name' => 'verified']);
 
-        Permission::firstOrCreate(['name' => 'create discussions']);
-        Permission::firstOrCreate(['name' => 'bypass discussions guard']);
+        Permission::firstOrCreate(['name' => 'create threads']);
+        Permission::firstOrCreate(['name' => 'bypass threads guard']);
         Permission::firstOrCreate(['name' => 'bypass users guard']);
         Permission::firstOrCreate(['name' => 'update shown_role']);
         Permission::firstOrCreate(['name' => 'read deleted posts']);
@@ -37,12 +37,12 @@ class PermissionsTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'bypass throttle']);
         Permission::firstOrCreate(['name' => 'upload animated avatars']);
         Permission::firstOrCreate(['name' => 'sync discord emojis']);
-        Permission::firstOrCreate(['name' => 'read deleted discussions']);
+        Permission::firstOrCreate(['name' => 'read deleted threads']);
 
         $admin->givePermissionTo('bypass users guard');
         $admin->givePermissionTo('update shown_role');
-        $admin->givePermissionTo('bypass discussions guard');
-        $admin->givePermissionTo('create discussions');
+        $admin->givePermissionTo('bypass threads guard');
+        $admin->givePermissionTo('create threads');
         $admin->givePermissionTo('restore posts');
         $admin->givePermissionTo('read deleted posts');
         $admin->givePermissionTo('update achievements');
@@ -53,12 +53,12 @@ class PermissionsTableSeeder extends Seeder
         $admin->givePermissionTo('bypass throttle');
         $admin->givePermissionTo('upload animated avatars');
         $admin->givePermissionTo('sync discord emojis');
-        $admin->givePermissionTo('read deleted discussions');
+        $admin->givePermissionTo('read deleted threads');
 
         $moderator->givePermissionTo('bypass users guard');
         $moderator->givePermissionTo('update shown_role');
-        $moderator->givePermissionTo('bypass discussions guard');
-        $moderator->givePermissionTo('create discussions');
+        $moderator->givePermissionTo('bypass threads guard');
+        $moderator->givePermissionTo('create threads');
         $moderator->givePermissionTo('restore posts');
         $moderator->givePermissionTo('read deleted posts');
         $moderator->givePermissionTo('update achievements');
@@ -66,16 +66,16 @@ class PermissionsTableSeeder extends Seeder
         $moderator->givePermissionTo('bypass throttle');
         $moderator->givePermissionTo('upload animated avatars');
         $moderator->givePermissionTo('sync discord emojis');
-        $moderator->givePermissionTo('read deleted discussions');
+        $moderator->givePermissionTo('read deleted threads');
 
         $supporter->givePermissionTo('update shown_role');
-        $supporter->givePermissionTo('create discussions');
+        $supporter->givePermissionTo('create threads');
         $supporter->givePermissionTo('read deleted posts');
         $supporter->givePermissionTo('upload animated avatars');
         $supporter->givePermissionTo('sync discord emojis');
 
-        $user->givePermissionTo('create discussions');
+        $user->givePermissionTo('create threads');
 
-        $verified->givePermissionTo('create discussions');
+        $verified->givePermissionTo('create threads');
     }
 }

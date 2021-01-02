@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\v1\DiscordConnectorController;
-use App\Http\Controllers\Api\v1\DiscussionPostController;
 use App\Http\Controllers\Api\v1\SelfController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +21,5 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('/notifications', [SelfController::class, 'notifications']);
     Route::post('/discord-guilds', [DiscordConnectorController::class, 'guilds']);
     Route::post('/discord-emojis', [DiscordConnectorController::class, 'emojis']);
-    Route::post('/discussions/{discussion}/posts', [DiscussionPostController::class, 'store']);
+    Route::post('/threads/{thread}/posts', [threadPostController::class, 'store']);
 });

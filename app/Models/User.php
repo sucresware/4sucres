@@ -95,9 +95,9 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         return $this->belongsToMany(Achievement::class, 'user_achievement')->withPivot('unlocked_at');
     }
 
-    public function discussions()
+    public function threads()
     {
-        return $this->hasMany(Discussion::class);
+        return $this->hasMany(thread::class);
     }
 
     public function posts()
@@ -113,7 +113,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
     public function getRestrictedPostsCreatedAttribute()
     {
         return $this->posts()
-            ->whereHas('discussion', function ($q) {
+            ->whereHas('thread', function ($q) {
                 return $q->where('private', false);
             })
             ->count();
@@ -317,18 +317,18 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         $posts_count = $this
             ->posts()
             ->notTrashed()
-            ->whereHas('discussion', function ($q) {
+            ->whereHas('thread', function ($q) {
                 $q->public();
             })
             ->count();
 
-        return $posts_count - $this->discussions_count;
+        return $posts_count - $this->threads_count;
     }
 
-    public function getDiscussionsCountAttribute()
+    public function getthreadsCountAttribute()
     {
         return $this
-            ->discussions()
+            ->threads()
             ->public()
             ->count();
     }
@@ -336,21 +336,21 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
     public function getPrivateUnreadCountAttribute()
     {
         // Original request (150-200ms):
-        // return \App\Models\Discussion::private($this)->count() - \App\Models\Discussion::private($this)->read($this)->count();
+        // return \App\Models\thread::private($this)->count() - \App\Models\thread::private($this)->read($this)->count();
 
         // Optimized request (20ms+5ms):
-        $private_ids = Discussion::query()
+        $private_ids = thread::query()
             ->select('id')
             ->private($this)
             ->pluck('id')
             ->toArray();
 
-        $user_has_read = DB::table('has_read_discussions_users')
-            ->select('discussion_id')
-            ->distinct('discussion_id')
+        $user_has_read = DB::table('has_read_threads_users')
+            ->select('thread_id')
+            ->distinct('thread_id')
             ->where('user_id', $this->id)
-            ->whereIn('discussion_id', $private_ids)
-            ->pluck('discussion_id')
+            ->whereIn('thread_id', $private_ids)
+            ->pluck('thread_id')
             ->toArray();
 
         return count(array_diff($private_ids, $user_has_read));

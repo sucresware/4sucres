@@ -29,13 +29,13 @@ $info-color: $nord9;
 // ---- [ Bootstrap colors ] -----------------------------------------------
 
 $blue: #81a1c1;
-$red: #BF616A;
-$indigo:#6574cd;
-$purple: #B48EAD;
-$pink: #f66D9b;
+$red: #bf616a;
+$indigo: #6574cd;
+$purple: #b48ead;
+$pink: #f66d9b;
 $orange: rgb(129, 82, 67);
-$yellow: #EBCB8B;
-$green: #A3BE8C;
+$yellow: #ebcb8b;
+$green: #a3be8c;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $gray: #fbfbfc;
@@ -103,21 +103,21 @@ $custom-file-box-shadow: $input-box-shadow;
 $custom-file-button-color: $input-color;
 $custom-file-button-bg: $input-bg;
 
-// ---- [ Discussions ] ----------------------------------------------------
+// ---- [ threads ] ----------------------------------------------------
 
-$discussion-primary-background: $secondary-background;
-$discussion-secondary-background: $tertiary-background;
-$discussion-tertiary-background: $quaternary-background;
-$discussion-quaternary-background: lighten($quaternary-background, 2.5%);
+$thread-primary-background: $secondary-background;
+$thread-secondary-background: $tertiary-background;
+$thread-tertiary-background: $quaternary-background;
+$thread-quaternary-background: lighten($quaternary-background, 2.5%);
 
-$discussion-primary-color: $primary-color;
-$discussion-secondary-color: $secondary-color;
-$discussion-tertiary-color: $tertiary-color;
-$discussion-quaternary-color: lighten($tertiary-color, 5%);
+$thread-primary-color: $primary-color;
+$thread-secondary-color: $secondary-color;
+$thread-tertiary-color: $tertiary-color;
+$thread-quaternary-color: lighten($tertiary-color, 5%);
 
-$discussion-border-color: $border-color;
+$thread-border-color: $border-color;
 
-$discussion-link-color: $tertiary-color;
+$thread-link-color: $tertiary-color;
 
 // ---- [ Tooltips ] -------------------------------------------------------
 

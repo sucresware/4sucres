@@ -3,34 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
-use App\Models\Category;
-use App\Models\Discussion;
+use App\Models\Board;
+use App\Models\thread;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class DiscussionPostController extends Controller
+class threadPostController extends Controller
 {
-    public function edit(Discussion $discussion, $slug, Post $post)
+    public function edit(thread $thread, $slug, Post $post)
     {
-        if ((($post->user->id != user()->id || $post->deleted) && user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if ((($post->user->id != user()->id || $post->deleted) && user()->cannot('bypass threads guard')) || $thread->private) {
             return abort(403);
         }
 
-        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($thread->board->id, Board::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        $more_options = ($discussion->posts()->first() == $post);
-        $categories = Category::replyable()->pluck('name', 'id');
+        $more_options = ($thread->posts()->first() == $post);
+        $boards = Board::replyable()->pluck('name', 'id');
 
-        return view('discussion.post.edit', compact('categories', 'discussion', 'post', 'more_options'));
+        return view('thread.post.edit', compact('boards', 'thread', 'post', 'more_options'));
     }
 
-    public function update(Discussion $discussion, $slug, Post $post)
+    public function update(thread $thread, $slug, Post $post)
     {
-        if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($post->user->id != user()->id && user()->cannot('bypass threads guard')) || $thread->private) {
             activity()
-                ->performedOn($discussion)
+                ->performedOn($thread)
                 ->causedBy(user())
                 ->withProperties([
                     'level' => 'warning',
@@ -41,7 +41,7 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($thread->board->id, Board::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
@@ -57,24 +57,24 @@ class DiscussionPostController extends Controller
         return redirect($post->link);
     }
 
-    public function delete(Discussion $discussion, $slug, Post $post)
+    public function delete(thread $thread, $slug, Post $post)
     {
-        if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($post->user->id != user()->id && user()->cannot('bypass threads guard')) || $thread->private) {
             return abort(403);
         }
 
-        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($thread->board->id, Board::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        return view('discussion.post.delete', compact('discussion', 'post'));
+        return view('thread.post.delete', compact('thread', 'post'));
     }
 
-    public function destroy(Discussion $discussion, $slug, Post $post)
+    public function destroy(thread $thread, $slug, Post $post)
     {
-        if (($post->user->id != user()->id && user()->cannot('bypass discussions guard')) || $discussion->private) {
+        if (($post->user->id != user()->id && user()->cannot('bypass threads guard')) || $thread->private) {
             activity()
-                ->performedOn($discussion)
+                ->performedOn($thread)
                 ->causedBy(user())
                 ->withProperties([
                     'level' => 'warning',
@@ -85,30 +85,30 @@ class DiscussionPostController extends Controller
             return abort(403);
         }
 
-        if (! in_array($discussion->category->id, Category::replyable()->pluck('id')->toArray())) {
+        if (! in_array($thread->board->id, Board::replyable()->pluck('id')->toArray())) {
             return abort(403);
         }
 
-        if ($post->id == $discussion->posts[0]->id) {
+        if ($post->id == $thread->posts[0]->id) {
             SucresHelper::throttleOrFail(__METHOD__ . '_D', 1, 5);
 
             $now = now();
 
-            $discussion->posts()->update([
+            $thread->posts()->update([
                 'deleted_at' => $now,
             ]);
 
-            $discussion->deleted_at = $now;
-            $discussion->save();
+            $thread->deleted_at = $now;
+            $thread->save();
 
             activity()
-                ->performedOn($discussion)
+                ->performedOn($thread)
                 ->causedBy(user())
                 ->withProperties([
                     'level' => 'warning',
                     'method' => __METHOD__,
                 ])
-                ->log('DiscussionSoftDeleted');
+                ->log('threadSoftDeleted');
 
             return redirect(route('home'));
         } else {
@@ -126,14 +126,14 @@ class DiscussionPostController extends Controller
                 ])
                 ->log('PostSoftDeleted');
 
-            return redirect(route('discussions.show', [
-                $discussion->id,
-                $discussion->slug,
+            return redirect(route('threads.show', [
+                $thread->id,
+                $thread->slug,
             ]));
         }
     }
 
-    public function react(Discussion $discussion, $slug, Post $post)
+    public function react(thread $thread, $slug, Post $post)
     {
         // request()->validate([
         //     'reaction' => 'required', 'in:angry,happy,love,sad,sick,sueur,what,oh'

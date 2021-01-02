@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
-use App\Models\Category;
-use App\Models\Discussion;
+use App\Models\Board;
+use App\Models\thread;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -18,29 +18,29 @@ class SearchController extends Controller
         $scope = request()->input('scope', 'posts');
         $return = view('search.results', compact('query', 'scope'));
 
-        $categories = Category::viewables();
+        $boards = Board::viewables();
 
         SucresHelper::throttleOrFail(__METHOD__, 10, 1);
 
         switch ($scope) {
-            case 'discussions':
-                $discussions = Discussion::query()
+            case 'threads':
+                $threads = thread::query()
                     ->public()
-                    ->whereIn('category_id', $categories->pluck('id'))
+                    ->whereIn('board_id', $boards->pluck('id'))
                     ->where('title', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->paginate(15);
 
-                $discussions
+                $threads
                     ->getCollection()
-                    ->transform(function ($discussion) use ($query) {
-                        $discussion->title = Regex::replace('/(' . $query . ')/miu', '<u>$1</u>', $discussion->title)->result();
+                    ->transform(function ($thread) use ($query) {
+                        $thread->title = Regex::replace('/(' . $query . ')/miu', '<u>$1</u>', $thread->title)->result();
 
-                        return $discussion;
+                        return $thread;
                     });
 
                 return $return->with([
-                    'discussions' => $discussions,
+                    'threads' => $threads,
                 ]);
 
                 break;
@@ -49,9 +49,9 @@ class SearchController extends Controller
                     ->notTrashed()
                     ->where('body', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
-                    ->with('discussion')
-                    ->whereHas('discussion', function ($q) use ($categories) {
-                        return $q->whereIn('category_id', $categories->pluck('id'));
+                    ->with('thread')
+                    ->whereHas('thread', function ($q) use ($boards) {
+                        return $q->whereIn('board_id', $boards->pluck('id'));
                     })
                     ->paginate(10);
 

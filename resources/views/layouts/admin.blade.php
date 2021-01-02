@@ -1,33 +1,41 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @auth
-        <meta name="user-data" content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email', 'api_token']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
-        <meta name="user-notification-count" content="{{ json_encode($notifications_count) }}" />
+    <meta name="user-data"
+        content="{{ json_encode(array_merge(user()->only(['id', 'name', 'email', 'api_token']), ['permissions' => user()->getPermissionsViaRoles()->pluck('name')])) }}" />
+    <meta name="user-notification-count" content="{{ json_encode($notifications_count) }}" />
     @endauth
 
     <title>
         @hasSection ('title')
-            @yield('title') - 4sucres.org
+        @yield('title') - 4sucres.org
         @else
-            4sucres.org
+        4sucres.org
         @endif
     </title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <link href="{{ mix('css/theme-light.css') }}" rel="stylesheet" id="lightTheme">
     @if (auth()->check())
-        <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if (user()->getSetting('layout.theme', 'light-theme') != 'dark-theme') disabled @endif>
-        @if (!in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
-            <link href="{{ mix('css/theme-onche-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'onche-light-theme') disabled @endif>
-            <link href="{{ mix('css/theme-avn-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'avn-light-theme') disabled @endif>
-            <link href="{{ mix('css/theme-synth.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'synth-theme') disabled @endif>
-            <link href="{{ mix('css/theme-sensory.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme', 'light-theme') != 'sensory-theme') disabled @endif>
-        @endif
+    <link href="{{ mix('css/theme-dark.css') }}" rel="stylesheet" id="darkTheme" @if (user()->getSetting('layout.theme',
+    'light-theme') != 'dark-theme') disabled @endif>
+    @if (!in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
+    <link href="{{ mix('css/theme-onche-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme',
+    'light-theme') != 'onche-light-theme') disabled @endif>
+    <link href="{{ mix('css/theme-avn-light.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme',
+    'light-theme') != 'avn-light-theme') disabled @endif>
+    <link href="{{ mix('css/theme-synth.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme',
+    'light-theme') != 'synth-theme') disabled @endif>
+    <link href="{{ mix('css/theme-sensory.css') }}" rel="stylesheet" @if (user()->getSetting('layout.theme',
+    'light-theme') != 'sensory-theme') disabled @endif>
+    @endif
     @endif
 
     <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32-admin.png') }}" sizes="32x32">
@@ -39,6 +47,7 @@
 
     @stack('css')
 </head>
+
 <body class="{!! $body_classes !!}">
     <div id="app">
         <div class="sticky-top">
@@ -50,43 +59,45 @@
                     </a>
 
                     @auth
-                        <notifications :count="{{ $notifications_count }}"></notifications>
+                    <notifications :count="{{ $notifications_count }}"></notifications>
 
-                        <a class="mr-1 text-center order-lg-8" href="{{ route('private_discussions.index') }}">
-                            <span class="fa-stack notification" id="private_discussions_indicator">
-                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
-                                @if ($private_unread_count)
-                                    <i class="fas fa-envelope fa-stack-1x fa-inverse fa-sm notification-icon"></i>
-                                    <span class="badge badge-info badge-pill notification-counter">{{ $private_unread_count }}</span>
-                                @else
-                                    <i class="fas fa-envelope fa-stack-1x fa-sm notification-icon"></i>
-                                @endif
-                            </span>
-                        </a>
-                        @if (in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
-                            <a class="mr-1 text-center order-lg-8" href="javascript:void(0)" data-action="light-toggle">
-                                <span class="fa-stack notification">
-                                    <i class="fas fa-circle fa-stack-2x notification-background"></i>
-                                    <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
-                                </span>
-                            </a>
-                        @endif
+                    <a class="mr-1 text-center order-lg-8" href="{{ route('private_threads.index') }}">
+                        <span class="fa-stack notification" id="private_threads_indicator">
+                            <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                            @if ($private_unread_count)
+                            <i class="fas fa-envelope fa-stack-1x fa-inverse fa-sm notification-icon"></i>
+                            <span
+                                class="badge badge-info badge-pill notification-counter">{{ $private_unread_count }}</span>
+                            @else
+                            <i class="fas fa-envelope fa-stack-1x fa-sm notification-icon"></i>
+                            @endif
+                        </span>
+                    </a>
+                    @if (in_array(user()->getSetting('layout.theme', 'light-theme'), ['light-theme', 'dark-theme']))
+                    <a class="mr-1 text-center order-lg-8" href="javascript:void(0)" data-action="light-toggle">
+                        <span class="fa-stack notification">
+                            <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                            <i class="fas fa-lightbulb fa-stack-1x fa-sm notification-icon"></i>
+                        </span>
+                    </a>
+                    @endif
 
-                        @if (user()->hasRole('admin') || user()->hasRole('moderator'))
-                            <a class="mr-1 text-center order-lg-9" href="{{ route('admin.index') }}">
-                                <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x {{ (active('admin.*')) ? 'text-primary' : 'notification-background' }}"></i>
-                                    <i class="fas fa-lock fa-stack-1x fa-inverse fa-sm"></i>
-                                </span>
-                            </a>
-                        @endif
+                    @if (user()->hasRole('admin') || user()->hasRole('moderator'))
+                    <a class="mr-1 text-center order-lg-9" href="{{ route('admin.index') }}">
+                        <span class="fa-stack">
+                            <i
+                                class="fas fa-circle fa-stack-2x {{ (active('admin.*')) ? 'text-primary' : 'notification-background' }}"></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse fa-sm"></i>
+                        </span>
+                    </a>
+                    @endif
 
-                        <a class="mr-1 text-center order-lg-9" href="{{ route('user.settings') }}">
-                            <span class="fa-stack notification">
-                                <i class="fas fa-circle fa-stack-2x notification-background"></i>
-                                <i class="fas fa-cog fa-stack-1x notification-icon fa-sm"></i>
-                            </span>
-                        </a>
+                    <a class="mr-1 text-center order-lg-9" href="{{ route('user.settings') }}">
+                        <span class="fa-stack notification">
+                            <i class="fas fa-circle fa-stack-2x notification-background"></i>
+                            <i class="fas fa-cog fa-stack-1x notification-icon fa-sm"></i>
+                        </span>
+                    </a>
                     @endauth
 
                     <a href="#" class="d-block d-lg-none" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -101,45 +112,53 @@
                             <li class="nav-item">
                                 <form id="search" action="{{ route('search.query') }}">
                                     <div class="mb-0 input-group">
-                                        <input type="text" name="query" class="form-control input-header" value="{{ $query ?? null }}">
+                                        <input type="text" name="query" class="form-control input-header"
+                                            value="{{ $query ?? null }}">
                                         <input type="hidden" name="scope" value="{{ $scope ?? 'posts' }}">
                                         <div class="input-group-append">
-                                            <button type="submit" class="d-inline btn btn-darker"><i class="fas fa-search"></i></button>
+                                            <button type="submit" class="d-inline btn btn-darker"><i
+                                                    class="fas fa-search"></i></button>
                                         </div>
                                     </div>
                                 </form>
                             </li>
                             {{--  <li class="nav-item">
-                                <a class="text-center nav-link" href="{{ route('discussions.index') }}"><i class="fas fa-home"></i><span class="d-lg-none d-lg-block"> Forum</span></a>
-                            </li>  --}}
+                                <a class="text-center nav-link" href="{{ route('threads.index') }}"><i
+                                class="fas fa-home"></i><span class="d-lg-none d-lg-block"> Forum</span></a>
+                            </li> --}}
                             {{--  <li class="nav-item">
-                                <a class="text-center nav-link" href="{{ route('leaderboard') }}"><i class="fas fa-clipboard"></i><span class="d-lg-none d-lg-block"> Classement</span></a>
+                                <a class="text-center nav-link" href="{{ route('leaderboard') }}"><i
+                                class="fas fa-clipboard"></i><span class="d-lg-none d-lg-block"> Classement</span></a>
                             </li> --}}
                         </ul>
                     </div>
 
                     <div class="flex-auto-0 collapse navbar-collapse order-lg-10 pl-lg-2" id="navbarSupportedContent">
                         @guest
-                            <div class="mb-3 row no-gutters account-block mb-lg-0">
-                                <div class="text-center rounded col account-details text-lg-right text-lg-left">
-                                    <a href="{{ route('register') }}" class="mr-1"><i class="mr-2 fas fa-user-plus"></i>Inscription</a>
-                                    <a href="{{ route('login') }}"><i class="mr-2 fas fa-power-off"></i>Connexion</a>
-                                </div>
+                        <div class="mb-3 row no-gutters account-block mb-lg-0">
+                            <div class="text-center rounded col account-details text-lg-right text-lg-left">
+                                <a href="{{ route('register') }}" class="mr-1"><i
+                                        class="mr-2 fas fa-user-plus"></i>Inscription</a>
+                                <a href="{{ route('login') }}"><i class="mr-2 fas fa-power-off"></i>Connexion</a>
                             </div>
+                        </div>
                         @else
-                            <div class="mb-3 row no-gutters account-block mb-lg-0">
-                                <div class="rounded col account-details text-lg-right">
-                                    <span class="account-username">
-                                        <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
-                                    </span>
-                                    <br>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="mr-2 fas fa-power-off"></i>Déconnexion</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-                                </div>
-                                <div class="col-auto account-image">
-                                    <img src="{{ user()->avatar_link }}" class="rounded img-fluid">
-                                </div>
+                        <div class="mb-3 row no-gutters account-block mb-lg-0">
+                            <div class="rounded col account-details text-lg-right">
+                                <span class="account-username">
+                                    <a href="{{ route('profile') }}">{{ user()->display_name }}</a>
+                                </span>
+                                <br>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                                        class="mr-2 fas fa-power-off"></i>Déconnexion</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">@csrf</form>
                             </div>
+                            <div class="col-auto account-image">
+                                <img src="{{ user()->avatar_link }}" class="rounded img-fluid">
+                            </div>
+                        </div>
                         @endguest
                     </div>
                 </div>
@@ -147,42 +166,42 @@
         </div>
 
         @if (session('success'))
-            <div class="shadow alert alert-success">
-                <div class="container">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto mr-2"><i class="fas fa-check-circle"></i></div>
-                        <div class="col">
-                            {!! session('success') !!}
-                        </div>
+        <div class="shadow alert alert-success">
+            <div class="container">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto mr-2"><i class="fas fa-check-circle"></i></div>
+                    <div class="col">
+                        {!! session('success') !!}
                     </div>
                 </div>
             </div>
+        </div>
         @endif
 
         @if (session('info'))
-            <div class="shadow alert alert-info">
-                <div class="container">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto mr-2"><i class="fas fa-info-triangle"></i></div>
-                        <div class="col">
-                            {!! session('info') !!}
-                        </div>
+        <div class="shadow alert alert-info">
+            <div class="container">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto mr-2"><i class="fas fa-info-triangle"></i></div>
+                    <div class="col">
+                        {!! session('info') !!}
                     </div>
                 </div>
             </div>
+        </div>
         @endif
 
         @if (session('error'))
-            <div class="shadow alert alert-danger">
-                <div class="container">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
-                        <div class="col">
-                            {!! session('error') !!}
-                        </div>
+        <div class="shadow alert alert-danger">
+            <div class="container">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto mr-2"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="col">
+                        {!! session('error') !!}
                     </div>
                 </div>
             </div>
+        </div>
         @endif
 
         <main class="py-4">
@@ -204,7 +223,10 @@
             {{ $version }} - &copy; SucresWare - 2019-{{ date('Y') }}<br>
             <br>
             <strong>4sucres.org</strong>, parce qu'à 2 on était pas assez.<br>
-            <span class="pointer" data-toggle="tooltip" data-placement="top" title="{{ implode(', ', $presence) }}">{{ count($presence) }} {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span class="mx-1">&mdash;</span>
+            <span class="pointer" data-toggle="tooltip" data-placement="top"
+                title="{{ implode(', ', $presence) }}">{{ count($presence) }}
+                {{ Str::plural('membre', count($presence)) }} {{ Str::plural('actif', count($presence)) }}</span> <span
+                class="mx-1">&mdash;</span>
             Temps d'exécution : {{ round((microtime(true) - LARAVEL_START), 3) }} s<br>
             <a href="{{ route('terms') }}">Conditions générales d'utilisation</a> <span class="mx-1">&mdash;</span>
             <a href="{{ route('charter') }}">Charte d'utilisation</a> <span class="mx-1">&mdash;</span>
@@ -215,15 +237,15 @@
     </div>
 
     @if (session('swal-success'))
-        @php alert()->success(null, session('swal-success'))->persistent(); @endphp
+    @php alert()->success(null, session('swal-success'))->persistent(); @endphp
     @endif
 
     @if (session('swal-info'))
-        @php alert()->info(null, session('swal-info'))->persistent(); @endphp
+    @php alert()->info(null, session('swal-info'))->persistent(); @endphp
     @endif
 
     @if (session('swal-error'))
-        @php alert()->error(null, session('swal-error'))->persistent(); @endphp
+    @php alert()->error(null, session('swal-error'))->persistent(); @endphp
     @endif
 
     @include('sweetalert::alert')
@@ -232,4 +254,5 @@
     <script src="{{ mix('/js/app.js') }}"></script>
     @stack('js')
 </body>
+
 </html>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Category extends Model
+class Board extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
@@ -25,43 +25,42 @@ class Category extends Model
     {
         parent::boot();
 
-        self::creating(function ($category) {
-            $category->slug = Str::slug($category->name);
+        self::creating(function ($board) {
+            $board->slug = Str::slug($board->name);
 
-            return $category;
+            return $board;
         });
     }
 
-    public function discussions()
+    public function threads()
     {
-        return $this->hasMany(Discussion::class);
+        return $this->hasMany(Thread::class);
     }
 
     public function scopeOrdered($query)
     {
         return $query
-            ->orderBy('order')
-            ->orderBy('name');
+            ->orderBy('name', 'ASC');
     }
 
     public static function viewables()
     {
-        return self::ordered()->get()->reject(function ($category) {
-            return ! $category->canView(user());
+        return self::ordered()->get()->reject(function ($board) {
+            return ! $board->canView(user());
         });
     }
 
     public static function postables()
     {
-        return self::ordered()->get()->reject(function ($category) {
-            return ! $category->canPost(user());
+        return self::ordered()->get()->reject(function ($board) {
+            return ! $board->canPost(user());
         });
     }
 
     public static function replyable()
     {
-        return self::ordered()->get()->reject(function ($category) {
-            return ! $category->canReply(user());
+        return self::ordered()->get()->reject(function ($board) {
+            return ! $board->canReply(user());
         });
     }
 

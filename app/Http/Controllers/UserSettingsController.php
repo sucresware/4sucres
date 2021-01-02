@@ -240,7 +240,7 @@ class UserSettingsController extends Controller
         $user->setMultipleSettings([
             'notifications.subscribe_on_create' => (bool) request()->input('subscribe_on_create', false),
             'notifications.subscribe_on_reply' => (bool) request()->input('subscribe_on_reply', false),
-            'notifications.on_subscribed_discussions' => (bool) request()->input('notification_on_subscribed_discussions', false),
+            'notifications.on_subscribed_threads' => (bool) request()->input('notification_on_subscribed_threads', false),
             'notifications.on_new_private_message' => (bool) request()->input('notification_on_new_private_message', false),
             'notifications.when_mentionned_or_quoted' => (bool) request()->input('notification_when_mentionned_or_quoted', false),
             'webpush.enabled' => (bool) request()->input('optin_webpush', false),

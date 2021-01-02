@@ -21,7 +21,7 @@ class MentionnedInPost extends DefaultNotification
     {
         return array_merge($this->attributes(), [
             'post_id' => $this->post->id,
-            'discussion_id' => $this->post->discussion->id,
+            'thread_id' => $this->post->thread->id,
         ]);
     }
 
@@ -39,8 +39,8 @@ class MentionnedInPost extends DefaultNotification
         $attributes = [
             'title' => 'Hey! T\'as été mentionné !',
             'target' => $this->post->link,
-            'html' => '<b>' . e($this->post->user->display_name) . '</b> t\'as mentionné dans la discussion <b>' . e($this->post->discussion->title) . '</b>',
-            'text' => $this->post->user->display_name . ' t\'as mentionné dans la discussion : ' . $this->post->discussion->title,
+            'html' => '<b>' . e($this->post->user->display_name) . '</b> t\'as mentionné dans le thread <b>' . e($this->post->thread->title) . '</b>',
+            'text' => $this->post->user->display_name . ' t\'as mentionné dans le thread : ' . $this->post->thread->title,
         ];
 
         return $attributes;

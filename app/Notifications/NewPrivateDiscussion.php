@@ -2,25 +2,25 @@
 
 namespace App\Notifications;
 
-use App\Models\Discussion;
+use App\Models\thread;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 
-class NewPrivateDiscussion extends DefaultNotification
+class NewPrivatethread extends DefaultNotification
 {
     use Queueable;
 
-    public $discussion;
+    public $thread;
 
-    public function __construct(Discussion $discussion)
+    public function __construct(thread $thread)
     {
-        $this->discussion = $discussion;
+        $this->thread = $thread;
     }
 
     public function toArray($notifiable)
     {
         return array_merge($this->attributes(), [
-            'discussion_id' => $this->discussion->id,
+            'thread_id' => $this->thread->id,
         ]);
     }
 
@@ -37,9 +37,9 @@ class NewPrivateDiscussion extends DefaultNotification
     {
         $attributes = [
             'title' => 'Oh putain j\'me suis dit oulaaah !',
-            'target' => $this->discussion->link,
-            'html' => '<b>' . e($this->discussion->user->display_name) . '</b> a commencé une discussion privée avec toi.',
-            'text' => $this->discussion->user->display_name . ' a commencé une discussion privée avec toi.',
+            'target' => $this->thread->link,
+            'html' => '<b>' . e($this->thread->user->display_name) . '</b> a commencé une thread privée avec toi.',
+            'text' => $this->thread->user->display_name . ' a commencé une thread privée avec toi.',
         ];
 
         return $attributes;

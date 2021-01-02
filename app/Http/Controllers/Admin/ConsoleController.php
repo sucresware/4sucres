@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Discussion;
+use App\Models\thread;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -42,7 +42,7 @@ class ConsoleController extends Controller
                 $output .= '- user:unban <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
                 $output .= '- user:unbanip <span class="text-muted">{$ip_address}</span><br>';
                 $output .= '- user:export <span class="text-muted">{<i>User:</i> $id|$name}</span><br>';
-                $output .= '- discussion:restore <span class="text-muted">{<i>Discussion:</i> $id}</span><br>';
+                $output .= '- thread:restore <span class="text-muted">{<i>thread:</i> $id}</span><br>';
                 $output .= '- killswitch';
 
                 break;
@@ -332,11 +332,11 @@ class ConsoleController extends Controller
                 $csv->insertAll($activity);
                 $zip->addFromString('activity_for_subject.csv', $csv->getContent());
 
-                $discussions = Discussion::where('user_id', $user->id)->get()->toArray();
+                $threads = thread::where('user_id', $user->id)->get()->toArray();
                 $csv = Writer::createFromString('');
-                $csv->insertOne(array_keys($discussions[0]));
-                $csv->insertAll($discussions);
-                $zip->addFromString('discussions.csv', $csv->getContent());
+                $csv->insertOne(array_keys($threads[0]));
+                $csv->insertAll($threads);
+                $zip->addFromString('threads.csv', $csv->getContent());
 
                 $posts = Post::where('user_id', $user->id)->get()->makeHidden(['presented_body', 'presented_date'])->toArray();
                 $csv = Writer::createFromString('');
@@ -430,7 +430,7 @@ class ConsoleController extends Controller
                 $output .= 'Address "' . $ip_address . '" ' . ($command == 'user:banip' ? 'blacklisted' : 'removed from the blacklist') . ' ✅';
 
                 break;
-            case 'discussion:restore':
+            case 'thread:restore':
                 if (count($args) != 2) {
                     if (count($args) > 2) {
                         $output .= 'Too many arguments 🙁';
@@ -440,34 +440,34 @@ class ConsoleController extends Controller
 
                     break;
                 }
-                [$command, $discussion_id] = $args;
+                [$command, $thread_id] = $args;
 
-                $discussion = Discussion::find($discussion_id);
+                $thread = thread::find($thread_id);
 
-                if (! $discussion) {
-                    $output .= 'Discussion "' . $discussion_id . '" not found 🙁';
+                if (! $thread) {
+                    $output .= 'thread "' . $thread_id . '" not found 🙁';
 
                     break;
                 }
 
-                $discussion->posts()
-                    ->where('deleted_at', $discussion->deleted_at)
+                $thread->posts()
+                    ->where('deleted_at', $thread->deleted_at)
                     ->update(['deleted_at' => null]);
 
-                $discussion->deleted_at = null;
-                $discussion->save();
+                $thread->deleted_at = null;
+                $thread->save();
 
                 activity()
-                    ->performedOn($discussion)
+                    ->performedOn($thread)
                     ->causedBy(user())
                     ->withProperties([
                         'level' => 'error',
                         'method' => __METHOD__,
                         'elevated' => true,
                     ])
-                    ->log('DiscussionRestored');
+                    ->log('threadRestored');
 
-                $output .= 'Discussion "' . $discussion_id . '" restored ✅';
+                $output .= 'thread "' . $thread_id . '" restored ✅';
 
                 break;
             case 'user:forcedelete':
@@ -493,55 +493,55 @@ class ConsoleController extends Controller
                     break;
                 }
 
-                $impacted_discussions = collect([]);
+                $impacted_threads = collect([]);
 
-                $discussions = $user->discussions()->get();
-                $output .= $discussions->count() . ' discussions found.<br>';
+                $threads = $user->threads()->get();
+                $output .= $threads->count() . ' threads found.<br>';
 
-                foreach ($discussions as $discussion) {
-                    $output .= "\t Deleting discussion #" . $discussion->id . '.<br>';
+                foreach ($threads as $thread) {
+                    $output .= "\t Deleting thread #" . $thread->id . '.<br>';
 
-                    $discussion->disableLogging();
+                    $thread->disableLogging();
 
-                    $discussion
+                    $thread
                         ->posts()
                         ->each(function ($post) {
                             $post->disableLogging();
                             $post->delete();
                         });
 
-                    $discussion->delete();
+                    $thread->delete();
                 }
 
                 $posts = $user->posts();
                 $output .= $posts->count() . ' posts found.<br>';
 
-                $posts->each(function ($post) use ($impacted_discussions) {
-                    $impacted_discussions[] = $post->discussion_id;
+                $posts->each(function ($post) use ($impacted_threads) {
+                    $impacted_threads[] = $post->thread_id;
 
                     $post->disableLogging();
                     $post->delete();
                 });
 
-                collect($impacted_discussions)
+                collect($impacted_threads)
                     ->unique()
-                    ->each(function ($discussion_id) use ($output) {
-                        $discussion = Discussion::find($discussion_id);
-                        $discussion->disableLogging();
+                    ->each(function ($thread_id) use ($output) {
+                        $thread = thread::find($thread_id);
+                        $thread->disableLogging();
 
                         try {
-                            $discussion->last_reply_at = $discussion
+                            $thread->last_reply_at = $thread
                                 ->latestPost()
                                 ->notTrashed()
                                 ->first()
                                 ->created_at;
-                            $discussion->save();
+                            $thread->save();
                         } catch (\Throwable $th) {
-                            $output .= "\t Error: Cannot find latest post for discussion #" . $discussion->id . '.<br>';
+                            $output .= "\t Error: Cannot find latest post for thread #" . $thread->id . '.<br>';
                         }
                     });
 
-                $output .= 'Discussions and posts deleted ✅<br>';
+                $output .= 'threads and posts deleted ✅<br>';
 
                 activity()
                     ->performedOn($user)

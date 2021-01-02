@@ -11,8 +11,8 @@
 
 @import '~nord/src/sass/nord.scss';
 
-$primary-background: #335C5F;
-$secondary-background: darken($primary-background, 2.5%);;
+$primary-background: #335c5f;
+$secondary-background: darken($primary-background, 2.5%);
 $tertiary-background: lighten($primary-background, 5%);
 $quaternary-background: lighten($tertiary-background, 5%);
 
@@ -31,23 +31,23 @@ $btn-color: $primary-color;
 // ---- [ Bootstrap colors ] -----------------------------------------------
 
 $blue: #81a1c1;
-$red: #BF616A;
-$indigo:#6574cd;
-$purple: #B48EAD;
-$pink: #f66D9b;
+$red: #bf616a;
+$indigo: #6574cd;
+$purple: #b48ead;
+$pink: #f66d9b;
 $orange: rgb(129, 82, 67);
-$yellow: #EBCB8B;
-$green: #A3BE8C;
+$yellow: #ebcb8b;
+$green: #a3be8c;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $gray: #fbfbfc;
 
 $text-muted: $tertiary-color;
 
-$primary: #F59684;
+$primary: #f59684;
 $secondary: $secondary-background;
 
-$body-bg: #243F41;
+$body-bg: #243f41;
 $body-color: $primary-color;
 $border-color: rgba(0, 0, 0, 0.125);
 
@@ -105,21 +105,21 @@ $custom-file-box-shadow: $input-box-shadow;
 $custom-file-button-color: $input-color;
 $custom-file-button-bg: $input-bg;
 
-// ---- [ Discussions ] ----------------------------------------------------
+// ---- [ threads ] ----------------------------------------------------
 
-$discussion-primary-background: #335C5F;
-$discussion-secondary-background: #284749;
-$discussion-tertiary-background: darken($discussion-primary-background, 2.5%);
-$discussion-quaternary-background: darken($tertiary-background, 2.5%);
+$thread-primary-background: #335c5f;
+$thread-secondary-background: #284749;
+$thread-tertiary-background: darken($thread-primary-background, 2.5%);
+$thread-quaternary-background: darken($tertiary-background, 2.5%);
 
-$discussion-primary-color: $primary-color;
-$discussion-secondary-color: $secondary-color;
-$discussion-tertiary-color: $tertiary-color;
-$discussion-quaternary-color: lighten($tertiary-color, 5%);
+$thread-primary-color: $primary-color;
+$thread-secondary-color: $secondary-color;
+$thread-tertiary-color: $tertiary-color;
+$thread-quaternary-color: lighten($tertiary-color, 5%);
 
-$discussion-border-color: $border-color;
+$thread-border-color: $border-color;
 
-$discussion-link-color: $tertiary-color;
+$thread-link-color: $tertiary-color;
 
 // ---- [ Tooltips ] -------------------------------------------------------
 
@@ -133,8 +133,8 @@ $card-bg: $primary-background;
 
 // ---- [ Header ] ---------------------------------------------------------
 
-$header-primary-background: #B38F53;
-$header-secondary-background: #F2C882;
+$header-primary-background: #b38f53;
+$header-secondary-background: #f2c882;
 $header-tertiary-background: $nord2;
 $header-quaternary-background: $nord3;
 

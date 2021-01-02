@@ -1,137 +1,131 @@
-section.discussion {
+section.thread {
+  .post-container {
+    // Even and odd posts
+    &:nth-child(odd) {
+      background-color: $thread-secondary-background;
+      color: $thread-secondary-color;
 
-    .post-container {
-
-        // Even and odd posts
-        &:nth-child(odd) {
-            background-color: $discussion-secondary-background;
-            color: $discussion-secondary-color;
-
-            .post {
-
-                .quote,
-                blockquote {
-                    background-color: $discussion-secondary-background;
-                }
-
-                &:target {
-                    background-color: $discussion-secondary-background;
-                    border: 1px solid $tertiary-background;
-                }
-
-                &.highlight {
-                    background-color: $discussion-secondary-background;
-                    border: 1px solid $border-color;
-                }
-
-                :not(blockquote)>hr {
-                    border-color: $discussion-tertiary-background;
-                }
-
-                border-bottom: 1px solid $tertiary-background;
-            }
+      .post {
+        .quote,
+        blockquote {
+          background-color: $thread-secondary-background;
         }
 
-        &:nth-child(even) {
-            background-color: $discussion-primary-background;
-            color: $discussion-secondary-color;
-
-            .post {
-
-                .quote,
-                blockquote {
-                    background-color: $discussion-primary-background;
-                }
-
-                &:target {
-                    background-color: $discussion-secondary-background;
-                    border: 1px solid $tertiary-background;
-                }
-
-                &.highlight {
-                    background-color: $discussion-secondary-background;
-                    border: 1px solid $border-color;
-                }
-
-                :not(blockquote)>hr {
-                    border-color: $discussion-secondary-background;
-                }
-
-                border-bottom: 1px solid darken($secondary-background, 2.5%);
-            }
+        &:target {
+          background-color: $thread-secondary-background;
+          border: 1px solid $tertiary-background;
         }
 
-        // Post
-        .post {
-            transition: all ease 200ms;
-
-            // Selected post
-            &:target {
-                transform: scale(1.02);
-                border-radius: 5px;
-
-                box-shadow: 0 0.125rem 0.25rem rgba(black, 0.075) !important;
-                border: 1px solid $border-color;
-            }
-
-            .post-content {
-                img {
-                    max-width: 300px;
-                    max-height: 200px;
-                    vertical-align: baseline;
-                }
-
-                a {
-                    color: $discussion-link-color;
-                }
-            }
-
-            .post-image {
-                height: 42px;
-                width: 42px;
-            }
-
-            .action-buttons {
-                a {
-                    color: $discussion-tertiary-color;
-
-                    @include on-event() {
-                        color: darken($tertiary-color, 20%);
-                    }
-                }
-            }
+        &.highlight {
+          background-color: $thread-secondary-background;
+          border: 1px solid $border-color;
         }
 
+        :not(blockquote) > hr {
+          border-color: $thread-tertiary-background;
+        }
+
+        border-bottom: 1px solid $tertiary-background;
+      }
     }
 
-}
+    &:nth-child(even) {
+      background-color: $thread-primary-background;
+      color: $thread-secondary-color;
 
-section.discussion-response {
-    background-color: $discussion-secondary-background;
-    border-color: $discussion-border-color;
-}
-
-section.discussion-previews {
-    .discussion-preview {
-        cursor: pointer;
-        transition: all 250ms ease;
-
-        &:nth-child(odd) {
-            background-color: $discussion-primary-background;
-            color: $discussion-secondary-color;
-
-            @include on-event() {
-                background-color: $discussion-tertiary-background;
-            }
+      .post {
+        .quote,
+        blockquote {
+          background-color: $thread-primary-background;
         }
 
-        &:nth-child(even) {
-            background-color: $discussion-secondary-background;
-            color: $discussion-secondary-color;
-
-            @include on-event() {
-                background-color: $discussion-tertiary-background;
-            }
+        &:target {
+          background-color: $thread-secondary-background;
+          border: 1px solid $tertiary-background;
         }
+
+        &.highlight {
+          background-color: $thread-secondary-background;
+          border: 1px solid $border-color;
+        }
+
+        :not(blockquote) > hr {
+          border-color: $thread-secondary-background;
+        }
+
+        border-bottom: 1px solid darken($secondary-background, 2.5%);
+      }
     }
+
+    // Post
+    .post {
+      transition: all ease 200ms;
+
+      // Selected post
+      &:target {
+        transform: scale(1.02);
+        border-radius: 5px;
+
+        box-shadow: 0 0.125rem 0.25rem rgba(black, 0.075) !important;
+        border: 1px solid $border-color;
+      }
+
+      .post-content {
+        img {
+          max-width: 300px;
+          max-height: 200px;
+          vertical-align: baseline;
+        }
+
+        a {
+          color: $thread-link-color;
+        }
+      }
+
+      .post-image {
+        height: 42px;
+        width: 42px;
+      }
+
+      .action-buttons {
+        a {
+          color: $thread-tertiary-color;
+
+          @include on-event() {
+            color: darken($tertiary-color, 20%);
+          }
+        }
+      }
+    }
+  }
+}
+
+section.thread-response {
+  background-color: $thread-secondary-background;
+  border-color: $thread-border-color;
+}
+
+section.thread-previews {
+  .thread-preview {
+    cursor: pointer;
+    transition: all 250ms ease;
+
+    &:nth-child(odd) {
+      background-color: $thread-primary-background;
+      color: $thread-secondary-color;
+
+      @include on-event() {
+        background-color: $thread-tertiary-background;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: $thread-secondary-background;
+      color: $thread-secondary-color;
+
+      @include on-event() {
+        background-color: $thread-tertiary-background;
+      }
+    }
+  }
 }
