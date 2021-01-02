@@ -15,24 +15,14 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,400,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:200,400,600" rel="stylesheet">
 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144"
-        href="{{ url('/img/icons/apple-touch-icon-144x144.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152"
-        href="{{ url('/img/icons/apple-touch-icon-152x152.png') }}">
-    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-32x32.png') }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ url('/img/icons/favicon-16x16.png') }}" sizes="16x16">
-    <link rel="shortcut icon" href="{{ url('/img/icons/favicon.ico') }}">
-    <meta name="application-name" content="4sucres">
-    <meta name="theme-color" content="#3b4252">
-    <meta name="msapplication-TileColor" content="#3b4252">
-    <meta name="msapplication-TileImage" content="{{ url('/img/icons/mstile-144x144.png') }}">
-
+    <link rel="icon" type="image/png" href="{{ url('/favicon.png') }}">
     <link href="{{ mix('/css/next.css') }}" rel="stylesheet" />
     <script src="{{ mix('/js/next.js') }}" defer></script>
+
     @routes
 
     <script>
-        let defaultTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'arc-dark' : 'arc-light';
+        let defaultTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'sucresware-dark' : 'sucresware-light';
         let theme = localStorage.theme || defaultTheme;
 
         document.querySelector('html').setAttribute('data-theme', theme)

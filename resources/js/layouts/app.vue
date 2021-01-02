@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col-reverse w-full vh md:flex-row">
-    <nav class="flex-none border-t md:w-16 md:border-t-0 md:border-r bg-sidebar-default text-on-sidebar-default border-on-sidebar-border">
+    <nav class="flex-none h-16 border-t md:h-auto md:w-16 md:border-t-0 md:border-r bg-sidebar-default text-on-sidebar-default border-on-background-border">
       <div class="flex flex-row items-center w-full h-full md:flex-col">
-        <inertia-link :href="$route('next.home')" class="block px-2 py-4 md:px-0">
+        <inertia-link :href="$route('next.home')" class="flex items-center justify-center w-16 h-full md:h-16 md:w-full bg-accent-default text-on-accent-default md:px-0">
           <logo class="w-10 mx-auto focus:outline-none" />
         </inertia-link>
 
@@ -11,11 +11,9 @@
         <t-button variant="sidebar" @click="switchTheme"><i class="fas fa-palette"></i></t-button>
 
         <t-dropdown variant="sidebar">
-          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
-            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
-              <i class="fas fa-question-circle"></i>
-            </t-button>
-          </div>
+          <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar" slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <i class="fas fa-question-circle"></i>
+          </t-button>
 
           <div slot-scope="{ blurHandler }">
             <div class="p-4 border-b">
@@ -57,11 +55,9 @@
         </t-dropdown>
 
         <t-dropdown v-if="$page.props.user" variant="sidebar">
-          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
-            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
-              <i class="fas fa-bell"></i>
-            </t-button>
-          </div>
+          <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar" slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <i class="fas fa-bell"></i>
+          </t-button>
 
           <div slot-scope="{ blurHandler }">
             <div class="p-4 border-b">Notifications</div>
@@ -80,15 +76,13 @@
         </t-dropdown>
 
         <t-dropdown v-if="$page.props.user" variant="sidebar">
-          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
-            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
-              <img
-                :src="$page.props.user.avatar_link"
-                :alt="$page.props.user.display_name"
-                class="w-10 h-10 rounded-md"
-              />
-            </t-button>
-          </div>
+          <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar" slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <img
+              :src="$page.props.user.avatar_link"
+              :alt="$page.props.user.display_name"
+              class="w-10 h-10 rounded-md"
+            />
+          </t-button>
 
           <div slot-scope="{ blurHandler }">
             <div class="flex flex-row p-4 border-b">
@@ -131,11 +125,9 @@
         </t-dropdown>
 
         <t-dropdown v-if="!$page.props.user" variant="sidebar">
-          <div slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
-            <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar">
-              <i class="fas fa-power-off"></i>
-            </t-button>
-          </div>
+          <t-button @mousedown="mousedownHandler" @focus="focusHandler" @blur="blurHandler" @keydown="keydownHandler" variant="sidebar" slot="trigger" slot-scope="{ mousedownHandler, focusHandler, blurHandler, keydownHandler, }">
+            <i class="fas fa-power-off"></i>
+          </t-button>
 
           <div slot-scope="{ blurHandler }">
             <div class="p-2">
@@ -170,6 +162,7 @@
       return {
         selectedThemeIndex: 0,
         themes: [
+          'sucresware-light',
           'arc-light',
           'dracula-light',
           'gruvbox-light',
@@ -179,6 +172,7 @@
           'solarized-light',
           'twitch-light',
           'yaru-light',
+          // 'sucresware-dark',
           'arc-dark',
           'dracula-dark',
           'gruvbox-dark',
