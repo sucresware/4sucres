@@ -1,24 +1,20 @@
 <template>
-  <section class="discussion card mb-3">
-    <div
-      v-for="(post, $index) in posts"
-      class="post-container"
-      :key="$index"
-    >
+  <section class="mb-3 discussion card">
+    <div v-for="(post, $index) in posts" class="post-container" :key="$index">
       <post :post="post"></post>
     </div>
   </section>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  props: ["discussionId", "initialPaginator"],
+  props: ['discussionId', 'initialPaginator'],
   data() {
     return {
       page: undefined,
-      posts: []
+      posts: [],
     };
   },
   methods: {},
@@ -27,6 +23,6 @@ export default {
       this.posts = this.initialPaginator.data;
       this.page = this.initialPaginator.currentPage;
     }
-  }
+  },
 };
 </script>

@@ -29,7 +29,8 @@
     </script>
 </head>
 
-<body class="font-sans text-base antialiased font-normal leading-normal bg-background-default text-on-background-default">
+<body
+    class="font-sans text-base antialiased font-normal leading-normal bg-background-default text-on-background-default">
     @inertia
 </body>
 

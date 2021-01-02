@@ -1,17 +1,10 @@
 <template>
-  <form
-    class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow"
-    @submit.prevent="submit"
-  >
+  <form class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow" @submit.prevent="submit">
     <h1 class="text-2xl font-bold">Create a New Account</h1>
 
     <h3 class="mb-6 text-sm text-gray-600">
       Already have an account?
-      <inertia-link
-        :href="$route('login')"
-        class="text-sm font-semibold text-gray-700"
-        >Sign In</inertia-link
-      >
+      <inertia-link :href="$route('login')" class="text-sm font-semibold text-gray-700">Sign In</inertia-link>
     </h3>
 
     <form-input
@@ -72,7 +65,7 @@ export default {
    *
    * @type {Object}
    */
-  layout: require("../../layouts/app").default,
+  layout: require('../../layouts/app').default,
 
   /**
    * Component reactive data.
@@ -82,8 +75,8 @@ export default {
   data() {
     return {
       form: {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
         remember: false,
       },
     };
@@ -103,10 +96,10 @@ export default {
     submit() {
       this.$page.errors = {};
 
-      this.$inertia.post(this.$route("register"), { ...this.form });
+      this.$inertia.post(this.$route('register'), { ...this.form });
 
-      this.form.password = "";
-      this.form.password_confirmation = "";
+      this.form.password = '';
+      this.form.password_confirmation = '';
     },
   },
 };

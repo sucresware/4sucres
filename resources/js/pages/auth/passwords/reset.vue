@@ -1,8 +1,5 @@
 <template>
-  <form
-    class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow"
-    @submit.prevent="submit"
-  >
+  <form class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow" @submit.prevent="submit">
     <h1 class="mb-6 text-2xl font-bold">Reset Password</h1>
 
     <form-input
@@ -47,7 +44,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   /**
@@ -55,7 +52,7 @@ export default {
    *
    * @type {Object}
    */
-  layout: require("../../../layouts/app").default,
+  layout: require('../../../layouts/app').default,
 
   /**
    * Component properties.
@@ -77,8 +74,8 @@ export default {
       form: {
         token: this.token,
         email: this.email,
-        password: "",
-        password_confirmation: "",
+        password: '',
+        password_confirmation: '',
       },
     };
   },
@@ -97,10 +94,10 @@ export default {
     submit() {
       this.$page.errors = {};
 
-      this.$inertia.post(this.$route("password.update"), { ...this.form });
+      this.$inertia.post(this.$route('password.update'), { ...this.form });
 
-      this.form.password = "";
-      this.form.password_confirmation = "";
+      this.form.password = '';
+      this.form.password_confirmation = '';
     },
   },
 };

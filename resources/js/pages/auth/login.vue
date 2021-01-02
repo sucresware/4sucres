@@ -1,33 +1,20 @@
 <template>
   <form class="w-full max-w-sm" @submit.prevent="submit">
+    <div class="p-4 mb-2 rounded shadow-md text-on-background-default bg-background-default">
+      test
+    </div>
 
+    <div class="p-4 mb-2 rounded shadow-md text-on-surface-default bg-surface-default">
+      test
+    </div>
 
-
-
-<div class="p-4 mb-2 rounded shadow-md text-on-background-default bg-background-default">
-  test
-</div>
-
-<div class="p-4 mb-2 rounded shadow-md text-on-surface-default bg-surface-default">
-  test
-</div>
-
-<div class="p-4 mb-2 rounded shadow-md text-on-foreground-default bg-foreground-default">
-  test
-</div>
-
-
-
-
-
+    <div class="p-4 mb-2 rounded shadow-md text-on-foreground-default bg-foreground-default">
+      test
+    </div>
 
     <template v-if="!totp_required">
       <inertia-link :href="$route('next.home')">
-        <img
-          src="/img/4sucres_alt_glitched.png"
-          alt="4sucres.org"
-          class="h-16 mx-auto mb-8"
-        />
+        <img src="/img/4sucres_alt_glitched.png" alt="4sucres.org" class="h-16 mx-auto mb-8" />
       </inertia-link>
 
       <div class="mb-8 text-center">
@@ -63,29 +50,27 @@
       />
 
       <div class="mb-8 text-right">
-        <inertia-link class="text-sm hover:" :href="$route('password.request')"
-          >Oublié ?</inertia-link
-        >
+        <inertia-link class="text-sm hover:" :href="$route('password.request')">Oublié ?</inertia-link>
       </div>
     </template>
 
     <template v-if="totp_required">
-      <img class="w-64 mx-auto mb-8" src="/img/settings/google_2fa.png">
+      <img class="w-64 mx-auto mb-8" src="/img/settings/google_2fa.png" />
 
       <div class="mb-8 text-center">
         <h1 class="text-xl font-bold">Connexion à 4sucres.org</h1>
         <h3 class="text-sm">Authentification à deux facteurs</h3>
       </div>
 
-        <form-input
-            class="mb-8"
-            label="OTP"
-            type="text"
-            v-model="form.totp"
-            :errors="errors.totp"
-            :disabled="loading"
-            required
-          />
+      <form-input
+        class="mb-8"
+        label="OTP"
+        type="text"
+        v-model="form.totp"
+        :errors="errors.totp"
+        :disabled="loading"
+        required
+      />
     </template>
 
     <t-button class="w-full" variant="large" type="submit" :disabled="loading">
@@ -97,14 +82,14 @@
 
 <script>
 export default {
-  layout: require("../../layouts/gate").default,
+  layout: require('../../layouts/gate').default,
 
   data() {
     return {
       errors: {},
       form: {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
         remember: false,
         totp: '',
       },
@@ -121,10 +106,10 @@ export default {
 
       axios
         .post(route('next.login'), { ...this.form })
-        .then(response => {
+        .then((response) => {
           this.$inertia.visit(response.data.intended_url);
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data.errors;
 
           if (this.errors.totp) {
@@ -132,12 +117,11 @@ export default {
               this.errors = {};
             }
             this.totp_required = true;
-
           } else {
-            this.form.password = "";
+            this.form.password = '';
           }
         })
-        .finally(response => {
+        .finally((response) => {
           this.loading = false;
         });
     },

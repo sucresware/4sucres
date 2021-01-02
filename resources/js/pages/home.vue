@@ -2,7 +2,7 @@
 
 <script>
 export default {
-  layout: require("../layouts/app").default,
+  layout: require('../layouts/app').default,
 
   props: {
     user: Object,

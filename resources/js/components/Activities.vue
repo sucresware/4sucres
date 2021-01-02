@@ -1,9 +1,7 @@
 <template>
   <div class>
     <div class="mb-3">
-      <a href="#" class="btn btn-sm btn-primary" v-on:click="fullScreen()">
-        <i class="fas fa-expand"></i> Élargir
-      </a>
+      <a href="#" class="btn btn-sm btn-primary" v-on:click="fullScreen()"> <i class="fas fa-expand"></i> Élargir </a>
       <div v-if="page == 1" class="float-right">
         <span class="btn btn-primary btn-sm">
           <template v-if="pending"><i class="fas fa-sync fa-spin"></i> Fetching</template>
@@ -11,8 +9,8 @@
         </span>
       </div>
     </div>
-    <div class="card shadow-sm">
-      <div v-for="(activity) in activities" :key="activity.id">
+    <div class="shadow-sm card">
+      <div v-for="activity in activities" :key="activity.id">
         <activity :activity="activity"></activity>
       </div>
     </div>
@@ -20,13 +18,13 @@
 </template>
 
 <script>
-import Echo from "../scripts/echo";
-import AuthedAxios from "../scripts/axios";
+import Echo from '../scripts/echo';
+import AuthedAxios from '../scripts/axios';
 
-var $ = require("jquery");
+var $ = require('jquery');
 
 export default {
-  props: ["initialPaginator"],
+  props: ['initialPaginator'],
   data() {
     return {
       page: undefined,
@@ -36,14 +34,14 @@ export default {
   },
   methods: {
     fullScreen() {
-      $(".sticky-top").toggle();
-      $(".col-lg-3.col-xl-2.mb-3").toggle();
-      $("footer").toggle();
+      $('.sticky-top').toggle();
+      $('.col-lg-3.col-xl-2.mb-3').toggle();
+      $('footer').toggle();
       // $("main").toggleClass("py-4");
-    }
+    },
   },
   mounted: function() {
-    AuthedAxios.defaults.baseURL = "/admin/";
+    AuthedAxios.defaults.baseURL = '/admin/';
 
     let vm = this;
 
@@ -53,10 +51,10 @@ export default {
     }
 
     if (this.page == 1) {
-      Echo.echo.private(`Activities`).listen("ActivityLogged", e => {
+      Echo.echo.private(`Activities`).listen('ActivityLogged', (e) => {
         vm.pending = true;
         AuthedAxios.get('activity/' + e.activity_id)
-          .then(resp => {
+          .then((resp) => {
             vm.activities.unshift(resp.data.activity);
           })
           .finally(() => {
@@ -64,6 +62,6 @@ export default {
           });
       });
     }
-  }
+  },
 };
 </script>

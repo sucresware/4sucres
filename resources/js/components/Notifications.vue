@@ -8,38 +8,34 @@
   >
     <template slot="button-content">
       <span class="fa-stack notification" id="notifications_indicator">
-        <i
-          :class="{ 'fas fa-circle fa-stack-2x notification-background': true, 'text-primary': !hidden }"
-        ></i>
-        <i
-          :class="{ 'fas fa-bell fa-stack-1x fa-sm notification-icon': true, 'text-white': !hidden }"
-        ></i>
+        <i :class="{ 'fas fa-circle fa-stack-2x notification-background': true, 'text-primary': !hidden }"></i>
+        <i :class="{ 'fas fa-bell fa-stack-1x fa-sm notification-icon': true, 'text-white': !hidden }"></i>
         <span class="badge badge-danger badge-pill notification-counter" v-if="count">{{ count }}</span>
       </span>
     </template>
 
-    <div class="text-center text-muted py-5" v-if="loading">
+    <div class="py-5 text-center text-muted" v-if="loading">
       <i class="fas fa-sync fa-spin"></i>
     </div>
 
     <div v-else>
-      <div class="text-center text-muted py-3" v-if="notifications.length == 0">
-        <img src="https://4sucres.org/svg/sucre_sad.svg" width="50px" class="img-fluid">
-        <br>
-        <br>Aucune nouvelle notification !
+      <div class="py-3 text-center text-muted" v-if="notifications.length == 0">
+        <img src="https://4sucres.org/svg/sucre_sad.svg" width="50px" class="img-fluid" />
+        <br />
+        <br />Aucune nouvelle notification !
       </div>
       <div v-else>
         <div
           v-for="notification in notifications"
           :key="notification.id"
-          class="notification-item hover-accent px-2 py-1"
+          class="px-2 py-1 notification-item hover-accent"
           @click="goTo('/notifications/' + notification.id)"
         >
           <div class="notification-content" v-html="notification.data.html"></div>
           <small class="text-muted">{{ notification.presented_created_at }}</small>
         </div>
 
-        <div class="text-center my-2">
+        <div class="my-2 text-center">
           <a class="btn btn-primary btn-sm" href="/notifications">Voir tout</a>
         </div>
       </div>
@@ -48,23 +44,23 @@
 </template>
 
 <script>
-import $ from "jquery";
-import AuthedAxios from "../scripts/axios";
+import $ from 'jquery';
+import AuthedAxios from '../scripts/axios';
 
 export default {
-  props: ["count"],
+  props: ['count'],
   data() {
     return {
       loading: true,
       hidden: true,
-      notifications: []
+      notifications: [],
     };
   },
   mounted() {
-    this.$root.$on("bv::dropdown::show", bvEvent => {
+    this.$root.$on('bv::dropdown::show', (bvEvent) => {
       this.onShow();
     });
-    this.$root.$on("bv::dropdown::hide", bvEvent => {
+    this.$root.$on('bv::dropdown::hide', (bvEvent) => {
       this.onHide();
     });
   },
@@ -73,7 +69,7 @@ export default {
       this.loading = true;
       this.hidden = false;
 
-      let resp = await AuthedAxios.get("notifications");
+      let resp = await AuthedAxios.get('notifications');
       this.notifications = resp.data;
       this.loading = false;
     },
@@ -82,8 +78,8 @@ export default {
     },
     goTo: function(target) {
       window.location = target;
-    }
-  }
+    },
+  },
 };
 </script>
 

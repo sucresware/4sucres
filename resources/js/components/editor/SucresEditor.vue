@@ -39,14 +39,14 @@
 </template>
 
 <script>
-import EditableTextarea from "./EditableTextarea.js";
+import EditableTextarea from './EditableTextarea.js';
 
 export default {
   components: { EditableTextarea },
-  props: ["value"],
+  props: ['value'],
   data() {
     return {
-      body: ""
+      body: '',
     };
   },
   methods: {
@@ -54,15 +54,15 @@ export default {
       return this.$refs.editor.bbWrapWith(pattern);
     },
     insertLink() {
-      let url = prompt("Lien URL");
+      let url = prompt('Lien URL');
       if (url) return this.$refs.editor.insert(url);
     },
     insertText(text) {
       return this.$refs.editor.insert(text);
-    }
+    },
   },
   mounted: function() {
     this.body = this.value;
-  }
+  },
 };
 </script>

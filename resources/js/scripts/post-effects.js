@@ -1,104 +1,111 @@
 import $ from 'jquery';
 
 const DefaultOptions = {
-    scrollOffset: 100,
-    scrollDuration: 300,
-    highlight: {
-        flashCount: 4,
-        class: 'highlight',
-        flashDuration: 175
-    }
-}
+  scrollOffset: 100,
+  scrollDuration: 300,
+  highlight: {
+    flashCount: 4,
+    class: 'highlight',
+    flashDuration: 175,
+  },
+};
 
 /**
  * Gère les effets visuels et la qualité de vie relatifs aux posts.
  */
 class PostEffects {
+  constructor(options) {
+    this.options = { ...DefaultOptions, ...options };
+    $(document).ready(() => this.initialize());
+  }
 
-    constructor(options) {
-        this.options = { ...DefaultOptions, ...options };
-        $(document).ready(() => this.initialize());
+  initialize() {
+    let mains = $('.mains');
+    if (mains) {
+      mains.hover(
+        () => {
+          $('.olinux').addClass('visible');
+        },
+        () => {
+          $('.olinux').removeClass('visible');
+        },
+      );
+
+      mains.click(
+        () => {
+          $('.olinux').addClass('visible');
+        },
+        () => {
+          $('.olinux').removeClass('visible');
+        },
+      );
     }
 
-    initialize() {
+    this.hash = location.hash;
 
-        let mains = $('.mains');
-        if (mains) {
-            mains.hover(() => {
-                $('.olinux').addClass('visible');
-            }, () => {
-                $('.olinux').removeClass('visible');
-            } );
+    if (this.hash) {
+      this.scrollTo();
 
-            mains.click(() => {
-                $('.olinux').addClass('visible');
-            }, () => {
-                $('.olinux').removeClass('visible');
-            } );
-        }
-
-
-        this.hash = location.hash;
-
-        if (this.hash) {
-            this.scrollTo();
-
-            if (this.hash.substr(1, 1) == 'p') {
-                this.highlight();
-            }
-        }
-
-        this.handleLinkClick();
+      if (this.hash.substr(1, 1) == 'p') {
+        this.highlight();
+      }
     }
 
-    handleLinkClick() {
-        let that = this;
+    this.handleLinkClick();
+  }
 
-        $('a[href^="#p"]').click(function(e) { // Fix #16
-            if (location.hostname === this.hostname
-                && this.pathname.replace(/^\//, "") === location.pathname.replace(/^\//, "")
-            ) {
-                let target = $(that.hash).length ? $(that.hash) : $("[name=" + that.hash.slice(1) + "]");
-                that.scrollTo(target);
-                that.highlight(target);
-            }
-        });
+  handleLinkClick() {
+    let that = this;
+
+    $('a[href^="#p"]').click(function(e) {
+      // Fix #16
+      if (
+        location.hostname === this.hostname &&
+        this.pathname.replace(/^\//, '') === location.pathname.replace(/^\//, '')
+      ) {
+        let target = $(that.hash).length ? $(that.hash) : $('[name=' + that.hash.slice(1) + ']');
+        that.scrollTo(target);
+        that.highlight(target);
+      }
+    });
+  }
+
+  scrollTo(hash) {
+    let target = undefined !== hash ? hash : $(this.hash);
+
+    if (!target.length) {
+      console.warn('There is no hash to scroll to.');
+      return;
     }
 
-    scrollTo(hash) {
-        let target = undefined !== hash ? hash : $(this.hash);
+    $('html, body')
+      .stop()
+      .animate(
+        {
+          scrollTop: target.offset().top - this.options.scrollOffset,
+        },
+        this.options.scrollDuration,
+      );
+  }
 
-        if (!target.length) {
-            console.warn('There is no hash to scroll to.');
-            return;
-        }
+  highlight(hash) {
+    let target = undefined !== hash ? hash : $(this.hash);
 
-        $('html, body')
-            .stop()
-            .animate({
-                scrollTop: target.offset().top - this.options.scrollOffset
-            }, this.options.scrollDuration);
+    if (!target.length) {
+      console.warn('There is no hash to highlight.');
+      return;
     }
 
-    highlight(hash) {
-        let target = undefined !== hash ? hash : $(this.hash);
+    let count = 0,
+      max = this.options.highlight.flashCount;
 
-        if (!target.length) {
-            console.warn('There is no hash to highlight.');
-            return;
-        }
-
-        let count = 0,
-            max = this.options.highlight.flashCount;
-
-        let highlight = setInterval(() => {
-            target.toggleClass(this.options.highlight.class);
-            if (count++ >= max) {
-                clearInterval(highlight);
-            }
-        }, this.options.highlight.flashDuration);
-    }
-
+    let highlight = setInterval(() => {
+      target.toggleClass(this.options.highlight.class);
+      if (count++ >= max) {
+        clearInterval(highlight);
+      }
+    }, this.options.highlight.flashDuration);
+  }
 }
 
 export default new PostEffects(DefaultOptions);

@@ -1,5 +1,5 @@
 <template>
-  <div class="discussion card mb-3">
+  <div class="mb-3 discussion card">
     <template v-if="defaultPage > 1">
       <infinite-loading @infinite="infiniteHandlerTop" spinner="waveDots" direction="top">
         <div slot="no-more"></div>
@@ -7,11 +7,7 @@
       </infinite-loading>
     </template>
 
-    <div
-      v-for="(post, $index) in posts"
-      :key="$index"
-      :class="{'white': $index % 2 === 0, 'blue': $index % 2 !== 0 }"
-    >
+    <div v-for="(post, $index) in posts" :key="$index" :class="{ white: $index % 2 === 0, blue: $index % 2 !== 0 }">
       <post :post="post"></post>
     </div>
 
@@ -23,22 +19,22 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  props: ["discussionId", "defaultPosts", "defaultPage"],
+  props: ['discussionId', 'defaultPosts', 'defaultPage'],
   data() {
     return {
       page: undefined,
       pageTop: undefined,
-      posts: []
+      posts: [],
     };
   },
   methods: {
     infiniteHandler($state) {
       axios
-        .get("/api/v0/discussions/" + this.discussionId, {
-          params: { page: this.page }
+        .get('/api/v0/discussions/' + this.discussionId, {
+          params: { page: this.page },
         })
         .then(({ data }) => {
           if (data.data.length) {
@@ -54,8 +50,8 @@ export default {
       if (this.pageTop <= 0) return $state.complete();
 
       axios
-        .get("/api/v0/discussions/" + this.discussionId, {
-          params: { page: this.pageTop }
+        .get('/api/v0/discussions/' + this.discussionId, {
+          params: { page: this.pageTop },
         })
         .then(({ data }) => {
           if (data.data.length) {
@@ -66,7 +62,7 @@ export default {
             $state.complete();
           }
         });
-    }
+    },
   },
   mounted: function() {
     if (this.defaultPage) {
@@ -76,6 +72,6 @@ export default {
       this.page = 1;
       this.pageTop = 1;
     }
-  }
+  },
 };
 </script>

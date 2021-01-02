@@ -1,13 +1,10 @@
 <template>
-  <form
-    class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow"
-    @submit.prevent="submit"
-  >
+  <form class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow" @submit.prevent="submit">
     <h1 class="mb-6 text-2xl font-bold">Verify Your Email Address</h1>
 
     <h3 class="mb-10 text-sm text-gray-600">
-      Before proceeding, please check your email for a verification link. If you
-      did not receive the email click the button below to request another.
+      Before proceeding, please check your email for a verification link. If you did not receive the email click the
+      button below to request another.
     </h3>
 
     <button
@@ -25,7 +22,7 @@ export default {
    *
    * @type {Object}
    */
-  layout: require("../../layouts/app").default,
+  layout: require('../../layouts/app').default,
 
   /**
    * Component reactive data.
@@ -35,8 +32,8 @@ export default {
   data() {
     return {
       form: {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
         remember: false,
       },
     };
@@ -56,9 +53,9 @@ export default {
     submit() {
       this.$page.errors = {};
 
-      this.$inertia.post(this.$route("verification.resend"), { ...this.form });
+      this.$inertia.post(this.$route('verification.resend'), { ...this.form });
 
-      this.form.password = "";
+      this.form.password = '';
     },
   },
 };

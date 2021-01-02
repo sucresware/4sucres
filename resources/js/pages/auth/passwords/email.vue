@@ -1,12 +1,6 @@
 <template>
-  <form
-    class="max-w-lg p-8 mx-auto overflow-hidden bg-white rounded-lg shadow"
-    @submit.prevent="submit"
-  >
-    <h3
-      v-if="success"
-      class="px-4 py-3 mb-6 text-sm text-green-800 bg-green-100 rounded"
-    >
+  <form class="max-w-lg p-8 mx-auto overflow-hidden bg-white rounded-lg shadow" @submit.prevent="submit">
+    <h3 v-if="success" class="px-4 py-3 mb-6 text-sm text-green-800 bg-green-100 rounded">
       We have e-mailed your password reset link!
     </h3>
 
@@ -14,11 +8,7 @@
 
     <h3 class="mb-6 text-sm text-gray-600">
       Remembered Your Password?
-      <inertia-link
-        :href="$route('login')"
-        class="text-sm font-semibold text-gray-700"
-        >Sign In</inertia-link
-      >
+      <inertia-link :href="$route('login')" class="text-sm font-semibold text-gray-700">Sign In</inertia-link>
     </h3>
 
     <form-input
@@ -41,7 +31,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   /**
@@ -49,7 +39,7 @@ export default {
    *
    * @type {Object}
    */
-  layout: require("../../../layouts/app").default,
+  layout: require('../../../layouts/app').default,
 
   /**
    * Component reactive data.
@@ -59,7 +49,7 @@ export default {
   data() {
     return {
       form: {
-        email: "",
+        email: '',
       },
       success: false,
     };
@@ -80,7 +70,7 @@ export default {
       this.success = false;
       this.$page.errors = {};
 
-      await this.$inertia.post(this.$route("password.email"), { ...this.form });
+      await this.$inertia.post(this.$route('password.email'), { ...this.form });
 
       if (!this.$page.errors.email) {
         this.form = {};

@@ -1,8 +1,5 @@
 <template>
-  <form
-    class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow"
-    @submit.prevent="submit"
-  >
+  <form class="max-w-lg p-8 mx-auto bg-white rounded-lg shadow" @submit.prevent="submit">
     <h1 class="text-2xl font-bold">Confirm Password</h1>
 
     <h3 class="mb-6 text-sm text-gray-600">
@@ -21,9 +18,7 @@
     />
 
     <div class="mb-8 text-right">
-      <inertia-link
-        class="text-sm text-gray-600 hover:text-gray-800"
-        :href="$route('password.request')"
+      <inertia-link class="text-sm text-gray-600 hover:text-gray-800" :href="$route('password.request')"
         >Forgot Password?</inertia-link
       >
     </div>
@@ -37,7 +32,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   /**
@@ -45,7 +40,7 @@ export default {
    *
    * @type {Object}
    */
-  layout: require("../../../layouts/app").default,
+  layout: require('../../../layouts/app').default,
 
   /**
    * Component properties.
@@ -65,7 +60,7 @@ export default {
   data() {
     return {
       form: {
-        password: "",
+        password: '',
       },
     };
   },
@@ -84,9 +79,9 @@ export default {
     submit() {
       this.$page.errors = {};
 
-      this.$inertia.post(this.$route("password.confirm"), { ...this.form });
+      this.$inertia.post(this.$route('password.confirm'), { ...this.form });
 
-      this.form.password = "";
+      this.form.password = '';
     },
   },
 };

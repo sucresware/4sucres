@@ -10,13 +10,8 @@
             <template slot="title">
               <i class="fas fa-search"></i>
             </template>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                v-model="searchField"
-                class="form-control"
-                v-on:keyup.enter="search()"
-              />
+            <div class="mb-3 input-group">
+              <input type="text" v-model="searchField" class="form-control" v-on:keyup.enter="search()" />
               <div class="input-group-append">
                 <button class="btn btn-primary" v-on:click="search()">
                   <i class="fas fa-search"></i>
@@ -105,21 +100,21 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   props: [],
   data() {
     return {
       api: {
-        load: "https://api.risibank.fr/api/v0/load",
-        search: "https://api.risibank.fr/api/v0/search?search=%query%"
+        load: 'https://api.risibank.fr/api/v0/load',
+        search: 'https://api.risibank.fr/api/v0/search?search=%query%',
       },
       loading: 0,
       searchLoading: 0,
       stickers: [],
       searchResults: [],
-      searchField: ""
+      searchField: '',
     };
   },
   methods: {
@@ -128,8 +123,8 @@ export default {
 
       this.loading = 1;
       axios
-        .get("https://cors-anywhere.herokuapp.com/" + vm.api.load)
-        .then(resp => {
+        .get('https://cors-anywhere.herokuapp.com/' + vm.api.load)
+        .then((resp) => {
           vm.stickers = resp.data.stickers;
           vm.loading = 0;
         })
@@ -143,8 +138,8 @@ export default {
 
       this.searchLoading = 1;
       axios
-        .post("https://cors-anywhere.herokuapp.com/" + _url)
-        .then(resp => {
+        .post('https://cors-anywhere.herokuapp.com/' + _url)
+        .then((resp) => {
           vm.searchResults = resp.data.stickers;
           vm.searchLoading = 0;
         })
@@ -154,16 +149,16 @@ export default {
     },
     pick(link) {
       this.$parent.insertText(link);
-      this.$bvModal.hide("risibank-picker");
-    }
+      this.$bvModal.hide('risibank-picker');
+    },
   },
   mounted() {
     let vm = this;
-    this.$root.$on("bv::modal::show", (bvEvent, modalId) => {
-      if (modalId == "risibank-picker") {
+    this.$root.$on('bv::modal::show', (bvEvent, modalId) => {
+      if (modalId == 'risibank-picker') {
         vm.refresh();
       }
     });
-  }
+  },
 };
 </script>

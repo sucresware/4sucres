@@ -1,10 +1,6 @@
 <template>
   <label class="block">
-    <span
-      v-if="label"
-      class="block mb-2 text-sm font-bold text-gray-400"
-      v-text="label"
-    ></span>
+    <span v-if="label" class="block mb-2 text-sm font-bold text-gray-400" v-text="label"></span>
 
     <t-input
       :variant="{
@@ -15,11 +11,7 @@
       v-on="{ ...$listeners }"
     />
 
-    <p
-      v-if="errors.length"
-      class="pl-1 text-sm text-red-500"
-      v-text="errors[0]"
-    ></p>
+    <p v-if="errors.length" class="pl-1 text-sm text-red-500" v-text="errors[0]"></p>
   </label>
 </template>
 
@@ -43,7 +35,7 @@ export default {
         return this.value;
       },
       set(value) {
-        this.$emit("input", value);
+        this.$emit('input', value);
       },
     },
   },

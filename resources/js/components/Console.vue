@@ -1,6 +1,6 @@
 <template>
   <div class="console">
-    <div class="content shadow" id="content">
+    <div class="shadow content" id="content">
       <div v-for="line in lines" v-bind:key="line.index" v-html="line" class="output"></div>
     </div>
     <div class="prompt">
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import $ from "jquery";
-import AuthedAxios from "../scripts/axios";
+import $ from 'jquery';
+import AuthedAxios from '../scripts/axios';
 
 export default {
   data: () => {
     return {
-      command: "",
+      command: '',
       loading: false,
       lines: [],
       history: [],
@@ -48,25 +48,25 @@ export default {
       this.loading = true;
 
       AuthedAxios.get(command)
-        .then(resp => {
-          vm.lines.push(resp.data.output + "<br><br>");
+        .then((resp) => {
+          vm.lines.push(resp.data.output + '<br><br>');
         })
-        .catch(error => {
+        .catch((error) => {
           vm.lines.push(error);
         })
         .finally(() => {
           vm.scroll();
           vm.loading = false;
         });
-      this.command = "";
+      this.command = '';
     },
     scroll() {
-      var content = this.$el.querySelector("#content");
+      var content = this.$el.querySelector('#content');
       content.scrollTop = content.scrollHeight;
     },
     clear() {
       this.lines = [];
-      var content = this.$el.querySelector("#content");
+      var content = this.$el.querySelector('#content');
       content.focus();
     },
     up() {
@@ -89,19 +89,18 @@ export default {
       } else {
         this.command = this.history[this.historyCursor];
       }
-      
     },
   },
   mounted() {
-    AuthedAxios.defaults.baseURL = "/admin/console/run/";
-    this.run("help");
+    AuthedAxios.defaults.baseURL = '/admin/console/run/';
+    this.run('help');
   },
   computed: {
     keymap() {
       return {
-        "ctrl+shift+l": this.clear
+        'ctrl+shift+l': this.clear,
       };
-    }
-  }
+    },
+  },
 };
 </script>

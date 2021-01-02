@@ -8,14 +8,13 @@ require('@fancyapps/fancybox/dist/jquery.fancybox.min.js');
  * Handle lightboxes on images.
  */
 class LightboxWrapper {
+  constructor() {
+    $(document).ready(() => this.initialize());
+  }
 
-    constructor() {
-        $(document).ready(() => this.initialize());
-    }
-
-    initialize() {
-        $('[data-toggle=lightbox]').fancybox({})
-    }
+  initialize() {
+    $('[data-toggle=lightbox]').fancybox({});
+  }
 }
 
 export default new LightboxWrapper();
