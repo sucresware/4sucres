@@ -109,7 +109,7 @@
               <div class="flex flex-col items-start justify-center">
                 <div>{{ $page.props.auth.display_name }}</div>
                 <div class="text-sm text-gray-400">
-                  {{ $page.props.next.users.shown_role }}
+                  {{ $page.props.auth.shown_role }}
                 </div>
               </div>
             </div>

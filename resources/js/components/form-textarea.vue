@@ -2,7 +2,7 @@
   <label class="block">
     <span v-if="label" class="block mb-2 text-sm font-semibold" v-text="label"></span>
 
-    <t-input
+    <t-textarea
       :variant="{
         error: errors.length,
       }"

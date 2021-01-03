@@ -1,6 +1,5 @@
 import './bootstrap';
 import md from './parser';
-
 import Vue from 'vue';
 
 import { App, plugin } from '@inertiajs/inertia-vue';

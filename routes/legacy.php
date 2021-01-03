@@ -1,20 +1,18 @@
 <?php
 
+use App\Http\Controllers\Api\DiscussionController as ApiDiscussionController;
 use App\Http\Controllers\Api\EmojiController as ApiEmojiController;
-use App\Http\Controllers\Api\threadController as ApithreadController;
 use App\Http\Controllers\Api\UsersController as ApiUsersController;
 use App\Http\Controllers\Api\WebpushController as ApiWebpushController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\PrivatethreadController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Settings\ConnectionsController;
-use App\Http\Controllers\threadController;
-use App\Http\Controllers\threadPostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +32,7 @@ Route::group(['prefix' => 'legacy'], function () {
     Route::view('/login', 'unavailable')->name('login');
     Route::view('/logout', 'unavailable')->name('logout');
 
-    Route::get('/', [threadController::class, 'index'])->name('home');
+    Route::get('/', [DiscussionController::class, 'index'])->name('home');
 
     Route::get('/register', [RegisterController::class, 'register'])->name('register');
     Route::post('/register', [RegisterController::class, 'submit']);
@@ -45,12 +43,12 @@ Route::group(['prefix' => 'legacy'], function () {
     Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('/password/reset/{token}', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-    Route::get('/d', [threadController::class, 'index'])->name('threads.index');
-    Route::get('/d/c/{board}-{slug}', [threadController::class, 'index'])->name('threads.boards.index');
+    Route::get('/d', [DiscussionController::class, 'index'])->name('threads.index');
+    Route::get('/d/c/{board}-{slug}', [DiscussionController::class, 'index'])->name('threads.boards.index');
 
     Route::get('/search', [SearchController::class, 'query'])->name('search.query');
 
-    Route::get('d/{id}-{slug}', [threadController::class, 'show'])->name('threads.show');
+    Route::get('d/{id}-{slug}', [DiscussionController::class, 'show'])->name('threads.show');
     // Route::get('/u/{nameOrId}', [UserController::class, 'show'])->name('user.show');
 
     Route::get('/terms', [HomeController::class, 'terms'])->name('terms');
@@ -84,27 +82,27 @@ Route::group(['prefix' => 'legacy'], function () {
         Route::get('/notifications/clear', [NotificationController::class, 'clear'])->name('notifications.clear');
         Route::get('/notifications/{notification}', [NotificationController::class, 'show'])->name('notifications.show');
 
-        Route::get('/d/p', [PrivatethreadController::class, 'index'])->name('private_threads.index');
-        Route::get('/d/p/{user}-{name}/create', [PrivatethreadController::class, 'create'])->name('private_threads.create');
-        Route::post('/d/p/{user}-{name}', [PrivatethreadController::class, 'store'])->name('private_threads.store');
+        Route::get('/d/p', [PrivateDiscussionController::class, 'index'])->name('private_threads.index');
+        Route::get('/d/p/{user}-{name}/create', [PrivateDiscussionController::class, 'create'])->name('private_threads.create');
+        Route::post('/d/p/{user}-{name}', [PrivateDiscussionController::class, 'store'])->name('private_threads.store');
 
         Route::get('/u/{user}/delete', [UserController::class, 'delete'])->name('user.delete');
         Route::delete('/u/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
-        Route::get('d/create', [threadController::class, 'create'])->name('threads.create');
-        Route::post('/d/preview', [threadController::class, 'preview'])->name('threads.preview');
-        Route::post('d', [threadController::class, 'store'])->name('threads.store');
-        Route::put('d/{thread}-{slug}/update', [threadController::class, 'update'])->name('threads.update');
+        Route::get('d/create', [DiscussionController::class, 'create'])->name('threads.create');
+        Route::post('/d/preview', [DiscussionController::class, 'preview'])->name('threads.preview');
+        Route::post('d', [DiscussionController::class, 'store'])->name('threads.store');
+        Route::put('d/{thread}-{slug}/update', [DiscussionController::class, 'update'])->name('threads.update');
         Route::get('d/{thread}-{slug}/p/{post}/edit', [threadPostController::class, 'edit'])->name('threads.posts.edit');
         Route::get('d/{thread}-{slug}/p/{post}/delete', [threadPostController::class, 'delete'])->name('threads.posts.delete');
         Route::put('d/{thread}-{slug}/p/{post}', [threadPostController::class, 'update'])->name('threads.posts.update');
         // Route::post('d/{thread}-{slug}/p/{post}/react', [threadPostController::class, 'react'])->name('threads.posts.react');
         Route::delete('d/{thread}-{slug}/p/{post}', [threadPostController::class, 'destroy'])->name('threads.posts.destroy');
 
-        Route::get('d/{thread}-{slug}/subscribe', [threadController::class, 'subscribe'])->name('threads.subscribe');
-        Route::get('d/{thread}-{slug}/unsubscribe', [threadController::class, 'unsubscribe'])->name('threads.unsubscribe');
+        Route::get('d/{thread}-{slug}/subscribe', [DiscussionController::class, 'subscribe'])->name('threads.subscribe');
+        Route::get('d/{thread}-{slug}/unsubscribe', [DiscussionController::class, 'unsubscribe'])->name('threads.unsubscribe');
 
-        Route::get('/d/s', [threadController::class, 'subscriptions'])->name('threads.subscriptions');
+        Route::get('/d/s', [DiscussionController::class, 'subscriptions'])->name('threads.subscriptions');
     });
 
     Route::group(['prefix' => '/api/v0'], function () {
@@ -115,7 +113,7 @@ Route::group(['prefix' => 'legacy'], function () {
 
         Route::get('/users', [ApiUsersController::class, 'index'])->name('api.users');
         Route::get('/users/all', [ApiUsersController::class, 'all'])->name('api.users.all');
-        Route::get('/threads/{thread}', [ApithreadController::class, 'show']);
+        Route::get('/threads/{thread}', [ApiDiscussionController::class, 'show']);
     });
 
     Route::view('/errors/403', 'errors/403');

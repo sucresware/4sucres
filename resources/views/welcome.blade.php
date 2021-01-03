@@ -12,13 +12,13 @@ Bienvenue sur le forum 4sucres.org
             <div class="mb-3">
                 @auth
                 @can('create threads')
-                @php $link = route('threads.create'); $label = '<i class="fas fa-plus mr-1"></i>Nouvelle thread';
+                @php $link = route('threads.create'); $label = '<i class="mr-1 fas fa-plus"></i>Nouvelle thread';
                 @endphp
                 @endcan
                 @else
-                @php $link = route('register'); $label = '<i class="fas fa-user-plus mr-1"></i> Rejoins-nous !'; @endphp
+                @php $link = route('register'); $label = '<i class="mr-1 fas fa-user-plus"></i> Rejoins-nous !'; @endphp
                 @endauth
-                <a href="{!! $link !!}" class="btn btn-primary shadow btn-block">{!! $label !!}</a>
+
             </div>
 
             <div class="d-none d-lg-block">
@@ -48,10 +48,10 @@ Bienvenue sur le forum 4sucres.org
             @if ($all)
             @php $countTo = carbon('2020-01-01 00:00:00'); @endphp
             @if (now()->lte($countTo))
-            <div class="countdown w-100 mb-3">
+            <div class="mb-3 countdown w-100">
                 <div class="squares"></div>
                 <div class="row justify-content-center">
-                    <div class="block d-none d-sm-inline-block py-3">
+                    <div class="block py-3 d-none d-sm-inline-block">
                         <img src="/img/banners/countdown/logo.png" alt="4sucres" style="height: 100%;">
                     </div>
                     <div class="block">
@@ -63,33 +63,28 @@ Bienvenue sur le forum 4sucres.org
             </div>
             @else
             <div class="owl-carousel d-none d-md-block">
-                {{-- <div><img src="{{ url('/img/banners/new_year.jpg') }}" class="img-fluid shadow"></div> --}}
-            <div><img src="{{ url('/img/banners/release.jpg') }}" class="img-fluid shadow"></div>
-            <div><img src="{{ url('/img/banners/welcome.jpg') }}" class="img-fluid shadow"></div>
-            {{-- <div><img src="{{ url('/img/banners/natives.jpg') }}" class="img-fluid shadow">
+                {{-- <div><img src="{{ url('/img/banners/new_year.jpg') }}" class="shadow img-fluid"></div> --}}
+            <div><img src="{{ url('/img/banners/release.jpg') }}" class="shadow img-fluid"></div>
+            <div><img src="{{ url('/img/banners/welcome.jpg') }}" class="shadow img-fluid"></div>
+            {{-- <div><img src="{{ url('/img/banners/natives.jpg') }}" class="shadow img-fluid">
         </div> --}}
-        {{-- <div><img src="{{ url('/img/banners/beta.jpg') }}" class="img-fluid shadow">
+        {{-- <div><img src="{{ url('/img/banners/beta.jpg') }}" class="shadow img-fluid">
     </div> --}}
-    {{-- <div><img src="{{ url('/img/banners/alpha.jpg') }}" class="img-fluid shadow">
+    {{-- <div><img src="{{ url('/img/banners/alpha.jpg') }}" class="shadow img-fluid">
 </div> --}}
 </div>
 @endif
 @endif
 
-<section class="card shadow-sm mb-3 thread-previews">
+<section class="mb-3 shadow-sm card thread-previews">
     @if (isset($sticky_threads) && count($sticky_threads))
     @foreach ($sticky_threads as $thread)
-    <div class="thread-preview">
-        @include('thread._preview')
-    </div>
     @endforeach
     @endif
 
     @if (isset($threads) && count($threads))
     @foreach ($threads as $thread)
-    <div class="thread-preview">
-        @include('thread._preview')
-    </div>
+
     @endforeach
     @endif
 

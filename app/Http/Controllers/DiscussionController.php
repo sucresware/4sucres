@@ -99,8 +99,8 @@ class DiscussionController extends Controller
         $threads = thread::query()
             ->whereIn('board_id', $boards->pluck('id'))
             ->with('board')
-            ->with('latestPost')
-            ->with('latestPost.user')
+            ->with('latest_reply')
+            ->with('latest_reply.user')
             ->with('user');
 
         if ($board) {

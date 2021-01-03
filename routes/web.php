@@ -5,6 +5,7 @@ use App\Http\Controllers\Next\BoardController;
 use App\Http\Controllers\Next\HomeController;
 use App\Http\Controllers\Next\threadController;
 use App\Http\Controllers\Next\UserController;
+use App\Http\Controllers\Next\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'next');
@@ -28,5 +29,17 @@ Route::group(['prefix' => 'next', 'as' => 'next.'], function () {
 
     Route::group(['middleware' => 'auth'], function () {
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+        Route::get('/settings', fn () => redirect()->route('next.settings.profile'))->name('settings');
+        Route::get('/settings/profile', [UserSettingsController::class, 'profile'])->name('settings.profile');
+        Route::post('/settings/profile', [UserSettingsController::class, 'submitProfile']);
+        Route::get('/settings/account', [UserSettingsController::class, 'account'])->name('settings.account');
+        Route::post('/settings/account', [UserSettingsController::class, 'submitAccount']);
+        Route::get('/settings/security', [UserSettingsController::class, 'security'])->name('settings.security');
+        Route::post('/settings/security', [UserSettingsController::class, 'submitSecurity']);
+        Route::get('/settings/notifications', [UserSettingsController::class, 'notifications'])->name('settings.notifications');
+        Route::post('/settings/notifications', [UserSettingsController::class, 'submitNotifications']);
+        Route::get('/settings/design', [UserSettingsController::class, 'design'])->name('settings.design');
+        Route::post('/settings/design', [UserSettingsController::class, 'submitDesign']);
     });
 });

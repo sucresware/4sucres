@@ -56,7 +56,7 @@
         <div>
           le {{ moment(ban.created_at).format('L') }}
           <span v-if="ban.created_at != ban.expired_at && ban.expired_at">
-            <span class="opacity-50">&bullet;</span>
+            <span class="text-on-background-muted">&bullet;</span>
             {{ moment(ban.expired_at).diff(moment(ban.created_at), 'days') }} jour(s)
           </span>
         </div>

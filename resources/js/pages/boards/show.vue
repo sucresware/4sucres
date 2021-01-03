@@ -68,7 +68,7 @@
                   <inertia-link @click.stop="" :href="$route('next.users.show', item.user.name)">{{
                     item.user.display_name
                   }}</inertia-link>
-                  <span class="opacity-50">&bullet;</span>
+                  <span class="text-on-background-muted">&bullet;</span>
                   {{ item.replies }} réponse(s)
                 </div>
               </div>
@@ -120,7 +120,7 @@
                 <inertia-link @click.stop="" :href="$route('next.users.show', reply.user.name)">{{
                   reply.user.display_name
                 }}</inertia-link>
-                <span class="opacity-50">&bullet;</span>
+                <span class="text-on-background-muted">&bullet;</span>
                 <inertia-link :href="reply.link" class="text-sm">
                   {{ moment(reply.created_at).format('L') }} {{ moment(reply.created_at).format('LTS') }}
                   <span v-if="reply.created_at != reply.updated_at">
