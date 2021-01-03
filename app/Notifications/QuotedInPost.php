@@ -2,26 +2,26 @@
 
 namespace App\Notifications;
 
-use App\Models\Post;
+use App\Models\Reply;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 
-class QuotedInPost extends DefaultNotification
+class QuotedInReply extends DefaultNotification
 {
     use Queueable;
 
-    public $post;
+    public $reply;
 
-    public function __construct(Post $post)
+    public function __construct(Reply $reply)
     {
-        $this->post = $post;
+        $this->reply = $reply;
     }
 
     public function toArray($notifiable)
     {
         return array_merge($this->attributes(), [
-            'post_id' => $this->post->id,
-            'thread_id' => $this->post->thread->id,
+            'reply_id' => $this->reply->id,
+            'thread_id' => $this->reply->thread->id,
         ]);
     }
 
@@ -38,9 +38,9 @@ class QuotedInPost extends DefaultNotification
     {
         $attributes = [
             'title' => 'Hey! T\'as été cité !',
-            'target' => $this->post->link,
-            'html' => '<b>' . e($this->post->user->display_name) . '</b> t\'as répondu dans le thread <b>' . e($this->post->thread->title) . '</b>',
-            'text' => $this->post->user->display_name . ' t\'as répondu dans le thread : ' . $this->post->thread->title,
+            'target' => $this->reply->link,
+            'html' => '<b>' . e($this->reply->user->display_name) . '</b> t\'as répondu dans le thread <b>' . e($this->reply->thread->title) . '</b>',
+            'text' => $this->reply->user->display_name . ' t\'as répondu dans le thread : ' . $this->reply->thread->title,
         ];
 
         return $attributes;

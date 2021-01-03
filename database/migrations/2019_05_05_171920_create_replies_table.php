@@ -3,13 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePostsTable extends Migration
+class CreateRepliesTable extends Migration
 {
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('replies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('discussion_id')->unsigned();
+            $table->bigInteger('thread_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->text('body');
             $table->softDeletes();
@@ -19,6 +19,6 @@ class CreatePostsTable extends Migration
 
     public function down()
     {
-        Schema::drop('posts');
+        Schema::drop('replies');
     }
 }

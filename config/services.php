@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This file is for storing the credentials for third party services such
-    | as Mailgun, Postmark, AWS and more. This file provides the de facto
+    | as Mailgun, Replymark, AWS and more. This file provides the de facto
     | default location for this type of information, allowing packages
     | to have a conventional place to find your various credentials.
     |
@@ -19,7 +19,7 @@ return [
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
-    'postmark' => [
+    'replymark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
 

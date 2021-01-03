@@ -19,7 +19,7 @@ class ThreadController extends Controller
     //         return abort(403);
     //     }
 
-    //     $boards = Board::postables()->pluck('name', 'id');
+    //     $boards = Board::replyables()->pluck('name', 'id');
 
     //     return view('thread.create', compact('boards'));
     // }
@@ -36,12 +36,12 @@ class ThreadController extends Controller
 
     //     SucresHelper::throttleOrFail(__METHOD__, 15, 1);
 
-    //     $post = new Post();
-    //     $post->user = user();
-    //     $post->body = request()->body;
+    //     $reply = new Reply();
+    //     $reply->user = user();
+    //     $reply->body = request()->body;
 
     //     return response([
-    //         'render' => (new SucresParser($post))->render(),
+    //         'render' => (new SucresParser($reply))->render(),
     //     ]);
     // }
 
@@ -55,7 +55,7 @@ class ThreadController extends Controller
     //         return abort(403);
     //     }
 
-    //     $boards = Board::postables()->pluck('id');
+    //     $boards = Board::replyables()->pluck('id');
 
     //     request()->validate([
     //         'title' => ['required', 'min:3', 'max:255'],
@@ -71,7 +71,7 @@ class ThreadController extends Controller
     //         'board_id' => request()->board,
     //     ]);
 
-    //     $post = $thread->posts()->create([
+    //     $reply = $thread->replies()->create([
     //         'body' => request()->body,
     //         'user_id' => user()->id,
     //     ]);
@@ -80,7 +80,7 @@ class ThreadController extends Controller
     //         $thread->subscribed()->syncWithoutDetaching(user()->id);
     //     }
 
-    //     return redirect($post->link);
+    //     return redirect($reply->link);
     // }
 
     public function index($threadId = null)
@@ -112,8 +112,8 @@ class ThreadController extends Controller
         $sticky_threads = collect();
 
         $threads = thread::query()
-            ->with('latestPost')
-            ->with('latestPost.user')
+            ->with('latestReply')
+            ->with('latestReply.user')
             ->with('user');
 
         if (request()->get('browse', 1) == 1) {
@@ -160,21 +160,21 @@ class ThreadController extends Controller
         abort_if($thread->private && (auth()->guest() || $thread->members()->where('user_id', user()->id)->count() == 0), 403);
 
         // if (request()->page == 'last') {
-        //     $post = $thread
-        //         ->hasMany(Post::class)
+        //     $reply = $thread
+        //         ->hasMany(Reply::class)
         //         ->orderBy('created_at', 'desc')
         //         ->first();
 
-        //     return redirect(thread::link_to_post($post));
+        //     return redirect(thread::link_to_reply($reply));
         // }
 
-        $posts = $thread
-            ->posts()
+        $replies = $thread
+            ->replies()
             ->with('user')
             ->paginate(10);
 
-        $posts->getCollection()->transform(function ($post) {
-            return $post
+        $replies->getCollection()->transform(function ($reply) {
+            return $reply
                 ->makeVisible(['created_at', 'updated_at', 'deleted_at'])
                 ->append(['presented_body']);
         });
@@ -192,15 +192,15 @@ class ThreadController extends Controller
                 ->where('data->thread_id', $thread->id)
                 ->update(['read_at' => now()]);
 
-            // Invalidation des notifications qui font référence à ces posts pour l'utilisateur connecté
+            // Invalidation des notifications qui font référence à ces replies pour l'utilisateur connecté
             NotificationModel::query()
                 ->where('read_at', null)
                 ->where('notifiable_id', user()->id)
                 ->whereIn('type', [
-                    \App\Notifications\MentionnedInPost::class,
-                    \App\Notifications\QuotedInPost::class,
+                    \App\Notifications\MentionnedInReply::class,
+                    \App\Notifications\QuotedInReply::class,
                 ])
-                ->whereIn('data->post_id', $posts->pluck('id'))
+                ->whereIn('data->reply_id', $replies->pluck('id'))
                 ->update([
                     'read_at' => now(),
                 ]);
@@ -208,7 +208,7 @@ class ThreadController extends Controller
             $thread->has_read()->attach(user());
         }
 
-        $thread->posts = $posts;
+        $thread->replies = $replies;
 
         return $thread;
     }
@@ -224,8 +224,8 @@ class ThreadController extends Controller
     //     $threads = thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
-    //         ->with('latestPost')
-    //         ->with('latestPost.user')
+    //         ->with('latestReply')
+    //         ->with('latestReply.user')
     //         ->with('user');
 
     //     if ($board) {
@@ -270,8 +270,8 @@ class ThreadController extends Controller
     //     $threads = thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
-    //         ->with('latestPost')
-    //         ->with('latestPost.user')
+    //         ->with('latestReply')
+    //         ->with('latestReply.user')
     //         ->with('user')
     //         ->whereHas('subscribed', function ($q) {
     //             return $q->where('user_id', user()->id);
@@ -337,32 +337,32 @@ class ThreadController extends Controller
     //     }
 
     //     if (request()->page == 'last') {
-    //         $post = $thread
-    //             ->hasMany(Post::class)
+    //         $reply = $thread
+    //             ->hasMany(Reply::class)
     //             ->orderBy('created_at', 'desc')
     //             ->first();
 
-    //         return redirect(thread::link_to_post($post));
+    //         return redirect(thread::link_to_reply($reply));
     //     }
 
-    //     $posts = $thread
-    //         ->posts()
+    //     $replies = $thread
+    //         ->replies()
     //         ->with('user')
     //         ->with('thread')
     //         ->paginate(10);
 
-    //     // Invalidation des notifications qui font référence à ces posts pour l'utilisateur connecté
+    //     // Invalidation des notifications qui font référence à ces replies pour l'utilisateur connecté
     //     if (auth()->check()) {
     //         $classes = [
-    //             \App\Notifications\MentionnedInPost::class,
-    //             \App\Notifications\QuotedInPost::class,
+    //             \App\Notifications\MentionnedInReply::class,
+    //             \App\Notifications\QuotedInReply::class,
     //         ];
 
     //         NotificationModel::query()
     //             ->where('read_at', null)
     //             ->where('notifiable_id', user()->id)
     //             ->whereIn('type', $classes)
-    //             ->whereIn('data->post_id', $posts->pluck('id'))
+    //             ->whereIn('data->reply_id', $replies->pluck('id'))
     //             ->each(function ($notification) {
     //                 $notification->read_at = now();
     //                 $notification->save();
@@ -371,7 +371,7 @@ class ThreadController extends Controller
 
     //     $thread->has_read()->attach(user());
 
-    //     return view('thread.show', compact('thread', 'posts'));
+    //     return view('thread.show', compact('thread', 'replies'));
     // }
 
     // public function update(thread $thread, $slug)
@@ -380,7 +380,7 @@ class ThreadController extends Controller
     //         return abort(403);
     //     }
 
-    //     $boards = Board::postables();
+    //     $boards = Board::replyables();
 
     //     if (! in_array($thread->board->id, $boards->pluck('id')->toArray())) {
     //         return abort(403);
@@ -395,7 +395,7 @@ class ThreadController extends Controller
 
     //     $thread->title = request()->title;
 
-    //     // Do not update board if the post is in #shitpost
+    //     // Do not update board if the reply is in #shitreply
     //     if ($thread->board_id !== \App\Models\Board::CATEGORY_SHITPOST || user()->can('bypass threads guard')) {
     //         $thread->board_id = request()->board;
     //     }

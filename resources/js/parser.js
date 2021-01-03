@@ -16,11 +16,6 @@ const bbUnderline = createPlugin(
 
 const bbStrike = createPlugin(/\[s\](.*?)\[\/s\]/, (match, utils) => '<del>' + utils.escape(match[1]) + '</del>');
 
-const bbCenter = createPlugin(
-  /\[center\](.*?)\[\/center\]/,
-  (match, utils) => '<div class="text-center">' + utils.escape(match[1]) + '</div>',
-);
-
 const bbImg = createPlugin(/\[img\](.*?)\[\/img\]/, (match, utils) => '<img src="' + utils.escape(match[1]) + '">');
 
 const bbSpoiler = createPlugin(
@@ -37,6 +32,9 @@ const bbGlitch = createPlugin(
 
 const bbVapor = createPlugin(/\[vapor\](.*?)\[\/vapor\]/, (match, utils) => vapor(utils.escape(match[1])));
 
+// Rewrite some HTML elems
+const htmlCite = createPlugin(/<cite>(.*?)<\/cite>/, (match, utils) => '<cite>' + utils.escape(match[1]) + '</cite>');
+
 let parser = md({
   linkify: true,
   typographer: true,
@@ -45,11 +43,11 @@ let parser = md({
   .use(bbItalic)
   .use(bbUnderline)
   .use(bbStrike)
-  .use(bbCenter)
   .use(bbImg)
   .use(bbSpoiler)
   .use(bbMock)
   .use(bbGlitch)
-  .use(bbVapor);
+  .use(bbVapor)
+  .use(htmlCite);
 
 export default parser;

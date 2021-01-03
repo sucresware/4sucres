@@ -16,6 +16,8 @@ class CreateAchievementsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image');
+            $table->string('code');
+            $table->boolean('rare')->default(false);
             $table->timestamps();
         });
     }

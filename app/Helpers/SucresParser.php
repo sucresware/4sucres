@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Models\Post;
+use App\Models\Reply;
 use App\Models\User;
 use ForceUTF8\Encoding;
 use Illuminate\Support\Facades\Cache;
@@ -19,14 +19,14 @@ class SucresParser
     const QUOTES_RETURN_POST_IDS = 3;
 
     public $content;
-    protected $post;
+    protected $reply;
     protected $parser;
     protected $replacements;
 
-    public function __construct(Post $post)
+    public function __construct(Reply $reply)
     {
-        $this->post = $post;
-        $this->content = e($post->body);
+        $this->reply = $reply;
+        $this->content = e($reply->body);
         $this->parser = new \ChrisKonnertz\BBCode\BBCode();
 
         $this->parser->ignoreTag('code');
@@ -54,22 +54,22 @@ class SucresParser
 
     public function render($quotes = true, $allow_html = false)
     {
-        $this
-            // ->parse()
-            // ->renderCustomTags()
-            // ->linkify()
-            ->renderEmbeds()
-            ->renderEmojis()
-            ->renderMentions();
+        // $this
+        // ->parse()
+        // ->renderCustomTags()
+        // ->linkify()
+        // ->renderEmbeds()
+        // ->renderEmojis()
+        // ->renderMentions();
 
-        if ($quotes) {
-            $this->renderQuotes();
-        }
+        // if ($quotes) {
+        //     $this->renderQuotes();
+        // }
 
-        $this
-            ->performReplacements();
+        // $this
+        //     ->performReplacements();
 
-        return Encoding::toUTF8($this->content);
+        // return Encoding::toUTF8($this->content);
     }
 
     public function parse()
@@ -445,11 +445,11 @@ class SucresParser
     public function renderEmojis()
     {
         $matchs = Regex::matchAll('/\:[^\s<]+(\:|)/m', $this->content);
-        $poster_emojis = $this->post->user->emojis;
+        $replyer_emojis = $this->reply->user->emojis;
 
         foreach ($matchs->results() as $match) {
             $excerpt = $match->group(0);
-            $emoji = $poster_emojis->where('shortname', $excerpt)->first();
+            $emoji = $replyer_emojis->where('shortname', $excerpt)->first();
             if (! $emoji) {
                 continue;
             }
@@ -483,14 +483,14 @@ class SucresParser
     public function renderQuotes()
     {
         foreach ($this->getQuotes() as $quote) {
-            if (! $quote['post']) {
+            if (! $quote['reply']) {
                 continue;
             }
 
-            $current_thread = $this->post->thread;
+            $current_thread = $this->reply->thread;
 
             if (
-                $quote['post']->thread->board->nsfw &&
+                $quote['reply']->thread->board->nsfw &&
                 ($current_thread->private ||
                     $current_thread->board &&
                     ! $current_thread->board->nsfw)
@@ -500,7 +500,7 @@ class SucresParser
 
             $uuid = (string) Str::uuid();
 
-            $this->replacements[$uuid] = view('discussion.post._show_as_quote', array_merge(['post' => $quote['post']], ['current' => $quote['post']]))->render();
+            // $this->replacements[$uuid] = view('discussion.reply._show_as_quote', array_merge(['reply' => $quote['reply']], ['current' => $quote['reply']]))->render();
 
             $this->content = Str::replaceFirst(
                 $quote['excerpt'],
@@ -546,18 +546,18 @@ class SucresParser
         foreach ($matchs->results() as $match) {
             $excerpt = trim($match->group(0));
             $target = trim(str_replace(['#p:'], '', $excerpt));
-            $post = Post::find($target);
+            $reply = Reply::find($target);
 
-            if ($post && $post->thread->private) {
+            if ($reply && $reply->thread->private) {
                 continue;
             }
 
-            if ($post && $ret_type != self::QUOTES_RETURN_COMPLETE) {
-                $quotes[] = self::QUOTES_RETURN_POSTS ? $post : $post->id;
+            if ($reply && $ret_type != self::QUOTES_RETURN_COMPLETE) {
+                $quotes[] = self::QUOTES_RETURN_POSTS ? $reply : $reply->id;
             } elseif ($ret_type == self::QUOTES_RETURN_COMPLETE) {
                 $quotes[] = [
                     'excerpt' => $excerpt,
-                    'post' => $post, // /!\ Can return null if post was not found
+                    'reply' => $reply, // /!\ Can return null if reply was not found
                 ];
             }
         }

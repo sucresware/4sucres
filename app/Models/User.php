@@ -100,9 +100,9 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         return $this->hasMany(thread::class);
     }
 
-    public function posts()
+    public function replies()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Reply::class);
     }
 
     public function getRestrictedAttribute()
@@ -110,18 +110,18 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         return (bool) ($this->email_verified_at == null);
     }
 
-    public function getRestrictedPostsCreatedAttribute()
+    public function getRestrictedReplysCreatedAttribute()
     {
-        return $this->posts()
+        return $this->replies()
             ->whereHas('thread', function ($q) {
                 return $q->where('private', false);
             })
             ->count();
     }
 
-    public function getRestrictedPostsRemainingAttribute()
+    public function getRestrictedReplysRemainingAttribute()
     {
-        return 3 - $this->restricted_posts_created;
+        return 3 - $this->restricted_replies_created;
     }
 
     public function scopeActive($query)
@@ -314,15 +314,15 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function getRepliesCountAttribute()
     {
-        $posts_count = $this
-            ->posts()
+        $replies_count = $this
+            ->replies()
             ->notTrashed()
             ->whereHas('thread', function ($q) {
                 $q->public();
             })
             ->count();
 
-        return $posts_count - $this->threads_count;
+        return $replies_count - $this->threads_count;
     }
 
     public function getThreadsCountAttribute()

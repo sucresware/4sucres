@@ -42,8 +42,8 @@ class BoardController extends Controller
         }
 
         $threads = $threads
-            ->with('latest_post')
-            ->with('latest_post.user')
+            ->with('latest_reply')
+            ->with('latest_reply.user')
             ->with('user');
 
         $sticky_threads = collect();
@@ -92,21 +92,21 @@ class BoardController extends Controller
         abort_if($thread->private && (auth()->guest() || $thread->members()->where('user_id', user()->id)->count() == 0), 403);
 
         // if (request()->page == 'last') {
-        //     $post = $thread
-        //         ->hasMany(Post::class)
+        //     $reply = $thread
+        //         ->hasMany(Reply::class)
         //         ->orderBy('created_at', 'desc')
         //         ->first();
 
-        //     return redirect(thread::link_to_post($post));
+        //     return redirect(thread::link_to_reply($reply));
         // }
 
-        $posts = $thread
-            ->posts()
+        $replies = $thread
+            ->replies()
             ->with('user')
             ->paginate(10);
 
-        $posts->getCollection()->transform(function ($post) {
-            return $post
+        $replies->getCollection()->transform(function ($reply) {
+            return $reply
                 ->makeVisible(['created_at', 'updated_at', 'deleted_at'])
                 ->append(['presented_body']);
         });
@@ -124,15 +124,15 @@ class BoardController extends Controller
         //         ->where('data->thread_id', $thread->id)
         //         ->update(['read_at' => now()]);
 
-        //     // Invalidation des notifications qui font référence à ces posts pour l'utilisateur connecté
+        //     // Invalidation des notifications qui font référence à ces replies pour l'utilisateur connecté
         //     NotificationModel::query()
         //         ->where('read_at', null)
         //         ->where('notifiable_id', user()->id)
         //         ->whereIn('type', [
-        //             \App\Notifications\MentionnedInPost::class,
-        //             \App\Notifications\QuotedInPost::class,
+        //             \App\Notifications\MentionnedInReply::class,
+        //             \App\Notifications\QuotedInReply::class,
         //         ])
-        //         ->whereIn('data->post_id', $posts->pluck('id'))
+        //         ->whereIn('data->reply_id', $replies->pluck('id'))
         //         ->update([
         //             'read_at' => now(),
         //         ]);
@@ -140,7 +140,7 @@ class BoardController extends Controller
         //     $thread->has_read()->attach(user());
         // }
 
-        $thread->posts = $posts;
+        $thread->replies = $replies;
 
         return $thread;
     }
@@ -156,8 +156,8 @@ class BoardController extends Controller
     //     $threads = thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
-    //         ->with('latestPost')
-    //         ->with('latestPost.user')
+    //         ->with('latestReply')
+    //         ->with('latestReply.user')
     //         ->with('user');
 
     //     if ($board) {
@@ -202,8 +202,8 @@ class BoardController extends Controller
     //     $threads = thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
-    //         ->with('latestPost')
-    //         ->with('latestPost.user')
+    //         ->with('latestReply')
+    //         ->with('latestReply.user')
     //         ->with('user')
     //         ->whereHas('subscribed', function ($q) {
     //             return $q->where('user_id', user()->id);
@@ -269,32 +269,32 @@ class BoardController extends Controller
     //     }
 
     //     if (request()->page == 'last') {
-    //         $post = $thread
-    //             ->hasMany(Post::class)
+    //         $reply = $thread
+    //             ->hasMany(Reply::class)
     //             ->orderBy('created_at', 'desc')
     //             ->first();
 
-    //         return redirect(thread::link_to_post($post));
+    //         return redirect(thread::link_to_reply($reply));
     //     }
 
-    //     $posts = $thread
-    //         ->posts()
+    //     $replies = $thread
+    //         ->replies()
     //         ->with('user')
     //         ->with('thread')
     //         ->paginate(10);
 
-    //     // Invalidation des notifications qui font référence à ces posts pour l'utilisateur connecté
+    //     // Invalidation des notifications qui font référence à ces replies pour l'utilisateur connecté
     //     if (auth()->check()) {
     //         $classes = [
-    //             \App\Notifications\MentionnedInPost::class,
-    //             \App\Notifications\QuotedInPost::class,
+    //             \App\Notifications\MentionnedInReply::class,
+    //             \App\Notifications\QuotedInReply::class,
     //         ];
 
     //         NotificationModel::query()
     //             ->where('read_at', null)
     //             ->where('notifiable_id', user()->id)
     //             ->whereIn('type', $classes)
-    //             ->whereIn('data->post_id', $posts->pluck('id'))
+    //             ->whereIn('data->reply_id', $replies->pluck('id'))
     //             ->each(function ($notification) {
     //                 $notification->read_at = now();
     //                 $notification->save();
@@ -303,7 +303,7 @@ class BoardController extends Controller
 
     //     $thread->has_read()->attach(user());
 
-    //     return view('thread.show', compact('thread', 'posts'));
+    //     return view('thread.show', compact('thread', 'replies'));
     // }
 
     // public function update(thread $thread, $slug)
@@ -312,7 +312,7 @@ class BoardController extends Controller
     //         return abort(403);
     //     }
 
-    //     $boards = Board::postables();
+    //     $boards = Board::replyables();
 
     //     if (! in_array($thread->board->id, $boards->pluck('id')->toArray())) {
     //         return abort(403);
@@ -327,7 +327,7 @@ class BoardController extends Controller
 
     //     $thread->title = request()->title;
 
-    //     // Do not update board if the post is in #shitpost
+    //     // Do not update board if the reply is in #shitreply
     //     if ($thread->board_id !== \App\Models\Board::CATEGORY_SHITPOST || user()->can('bypass threads guard')) {
     //         $thread->board_id = request()->board;
     //     }

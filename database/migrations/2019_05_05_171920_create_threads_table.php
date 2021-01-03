@@ -3,14 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateDiscussionsTable extends Migration
+class CreateThreadsTable extends Migration
 {
     public function up()
     {
-        Schema::create('discussions', function (Blueprint $table) {
+        Schema::create('threads', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug');
-            $table->bigInteger('category_id')->unsigned()->default(1);
+            $table->bigInteger('board_id')->unsigned()->default(1);
             $table->string('title');
             $table->bigInteger('user_id')->unsigned();
             $table->boolean('sticky')->default(false);
@@ -25,6 +25,6 @@ class CreateDiscussionsTable extends Migration
 
     public function down()
     {
-        Schema::drop('discussions');
+        Schema::drop('threads');
     }
 }

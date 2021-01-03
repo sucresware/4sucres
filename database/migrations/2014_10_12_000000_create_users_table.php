@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->softDeletes();
+            $table->timestamp('banned_at')->nullable();
             $table->timestamps();
         });
     }

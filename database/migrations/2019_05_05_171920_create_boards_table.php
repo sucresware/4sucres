@@ -3,16 +3,19 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCategoriesTable extends Migration
+class CreateBoardsTable extends Migration
 {
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug');
-            $table->integer('order')->default(1);
             $table->string('name');
-            $table->boolean('restricted')->default(false);
+            $table->longText('description')->nullable();
+            $table->json('can_post')->nullable();
+            $table->json('can_view')->nullable();
+            $table->json('can_reply')->nullable();
+            $table->boolean('nsfw')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

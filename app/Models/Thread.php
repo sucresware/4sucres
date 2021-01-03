@@ -53,17 +53,17 @@ class Thread extends Model
         return $this->belongsTo(Board::class);
     }
 
-    public function posts()
+    public function replies()
     {
         return $this
-            ->hasMany(Post::class)
+            ->hasMany(Reply::class)
             ->orderBy('created_at', 'ASC');
     }
 
-    public function latest_post()
+    public function latest_reply()
     {
         return $this
-            ->hasOne(Post::class)
+            ->hasOne(Reply::class)
             ->latest();
     }
 
@@ -139,14 +139,14 @@ class Thread extends Model
         return $this->belongsToMany(User::class, 'subscribed_threads_users');
     }
 
-    public function notify_subscibers(Post $post)
+    public function notify_subscibers(Reply $reply)
     {
         foreach ($this->subscribed as $user) {
-            if ($user->id != $post->user->id) {
-                if ((! $post->thread->private && $user->getSetting('notifications.on_subscribed_threads', true)) || ($post->thread->private && $user->getSetting('notifications.on_new_private_message', true))) {
+            if ($user->id != $reply->user->id) {
+                if ((! $reply->thread->private && $user->getSetting('notifications.on_subscribed_threads', true)) || ($reply->thread->private && $user->getSetting('notifications.on_new_private_message', true))) {
                     // Check if the user has not already received an unread ReplyInthread about this thread :
                     $notifications = $user->notifications()
-                        ->where('data->thread_id', $post->thread->id)
+                        ->where('data->thread_id', $reply->thread->id)
                         ->where('read_at', null)
                         ->whereIn('type', [ReplyInthread::class, RepliesInthread::class]);
 
@@ -156,14 +156,14 @@ class Thread extends Model
                             $notification->save();
                         });
 
-                        if (! $post->thread->private) {
-                            $user->notify(new RepliesInthread($post->thread));
-                            $user->notify(new ReplyInthread($post, false));
+                        if (! $reply->thread->private) {
+                            $user->notify(new RepliesInthread($reply->thread));
+                            $user->notify(new ReplyInthread($reply, false));
                         } else {
-                            $user->notify(new ReplyInthread($post));
+                            $user->notify(new ReplyInthread($reply));
                         }
                     } else {
-                        $user->notify(new ReplyInthread($post));
+                        $user->notify(new ReplyInthread($reply));
                     }
                 }
             }
@@ -175,12 +175,12 @@ class Thread extends Model
         return route('threads.show', [$this->id, $this->slug]);
     }
 
-    public static function link_to_post(Post $post)
+    public static function link_to_reply(Reply $reply)
     {
         $paginator = 10;
-        $post_position = array_search($post->id, $post->thread->posts->pluck('id')->toArray()) + 1;
-        $guessed_page = ceil($post_position / $paginator);
+        $reply_position = array_search($reply->id, $reply->thread->replies->pluck('id')->toArray()) + 1;
+        $guessed_page = ceil($reply_position / $paginator);
 
-        return $post->thread->link . '?page=' . $guessed_page . '#p' . $post->id;
+        return $reply->thread->link . '?page=' . $guessed_page . '#p' . $reply->id;
     }
 }

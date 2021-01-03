@@ -73,9 +73,9 @@
                 </div>
               </div>
               <div class="flex-none ml-4 text-sm">
-                <!-- <inertia-link :href="$route('posts.show', item.latest_post.id)">
+                <!-- <inertia-link :href="$route('posts.show', item.latest_reply.id)">
                   {{
-                    moment(item.latest_post.created_at)
+                    moment(item.latest_reply.created_at)
                       .fromNow()
                       .replace('il y a ', '')
                   }}
@@ -104,27 +104,27 @@
           ></t-button>
         </div>
 
-        <paginator :paginator="_.omit(thread.posts, 'data')" :only="['thread']" />
+        <paginator :paginator="_.omit(thread.replies, 'data')" :only="['thread']" />
       </div>
       <div class="flex-auto h-0">
         <div
           class="w-full h-full overflow-y-auto scrollbar-thin scrollbar-track-background-default scrollbar-thumb-on-background-border hover:scrollbar-thumb-on-background-border"
           scroll-region
         >
-          <div v-for="post in thread.posts.data" :key="post.id" class="m-4 mb-6">
+          <div v-for="reply in thread.replies.data" :key="reply.id" class="m-4 mb-6">
             <div class="flex flex-row w-full">
               <div class="flex-none mr-4 w-avatar-lg">
-                <img :src="post.user.avatar_link" :alt="post.user.name" class="rounded-avatar" />
+                <img :src="reply.user.avatar_link" :alt="reply.user.name" class="rounded-avatar" />
               </div>
               <div class="flex-auto overflow-auto">
-                <inertia-link @click.stop="" :href="$route('next.users.show', post.user.name)">{{
-                  post.user.display_name
+                <inertia-link @click.stop="" :href="$route('next.users.show', reply.user.name)">{{
+                  reply.user.display_name
                 }}</inertia-link>
                 <span class="opacity-50">&bullet;</span>
-                <inertia-link :href="post.link" class="text-sm">
-                  {{ moment(post.created_at).format('L') }} {{ moment(post.created_at).format('LTS') }}
-                  <span v-if="post.created_at != post.updated_at">
-                    (modifié, {{ moment(post.updated_at).calendar() }})
+                <inertia-link :href="reply.link" class="text-sm">
+                  {{ moment(reply.created_at).format('L') }} {{ moment(reply.created_at).format('LTS') }}
+                  <span v-if="reply.created_at != reply.updated_at">
+                    (modifié, {{ moment(reply.updated_at).calendar() }})
                   </span>
                 </inertia-link>
 
@@ -136,16 +136,16 @@
                         <template v-if="$page.props.auth">
                           <li>
                             <inertia-link
-                              v-if="$page.props.auth.id == post.user.id || $page.props.auth.permissions.includes('bypass threads guard')"
-                              :href="$route('threads.posts.edit', [thread.id, thread.slug, post.id])"
+                              v-if="$page.props.auth.id == reply.user.id || $page.props.auth.permissions.includes('bypass threads guard')"
+                              :href="$route('threads.replies.edit', [thread.id, thread.slug, reply.id])"
                               class="btn btn-sm btn-tertiary">
                                 <i class="fal fa-edit"></i> Modifier
                             </inertia-link>
                           </li>
                           <li>
                             <inertia-link
-                              v-if="$page.props.auth.id == post.user.id || $page.props.auth.permissions.includes('bypass threads guard')"
-                              :href="$route('threads.posts.delete', [thread.id, thread.slug, post.id])"
+                              v-if="$page.props.auth.id == reply.user.id || $page.props.auth.permissions.includes('bypass threads guard')"
+                              :href="$route('threads.replies.delete', [thread.id, thread.slug, reply.id])"
                               class="btn btn-sm btn-tertiary">
                               <i class="fal fa-trash"></i> Supprimer
                             </inertia-link>
@@ -163,8 +163,8 @@
 
                 <div
                   class="w-full prose break-words max-w-none"
-                  v-if="!post.deleted_at"
-                  v-html="md.render(post.presented_body)"
+                  v-if="!reply.deleted_at"
+                  v-html="md.render(reply.presented_body)"
                 ></div>
                 <div class="w-full" v-else>
                   <i class="mr-2 fas fa-times text-error-default"></i> Ce message a été supprimé

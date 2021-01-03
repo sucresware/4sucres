@@ -4,15 +4,15 @@ namespace App\Models;
 
 use App\Helpers\SucresHelper;
 use App\Helpers\SucresParser;
-use App\Notifications\MentionnedInPost;
-use App\Notifications\QuotedInPost;
+use App\Notifications\MentionnedInReply;
+use App\Notifications\QuotedInReply;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Post extends Model implements ReactableInterface
+class Reply extends Model implements ReactableInterface
 {
     use Reactable;
     use LogsActivity;
@@ -41,38 +41,38 @@ class Post extends Model implements ReactableInterface
     {
         parent::boot();
 
-        self::created(function ($created_post) {
-            $thread = $created_post->thread;
+        self::created(function ($created_reply) {
+            $thread = $created_reply->thread;
             $thread->replies++;
             $thread->last_reply_at = now();
             $thread->save();
 
-            $created_post->thread->has_read()->sync([]);
-            $created_post->thread->notify_subscibers($created_post);
+            $created_reply->thread->has_read()->sync([]);
+            $created_reply->thread->notify_subscibers($created_reply);
 
-            if (! $created_post->thread->private) {
-                $parser = new SucresParser($created_post);
+            if (! $created_reply->thread->private) {
+                $parser = new SucresParser($created_reply);
 
                 $mentioned_users = $parser->getMentions(SucresParser::MENTIONS_RETURN_USERS)
                     ->unique()
-                    ->reject(function ($user) use ($created_post) {
-                        return $user->id == $created_post->user->id;
+                    ->reject(function ($user) use ($created_reply) {
+                        return $user->id == $created_reply->user->id;
                     });
 
                 $quoted_users = $parser->getQuotedUsers()
                     ->unique()
-                    ->reject(function ($user) use ($created_post) {
-                        return $user->id == $created_post->user->id;
+                    ->reject(function ($user) use ($created_reply) {
+                        return $user->id == $created_reply->user->id;
                     });
 
-                Notification::send($mentioned_users, new MentionnedInPost($created_post));
-                Notification::send($quoted_users, new QuotedInPost($created_post));
+                Notification::send($mentioned_users, new MentionnedInReply($created_reply));
+                Notification::send($quoted_users, new QuotedInReply($created_reply));
             }
 
             return true;
         });
 
-        self::updated(function ($updated_post) {
+        self::updated(function ($updated_reply) {
             return true;
         });
     }
@@ -89,20 +89,24 @@ class Post extends Model implements ReactableInterface
 
     public function getPresentedBodyAttribute()
     {
-        if ($this->deleted_at && ! (user() && user()->can('read deleted posts'))) {
+        if ($this->deleted_at && ! (user() && user()->can('read deleted replies'))) {
             return '';
         }
 
-        return (new SucresParser($this))->render();
+        // return (new SucresParser($this))->render();
+
+        return $this->body;
     }
 
     public function getPresentedLightBodyAttribute()
     {
-        if ($this->deleted_at && ! (user() && user()->can('read deleted posts'))) {
+        if ($this->deleted_at && ! (user() && user()->can('read deleted replies'))) {
             return '';
         }
 
-        return (new SucresParser($this))->render(false);
+        // return (new SucresParser($this))->render(false);
+
+        return $this->body;
     }
 
     public function getPresentedDateAttribute()

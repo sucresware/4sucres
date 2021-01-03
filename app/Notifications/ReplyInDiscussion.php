@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Post;
+use App\Models\Reply;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -12,12 +12,12 @@ class ReplyInthread extends DefaultNotification
 {
     use Queueable;
 
-    public $post;
+    public $reply;
     public $save_to_database;
 
-    public function __construct(Post $post, $save_to_database = true)
+    public function __construct(Reply $reply, $save_to_database = true)
     {
-        $this->post = $post;
+        $this->reply = $reply;
         $this->save_to_database = $save_to_database;
     }
 
@@ -37,7 +37,7 @@ class ReplyInthread extends DefaultNotification
     public function toArray($notifiable)
     {
         return array_merge($this->attributes(), [
-            'thread_id' => $this->post->thread->id,
+            'thread_id' => $this->reply->thread->id,
         ]);
     }
 
@@ -45,15 +45,15 @@ class ReplyInthread extends DefaultNotification
     {
         $attributes = [
             'title' => 'Oh putain ! Une nouvelle réponse !',
-            'target' => $this->post->link,
+            'target' => $this->reply->link,
         ];
 
-        if (! $this->post->thread->private) {
-            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a posté une réponse dans <b>' . e($this->post->thread->title) . '</b>';
-            $attributes['text'] = $this->post->user->display_name . ' a posté une réponse dans : ' . $this->post->thread->title;
+        if (! $this->reply->thread->private) {
+            $attributes['html'] = '<b>' . e($this->reply->user->display_name) . '</b> a replyé une réponse dans <b>' . e($this->reply->thread->title) . '</b>';
+            $attributes['text'] = $this->reply->user->display_name . ' a replyé une réponse dans : ' . $this->reply->thread->title;
         } else {
-            $attributes['html'] = '<b>' . e($this->post->user->display_name) . '</b> a répondu dans le thread privée <b>' . e($this->post->thread->title) . '</b>';
-            $attributes['text'] = $this->post->user->display_name . ' a répondu dans le thread privée : ' . $this->post->thread->title;
+            $attributes['html'] = '<b>' . e($this->reply->user->display_name) . '</b> a répondu dans le thread privée <b>' . e($this->reply->thread->title) . '</b>';
+            $attributes['text'] = $this->reply->user->display_name . ' a répondu dans le thread privée : ' . $this->reply->thread->title;
         }
 
         return $attributes;

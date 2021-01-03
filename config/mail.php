@@ -28,7 +28,7 @@ return [
     | mailers below. You are free to add additional mailers as required.
     |
     | Supported: "smtp", "sendmail", "mailgun", "ses",
-    |            "postmark", "log", "array"
+    |            "replymark", "log", "array"
     |
     */
 
@@ -52,8 +52,8 @@ return [
             'transport' => 'mailgun',
         ],
 
-        'postmark' => [
-            'transport' => 'postmark',
+        'replymark' => [
+            'transport' => 'replymark',
         ],
 
         'sendmail' => [

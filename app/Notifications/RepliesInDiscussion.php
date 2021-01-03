@@ -43,8 +43,8 @@ class RepliesInthread extends DefaultNotification
         return [
             'title' => 'Oui, allo ?',
             'target' => $this->thread->link,
-            'html' => 'Plusieurs réponses ont été postées sur le thread <b>' . e($this->thread->title) . '</b>',
-            'text' => 'Plusieurs réponses ont été postées sur le thread : ' . $this->thread->title,
+            'html' => 'Plusieurs réponses ont été replyées sur le thread <b>' . e($this->thread->title) . '</b>',
+            'text' => 'Plusieurs réponses ont été replyées sur le thread : ' . $this->thread->title,
         ];
     }
 }
