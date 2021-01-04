@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\thread;
+use App\Models\Thread;
 use App\Models\User;
 
 class HomeController extends Controller

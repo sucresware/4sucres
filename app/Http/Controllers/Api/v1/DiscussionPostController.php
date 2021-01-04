@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Helpers\SucresHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Board;
-use App\Models\thread;
+use App\Models\Thread;
 
 class threadPostController extends Controller
 {

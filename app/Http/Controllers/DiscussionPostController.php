@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
 use App\Models\Board;
-use App\Models\thread;
+use App\Models\Thread;
 use App\Models\Post;
 use Illuminate\Http\Request;
 

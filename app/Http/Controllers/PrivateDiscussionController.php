@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SucresHelper;
-use App\Models\thread;
+use App\Models\Thread;
 use App\Models\User;
 use App\Notifications\NewPrivatethread;
 use Illuminate\Http\Request;

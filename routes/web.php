@@ -3,7 +3,7 @@
 use App\Http\Controllers\Next\Auth\LoginController;
 use App\Http\Controllers\Next\BoardController;
 use App\Http\Controllers\Next\HomeController;
-use App\Http\Controllers\Next\threadController;
+use App\Http\Controllers\Next\ThreadController;
 use App\Http\Controllers\Next\UserController;
 use App\Http\Controllers\Next\UserSettingsController;
 use Illuminate\Support\Facades\Route;
@@ -37,9 +37,12 @@ Route::group(['prefix' => 'next', 'as' => 'next.'], function () {
         Route::post('/settings/account', [UserSettingsController::class, 'submitAccount']);
         Route::get('/settings/security', [UserSettingsController::class, 'security'])->name('settings.security');
         Route::post('/settings/security', [UserSettingsController::class, 'submitSecurity']);
+        Route::post('/settings/security/2fa/enable', [UserSettingsController::class, 'enable2FA'])->name('settings.security.2fa.enable');
+        Route::post('/settings/security/2fa/disable', [UserSettingsController::class, 'disable2FA'])->name('settings.security.2fa.disable');
+
         Route::get('/settings/notifications', [UserSettingsController::class, 'notifications'])->name('settings.notifications');
         Route::post('/settings/notifications', [UserSettingsController::class, 'submitNotifications']);
         Route::get('/settings/design', [UserSettingsController::class, 'design'])->name('settings.design');
-        Route::post('/settings/design', [UserSettingsController::class, 'submitDesign']);
+        // Route::post('/settings/design', [UserSettingsController::class, 'submitDesign']);
     });
 });

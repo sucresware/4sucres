@@ -1,10 +1,8 @@
 <template>
   <div
-    class="w-full h-full p-4 overflow-y-auto scrollbar-thin scrollbar-track-toolbar-default scrollbar-thumb-on-toolbar-border hover:scrollbar-thumb-on-toolbar-border"
+    class="w-full h-full p-4 overflow-y-auto scrollbar-thin bg-toolbar-default text-on-toolbar-default scrollbar-track-toolbar-default scrollbar-thumb-on-toolbar-border hover:scrollbar-thumb-on-toolbar-border"
     scroll-region
   >
-    <h2>Profil</h2>
-
     <t-card class="mb-4">
       <div class="flex flex-row">
         <div class="flex-none mr-4 w-avatar-xl">
@@ -31,16 +29,15 @@
           <div>
             <strong>Dernière activité :</strong>
           </div>
+
+          <strong>Description :</strong>
+          <div>{{ user.bio }}</div>
         </div>
       </div>
-      <template v-slot:footer>
-        <strong>Description :</strong>
-        <div>{{ user.description }}</div>
-      </template>
     </t-card>
 
     <template v-if="user.bans.length">
-      <h2>Sanctions ({{ user.bans.length }})</h2>
+      <h2 class="mb-4 text-lg font-semibold">Sanctions ({{ user.bans.length }})</h2>
 
       <t-card v-for="ban in user.bans" v-bind:key="ban.id" class="mb-4">
         <div>
@@ -63,7 +60,7 @@
       </t-card>
     </template>
 
-    <h2>Succès</h2>
+    <h2 class="mb-4 text-lg font-semibold">Succès</h2>
 
     <t-card v-for="achievement in user.achievements" v-bind:key="achievement.id" class="mb-4">
       <div class="flex flex-row items-center">

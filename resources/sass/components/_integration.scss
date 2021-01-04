@@ -1,11 +1,11 @@
 .integration {
-    border-radius: 5px;
+  border-radius: 5px;
 
-    .integration-text {
-        text-align: right;
-        padding: 6px 10px;
-    }
+  .integration-text {
+    text-align: right;
+    padding: 6px 10px;
+  }
 
-    background-color: $secondary-background;
-    border: 1px solid shade($secondary-background, 5%);
+  background-color: $secondary-background;
+  border: 1px solid shade($secondary-background, 5%);
 }

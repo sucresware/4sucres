@@ -13,8 +13,6 @@
 
         <div class="flex-grow"></div>
 
-        <t-button variant="sidebar" @click="switchTheme"><i class="fas fa-palette"></i></t-button>
-
         <t-dropdown variant="sidebar">
           <t-button
             @mousedown="mousedownHandler"
@@ -117,7 +115,7 @@
               <t-button :href="$route('profile')" @blur="blurHandler" variant="dropdown">
                 <i class="mr-1 fas fa-user fa-fw"></i> Profil
               </t-button>
-              <t-button :href="$route('user.settings')" @blur="blurHandler" variant="dropdown">
+              <t-button :href="$route('next.settings')" @blur="blurHandler" variant="dropdown">
                 <i class="mr-1 fas fa-cog fa-fw"></i> Paramètres
               </t-button>
               <t-button @blur="blurHandler" @click="$inertia.post($route('next.logout'))" variant="dropdown">
@@ -153,7 +151,8 @@
         </t-dropdown>
       </div>
     </nav>
-    <div class="flex-auto min-h-0">
+    <div class="flex flex-col flex-auto min-h-0">
+      <!-- <alerts /> -->
       <slot></slot>
     </div>
   </div>
@@ -162,46 +161,7 @@
 <script>
 export default {
   data() {
-    return {
-      selectedThemeIndex: 0,
-      themes: [
-        'sucresware-light',
-        'arc-light',
-        'dracula-light',
-        'gruvbox-light',
-        'monokai-pro-light',
-        'nord-light',
-        'primer-light',
-        'solarized-light',
-        'twitch-light',
-        'yaru-light',
-        // 'sucresware-dark',
-        'arc-dark',
-        'dracula-dark',
-        'gruvbox-dark',
-        'monokai-pro-dark',
-        'nord-dark',
-        'primer-dark',
-        'solarized-dark',
-        'twitch-dark',
-        'yaru-dark',
-      ],
-    };
-  },
-
-  mounted() {
-    let selectedTheme = document.querySelector('html').getAttribute('data-theme');
-    this.selectedThemeIndex = _.findIndex(this.themes, (v) => v == selectedTheme);
-  },
-
-  methods: {
-    switchTheme() {
-      this.selectedThemeIndex++;
-      if (this.selectedThemeIndex == this.themes.length) this.selectedThemeIndex = 0;
-
-      document.querySelector('html').setAttribute('data-theme', this.themes[this.selectedThemeIndex]);
-      localStorage.theme = this.themes[this.selectedThemeIndex];
-    },
+    return {};
   },
 };
 </script>

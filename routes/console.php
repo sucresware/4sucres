@@ -2,7 +2,7 @@
 
 use App\Models\Achievement;
 use App\Models\Post;
-use App\Models\thread;
+use App\Models\Thread;
 use App\Models\User;
 use Cog\Laravel\Ban\Models\Ban;
 use Illuminate\Support\Carbon;

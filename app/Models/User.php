@@ -336,7 +336,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
     public function getPrivateUnreadCountAttribute()
     {
         // Original request (150-200ms):
-        // return \App\Models\thread::private($this)->count() - \App\Models\thread::private($this)->read($this)->count();
+        // return \App\Models\Thread::private($this)->count() - \App\Models\Thread::private($this)->read($this)->count();
 
         // Optimized request (20ms+5ms):
         $private_ids = thread::query()

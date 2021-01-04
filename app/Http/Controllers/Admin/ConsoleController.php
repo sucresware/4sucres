@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\thread;
+use App\Models\Thread;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;

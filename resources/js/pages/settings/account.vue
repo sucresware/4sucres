@@ -1,12 +1,13 @@
 <template>
   <div
-    class="w-full h-full p-4 overflow-y-auto scrollbar-thin scrollbar-track-toolbar-default scrollbar-thumb-on-toolbar-border hover:scrollbar-thumb-on-toolbar-border"
+    class="w-full h-full p-4 overflow-y-auto scrollbar-thin bg-toolbar-default text-on-toolbar-default scrollbar-track-toolbar-default scrollbar-thumb-on-toolbar-border hover:scrollbar-thumb-on-toolbar-border"
     scroll-region
   >
     <div class="container">
-      <subnav-settings />
+      <subnav-settings class="mb-8" />
+      <alerts class="mb-8" />
 
-      <h1 class="mb-4 text-lg font-semibold">Modification de l'adresse e-mail</h1>
+      <h1 class="mb-4 text-lg font-semibold">Paramètres du compte</h1>
 
       <form class="w-full" @submit.prevent="submit">
         <form-input

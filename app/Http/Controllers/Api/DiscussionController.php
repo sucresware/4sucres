@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Board;
-use App\Models\thread;
+use App\Models\Thread;
 
 class threadController extends Controller
 {

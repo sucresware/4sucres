@@ -1,17 +1,18 @@
 <template>
   <div
-    class="w-full h-full p-4 overflow-y-auto scrollbar-thin scrollbar-track-toolbar-default scrollbar-thumb-on-toolbar-border hover:scrollbar-thumb-on-toolbar-border"
+    class="w-full h-full p-4 overflow-y-auto scrollbar-thin bg-toolbar-default text-on-toolbar-default scrollbar-track-toolbar-default scrollbar-thumb-on-toolbar-border hover:scrollbar-thumb-on-toolbar-border"
     scroll-region
   >
     <div class="container">
-      <subnav-settings />
+      <subnav-settings class="mb-8" />
+      <alerts class="mb-8" />
 
-      <h1 class="mb-4 text-lg font-semibold">Modification du profil</h1>
+      <h1 class="mb-4 text-lg font-semibold">Profil</h1>
 
       <form class="w-full" @submit.prevent="submit">
         <div class="flex flex-row items-center mb-4">
           <div class="flex-none mr-4 w-avatar-xl">
-            <img src="https://4sucres-next.localhost/img/pp/indep.png" alt="YvonEnbaver" class="rounded-avatar" />
+            <img :src="user.avatar_link" class="rounded-avatar" />
           </div>
 
           <form-file-input
@@ -20,8 +21,8 @@
             label="Photo de profil"
             accept="image/*"
             ref="image"
-            v-model="form.profile_picture"
-            :errors="$page.props.errors.profile_picture"
+            v-model="form.avatar"
+            :errors="$page.props.errors.avatar"
             :disabled="loading"
           />
         </div>
@@ -64,7 +65,7 @@ export default {
       errors: {},
       loading: false,
       form: {
-        profile_picture: undefined,
+        avatar: undefined,
         display_name: '',
         bio: '',
       },
@@ -83,7 +84,7 @@ export default {
       var data = new FormData();
       data.append('display_name', this.form.display_name || '');
       data.append('bio', this.form.bio || '');
-      data.append('profile_picture', this.form.profile_picture || '');
+      data.append('avatar', this.form.avatar || '');
 
       this.$inertia.post(route('next.settings.profile'), data);
     },

@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -14,6 +16,23 @@ class HandleInertiaRequests extends Middleware
      * @var string
      */
     protected $rootView = 'app';
+
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  Closure                  $next
+     * @return Response
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        return parent::handle($request, $next)->setCache([
+            'no_cache' => true,
+            'no_store' => true,
+            'must_revalidate' => true,
+            'private' => true,
+        ]);
+    }
 
     /**
      * Determines the current asset version.
@@ -37,7 +56,36 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         return array_merge(parent::share($request), [
-            //
+            'app_name' => fn () => config('app.name'),
+            'version' => function () {
+                $version = rescue(fn () => 'v' . File::get(config_path('.version')), 'WIP', false);
+                $sha = rescue(fn () => ' (' . substr(File::get(base_path('REVISION')), 0, 7) . ')', null, false);
+                $env = config('app.env') == 'production' ? '' : ' - ' . config('app.env');
+
+                return $version . $sha . $env;
+            },
+            'execution_time' => fn () => round((microtime(true) - LARAVEL_START), 3),
+            'auth' => fn () => $request->user(),
+            'errors' => fn () => $this->sharedValidationErrors($request),
+            'flash' => fn () => [
+                'success' => $request->session()->get('success'),
+                'warning' => $request->session()->get('warning'),
+                'error' => $request->session()->get('error'),
+            ],
         ]);
+    }
+
+    /**
+     * Resolve shared validation errors.
+     *
+     * @return \Illuminate\Contracts\Support\MessageBag|\stdClass
+     */
+    protected function sharedValidationErrors($request)
+    {
+        if ($errors = $request->session()->get('errors')) {
+            return $errors->getBag('default');
+        }
+
+        return new \stdClass;
     }
 }

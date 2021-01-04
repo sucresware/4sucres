@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\thread;
+use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 

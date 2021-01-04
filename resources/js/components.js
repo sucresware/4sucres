@@ -21,6 +21,7 @@
 //   TDialog,
 // } from 'vue-tailwind/dist/components';
 
+import TAlert from 'vue-tailwind/dist/t-alert';
 import TCard from 'vue-tailwind/dist/t-card';
 import TInput from 'vue-tailwind/dist/t-input';
 import TTextarea from 'vue-tailwind/dist/t-textarea';
@@ -28,6 +29,40 @@ import TButton from 'vue-tailwind/dist/t-button';
 import TDropdown from 'vue-tailwind/dist/t-dropdown';
 
 const components = {
+  't-alert': {
+    component: TAlert,
+    props: {
+      fixedClasses: {
+        wrapper: 'relative flex items-center px-4 py-3 shadow rounded',
+        body: 'flex-grow',
+        close:
+          'absolute relative flex items-center justify-center ml-4 flex-shrink-0 w-6 h-6 transition duration-100 ease-in-out rounded',
+        closeIcon: 'fill-current h-4 w-4',
+      },
+      classes: {
+        wrapper: 'bg-uncommon-default',
+        body: 'text-on-uncommon-default',
+        close: 'text-on-uncommon-default',
+      },
+      variants: {
+        error: {
+          wrapper: 'bg-error-default',
+          body: 'text-on-error-default',
+          close: 'text-on-error-default',
+        },
+        warning: {
+          wrapper: 'bg-warning-default',
+          body: 'text-on-warning-default',
+          close: 'text-on-warning-default',
+        },
+        success: {
+          wrapper: 'bg-success-default',
+          body: 'text-on-success-default',
+          close: 'text-on-success-default',
+        },
+      },
+    },
+  },
   't-card': {
     component: TCard,
     props: {
@@ -44,10 +79,10 @@ const components = {
     component: TInput,
     props: {
       fixedClasses:
-        'w-full px-3 py-3 text-sm leading-tight bg-white border rounded appearance-none focus:outline-none focus:shadow-outline',
-      classes: 'border-on-background-border bg-background-default',
+        'w-full px-3 py-3 text-sm leading-tight bg-white border rounded appearance-none focus:outline-none border-on-background-border',
+      classes: 'focus:ring-0 focus:border-accent-default bg-background-default',
       variants: {
-        error: 'border-red-500 mb-1',
+        error: 'border-red-default mb-1 focus:border-red-default',
       },
     },
   },
@@ -55,10 +90,10 @@ const components = {
     component: TTextarea,
     props: {
       fixedClasses:
-        'w-full px-3 py-3 text-sm leading-tight bg-white border rounded appearance-none focus:outline-none focus:shadow-outline',
-      classes: 'border-on-background-border bg-background-default',
+        'w-full px-3 py-3 text-sm leading-tight bg-white border rounded appearance-none focus:outline-none border-on-background-border',
+      classes: 'focus:ring-0 focus:border-accent-default bg-background-default',
       variants: {
-        error: 'border-red-500 mb-1',
+        error: 'border-red-default mb-1 focus:border-red-default',
       },
     },
   },
