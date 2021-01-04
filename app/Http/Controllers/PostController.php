@@ -11,6 +11,6 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($post_id);
 
-        return redirect(thread::link_to_post($post));
+        return redirect(Thread::link_to_post($post));
     }
 }

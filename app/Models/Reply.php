@@ -79,7 +79,7 @@ class Reply extends Model implements ReactableInterface
 
     public function thread()
     {
-        return $this->belongsTo(thread::class);
+        return $this->belongsTo(Thread::class);
     }
 
     public function user()

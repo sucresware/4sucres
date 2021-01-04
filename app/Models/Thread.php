@@ -148,7 +148,7 @@ class Thread extends Model
                     $notifications = $user->notifications()
                         ->where('data->thread_id', $reply->thread->id)
                         ->where('read_at', null)
-                        ->whereIn('type', [ReplyInthread::class, RepliesInthread::class]);
+                        ->whereIn('type', [ReplyInThread::class, RepliesInThread::class]);
 
                     if ($notifications->count()) {
                         $notifications->each(function ($notification) {

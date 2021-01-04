@@ -332,7 +332,7 @@ class ConsoleController extends Controller
                 $csv->insertAll($activity);
                 $zip->addFromString('activity_for_subject.csv', $csv->getContent());
 
-                $threads = thread::where('user_id', $user->id)->get()->toArray();
+                $threads = Thread::where('user_id', $user->id)->get()->toArray();
                 $csv = Writer::createFromString('');
                 $csv->insertOne(array_keys($threads[0]));
                 $csv->insertAll($threads);
@@ -442,7 +442,7 @@ class ConsoleController extends Controller
                 }
                 [$command, $thread_id] = $args;
 
-                $thread = thread::find($thread_id);
+                $thread = Thread::find($thread_id);
 
                 if (! $thread) {
                     $output .= 'thread "' . $thread_id . '" not found 🙁';
@@ -526,7 +526,7 @@ class ConsoleController extends Controller
                 collect($impacted_threads)
                     ->unique()
                     ->each(function ($thread_id) use ($output) {
-                        $thread = thread::find($thread_id);
+                        $thread = Thread::find($thread_id);
                         $thread->disableLogging();
 
                         try {

@@ -178,7 +178,7 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
 });
 
 Artisan::command('fix-inconsistensies', function () {
-    thread::get()->each(function ($thread) {
+    Thread::get()->each(function ($thread) {
         $thread->replies = $thread->posts()->count();
         $thread->save();
     });

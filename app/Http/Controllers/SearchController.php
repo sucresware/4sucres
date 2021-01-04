@@ -24,7 +24,7 @@ class SearchController extends Controller
 
         switch ($scope) {
             case 'threads':
-                $threads = thread::query()
+                $threads = Thread::query()
                     ->public()
                     ->whereIn('board_id', $boards->pluck('id'))
                     ->where('title', 'like', '%' . $query . '%')

@@ -13,7 +13,7 @@ class PrivatethreadController extends Controller
 {
     public function index()
     {
-        $private_threads = thread::private(user())->get();
+        $private_threads = Thread::private(user())->get();
 
         $user_has_read = DB::table('has_read_threads_users')
             ->select('thread_id')
@@ -53,7 +53,7 @@ class PrivatethreadController extends Controller
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 1);
 
-        $thread = thread::create([
+        $thread = Thread::create([
             'title' => request()->title,
             'user_id' => user()->id,
             'board_id' => 0,

@@ -97,7 +97,7 @@ class BoardController extends Controller
         //         ->orderBy('created_at', 'desc')
         //         ->first();
 
-        //     return redirect(thread::link_to_reply($reply));
+        //     return redirect(Thread::link_to_reply($reply));
         // }
 
         $replies = $thread
@@ -117,9 +117,9 @@ class BoardController extends Controller
         //         ->where('read_at', null)
         //         ->where('notifiable_id', user()->id)
         //         ->whereIn('type', [
-        //             \App\Notifications\NewPrivatethread::class,
-        //             \App\Notifications\RepliesInthread::class,
-        //             \App\Notifications\ReplyInthread::class,
+        //             \App\Notifications\NewPrivateThread::class,
+        //             \App\Notifications\RepliesInThread::class,
+        //             \App\Notifications\ReplyInThread::class,
         //         ])
         //         ->where('data->thread_id', $thread->id)
         //         ->update(['read_at' => now()]);
@@ -153,7 +153,7 @@ class BoardController extends Controller
     //         return abort(403);
     //     }
 
-    //     $threads = thread::query()
+    //     $threads = Thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
     //         ->with('latestReply')
@@ -199,7 +199,7 @@ class BoardController extends Controller
     // {
     //     $boards = Board::viewables();
 
-    //     $threads = thread::query()
+    //     $threads = Thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
     //         ->with('latestReply')
@@ -234,7 +234,7 @@ class BoardController extends Controller
 
     // public function show($id, $slug) // Ne pas utiliser thread $thread (pour laisser possible le 410)
     // {
-    //     $thread = thread::query()
+    //     $thread = Thread::query()
     //         ->findOrFail($id);
 
     //     if (null !== $thread->board && ! in_array($thread->board->id, Board::viewables()->pluck('id')->toArray())) {
@@ -252,9 +252,9 @@ class BoardController extends Controller
     //     // Invalidation des notifications qui font référence à cette thread pour l'utilisateur connecté
     //     if (auth()->check()) {
     //         $classes = [
-    //             \App\Notifications\NewPrivatethread::class,
-    //             \App\Notifications\RepliesInthread::class,
-    //             \App\Notifications\ReplyInthread::class,
+    //             \App\Notifications\NewPrivateThread::class,
+    //             \App\Notifications\RepliesInThread::class,
+    //             \App\Notifications\ReplyInThread::class,
     //         ];
 
     //         NotificationModel::query()
@@ -274,7 +274,7 @@ class BoardController extends Controller
     //             ->orderBy('created_at', 'desc')
     //             ->first();
 
-    //         return redirect(thread::link_to_reply($reply));
+    //         return redirect(Thread::link_to_reply($reply));
     //     }
 
     //     $replies = $thread

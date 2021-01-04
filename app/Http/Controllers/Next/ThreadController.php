@@ -65,7 +65,7 @@ class ThreadController extends Controller
 
     //     SucresHelper::throttleOrFail(__METHOD__, 5, 10);
 
-    //     $thread = thread::create([
+    //     $thread = Thread::create([
     //         'title' => request()->title,
     //         'user_id' => user()->id,
     //         'board_id' => request()->board,
@@ -89,7 +89,7 @@ class ThreadController extends Controller
 
         if ($threadId) {
             // Guess page from $threadId
-            $threadPosition = array_search($threadId, thread::ordered()->pluck('id')->toArray()) + 1;
+            $threadPosition = array_search($threadId, Thread::ordered()->pluck('id')->toArray()) + 1;
             $guessedPage = ceil($threadPosition / 20);
             request()->replace(
                 array_merge(request()->all() + ['browse' => $guessedPage])
@@ -111,7 +111,7 @@ class ThreadController extends Controller
     {
         $sticky_threads = collect();
 
-        $threads = thread::query()
+        $threads = Thread::query()
             ->with('latestReply')
             ->with('latestReply.user')
             ->with('user');
@@ -152,7 +152,7 @@ class ThreadController extends Controller
 
     protected function thread($threadId)
     {
-        $thread = thread::query()
+        $thread = Thread::query()
             ->with('user')
             ->findOrFail($threadId);
 
@@ -165,7 +165,7 @@ class ThreadController extends Controller
         //         ->orderBy('created_at', 'desc')
         //         ->first();
 
-        //     return redirect(thread::link_to_reply($reply));
+        //     return redirect(Thread::link_to_reply($reply));
         // }
 
         $replies = $thread
@@ -185,9 +185,9 @@ class ThreadController extends Controller
                 ->where('read_at', null)
                 ->where('notifiable_id', user()->id)
                 ->whereIn('type', [
-                    \App\Notifications\NewPrivatethread::class,
-                    \App\Notifications\RepliesInthread::class,
-                    \App\Notifications\ReplyInthread::class,
+                    \App\Notifications\NewPrivateThread::class,
+                    \App\Notifications\RepliesInThread::class,
+                    \App\Notifications\ReplyInThread::class,
                 ])
                 ->where('data->thread_id', $thread->id)
                 ->update(['read_at' => now()]);
@@ -221,7 +221,7 @@ class ThreadController extends Controller
     //         return abort(403);
     //     }
 
-    //     $threads = thread::query()
+    //     $threads = Thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
     //         ->with('latestReply')
@@ -267,7 +267,7 @@ class ThreadController extends Controller
     // {
     //     $boards = Board::viewables();
 
-    //     $threads = thread::query()
+    //     $threads = Thread::query()
     //         ->whereIn('board_id', $boards->pluck('id'))
     //         ->with('board')
     //         ->with('latestReply')
@@ -302,7 +302,7 @@ class ThreadController extends Controller
 
     // public function show($id, $slug) // Ne pas utiliser thread $thread (pour laisser possible le 410)
     // {
-    //     $thread = thread::query()
+    //     $thread = Thread::query()
     //         ->findOrFail($id);
 
     //     if (null !== $thread->board && ! in_array($thread->board->id, Board::viewables()->pluck('id')->toArray())) {
@@ -320,9 +320,9 @@ class ThreadController extends Controller
     //     // Invalidation des notifications qui font référence à cette thread pour l'utilisateur connecté
     //     if (auth()->check()) {
     //         $classes = [
-    //             \App\Notifications\NewPrivatethread::class,
-    //             \App\Notifications\RepliesInthread::class,
-    //             \App\Notifications\ReplyInthread::class,
+    //             \App\Notifications\NewPrivateThread::class,
+    //             \App\Notifications\RepliesInThread::class,
+    //             \App\Notifications\ReplyInThread::class,
     //         ];
 
     //         NotificationModel::query()
@@ -342,7 +342,7 @@ class ThreadController extends Controller
     //             ->orderBy('created_at', 'desc')
     //             ->first();
 
-    //         return redirect(thread::link_to_reply($reply));
+    //         return redirect(Thread::link_to_reply($reply));
     //     }
 
     //     $replies = $thread

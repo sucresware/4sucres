@@ -97,7 +97,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
 
     public function threads()
     {
-        return $this->hasMany(thread::class);
+        return $this->hasMany(Thread::class);
     }
 
     public function replies()
@@ -339,7 +339,7 @@ class User extends Authenticatable implements ReactsInterface, BannableContract
         // return \App\Models\Thread::private($this)->count() - \App\Models\Thread::private($this)->read($this)->count();
 
         // Optimized request (20ms+5ms):
-        $private_ids = thread::query()
+        $private_ids = Thread::query()
             ->select('id')
             ->private($this)
             ->pluck('id')

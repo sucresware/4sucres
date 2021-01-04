@@ -70,7 +70,7 @@ class DiscussionController extends Controller
 
         SucresHelper::throttleOrFail(__METHOD__, 5, 10);
 
-        $thread = thread::create([
+        $thread = Thread::create([
             'title' => request()->title,
             'user_id' => user()->id,
             'board_id' => request()->board,
@@ -96,7 +96,7 @@ class DiscussionController extends Controller
             return abort(403);
         }
 
-        $threads = thread::query()
+        $threads = Thread::query()
             ->whereIn('board_id', $boards->pluck('id'))
             ->with('board')
             ->with('latest_reply')
@@ -138,7 +138,7 @@ class DiscussionController extends Controller
     {
         $boards = Board::viewables();
 
-        $threads = thread::query()
+        $threads = Thread::query()
             ->whereIn('board_id', $boards->pluck('id'))
             ->with('board')
             ->with('latestPost')
@@ -173,7 +173,7 @@ class DiscussionController extends Controller
 
     public function show($id, $slug) // Ne pas utiliser thread $thread (pour laisser possible le 410)
     {
-        $thread = thread::query()
+        $thread = Thread::query()
             ->findOrFail($id);
 
         if (null !== $thread->board && ! in_array($thread->board->id, Board::viewables()->pluck('id')->toArray())) {
@@ -191,9 +191,9 @@ class DiscussionController extends Controller
         // Invalidation des notifications qui font référence à cette thread pour l'utilisateur connecté
         if (auth()->check()) {
             $classes = [
-                \App\Notifications\NewPrivatethread::class,
-                \App\Notifications\RepliesInthread::class,
-                \App\Notifications\ReplyInthread::class,
+                \App\Notifications\NewPrivateThread::class,
+                \App\Notifications\RepliesInThread::class,
+                \App\Notifications\ReplyInThread::class,
             ];
 
             NotificationModel::query()
@@ -213,7 +213,7 @@ class DiscussionController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->first();
 
-            return redirect(thread::link_to_post($post));
+            return redirect(Thread::link_to_post($post));
         }
 
         $posts = $thread
