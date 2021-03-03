@@ -152,8 +152,10 @@ Artisan::command('achievements:convert', function () {
 
 Artisan::command('cache:rebuild {tag}', function ($tag) {
     if ($tag == 'emojis') {
+        Cache::tags('emojis')->flush();
+
         Cache::forget('jvc_smileys');
-        Cache::rememberForever('jvc_smileys', function () {
+        $smileys = Cache::rememberForever('jvc_smileys', function () {
             $content = File::get(base_path('resources/datasources/jvcsmileys.json'));
             $smileys = collect(json_decode($content)->smileys);
 
@@ -161,7 +163,7 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
         });
 
         Cache::forget('emojis');
-        Cache::rememberForever('emojis', function () {
+        $emojis = Cache::rememberForever('emojis', function () {
             $content = File::get(base_path('resources/datasources/emojis.json'));
             $emojis = collect(json_decode($content)->emojis);
             $emojis = $emojis->reject(function ($emoji) {
@@ -171,9 +173,7 @@ Artisan::command('cache:rebuild {tag}', function ($tag) {
             return $emojis;
         });
 
-        Cache::tags('emojis')->flush();
-
-        $this->info('Done');
+        $this->info('Done (' . count($smileys) . ' smileys, ' . count($emojis) . ' emojis)');
     }
 });
 
