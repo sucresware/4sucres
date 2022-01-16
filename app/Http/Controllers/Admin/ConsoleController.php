@@ -571,9 +571,26 @@ class ConsoleController extends Controller
 
                 break;
             case 'killswitch':
-                Artisan::call('down');
+                if (count($args) != 2) {
+                    if (count($args) > 2) {
+                        $output .= 'Too many arguments 🙁';
+                    } elseif (count($args) < 2) {
+                        $output .= 'Are u sure ? Please confirm by taping `killswitch force` 🙁';
+                    }
 
-                $output .= 'Bye bye ✅';
+                    break;
+                }
+
+                [$command, $confirm] = $args;
+
+                if ($confirm == 'force') {
+                    $output .= 'Are u really sure ? Please confirm by taping `killswitch now` 🙁';
+
+                } elseif ($confirm == 'now') {
+                    Artisan::call('down');
+
+                    $output .= 'Bye bye ✅';
+                }
 
                 break;
             default:
