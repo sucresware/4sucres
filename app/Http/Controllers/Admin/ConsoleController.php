@@ -116,7 +116,7 @@ class ConsoleController extends Controller
                     ->select('causer_id')
                     ->where('causer_type', User::class)
                     ->where('causer_id', '!=', $user->id)
-                    ->whereIn('properties->ip', [$ips->pluck('ip')])
+                    ->whereIn('properties->ip', $ips->pluck('ip'))
                     ->groupBy('causer_id')
                     ->get();
 
