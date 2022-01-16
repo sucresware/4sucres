@@ -51,10 +51,10 @@
                             >
                                 <span
                                     class="pointer"
-                                    v-on:click="pick(sticker.risibank_link)"
+                                    v-on:click="pick(sticker.source_url)"
                                 >
                                     <img
-                                        :src="sticker.risibank_link"
+                                        :src="sticker.source_url"
                                         class="img-thumbnail sticker"
                                     />
                                 </span>
@@ -75,15 +75,15 @@
                             class="row align-items-center justify-content-center"
                         >
                             <div
-                                v-for="sticker in stickers.trending"
+                                v-for="sticker in stickers.hot"
                                 v-bind:key="sticker.id"
                             >
                                 <span
                                     class="pointer"
-                                    v-on:click="pick(sticker.risibank_link)"
+                                    v-on:click="pick(sticker.source_url)"
                                 >
                                     <img
-                                        :src="sticker.risibank_link"
+                                        :src="sticker.source_url"
                                         class="img-thumbnail sticker"
                                     />
                                 </span>
@@ -104,15 +104,15 @@
                             class="row align-items-center justify-content-center"
                         >
                             <div
-                                v-for="sticker in stickers.tms"
+                                v-for="sticker in stickers.new"
                                 v-bind:key="sticker.id"
                             >
                                 <span
                                     class="pointer"
-                                    v-on:click="pick(sticker.risibank_link)"
+                                    v-on:click="pick(sticker.source_url)"
                                 >
                                     <img
-                                        :src="sticker.risibank_link"
+                                        :src="sticker.source_url"
                                         class="img-thumbnail sticker"
                                     />
                                 </span>
@@ -133,15 +133,15 @@
                             class="row align-items-center justify-content-center"
                         >
                             <div
-                                v-for="sticker in stickers.random"
+                                v-for="sticker in stickers.rand"
                                 v-bind:key="sticker.id"
                             >
                                 <span
                                     class="pointer"
-                                    v-on:click="pick(sticker.risibank_link)"
+                                    v-on:click="pick(sticker.source_url)"
                                 >
                                     <img
-                                        :src="sticker.risibank_link"
+                                        :src="sticker.source_url"
                                         class="img-thumbnail sticker"
                                     />
                                 </span>
@@ -167,10 +167,10 @@
                             >
                                 <span
                                     class="pointer"
-                                    v-on:click="pick(sticker.risibank_link)"
+                                    v-on:click="pick(sticker.source_url)"
                                 >
                                     <img
-                                        :src="sticker.risibank_link"
+                                        :src="sticker.source_url"
                                         class="img-thumbnail sticker"
                                     />
                                 </span>
@@ -184,15 +184,15 @@
 </template>
 
 <script>
-import axios from "axios";
+import AuthedAxios from "../../scripts/axios";
 
 export default {
     props: [],
     data() {
         return {
             api: {
-                load: "https://api.risibank.fr/api/v0/load",
-                search: "https://api.risibank.fr/api/v0/search?search=%query%"
+                load: "/fetch?url=" + "https://risibank.fr/api/v1/medias",
+                search: "/fetch?url=" + "https://risibank.fr/api/v1/medias/search?query=%query%"
             },
             loading: 0,
             searchLoading: 0,
@@ -206,10 +206,10 @@ export default {
             let vm = this;
 
             this.loading = 1;
-            axios
+            AuthedAxios
                 .get(vm.api.load)
                 .then(resp => {
-                    vm.stickers = resp.data.stickers;
+                    vm.stickers = resp.data;
                     vm.loading = 0;
                 })
                 .catch(() => {
@@ -221,10 +221,10 @@ export default {
             let _url = this.api.search.replace(/(%query%)/g, this.searchField);
 
             this.searchLoading = 1;
-            axios
-                .post(_url)
+            AuthedAxios
+                .get(_url)
                 .then(resp => {
-                    vm.searchResults = resp.data.stickers;
+                    vm.searchResults = resp.data;
                     vm.searchLoading = 0;
                 })
                 .catch(() => {
